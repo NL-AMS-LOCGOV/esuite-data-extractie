@@ -1,0 +1,4 @@
+### GET OpenAPI specs
+GET http://localhost:8080/q/openapi
+
+

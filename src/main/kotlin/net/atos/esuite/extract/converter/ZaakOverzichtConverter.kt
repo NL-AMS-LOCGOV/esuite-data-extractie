@@ -9,9 +9,8 @@ class ZaakOverzichtConverter {
 
     fun convert(zaakEntity: ZaakEntity): ZaakOverzicht {
         return ZaakOverzicht(
-            id = zaakEntity.identifier,
-            omschrijving = zaakEntity.functioneelId,
-            zaaktype = zaakEntity.zaaktype
+            functioneleIdentificatie = zaakEntity.functioneelId,
+            zaaktypeNaam = "",
         )
     }
 }

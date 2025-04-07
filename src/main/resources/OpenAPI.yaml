@@ -1,0 +1,524 @@
+openapi: 3.1.0
+info:
+  contact:
+    email: techsupport@example.com
+    name: Example API Support
+    url: http://exampleurl.com/contact
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  title: Example API
+  version: 1.0.1
+tags:
+  - name: widget
+    description: Widget operations.
+  - name: gasket
+    description: Operations related to gaskets
+components:
+  schemas:
+    ArchiveerGegevens:
+      type: object
+      properties:
+        reviewTermijnEinddatum:
+          type: string
+          description: ""
+          $ref: "#/components/schemas/LocalDate"
+        bewaartermijnEinddatum:
+          type: string
+          description: ""
+          $ref: "#/components/schemas/LocalDate"
+        bewaartermijnWaardering:
+          type: string
+          description: ""
+          $ref: "#/components/schemas/BewaartermijnWaardering"
+        overbrengenOp:
+          type: string
+          description: ""
+          $ref: "#/components/schemas/LocalDate"
+        overbrengenNaar:
+          type: string
+          maxLength: 255
+          description: ""
+        overbrengenDoor:
+          type: object
+          description: ""
+          $ref: "#/components/schemas/Medewerker"
+        overgebrachteGegevens:
+          type: object
+          description: ""
+          $ref: "#/components/schemas/OvergebrachteGegevens"
+        isBeperkingOpenbaarheid:
+          type: boolean
+          description: ""
+        beperkingOpenbaarheidReden:
+          type: string
+          description: ""
+        beperkingOpenbaarheidVanaf:
+          type: string
+          description: ""
+          $ref: "#/components/schemas/LocalDate"
+        beperkingOpenbaarheidTotEnMet:
+          type: string
+          description: ""
+          $ref: "#/components/schemas/LocalDate"
+        selectielijstItemNaam:
+          type: string
+          maxLength: 255
+          description: ""
+        overbrengenType:
+          type: string
+          description: ""
+          $ref: "#/components/schemas/OverbrengenType"
+    BAGObject:
+      type: object
+    Besluit:
+      type: object
+    Betaalgegevens:
+      type: object
+      properties:
+        transactieId:
+          type: string
+          maxLength: 64
+          description: transactieId
+        kenmerk:
+          type: string
+          maxLength: 64
+          description: Een betalingskenmerk
+        bedrag:
+          type: number
+          description: Het bedrag
+          multipleOf: 1.0E-9
+          maximum: 9999999999
+        transactieDatum:
+          type: string
+          format: date
+          examples:
+            - 2022-03-10
+          description: Datum van de transactie
+        ncerror:
+          type: string
+          maxLength: 64
+          description: Foutcode
+        origineleStatusCode:
+          type: string
+          maxLength: 64
+          description: Originele statuscode van de betaling
+        betaalstatus:
+          type: string
+          description: Transactiestatus van de betaling
+          $ref: "#/components/schemas/Betaalstatus"
+    Betaalstatus:
+      type: string
+      enum:
+        - geslaagd
+        - niet_geslaagd
+        - in_behandeling
+        - geannuleerd
+    BewaartermijnWaardering:
+      type: string
+      enum:
+        - bewaar
+        - vernietig
+    Document:
+      type: object
+    GekoppeldeZaak:
+      type: object
+    GeografischeInformatie:
+      type: object
+    LocalDate:
+      type: string
+      format: date
+      examples:
+        - 2022-03-10
+    Medewerker:
+      type: object
+      required:
+        - gebruikersnaam
+        - volledigeNaam
+      properties:
+        gebruikersnaam:
+          type: string
+          maxLength: 64
+          description: Gebruikersnaam van medewerker
+        volledigeNaam:
+          type: string
+          maxLength: 128
+          description: Volledige naam van medewerker
+    Opschorttermijn:
+      type: object
+    OverbrengenType:
+      type: string
+      enum: [ ]
+    OvergebrachteGegevens:
+      type: object
+      required:
+        - overgebrachtOp
+        - overgebrachtDoor
+        - overgebrachtNaar
+      properties:
+        overgebrachtOp:
+          $ref: "#/components/schemas/ZonedDateTime"
+          type: string
+          description: ""
+        overgebrachtDoor:
+          $ref: "#/components/schemas/Medewerker"
+          type: object
+          description: ""
+        overgebrachtNaar:
+          type: string
+          maxLength: 255
+          description: ""
+    Taak:
+      type: object
+    Zaak:
+      type: object
+      required:
+        - functioneleIdentificatie
+        - externeIdentificatie
+        - omschrijving
+        - zaaktype
+        - isVertrouwelijk
+        - aangemaaktDoor
+        - kanaal
+        - creatieTijdstip
+        - wijzigTijdstip
+        - startdatum
+        - streefdatum
+        - status
+        - isIntake
+        - isProcesGestart
+        - isHeropend
+        - isVernietiging
+      properties:
+        functioneleIdentificatie:
+          type: string
+          maxLength: 128
+          description: Zaaknummer in e-Suite
+        externeIdentificatie:
+          type: string
+          minLength: 5
+          maxLength: 40
+          description: Identificatie van zaak welke kan worden gebruikt bij koppelen
+            met extern systeem
+        omschrijving:
+          type: string
+          description: Omschrijving van zaak
+        redenStart:
+          type: string
+          description: Reden voor starten van zaak
+        zaaktype:
+          $ref: "#/components/schemas/Zaaktype"
+          type: object
+          description: Zaaktype
+        isVertrouwelijk:
+          type: boolean
+          description: Is zaak vertrouwelijk
+        behandelaar:
+          type: object
+          description: Behandelaar van zaak
+          $ref: "#/components/schemas/Medewerker"
+        afdeling:
+          type: string
+          maxLength: 64
+          description: Naam van afdeling waaraan zaak is toegekend
+        groep:
+          type: string
+          maxLength: 64
+          description: Naam van groep waaraan zaak is toegekend
+        aangemaaktDoor:
+          $ref: "#/components/schemas/Medewerker"
+          type: object
+          description: Medewerker welke zaak heeft aangemaakt
+        kanaal:
+          type: string
+          maxLength: 255
+          description: Naam van kanaal via welke zaak is binnengekomen
+        creatieTijdstip:
+          type: string
+          format: date-time
+          examples:
+            - 2022-03-10T12:15:50-04:00
+          description: Tijdstip waarop zaak is aangemaakt
+        wijzigTijdstip:
+          type: string
+          format: date-time
+          examples:
+            - 2022-03-10T12:15:50-04:00
+          description: Meest recente tijdstip waarop zaak is gewijzigd
+        startdatum:
+          type: string
+          format: date
+          examples:
+            - 2022-03-10
+          description: ""
+        streefdatum:
+          type: string
+          format: date
+          examples:
+            - 2022-03-10
+          description: ""
+        fataledatum:
+          type: string
+          format: date
+          examples:
+            - 2022-03-10
+          description: ""
+        einddatum:
+          type: string
+          format: date
+          examples:
+            - 2022-03-10
+          description: ""
+        status:
+          $ref: "#/components/schemas/Zaakstatus"
+          type: object
+          description: Huidige status van zaak
+        resultaat:
+          type: object
+          description: Resultaat van zaak
+          $ref: "#/components/schemas/Zaakresultaat"
+        betaalgegevens:
+          type: object
+          description: Betaalgegevens gerelateerd aan zaak
+          $ref: "#/components/schemas/Betaalgegevens"
+        isIntake:
+          type: boolean
+          description: Is zaak een intake
+        archiveerGegevens:
+          type: object
+          description: Archiveer gegevens van zaak
+          $ref: "#/components/schemas/ArchiveerGegevens"
+        geolocatie:
+          type: object
+          description: Archiveer gegevens van zaak
+          $ref: "#/components/schemas/GeografischeInformatie"
+        historie:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: "#/components/schemas/ZaakHistorie"
+          description: Historie van zaak
+        details:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: "#/components/schemas/ZaakData"
+          description: Zaak details
+        organisatie:
+          type: string
+          description: Naam van organisatie
+        opschorttermijn:
+          type: object
+          description: ""
+          $ref: "#/components/schemas/Opschorttermijn"
+        geautoriseerdeMedewerkers:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: "#/components/schemas/Medewerker"
+          description: Medewerkers welke zijn geautoriseerd voor zaak. Indien aanwezig
+            betreft dit dus een zaak met specifieke medewerker autorisatie
+        notities:
+          type: array
+          items:
+            $ref: "#/components/schemas/ZaakNotitie"
+          description: Notities op zaak
+        isProcesGestart:
+          type: boolean
+          description: Is voor zaak afhandeling een proces gestart
+        isHeropend:
+          type: boolean
+          description: ""
+        isVernietiging:
+          type: boolean
+          description: ""
+        taken:
+          type: array
+          items:
+            $ref: "#/components/schemas/Taak"
+          description: ""
+        betrokkenen:
+          type: array
+          items:
+            $ref: "#/components/schemas/ZaakBetrokkene"
+          description: ""
+        bagObjecten:
+          type: array
+          items:
+            $ref: "#/components/schemas/BAGObject"
+          description: ""
+        gekoppeldeZaken:
+          type: array
+          items:
+            $ref: "#/components/schemas/GekoppeldeZaak"
+          description: ""
+        documenten:
+          type: array
+          items:
+            $ref: "#/components/schemas/Document"
+          description: ""
+        besluiten:
+          type: array
+          items:
+            $ref: "#/components/schemas/Besluit"
+          description: ""
+    ZaakBetrokkene:
+      type: object
+    ZaakData:
+      type: object
+    ZaakHistorie:
+      type: object
+      required:
+        - datumWijziging
+      properties:
+        datumWijziging:
+          $ref: "#/components/schemas/LocalDate"
+          type: string
+          description: Datum laatst gewijzigd
+    ZaakNotitie:
+      type: object
+    ZaakOverzicht:
+      type: object
+      required:
+        - functioneleIdentificatie
+        - zaaktypeNaam
+      properties:
+        functioneleIdentificatie:
+          type: string
+        zaaktypeNaam:
+          type: string
+    ZaakResults:
+      type: object
+      required:
+        - results
+      properties:
+        count:
+          type: integer
+          format: int32
+        next:
+          type: string
+          format: uri
+        previous:
+          type: string
+          format: uri
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/ZaakOverzicht"
+    Zaakresultaat:
+      type: object
+      required:
+        - naam
+        - uitwisselingscode
+      properties:
+        naam:
+          type: string
+          maxLength: 255
+          description: Naam van resultaat
+        omschrijving:
+          type: string
+          maxLength: 255
+          description: Omschrijving van resultaat
+        uitwisselingscode:
+          type: string
+          maxLength: 255
+          description: Code welke gebruikt wordt voor het uitwisselen van zaak informatie
+            naar externe systemen zoals bijvoorbeeld via StUF-ZKN-DMS
+    Zaakstatus:
+      type: object
+      required:
+        - naam
+        - uitwisselingscode
+        - externeNaam
+      properties:
+        naam:
+          type: string
+          maxLength: 255
+          description: Naam van status
+        omschrijving:
+          type: string
+          maxLength: 255
+          description: Omschrijving van status
+        uitwisselingscode:
+          type: string
+          maxLength: 255
+          description: Code welke gebruikt wordt voor het uitwisselen van zaak informatie
+            naar externe systemen zoals bijvoorbeeld via StUF-ZKN-DMS
+        externeNaam:
+          type: string
+          maxLength: 255
+          description: Naam van status zoals deze getoond wordt in het publieke deel
+            (burger en bedrijven loket) van de e=Suite
+    Zaaktype:
+      type: object
+      required:
+        - naam
+        - functioneleIdentificatie
+      properties:
+        naam:
+          type: string
+          maxLength: 255
+          description: Naam van zaaktype
+        functioneleIdentificatie:
+          type: string
+          maxLength: 128
+          description: Naam van zaaktype
+    ZonedDateTime:
+      type: string
+      format: date-time
+      examples:
+        - 2022-03-10T12:15:50-04:00
+paths:
+  /zaken:
+    get:
+      summary: Lijst van zaak overzichten opvragen
+      operationId: zaak_list
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: page_size
+          in: query
+          schema:
+            type: integer
+            format: int32
+            description: Maximum aantal zaken per pagina
+            default: 100
+        - name: zaaktype
+          in: query
+          schema:
+            type: string
+            maxLength: 255
+            description: Zaaktype naam
+          required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ZaakResults"
+      tags:
+        - Zaken
+  /zaken/{functionele_Identificatie}:
+    get:
+      summary: Een specifieke zaak opvragen
+      operationId: zaak_read
+      parameters:
+        - name: functionele_Identificatie
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Zaak"
+      tags:
+        - Zaken

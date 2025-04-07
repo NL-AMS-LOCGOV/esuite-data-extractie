@@ -16,7 +16,7 @@ class ExampleResourceTest {
             .`when`().get("/zaken")
             .then()
             .statusCode(200)
-            .body(ZaakOverzicht::id.name, `is`("123456789")).and()
-            .body(ZaakOverzicht::omschrijving.name, nullValue())
+            .body(ZaakOverzicht::functioneleIdentificatie.name, `is`("zaaktypeNaam"))
+            .and().body(ZaakOverzicht::zaaktypeNaam.name, `is`(""))
     }
 }

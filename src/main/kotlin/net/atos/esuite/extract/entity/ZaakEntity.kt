@@ -8,11 +8,11 @@ class ZaakEntity {
 
     @Id
     @Column(name = "id_zaak")
-    var identifier: Long = 0
+    val identifier: Long = 0
 
     @Column(name = "id_functioneel")
     lateinit var functioneelId: String
 
     @Column(name = "id_zaaktype")
-    lateinit var zaaktype: String
+    lateinit var zaaktypeId: String
 }
