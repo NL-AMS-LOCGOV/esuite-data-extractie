@@ -14,8 +14,6 @@ import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.media.Content
 import org.eclipse.microprofile.openapi.annotations.media.Schema
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse
-import java.util.Collections
-import java.util.stream.Collectors
 
 @Path("/zaken")
 class Zaken(

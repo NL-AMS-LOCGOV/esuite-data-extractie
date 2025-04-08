@@ -80,7 +80,8 @@ class Zaak(
     @field:Schema(description = "Zaak details")
     val details: Set<ZaakData>?,
 
-    @field:Schema(description = "Naam van organisatie")
+    // ToDo: Is het mogelijk hier een RSIN mee te geven?
+    @field:Schema(description = "Naam van organisatie. RSIN?")
     val organisatie: String?,
 
     @field:Schema(description = "")

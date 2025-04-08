@@ -47,9 +47,10 @@ class ZaakRepository(
             .select(zaakRoot)
             .where(cb.equal(zaakRoot.get<String>("zaaktypeId"), zaaktypeSubquery))
 
-        val query = em.createQuery(zaakQuery)
-        query.firstResult = pageIndex * pageSize
-        query.maxResults = pageSize
-        return query.resultList
+        return with(em.createQuery(zaakQuery)) {
+            firstResult = pageIndex * pageSize
+            maxResults = pageSize
+            resultList
+        }
     }
 }
