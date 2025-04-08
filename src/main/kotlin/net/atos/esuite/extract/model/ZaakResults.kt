@@ -1,13 +1,12 @@
 package net.atos.esuite.extract.model
 
-import java.net.URI
-
 class ZaakResults(
+    
     val count: Int,
 
-    val next: URI?,
+    val nextPage: Int?,
 
-    val previous: URI?,
+    val previousPage: Int?,
 
     val results: List<ZaakOverzicht>,
     )

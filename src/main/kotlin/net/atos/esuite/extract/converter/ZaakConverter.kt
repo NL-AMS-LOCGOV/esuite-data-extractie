@@ -25,7 +25,7 @@ class ZaakConverter {
             afdeling = null,
             groep = null,
             aangemaaktDoor = Medewerker("", ""),
-            kanaal = "",
+            kanaal = zaakEntity.kanaal.naam,
             creatieTijdstip =ZonedDateTime.now(),
             wijzigTijdstip = ZonedDateTime.now(),
             startdatum = LocalDate.now(),

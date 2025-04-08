@@ -53,4 +53,28 @@ class ZaakRepository(
             resultList
         }
     }
+
+    fun countByZaaktypeFunctioneelId(zaaktypeFunctioneelId: String): Int {
+        val em = getEntityManager()
+        val cb = em.criteriaBuilder
+
+        val zaakQuery = cb.createQuery(Long::class.javaObjectType)
+        val zaakRoot = zaakQuery.from(ZaakEntity::class.java)
+
+        val zaaktypeSubquery = zaakQuery.subquery(String::class.java)
+        val zaaktypeRoot = zaaktypeSubquery.from(ZaaktypeEntity::class.java)
+
+        zaaktypeSubquery
+            .select(
+                cb.concat(
+                    cb.literal(ZAAKTYPE_ID_PREFIX), zaaktypeRoot.get<Long>("identifier").`as`(String::class.java)
+                )
+            ).where(cb.equal(zaaktypeRoot.get<String>("functioneelId"), zaaktypeFunctioneelId))
+
+        zaakQuery
+            .select(cb.count(zaakRoot))
+            .where(cb.equal(zaakRoot.get<String>("zaaktypeId"), zaaktypeSubquery))
+
+          return em.createQuery(zaakQuery).singleResult.toInt()
+    }
 }

@@ -2,4 +2,4 @@
 GET localhost:8080/zaken?zaaktype=MigratieTest1
 
 ### GET request to example server
-GET localhost:8080/zaken/27831-2022
+GET localhost:8080/zaken/12-2023

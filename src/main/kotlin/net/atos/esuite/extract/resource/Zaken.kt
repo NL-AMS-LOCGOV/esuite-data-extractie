@@ -39,9 +39,16 @@ class Zaken(
 
         @BeanParam bladerParameters: BladerParameters
     ): Response {
-        val zaken = zaakRepository.listByZaaktypeFunctioneelId(zaaktype, bladerParameters.page, bladerParameters.pageSize)
-            .map(zaakOverzichtConverter::convert)
-        return ok(ZaakResults(10, null, null, zaken)).build()
+        val zaken =
+            zaakRepository.listByZaaktypeFunctioneelId(zaaktype, bladerParameters.page, bladerParameters.pageSize)
+                .map(zaakOverzichtConverter::convert)
+        return ok(
+            ZaakResults(
+                zaakRepository.countByZaaktypeFunctioneelId(zaaktype),
+                nextPage = null,
+                previousPage = null,
+                results = zaken,
+            )).build()
     }
 
     @GET
