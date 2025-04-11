@@ -4,6 +4,10 @@ import io.quarkus.hibernate.orm.panache.kotlin.PanacheRepository
 import jakarta.enterprise.context.ApplicationScoped
 import net.atos.esuite.extract.entity.ZaakEntity
 import net.atos.esuite.extract.entity.ZaaktypeEntity
+import jakarta.persistence.EntityManager
+import jakarta.persistence.criteria.CriteriaBuilder
+import jakarta.persistence.criteria.CriteriaQuery
+import jakarta.persistence.criteria.Root
 
 @ApplicationScoped
 class ZaakRepository(
@@ -17,36 +21,30 @@ class ZaakRepository(
     fun findByFunctioneleIdentificatie(functioneleIdentificatie: String) =
         find("functioneelId", functioneleIdentificatie).firstResult()
 
-    fun listByZaaktypeFunctioneelId(zaaktypeFunctioneelId: String, pageIndex: Int, pageSize: Int) =
-        zaaktypeReposotory.find("functioneelId", zaaktypeFunctioneelId).firstResult()
-            ?.let {
-                find("zaaktypeId", "$ZAAKTYPE_ID_PREFIX${it.identifier}")
-                    .page(pageIndex, pageSize)
-                    .list()
-            }
-            ?: emptyList()
-
-    fun listByZaaktypeFunctioneelId2(zaaktypeFunctioneelId: String, pageIndex: Int, pageSize: Int): List<ZaakEntity> {
+    fun listByZaaktypeFunctioneelId(
+        zaaktypeFunctioneelId: String,
+        pageIndex: Int,
+        pageSize: Int
+    ): Pair<List<ZaakEntity>, Int> {
         val em = getEntityManager()
         val cb = em.criteriaBuilder
+        return Pair(
+            listByZaaktypeFunctioneelId(em, cb, zaaktypeFunctioneelId, pageIndex, pageSize),
+            countByZaaktypeFunctioneelId(em, cb, zaaktypeFunctioneelId)
+        )
+    }
 
+    private fun listByZaaktypeFunctioneelId(
+        em: EntityManager,
+        cb: CriteriaBuilder,
+        zaaktypeFunctioneelId: String,
+        pageIndex: Int,
+        pageSize: Int
+    ): List<ZaakEntity> {
         val zaakQuery = cb.createQuery(ZaakEntity::class.java)
         val zaakRoot = zaakQuery.from(ZaakEntity::class.java)
-
-        val zaaktypeSubquery = zaakQuery.subquery(String::class.java)
-        val zaaktypeRoot = zaaktypeSubquery.from(ZaaktypeEntity::class.java)
-
-        zaaktypeSubquery
-            .select(
-                cb.concat(
-                    cb.literal(ZAAKTYPE_ID_PREFIX), zaaktypeRoot.get<Long>("identifier").`as`(String::class.java)
-                )
-            ).where(cb.equal(zaaktypeRoot.get<String>("functioneelId"), zaaktypeFunctioneelId))
-
-        zaakQuery
-            .select(zaakRoot)
-            .where(cb.equal(zaakRoot.get<String>("zaaktypeId"), zaaktypeSubquery))
-
+        zaakQuery.select(zaakRoot)
+        createZaaktypeSubQuery(cb, zaakQuery, zaakRoot, zaaktypeFunctioneelId)
         return with(em.createQuery(zaakQuery)) {
             firstResult = pageIndex * pageSize
             maxResults = pageSize
@@ -54,27 +52,33 @@ class ZaakRepository(
         }
     }
 
-    fun countByZaaktypeFunctioneelId(zaaktypeFunctioneelId: String): Int {
-        val em = getEntityManager()
-        val cb = em.criteriaBuilder
+    private fun countByZaaktypeFunctioneelId(
+        em: EntityManager,
+        cb: CriteriaBuilder,
+        zaaktypeFunctioneelId: String
+    ): Int {
+        val countQuery = cb.createQuery(Long::class.javaObjectType)
+        val zaakRoot = countQuery.from(ZaakEntity::class.java)
+        countQuery.select(cb.count(zaakRoot))
+        createZaaktypeSubQuery(cb, countQuery, zaakRoot, zaaktypeFunctioneelId)
+        return em.createQuery(countQuery).singleResult.toInt()
+    }
 
-        val zaakQuery = cb.createQuery(Long::class.javaObjectType)
-        val zaakRoot = zaakQuery.from(ZaakEntity::class.java)
-
-        val zaaktypeSubquery = zaakQuery.subquery(String::class.java)
+    private fun <T> createZaaktypeSubQuery(
+        cb: CriteriaBuilder,
+        query: CriteriaQuery<T>,
+        root: Root<ZaakEntity>,
+        zaaktypeFunctioneelId: String
+    ) {
+        val zaaktypeSubquery = query.subquery(String::class.java)
         val zaaktypeRoot = zaaktypeSubquery.from(ZaaktypeEntity::class.java)
-
         zaaktypeSubquery
             .select(
                 cb.concat(
                     cb.literal(ZAAKTYPE_ID_PREFIX), zaaktypeRoot.get<Long>("identifier").`as`(String::class.java)
                 )
             ).where(cb.equal(zaaktypeRoot.get<String>("functioneelId"), zaaktypeFunctioneelId))
-
-        zaakQuery
-            .select(cb.count(zaakRoot))
-            .where(cb.equal(zaakRoot.get<String>("zaaktypeId"), zaaktypeSubquery))
-
-          return em.createQuery(zaakQuery).singleResult.toInt()
+        query
+            .where(cb.equal(root.get<String>("zaaktypeId"), zaaktypeSubquery))
     }
 }

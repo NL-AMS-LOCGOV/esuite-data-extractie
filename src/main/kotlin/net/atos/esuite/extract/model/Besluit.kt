@@ -1,3 +1,7 @@
 package net.atos.esuite.extract.model
 
-class Besluit ()
+import java.time.LocalDate
+
+class Besluit (
+    val besluitDatum: LocalDate,
+)

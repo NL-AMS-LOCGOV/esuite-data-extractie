@@ -9,7 +9,6 @@ import java.time.LocalDate
 @Table(name = "zkn_zaak", schema = "zakenmagazijn")
 class ZaakEntity {
 
-    // ID-nummer tabel Zaak
     @Id
     @Column(name = "id_zaak")
     lateinit var identifier: java.lang.Long
@@ -18,7 +17,7 @@ class ZaakEntity {
     @Column(name = "id_zaaktype", length = 64)
     lateinit var zaaktypeId: String
 
-    @Column(name = "id_functioneel", updatable = false, unique = true, length = 128)
+    @Column(name = "id_functioneel", unique = true, length = 128)
     lateinit var functioneelId: String
 
     // Externe zaakidentificatie
@@ -28,31 +27,33 @@ class ZaakEntity {
     // ID-nummer tabel ID_Kanalen
     @OneToOne
     @JoinColumn(name = "id_kanaal", referencedColumnName = "id_kanaal")
-    lateinit var kanaal: ReferentieKanaalEntity
+    var kanaal: ReferentieKanaalEntity? = null
 
-    // ID-nummer tabel ID_Afdelingen waar zaak in behandeling is
+    // Afdeling waar zaak in behandeling is
     @Column(name = "id_afdeling", length = 128)
     var afdelingId: String? = null
 
-    // ID-nummer tabel ID_Groepen waar zaak in behandeling is
+    // Groep waar zaak in behandeling is
     @Column(name = "id_groep", length = 128)
     var groepId: String? = null
 
-    // ID-nummer tabel ID_Gebruikers waar zaak in behandeling is
+    // Gebruiker waar zaak in behandeling is
     @Column(name = "id_behandelaar", length = 64)
     var behandelaarId: String? = null
 
-    // ID-nummer van het subject (uit basisgegevens) dat de zaak heeft opgestart
+    // ToDo: ID-nummer van het subject (uit basisgegevens) dat de zaak heeft opgestart
     @Column(name = "id_initiator")
     var initiatorId: Long? = null
 
-    // ID-nummer vanm de medewerker die de zaak heeft aangemaakt
+    // Medewerker die de zaak heeft aangemaakt
     @Column(name = "id_aangemaaktdoor", length = 64)
     var aangemaaktDoorId: String? = null
 
+    // ToDo: Entity
     @Column(name = "id_zaakstatus", length = 255)
     lateinit var statusId: String
 
+    // ToDo: Entity
     @Column(name = "id_zaakresultaat", length = 255)
     var resultaatId: String? = null
 
@@ -73,11 +74,11 @@ class ZaakEntity {
     var einddatum: LocalDate? = null
 
     // Tijdstip waarop de zaak is geinsert.
-    @Column(name = "creatiedatumtijd", insertable = false, updatable = false)
+    @Column(name = "creatiedatumtijd")
     lateinit var creatiedatum: Instant
 
     // Tijdstip waarop de laatste zaakhistory is geinsert.
-    @Column(name = "wijzigdatumtijd", insertable = false, updatable = false)
+    @Column(name = "wijzigdatumtijd")
     var wijzigdatum: Instant? = null
 
     // Begindatum van een nu lopende opschorttermijn
@@ -115,22 +116,22 @@ class ZaakEntity {
     @Column(name = "notificeerbaar")
     var notificeerbaar = false
 
-//    @OneToMany(mappedBy = "zaak", cascade = [CascadeType.ALL], orphanRemoval = true)
-//    var taken: MutableSet<TaakEntity> = mutableSetOf()
+    @OneToMany(mappedBy = "zaak")
+    var taken: MutableSet<TaakEntity> = mutableSetOf()
 
-//    @OneToMany(mappedBy = "zaak", cascade = [CascadeType.ALL])
-//    var betrokkenen: MutableSet<ZaakBetrokkeneEntity> = mutableSetOf()
+    @OneToMany(mappedBy = "zaak")
+    var betrokkenen: MutableSet<ZaakBetrokkeneEntity> = mutableSetOf()
 
-//    @OneToMany(mappedBy = "zaak", cascade = [CascadeType.ALL], orphanRemoval = true)
-//    @OrderBy(value = "identifier")
-//    var notities: MutableSet<ZaakNotitieEntity> = mutableSetOf()
+    @OneToMany(mappedBy = "zaak")
+    @OrderBy(value = "identifier")
+    var notities: MutableSet<ZaakNotitieEntity> = mutableSetOf()
 
-//    @OneToMany(mappedBy = "zaak", cascade = [CascadeType.ALL])
-//    var gekoppeldeBAGObjecten: MutableSet<ZaakBAGObjectEntity> = mutableSetOf()
+    @OneToMany(mappedBy = "zaak")
+    var gekoppeldeBAGObjecten: MutableSet<ZaakBAGObjectEntity> = mutableSetOf()
 
     // Alle zaakrelaties waarin de huidige zaak de volgende zaak is
-//    @OneToMany(mappedBy = "gekoppeldeZaak")
-//    var relatieZaken: MutableSet<ZaakZaakEntity> = mutableSetOf()
+    @OneToMany(mappedBy = "gekoppeldeZaak")
+    var relatieZaken: MutableSet<ZaakZaakEntity> = mutableSetOf()
 
     @Embedded
     var archiveergegevens: ArchiveergegevensEntity? = null
@@ -138,21 +139,21 @@ class ZaakEntity {
     @Embedded
     var betaalgegevens: BetaalgegevensEntity? = null
 
-//    @OneToMany(mappedBy = "zaak", cascade = [CascadeType.ALL])
-//    @OrderBy("identifier DESC")
-//    var historie: MutableSet<ZaakHistorieEntity> = mutableSetOf()
+    @OneToMany(mappedBy = "zaak")
+    @OrderBy("identifier DESC")
+    var historie: MutableSet<ZaakHistorieEntity> = mutableSetOf()
 
-//    @OneToMany(mappedBy = "zaak", cascade = [CascadeType.ALL])
-//    var documenten: MutableSet<DocumentEntity> = mutableSetOf()
+    @OneToMany(mappedBy = "zaak")
+    var documenten: MutableSet<DocumentEntity> = mutableSetOf()
 
-//    @OneToMany(mappedBy = "zaak", cascade = [CascadeType.ALL], orphanRemoval = true)
-//    var zaakdataElementen: MutableSet<AbstractDataElementEntity> = mutableSetOf()
+    @OneToMany(mappedBy = "zaak")
+    var zaakdataElementen: MutableSet<AbstractDataElementEntity> = mutableSetOf()
 
-    // Locatie van de zaak gedefinieerd als een valide WKT representatie string
+    // ToDo: Locatie van de zaak gedefinieerd als een valide WKT representatie string
     @Column(name = "geolocatie", length = Integer.MAX_VALUE)
     var geolocatie: String? = null
 
-    // Organisatie behorende bij de zaak
+    // ToDo: Organisatie behorende bij de zaak
     @Column(name = "id_organisatie")
     var organisatieId: Long? = null
 
@@ -171,4 +172,6 @@ class ZaakEntity {
 
     @OneToMany(mappedBy = "zaak", fetch = FetchType.LAZY)
     var besluiten: MutableSet<BesluitEntity> = mutableSetOf()
+
+    // ToDo: Contacten gekoppeld aan Zaak
 }

@@ -8,14 +8,10 @@ import org.eclipse.microprofile.openapi.models.media.Schema
 class OASFilter : OASFilter {
 
     override fun filterSchema(schema: Schema): Schema? {
-        schema.type = schema.type?.let { filterOutSchemaTypeNULL(it) }
+        schema.type = schema.type?.let { it.filter { it.name != "NULL" } }
         handleSchemaAnyOf(schema)
         return schema
     }
-
-    private fun filterOutSchemaTypeNULL(schemaTypes: List<Schema.SchemaType>) =
-        schemaTypes.filter { it.name != "NULL" }
-
 
     private fun handleSchemaAnyOf(schema: Schema) {
         schema.anyOf = schema.anyOf?.filter { it.type == null }

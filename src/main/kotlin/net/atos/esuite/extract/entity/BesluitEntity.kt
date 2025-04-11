@@ -18,14 +18,13 @@ class BesluitEntity {
     lateinit var identifier: java.lang.Long
 
     // Functionele identificatie van het besluit
-    @Column(name = "id_functioneel", updatable = false, unique = true, length = 128)
+    @Column(name = "id_functioneel", unique = true, length = 128)
     lateinit var functioneelId: String
 
-    // ID-nummer tabel besluittype
+    // ToDo: ID-nummer tabel besluittype
     @Column(name = "id_besluittype", length = 128)
     lateinit var besluittypeId: String
 
-    // ID-nummer tabel zaak
     @ManyToOne
     @JoinColumn(name = "id_zaak", referencedColumnName = "id_zaak")
     lateinit var zaak: ZaakEntity
@@ -34,7 +33,7 @@ class BesluitEntity {
     @JoinColumn(name = "id_document", referencedColumnName = "id_document")
     lateinit var document: DocumentEntity
 
-    // ID-nummer tabel documenttype
+    // ToDo: ID-nummer tabel documenttype
     @Column(name = "id_documenttype", length = 255)
     var documenttypeId: String? = null
 

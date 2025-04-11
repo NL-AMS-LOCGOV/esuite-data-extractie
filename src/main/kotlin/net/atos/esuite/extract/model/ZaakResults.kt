@@ -8,5 +8,5 @@ class ZaakResults(
 
     val previousPage: Int?,
 
-    val results: List<ZaakOverzicht>,
+    val results: List<Zaak>,
     )

@@ -36,7 +36,7 @@ class Zaak(
     val aangemaaktDoor: Medewerker,
 
     @field:Schema(description = "Naam van kanaal via welke zaak is binnengekomen", maxLength = 255)
-    val kanaal: String,
+    val kanaal: String?,
 
     @field:Schema(description = "Tijdstip waarop zaak is aangemaakt", implementation = ZonedDateTime::class)
     val creatieTijdstip: ZonedDateTime,

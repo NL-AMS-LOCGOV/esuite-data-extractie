@@ -6,7 +6,7 @@ import jakarta.persistence.Id
 import jakarta.persistence.Table
 
 @Entity
-@Table(schema = "zakenmagazijn", name = "ztc_ref_zaaktype")
+@Table(name = "ztc_ref_zaaktype", schema = "zakenmagazijn")
 class ZaaktypeEntity {
 
     @Id

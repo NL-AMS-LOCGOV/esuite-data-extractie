@@ -12,4 +12,5 @@ class AbstractDataElementEntity {
     @Column(name = "id_dataelement")
     lateinit var id: java.lang.Long
 
+    // ToDo: aanvullen
 }
