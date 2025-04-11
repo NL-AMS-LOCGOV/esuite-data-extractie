@@ -16,7 +16,7 @@ class ZaakHistorieEntity: AbstractHistoryEntity() {
     lateinit var typeWijziging: String
 
     // De externe nieuwe waarde van het type
-    @Column(name = "ext_nieuwewaarde", length = Integer.MAX_VALUE)
+    @Column(name = "ext_nieuwewaarde", length = Int.MAX_VALUE)
     var nieuweWaardeExtern: String? = null
 
     @ManyToOne

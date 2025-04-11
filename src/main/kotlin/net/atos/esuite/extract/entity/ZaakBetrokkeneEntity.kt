@@ -30,7 +30,7 @@ class ZaakBetrokkeneEntity {
     @Column(name = "typebetrokkene", length = 64)
     lateinit var zaakBetrokkeneType: String
 
-    @Column(name = "toelichting", length = Integer.MAX_VALUE)
+    @Column(name = "toelichting", length = Int.MAX_VALUE)
     @Lob
     @JdbcTypeCode(SqlTypes.LONGVARCHAR)
     lateinit var toelichting: String

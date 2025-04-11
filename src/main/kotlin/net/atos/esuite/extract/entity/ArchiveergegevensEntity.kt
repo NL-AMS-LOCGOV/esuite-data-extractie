@@ -38,7 +38,7 @@ class ArchiveergegevensEntity {
     var beperkingOpenbaarheid: Boolean? = null
 
     // Reden beperking openbaarheid
-    @Column(name = "archief_beperking_openbaarheid_reden", length = Integer.MAX_VALUE)
+    @Column(name = "archief_beperking_openbaarheid_reden", length = Int.MAX_VALUE)
     var beperkingOpenbaarheidReden: String? = null
 
     // beperking openbaarheid datum vanaf

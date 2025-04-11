@@ -77,11 +77,11 @@ class TaakEntity {
     var historie: MutableList<TaakHistorieEntity> = mutableListOf()
 
     // Om een taak te koppelen aan een vestigingsnummer.
-    @Column(name = "vestigingsnummer", length = Integer.MAX_VALUE)
+    @Column(name = "vestigingsnummer", length = Int.MAX_VALUE)
     var vestigingsnummer: String? = null
 
     // Om een taak te koppelen aan een kvknummer.
-    @Column(name = "kvknummer", length = Integer.MAX_VALUE)
+    @Column(name = "kvknummer", length = Int.MAX_VALUE)
     var kvkNummer: String? = null
 
     // Het authenticatieniveau benodigd voor externen

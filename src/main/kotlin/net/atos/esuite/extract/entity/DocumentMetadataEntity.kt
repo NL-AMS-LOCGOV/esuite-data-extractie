@@ -16,7 +16,7 @@ class DocumentMetadataEntity {
     var metadataelementId: String? = null
 
     // Waarde van het metadata element
-    @Column(name = "waarde_metadata", length = Integer.MAX_VALUE)
+    @Column(name = "waarde_metadata", length = Int.MAX_VALUE)
     var waardeMetadata: String? = null
 
     @ManyToOne

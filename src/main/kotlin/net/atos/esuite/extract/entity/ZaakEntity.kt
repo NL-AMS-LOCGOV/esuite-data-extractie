@@ -1,6 +1,7 @@
 package net.atos.esuite.extract.entity
 
 import jakarta.persistence.*
+import net.atos.esuite.extract.entity.dataelement.AbstractDataElementEntity
 import java.time.Instant
 import java.time.LocalDate
 
@@ -90,11 +91,11 @@ class ZaakEntity {
     var opschorttermijnEinddatum: LocalDate? = null
 
     // Algemene omschrijving van de zaak
-    @Column(name = "omschrijving", length = Integer.MAX_VALUE)
+    @Column(name = "omschrijving", length = Int.MAX_VALUE)
     lateinit var omschrijving: String
 
     // Reden van het starten van de zaak
-    @Column(name = "redenstartzaak", length = Integer.MAX_VALUE)
+    @Column(name = "redenstartzaak", length = Int.MAX_VALUE)
     var redenStartZaak: String? = null
 
     // Indicator die aangeeft dat de zaak beëindigd en weer heropend is (wat betekent dat het bijbehorende proces niet meer bestaat)
@@ -150,7 +151,7 @@ class ZaakEntity {
     var zaakdataElementen: MutableSet<AbstractDataElementEntity> = mutableSetOf()
 
     // ToDo: Locatie van de zaak gedefinieerd als een valide WKT representatie string
-    @Column(name = "geolocatie", length = Integer.MAX_VALUE)
+    @Column(name = "geolocatie", length = Int.MAX_VALUE)
     var geolocatie: String? = null
 
     // ToDo: Organisatie behorende bij de zaak

@@ -76,7 +76,7 @@ class DocumentEntity {
     var locatie: String? = null
 
     // Toelichting, trefwoorden etc
-    @Column(name = "beschrijving", length = Integer.MAX_VALUE)
+    @Column(name = "beschrijving", length = Int.MAX_VALUE)
     var beschrijving: String? = null
 
     // ToDo: Zou gemapped kunnen worden op een boolean welke aangeeft of het document is gelocked

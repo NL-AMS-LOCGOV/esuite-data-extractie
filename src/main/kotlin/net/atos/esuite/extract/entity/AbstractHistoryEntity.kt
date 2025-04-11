@@ -19,15 +19,15 @@ abstract class AbstractHistoryEntity {
     var gewijzigddoor: String? = null
 
     // De oude waarde van het type
-    @Column(name = "oudewaarde", length = Integer.MAX_VALUE)
+    @Column(name = "oudewaarde", length = Int.MAX_VALUE)
     var oudewaarde: String? = null
 
     // De nieuwe waarde van het type
-    @Column(name = "nieuwewaarde", length = Integer.MAX_VALUE)
+    @Column(name = "nieuwewaarde", length = Int.MAX_VALUE)
     var nieuwewaarde: String? = null
 
     // Toelichting of reden wijziging
-    @Column(name = "toelichting", length = Integer.MAX_VALUE)
+    @Column(name = "toelichting", length = Int.MAX_VALUE)
     @Lob
     @JdbcTypeCode(SqlTypes.LONGVARCHAR)
     var toelichting: String? = null

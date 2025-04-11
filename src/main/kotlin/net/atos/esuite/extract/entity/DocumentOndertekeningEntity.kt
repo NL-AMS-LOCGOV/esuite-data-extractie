@@ -29,7 +29,7 @@ class DocumentOndertekeningEntity {
     lateinit var creatieDatum: LocalDate
 
     // Opmerkingen over de ondertekening van de versie
-    @Column(name = "opmerkingen", length = Integer.MAX_VALUE)
+    @Column(name = "opmerkingen", length = Int.MAX_VALUE)
     var opmerking: String? = null
 
     @ManyToOne

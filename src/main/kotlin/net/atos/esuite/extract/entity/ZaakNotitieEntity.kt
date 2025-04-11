@@ -21,7 +21,7 @@ class ZaakNotitieEntity {
     lateinit var datumTijd: Instant
 
     // De inhoud van de notitie
-    @Column(name = "notitie", length = Integer.MAX_VALUE)
+    @Column(name = "notitie", length = Int.MAX_VALUE)
     var notitie: String? = null
 
     @ManyToOne
