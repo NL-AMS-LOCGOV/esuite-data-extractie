@@ -25,7 +25,6 @@ class ZaakEntity {
     @Column(name = "id_functioneel_extern", unique = true, length = 40)
     lateinit var externFunctioneelId: String
 
-    // ID-nummer tabel ID_Kanalen
     @OneToOne
     @JoinColumn(name = "id_kanaal", referencedColumnName = "id_kanaal")
     var kanaal: ReferentieKanaalEntity? = null
@@ -42,9 +41,9 @@ class ZaakEntity {
     @Column(name = "id_behandelaar", length = 64)
     var behandelaarId: String? = null
 
-    // ToDo: ID-nummer van het subject (uit basisgegevens) dat de zaak heeft opgestart
-    @Column(name = "id_initiator")
-    var initiatorId: Long? = null
+    @OneToOne
+    @JoinColumn(name = "id_initiator", referencedColumnName = "id_subject")
+    var initiator: SubjectEntity? = null
 
     // Medewerker die de zaak heeft aangemaakt
     @Column(name = "id_aangemaaktdoor", length = 64)
@@ -154,12 +153,14 @@ class ZaakEntity {
     @Column(name = "geolocatie", length = Int.MAX_VALUE)
     var geolocatie: String? = null
 
-    // ToDo: Organisatie behorende bij de zaak
-    @Column(name = "id_organisatie")
-    var organisatieId: Long? = null
+    @OneToOne
+    @JoinColumn(name = "id_organisatie", referencedColumnName = "id_organisatie")
+    var organisatie: ReferentieOrganisatieEntity? = null
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "zkn_zaak_geautoriseerde_medewerker", schema = "zakenmagazijn", joinColumns = [JoinColumn(name = "id_zaak")])
+    @CollectionTable(
+        name = "zkn_zaak_geautoriseerde_medewerker", schema = "zakenmagazijn",
+        joinColumns = [JoinColumn(name = "id_zaak")])
     @Column(name = "medewerker")
     var geautoriseerdeMedewerkers: MutableSet<String> = mutableSetOf()
 
@@ -174,5 +175,6 @@ class ZaakEntity {
     @OneToMany(mappedBy = "zaak", fetch = FetchType.LAZY)
     var besluiten: MutableSet<BesluitEntity> = mutableSetOf()
 
-    // ToDo: Contacten gekoppeld aan Zaak
+    @OneToMany(mappedBy = "zaak", fetch = FetchType.LAZY)
+    var contacten: MutableSet<ZaakContactEntity> = mutableSetOf()
 }

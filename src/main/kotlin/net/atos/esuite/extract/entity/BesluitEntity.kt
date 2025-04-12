@@ -21,7 +21,6 @@ class BesluitEntity {
     @Column(name = "id_functioneel", unique = true, length = 128)
     lateinit var functioneelId: String
 
-    // ToDo: ID-nummer tabel besluittype
     @Column(name = "id_besluittype", length = 128)
     lateinit var besluittypeId: String
 
@@ -33,7 +32,6 @@ class BesluitEntity {
     @JoinColumn(name = "id_document", referencedColumnName = "id_document")
     lateinit var document: DocumentEntity
 
-    // ToDo: ID-nummer tabel documenttype
     @Column(name = "id_documenttype", length = 255)
     var documenttypeId: String? = null
 

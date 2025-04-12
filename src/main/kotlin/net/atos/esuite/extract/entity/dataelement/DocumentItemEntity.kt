@@ -6,11 +6,9 @@ import jakarta.persistence.Embeddable
 @Embeddable
 class DocumentItemEntity {
 
-    // ToDo: String of documentTupeEntity?
     @Column(name = "id_documenttype", length = 255)
     lateinit var documentTypeID: String
 
-    // ToDo: String of DocumentStatusEntity?
     @Column(name = "id_documentstatus", length = 255)
     lateinit var documentStatusID: String
 

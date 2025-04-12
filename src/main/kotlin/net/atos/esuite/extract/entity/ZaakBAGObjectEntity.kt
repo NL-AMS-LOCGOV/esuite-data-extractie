@@ -11,7 +11,6 @@ class ZaakBAGObjectEntity {
     @Column(name = "id_zaak_object")
     lateinit var identifier: java.lang.Long
 
-    // ToDo: BagObjectEntity?
     @Column(name = "id_object", length = 128)
     lateinit var bagObjectId: String
 

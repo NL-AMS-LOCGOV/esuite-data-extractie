@@ -13,8 +13,9 @@ class ZaakContactEntity {
     @Column(name = "id_zaak_contact")
     lateinit var identifier: java.lang.Long
 
-    @Column(name = "id_contact")
-    lateinit var contactId: java.lang.Long
+    @OneToOne
+    @JoinColumn(name = "id_contact", referencedColumnName = "id_contact")
+    lateinit var contact: ContactEntity
 
     @ManyToOne
     @JoinColumn(name = "id_zaak", referencedColumnName = "id_zaak")

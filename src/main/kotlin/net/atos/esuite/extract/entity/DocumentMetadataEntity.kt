@@ -11,7 +11,6 @@ class DocumentMetadataEntity {
     @Column(name = "id_documentmetadata")
     lateinit var identifier: java.lang.Long
 
-    // ToDo: ID-nummer tabel Dynamischmetadataelement
     @Column(name = "metadataelement_id", length = 255)
     var metadataelementId: String? = null
 

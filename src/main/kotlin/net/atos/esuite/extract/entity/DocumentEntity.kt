@@ -18,15 +18,12 @@ class DocumentEntity {
     @Column(name = "id_functioneel", length = 36)
     lateinit var idFunctioneel: String
 
-    // ToDo: Create DocumentvormEntity: ID-nummer tabel Documentvorm
     @Column(name = "documentvorm_id", length = 255)
     lateinit var documentvormId: String
 
-    // ToDo: create DocumenttypeEntity:  ID-nummer tabel Documenttype
     @Column(name = "documenttype_id", length = 255)
     lateinit var documenttypeId: String
 
-    // ToDo: create DocumentStatusEntity ID-nummer tabel Documentstatus
     @Column(name = "documentstatus_id", length = 255)
     lateinit var documentstatusId: String
 
@@ -79,10 +76,11 @@ class DocumentEntity {
     @Column(name = "beschrijving", length = Int.MAX_VALUE)
     var beschrijving: String? = null
 
-    // ToDo: Zou gemapped kunnen worden op een boolean welke aangeeft of het document is gelocked
     // ID van de medewerker die document heeft gelocked
     @Column(name = "id_lock_eigenaar", length = 64)
     var lockEigenaarId: String? = null
+
+    val isLocked: Boolean get() = lockEigenaarId != null
 
     // Datum en tijd van het locken van het document
     @Column(name = "lock_datumtijd")
@@ -126,7 +124,10 @@ class DocumentEntity {
     var taalId: String? = null
 
     @ElementCollection
-    @CollectionTable(name = "zkn_document_geautoriseerde_medewerker", schema = "zakenmagazijn", joinColumns = [JoinColumn(name = "id_document")])
+    @CollectionTable(
+        name = "zkn_document_geautoriseerde_medewerker", schema = "zakenmagazijn",
+        joinColumns = [JoinColumn(name = "id_document")]
+    )
     @Column(name = "medewerker")
     var geautoriseerdeMedewerkers: MutableSet<String>? = mutableSetOf()
 

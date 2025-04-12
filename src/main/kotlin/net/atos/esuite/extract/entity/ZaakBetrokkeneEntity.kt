@@ -23,9 +23,9 @@ class ZaakBetrokkeneEntity {
     @Column(name = "startdatum")
     var startdatum: LocalDate? = null
 
-    // ToDo: Entity ID-nummer tabel ZKN_Betrokkenen
-    @Column(name = "id_betrokkene")
-    lateinit var idBetrokkene: java.lang.Long
+    @OneToOne
+    @JoinColumn(name = "id_betrokkene", referencedColumnName = "id_subject")
+    lateinit var betrokkene: SubjectEntity
 
     @Column(name = "typebetrokkene", length = 64)
     lateinit var zaakBetrokkeneType: String
