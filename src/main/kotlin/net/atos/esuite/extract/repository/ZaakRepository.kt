@@ -2,8 +2,8 @@ package net.atos.esuite.extract.repository
 
 import io.quarkus.hibernate.orm.panache.kotlin.PanacheRepository
 import jakarta.enterprise.context.ApplicationScoped
-import net.atos.esuite.extract.entity.ZaakEntity
-import net.atos.esuite.extract.entity.ZaaktypeEntity
+import net.atos.esuite.extract.entity.zakenmagazijn.ZaakEntity
+import net.atos.esuite.extract.entity.zakenmagazijn.ZaaktypeEntity
 import jakarta.persistence.EntityManager
 import jakarta.persistence.criteria.CriteriaBuilder
 import jakarta.persistence.criteria.CriteriaQuery

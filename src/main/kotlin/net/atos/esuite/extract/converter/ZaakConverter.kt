@@ -1,10 +1,10 @@
 package net.atos.esuite.extract.converter
 
 import jakarta.enterprise.context.ApplicationScoped
-import net.atos.esuite.extract.entity.BesluitEntity
-import net.atos.esuite.extract.entity.ReferentieResultaatEntity
-import net.atos.esuite.extract.entity.ReferentieZaakStatusEntity
-import net.atos.esuite.extract.entity.ZaakEntity
+import net.atos.esuite.extract.entity.zakenmagazijn.BesluitEntity
+import net.atos.esuite.extract.entity.zakenmagazijn.ReferentieResultaatEntity
+import net.atos.esuite.extract.entity.zakenmagazijn.ReferentieZaakStatusEntity
+import net.atos.esuite.extract.entity.zakenmagazijn.ZaakEntity
 import net.atos.esuite.extract.model.*
 import net.atos.esuite.extract.repository.ResultaatRepository
 import net.atos.esuite.extract.repository.ZaakRepository.Companion.ZAAKTYPE_ID_PREFIX
