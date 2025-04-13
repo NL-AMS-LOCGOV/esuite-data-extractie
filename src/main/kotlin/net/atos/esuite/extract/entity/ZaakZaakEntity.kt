@@ -10,7 +10,7 @@ class ZaakZaakEntity {
 
     @Id
     @Column(name = "id_zaak_zaak")
-    lateinit var identifier: java.lang.Long
+    var identifier: Long = 0
 
     @Column(name = "id_relatietype", length = 32)
     lateinit var relatietypeId: String

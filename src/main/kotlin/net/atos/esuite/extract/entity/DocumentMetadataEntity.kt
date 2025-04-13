@@ -9,7 +9,7 @@ class DocumentMetadataEntity {
 
     @Id
     @Column(name = "id_documentmetadata")
-    lateinit var identifier: java.lang.Long
+    var identifier: Long = 0
 
     @Column(name = "metadataelement_id", length = 255)
     var metadataelementId: String? = null

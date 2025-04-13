@@ -14,7 +14,7 @@ class NotitieEntity {
 
     @Id
     @Column(name = "id_notitie")
-    lateinit var identifier: java.lang.Long
+    var identifier: Long = 0
 
     @Column(name = "ingangsdatum")
     var ingangsdatum: LocalDate? = null

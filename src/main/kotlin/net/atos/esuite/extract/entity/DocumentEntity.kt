@@ -4,7 +4,6 @@ import jakarta.persistence.*
 import java.time.Instant
 import java.time.LocalDate
 import java.time.OffsetDateTime
-import java.util.*
 
 
 @Entity
@@ -13,7 +12,7 @@ class DocumentEntity {
 
     @Id
     @Column(name = "id_document")
-    lateinit var identifier: java.lang.Long
+    var identifier: Long = 0
 
     @Column(name = "id_functioneel", length = 36)
     lateinit var idFunctioneel: String

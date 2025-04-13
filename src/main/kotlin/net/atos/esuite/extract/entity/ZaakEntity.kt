@@ -12,7 +12,7 @@ class ZaakEntity {
 
     @Id
     @Column(name = "id_zaak")
-    lateinit var identifier: java.lang.Long
+    var identifier: Long = 0
 
     // ID-nummer tabel ZTC Zaaktype
     @Column(name = "id_zaaktype", length = 64)
@@ -49,11 +49,9 @@ class ZaakEntity {
     @Column(name = "id_aangemaaktdoor", length = 64)
     var aangemaaktDoorId: String? = null
 
-    // ToDo: Entity
     @Column(name = "id_zaakstatus", length = 255)
     lateinit var statusId: String
 
-    // ToDo: Entity
     @Column(name = "id_zaakresultaat", length = 255)
     var resultaatId: String? = null
 

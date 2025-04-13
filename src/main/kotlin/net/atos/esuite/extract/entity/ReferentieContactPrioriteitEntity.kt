@@ -11,8 +11,8 @@ class ReferentieContactPrioriteitEntity: AbstractReferentieLongIdEntity() {
 
     @Id
     @Column(name = "id_contactprioriteit")
-    lateinit var identifier: java.lang.Long
+    var identifier: Long = 0
 
     @Column(name = "dagen")
-    lateinit var dagen: java.lang.Integer
+    var dagen: Int = 0
 }

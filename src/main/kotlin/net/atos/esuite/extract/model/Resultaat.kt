@@ -2,7 +2,7 @@ package net.atos.esuite.extract.model
 
 import org.eclipse.microprofile.openapi.annotations.media.Schema
 
-class Zaakresultaat (
+class Resultaat (
     @field:Schema(description = "Naam van resultaat", maxLength = 255)
     val naam: String,
 

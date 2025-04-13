@@ -60,7 +60,7 @@ class Zaak(
     val status: Zaakstatus,
 
     @field:Schema(description = "Resultaat van zaak")
-    val resultaat: Zaakresultaat?,
+    val resultaat: Resultaat?,
 
     @field:Schema(description = "Betaalgegevens gerelateerd aan zaak")
     val betaalgegevens: Betaalgegevens?,

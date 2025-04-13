@@ -13,7 +13,7 @@ class ZaakBetrokkeneEntity {
 
     @Id
     @Column(name = "id_zaak_betrokkene")
-    lateinit var identifier: java.lang.Long
+    var identifier: Long = 0
 
     // Indicatie of correspondentie naar betrokkene gestuurd moet worden
     @Column(name = "ind_correspondentie")

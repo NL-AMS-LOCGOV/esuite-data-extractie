@@ -4,7 +4,7 @@ import jakarta.ws.rs.*
 import jakarta.ws.rs.core.MediaType
 import jakarta.ws.rs.core.Response
 import jakarta.ws.rs.core.Response.ok
-import net.atos.esuite.extract.converter.toZaak
+import net.atos.esuite.extract.converter.ZaakConverter
 import net.atos.esuite.extract.model.BladerParameters
 import net.atos.esuite.extract.model.Zaak
 import net.atos.esuite.extract.model.ZaakResults
@@ -17,6 +17,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponse
 @Path("/zaken")
 class Zaken(
     private val zaakRepository: ZaakRepository,
+    private val zaakConverter: ZaakConverter,
 ) {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -39,7 +40,7 @@ class Zaken(
                 count = totaalAantalZaken,
                 nextPage = null,
                 previousPage = null,
-                results = zaken.map { it.toZaak() },
+                results = zaken.map { zaakConverter.toZaak(it) },
             )
         ).build()
     }
@@ -54,7 +55,7 @@ class Zaken(
     fun zaakRead(@PathParam("functionele_Identificatie") functioneleIdentificatie: String): Response {
         return ok(
             zaakRepository.findByFunctioneleIdentificatie(functioneleIdentificatie)
-                ?.let { it.toZaak() }
+                ?.let { zaakConverter.toZaak(it) }
                 ?: throw WebApplicationException("Zaak not found", 404)).build()
     }
 }

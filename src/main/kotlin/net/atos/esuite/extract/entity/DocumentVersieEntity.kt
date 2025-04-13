@@ -10,7 +10,7 @@ class DocumentVersieEntity {
 
     @Id
     @Column(name = "id_documentversie")
-    lateinit var identifier: java.lang.Long
+    var identifier: Long = 0
 
     @Column(name = "versienummer")
     var versienummer = 0

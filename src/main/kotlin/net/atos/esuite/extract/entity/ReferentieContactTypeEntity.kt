@@ -11,6 +11,6 @@ class ReferentieContactTypeEntity: AbstractReferentieLongIdEntity() {
 
     @Id
     @Column(name = "id_contacttype")
-    lateinit var identifier: java.lang.Long
+    var identifier: Long = 0
 
 }

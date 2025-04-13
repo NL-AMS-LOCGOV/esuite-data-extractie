@@ -10,7 +10,7 @@ class ZaakNotitieEntity {
 
     @Id
     @Column(name = "id_zaak_notitie")
-    lateinit var identifier: java.lang.Long
+    var identifier: Long = 0
 
     // ID van de medewerker die de notite toegevoegd heeft
     @Column(name = "id_medewerker", length = 40)

@@ -12,7 +12,7 @@ class ContactEntity {
 
     @Id
     @Column(name = "id_contact")
-    lateinit var identifier: java.lang.Long
+    var identifier: Long = 0
 
     @Column(name = "id_functioneel", length = 128)
     lateinit var functioneelId: String

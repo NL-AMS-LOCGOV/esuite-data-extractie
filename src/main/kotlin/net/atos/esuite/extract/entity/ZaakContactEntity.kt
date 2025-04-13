@@ -1,7 +1,6 @@
 package net.atos.esuite.extract.entity
 
 import jakarta.persistence.*
-import org.hibernate.annotations.Comment
 
 
 // Koppeltabel tussen zaken en contacten
@@ -11,7 +10,7 @@ class ZaakContactEntity {
 
     @Id
     @Column(name = "id_zaak_contact")
-    lateinit var identifier: java.lang.Long
+    var identifier: Long = 0
 
     @OneToOne
     @JoinColumn(name = "id_contact", referencedColumnName = "id_contact")

@@ -9,7 +9,7 @@ class SubjectEntity {
     
     @Id
     @Column(name = "id_subject")
-    lateinit var identifier: java.lang.Long
+    var identifier: Long = 0
 
     @OneToMany(mappedBy = "subject")
     var notities: MutableList<NotitieEntity> = mutableListOf()

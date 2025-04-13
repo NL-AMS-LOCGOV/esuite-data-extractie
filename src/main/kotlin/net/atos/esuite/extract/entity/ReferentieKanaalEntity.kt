@@ -4,10 +4,10 @@ import jakarta.persistence.*
 
 
 @Entity
-@Table(schema = "configuratiemagazijn", name = "conf_ref_kanaal")
+@Table(name = "conf_ref_kanaal", schema = "configuratiemagazijn")
 class ReferentieKanaalEntity : AbstractReferentieLongIdEntity() {
 
     @Id
     @Column(name = "id_kanaal")
-    lateinit var identifier: java.lang.Long
+    var identifier: Long = 0
 }

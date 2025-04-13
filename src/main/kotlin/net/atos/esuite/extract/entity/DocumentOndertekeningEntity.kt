@@ -11,7 +11,7 @@ class DocumentOndertekeningEntity {
 
     @Id
     @Column(name = "id_documentondertekening")
-    lateinit var identifier: java.lang.Long
+    var identifier: Long = 0
 
     // Titel van het document bij ondertekening
     @Column(name = "documenttitel", length = 256)

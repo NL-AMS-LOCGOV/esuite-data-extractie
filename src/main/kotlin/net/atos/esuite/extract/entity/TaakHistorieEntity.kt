@@ -9,7 +9,7 @@ class TaakHistorieEntity: AbstractHistoryEntity() {
 
     @Id
     @Column(name = "id_taakhistorie")
-    lateinit var identifier: java.lang.Long
+    var identifier: Long = 0
 
     @Column(name = "typewijziging", length = 64)
     var typeWijziging: String? = null

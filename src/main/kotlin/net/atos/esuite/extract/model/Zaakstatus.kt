@@ -13,5 +13,5 @@ class Zaakstatus(
     val uitwisselingscode: String,
 
     @field:Schema(description = "Naam van status zoals deze getoond wordt in het publieke deel (burger en bedrijven loket) van de e=Suite", maxLength = 255)
-    val externeNaam: String,
+    val externeNaam: String?,
     )

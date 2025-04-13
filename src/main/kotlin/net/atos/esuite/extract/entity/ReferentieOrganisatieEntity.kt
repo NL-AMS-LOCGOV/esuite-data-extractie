@@ -11,5 +11,5 @@ class ReferentieOrganisatieEntity: AbstractReferentieLongIdEntity() {
 
     @Id
     @Column(name = "id_organisatie")
-    lateinit var identifier: java.lang.Long
+    var identifier: Long = 0
 }

@@ -3,8 +3,6 @@ package net.atos.esuite.extract.entity.dataelement
 import jakarta.persistence.Column
 import jakarta.persistence.DiscriminatorValue
 import jakarta.persistence.Entity
-import jakarta.persistence.TemporalType
-import java.time.Instant
 import java.time.OffsetDateTime
 
 
@@ -13,5 +11,5 @@ import java.time.OffsetDateTime
 class DatumMetTijdStipDataElementEntity: AbstractDataElementEntity() {
 
     @Column(name = "calendar_waarde")
-    var waarde: Instant? = null
+    var waarde: OffsetDateTime? = null
 }

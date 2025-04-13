@@ -3,7 +3,7 @@ package net.atos.esuite.extract.entity.dataelement
 import jakarta.persistence.Column
 import jakarta.persistence.DiscriminatorValue
 import jakarta.persistence.Entity
-import java.time.LocalDate
+import java.time.OffsetDateTime
 
 
 @Entity
@@ -11,5 +11,5 @@ import java.time.LocalDate
 class CalendarDataElementEntity: AbstractDataElementEntity() {
 
     @Column(name = "calendar_waarde")
-    var waarde: LocalDate? = null
+    var waarde: OffsetDateTime? = null
 }

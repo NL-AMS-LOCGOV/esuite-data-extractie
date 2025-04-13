@@ -9,7 +9,7 @@ class ContactBAGObjectEntity {
 
     @Id
     @Column(name = "id_contact_object")
-    lateinit var identifier: java.lang.Long
+    var identifier: Long = 0
 
     @Column(name = "id_object", length = 128)
     var bagObjectId: String? = null

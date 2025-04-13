@@ -7,7 +7,7 @@ import jakarta.persistence.Embeddable
 class AanvullijstRecordEntity {
 
     @Column(name = "recordnummer")
-    lateinit var recordNummer: java.lang.Integer
+    var recordNummer: Int = 0
 
     @Column(name = "itemid", length = Int.MAX_VALUE)
     lateinit var itemID: String

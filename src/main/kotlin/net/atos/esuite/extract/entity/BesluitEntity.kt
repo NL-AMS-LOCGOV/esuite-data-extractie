@@ -15,7 +15,7 @@ class BesluitEntity {
 
     @Id
     @Column(name = "id_besluit")
-    lateinit var identifier: java.lang.Long
+    var identifier: Long = 0
 
     // Functionele identificatie van het besluit
     @Column(name = "id_functioneel", unique = true, length = 128)

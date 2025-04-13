@@ -10,12 +10,10 @@ import jakarta.persistence.criteria.CriteriaQuery
 import jakarta.persistence.criteria.Root
 
 @ApplicationScoped
-class ZaakRepository(
-    private val zaaktypeReposotory: ZaaktypeRepository,
-) : PanacheRepository<ZaakEntity> {
+class ZaakRepository() : PanacheRepository<ZaakEntity> {
 
     companion object {
-        private const val ZAAKTYPE_ID_PREFIX = "ZTC2:"
+        const val ZAAKTYPE_ID_PREFIX = "ZTC2:"
     }
 
     fun findByFunctioneleIdentificatie(functioneleIdentificatie: String) =

@@ -9,7 +9,7 @@ class ReferentieContactStatusEntity: AbstractReferentieLongIdEntity() {
 
     @Id
     @Column(name = "id_contactstatus")
-    lateinit var identifier: java.lang.Long
+    var identifier: Long = 0
 
     @Column(name = "status_type")
     @Enumerated(EnumType.STRING)

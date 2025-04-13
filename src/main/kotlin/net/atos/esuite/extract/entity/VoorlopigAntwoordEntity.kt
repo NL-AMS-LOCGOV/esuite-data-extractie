@@ -12,7 +12,7 @@ class VoorlopigAntwoordEntity {
 
     @Id
     @Column(name = "id_voorlopigantwoord")
-    lateinit var identifier: java.lang.Long
+    var identifier: Long = 0
 
     @Column(name = "antwoord")
     @Lob

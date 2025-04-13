@@ -9,7 +9,7 @@ class ZaakBAGObjectEntity {
 
     @Id
     @Column(name = "id_zaak_object")
-    lateinit var identifier: java.lang.Long
+    var identifier: Long = 0
 
     @Column(name = "id_object", length = 128)
     lateinit var bagObjectId: String

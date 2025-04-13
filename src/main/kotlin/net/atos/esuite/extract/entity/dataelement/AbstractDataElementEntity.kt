@@ -11,7 +11,7 @@ abstract class AbstractDataElementEntity {
 
     @Id
     @Column(name = "id_dataelement")
-    lateinit var id: java.lang.Long
+    var id: Long = 0
 
     // De sleutel van de key,value pair
     @Column(name = "sleutel", length = 255)

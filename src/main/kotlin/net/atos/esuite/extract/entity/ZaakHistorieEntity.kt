@@ -9,7 +9,7 @@ class ZaakHistorieEntity: AbstractHistoryEntity() {
 
     @Id
     @Column(name = "id_zaakhistorie")
-    lateinit var identifier: java.lang.Long
+    var identifier: Long = 0
 
     // Naam type wijziging
     @Column(name = "typewijziging", length = 64)

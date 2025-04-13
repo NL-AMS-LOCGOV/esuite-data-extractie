@@ -1,7 +1,6 @@
 package net.atos.esuite.extract.entity
 
 import jakarta.persistence.*
-import org.hibernate.annotations.Formula
 import java.time.Instant
 import java.time.LocalDate
 
@@ -12,7 +11,7 @@ class TaakEntity {
 
     @Id
     @Column(name = "id_taak")
-    lateinit var identifier: java.lang.Long
+    var identifier: Long = 0
 
     @Column(name = "id_afdeling", length = 128)
     var afdelingId: String? = null

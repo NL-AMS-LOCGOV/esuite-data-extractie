@@ -10,7 +10,7 @@ class DocumenthistorieEntity: AbstractHistoryEntity() {
 
     @Id
     @Column(name = "id_documenthistorie")
-    lateinit var identifier: java.lang.Long
+    var identifier: Long = 0
 
     @ManyToOne
     @JoinColumn(name = "id_document", referencedColumnName = "id_document")
