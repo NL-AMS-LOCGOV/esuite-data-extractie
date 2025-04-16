@@ -38,8 +38,8 @@ class Zaken(
         return ok(
             ZaakResults(
                 count = totaalAantalZaken,
-                nextPage = null,
-                previousPage = null,
+                previousPage = if (bladerParameters.page > 0) bladerParameters.page - 1 else null,
+                nextPage = if (totaalAantalZaken > (bladerParameters.page + 1) * bladerParameters.pageSize) bladerParameters.page + 1 else null,
                 results = zaken.map { zaakConverter.toZaak(it) },
             )
         ).build()

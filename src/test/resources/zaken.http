@@ -1,8 +1,23 @@
 ### GET request to example server
 GET localhost:8080/zaken?zaaktype=MigratieTest1
 
+### GET request to example server
+GET localhost:8080/zaken?zaaktype=MigratieTest1&page=1
+
+### GET request to example server
+GET localhost:8080/zaken?zaaktype=MigratieTest1&page=2
+
 ### Zaak met besluit.
 GET localhost:8080/zaken/12-2023
 
 ### Zaak met documenten
 GET localhost:8080/zaken/182-2025
+
+### Zaak met documenten
+GET localhost:8080/zaken/2011-2019
+
+### Zaak met archiveerGegevens.overgebrachteGegevens
+GET localhost:8080/zaken/3783-2016
+
+### Zaak met archiveerGegevens
+GET localhost:8080/zaken/116-2025

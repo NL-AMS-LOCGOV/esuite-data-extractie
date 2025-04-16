@@ -19,8 +19,8 @@ class ArchiveerGegevens (
     @field:Schema(description = "", maxLength = 255)
     val overbrengenNaar: String?,
 
-    @field:Schema(description = "")
-    val overbrengenDoor: Medewerker?,
+    @field:Schema(description = "Gebruikernaam van medewerker", maxLength = 128)
+    val overbrengenDoor: String?,
 
     @field:Schema(description = "")
     val overgebrachteGegevens: OvergebrachteGegevens?,

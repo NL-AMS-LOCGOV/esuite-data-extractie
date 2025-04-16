@@ -30,5 +30,4 @@ abstract class AbstractHistoryEntity {
     @Lob
     @JdbcTypeCode(SqlTypes.LONGVARCHAR)
     var toelichting: String? = null
-
 }

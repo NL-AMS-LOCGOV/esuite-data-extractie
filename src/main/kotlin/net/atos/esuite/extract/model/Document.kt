@@ -1,3 +1,5 @@
 package net.atos.esuite.extract.model
 
-class Document ()
+class Document {
+    // ToDo: Creer inhoud
+}

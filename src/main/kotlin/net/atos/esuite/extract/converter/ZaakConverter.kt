@@ -1,64 +1,66 @@
 package net.atos.esuite.extract.converter
 
 import jakarta.enterprise.context.ApplicationScoped
-import net.atos.esuite.extract.entity.zakenmagazijn.BesluitEntity
-import net.atos.esuite.extract.entity.zakenmagazijn.ReferentieResultaatEntity
-import net.atos.esuite.extract.entity.zakenmagazijn.ReferentieZaakStatusEntity
-import net.atos.esuite.extract.entity.zakenmagazijn.ZaakEntity
+import net.atos.esuite.extract.entity.zakenmagazijn.*
 import net.atos.esuite.extract.model.*
-import net.atos.esuite.extract.repository.ResultaatRepository
+import net.atos.esuite.extract.repository.*
 import net.atos.esuite.extract.repository.ZaakRepository.Companion.ZAAKTYPE_ID_PREFIX
-import net.atos.esuite.extract.repository.ZaakStatusRepository
-import java.time.LocalDate
-import java.time.ZoneId
-import java.time.ZonedDateTime
 
 @ApplicationScoped
 class ZaakConverter(
     private val zaakStatusRepository: ZaakStatusRepository,
     private val resultaatRepository: ResultaatRepository,
+    private val zaaktypeRepository: ZaaktypeRepository,
 ) {
     fun toZaak(zaakEntity: ZaakEntity) =
         Zaak(
-            functioneleIdentificatie = zaakEntity.functioneelId,
-            externeIdentificatie = zaakEntity.externFunctioneelId,
-            omschrijving = zaakEntity.omschrijving,
-            redenStart = zaakEntity.redenStartZaak,
-            zaaktype = Zaaktype("", ""),
-            isVertrouwelijk = zaakEntity.indicatieVertrouwelijk,
-            isIntake = zaakEntity.indicatieIntake,
-            isHeropend = zaakEntity.indicatieHeropend,
-            isVernietiging = zaakEntity.inVernietiging,
-            isProcesGestart = zaakEntity.procesGestart,
-            behandelaar = null,
-            afdeling = null,
-            groep = null,
-            aangemaaktDoor = Medewerker("", ""),
-            kanaal = zaakEntity.kanaal?.naam,
-            creatieTijdstip = ZonedDateTime.ofInstant(zaakEntity.creatiedatum, ZoneId.of("Europe/Amsterdam")),
-            wijzigTijdstip = ZonedDateTime.now(),
-            startdatum = LocalDate.now(),
-            streefdatum = LocalDate.now(),
-            fataledatum = null,
-            einddatum = null,
-            status = toZaakstatus(zaakEntity.statusId),
-            resultaat = zaakEntity.resultaatId?.let { toResultaat(it) },
-            betaalgegevens = null,
-            archiveerGegevens = null,
-            geolocatie = null,
-            opschorttermijn = null,
-            organisatie = null,
-            historie = null,
-            notities = null,
-            details = null,
-            geautoriseerdeMedewerkers = null,
+            aangemaaktDoor = zaakEntity.aangemaaktDoorId,
+            afdeling = zaakEntity.afdelingId,
+            archiveerGegevens = zaakEntity.archiveergegevens?.toArchiveergegevens(),
+            bagObjecten = zaakEntity.gekoppeldeBAGObjecten.map { it.toBAGObject() }.ifEmpty { null },
+            behandelaar = zaakEntity.behandelaarId,
             besluiten = zaakEntity.besluiten.map { it.toBesluit() }.ifEmpty { null },
-            documenten = null,
-            bagObjecten = null,
-            betrokkenen = null,
-            taken = null,
-            gekoppeldeZaken = null,
+            betaalgegevens = zaakEntity.betaalgegevens?.toBetaalgegevens(),
+            betrokkenen = zaakEntity.betrokkenen.map { it.toZaakBetrokkene() }.ifEmpty { null },
+            contacten = zaakEntity.contacten.map { it.toContact() }.ifEmpty { null },
+            creatieTijdstip = zaakEntity.creatiedatum.toZonedDateTime(),
+            documenten = zaakEntity.documenten.map { it.toDocument() }.ifEmpty { null },
+            einddatum = zaakEntity.einddatum,
+            externeIdentificatie = zaakEntity.externFunctioneelId,
+            fataledatum = zaakEntity.fataledatum,
+            functioneleIdentificatie = zaakEntity.functioneelId,
+            geautoriseerdeMedewerkers = zaakEntity.geautoriseerdeMedewerkers.ifEmpty { null },
+            gekoppeldeZaken = zaakEntity.relatieZaken.map { it.toGekoppeldeZaak() }.ifEmpty { null },
+            geolocatie = null, // ToDo: Converteer geo gegevens
+            groep = zaakEntity.groepId,
+            historie = zaakEntity.historie.map { it.toZaakHistorie() },
+            isGeautoriseerdVoorMedewerkers = zaakEntity.autorisatie,
+            isHeropend = zaakEntity.indicatieHeropend,
+            isIntake = zaakEntity.indicatieIntake,
+            isProcesGestart = zaakEntity.procesGestart,
+            isVernietiging = zaakEntity.inVernietiging,
+            isVertrouwelijk = zaakEntity.indicatieVertrouwelijk,
+            kanaal = zaakEntity.kanaal.toKanaal(),
+            notities = zaakEntity.notities.map { it.toZaakNotitie() }.ifEmpty { null },
+            omschrijving = zaakEntity.omschrijving,
+            opschorttermijnEinddatum = zaakEntity.opschorttermijnEinddatum,
+            opschorttermijnStartdatum = zaakEntity.opschorttermijnStartdatum,
+            organisatie = zaakEntity.organisatie?.naam,
+            redenStart = zaakEntity.redenStartZaak,
+            resultaat = zaakEntity.resultaatId?.let { toResultaat(it) },
+            startdatum = zaakEntity.startdatum,
+            status = toZaakstatus(zaakEntity.statusId),
+            streefdatum = zaakEntity.streefdatum,
+            taken = zaakEntity.taken.map { it.toTaak() }.ifEmpty { null },
+            wijzigTijdstip = zaakEntity.wijzigdatum?.toZonedDateTime(),
+            zaakdata = zaakEntity.zaakdataElementen.map { it.toZaakData() }.ifEmpty { null },
+            zaaktype = toZaaktype(zaakEntity.zaaktypeId),
         )
+
+    private fun toZaaktype(zaaktypeId: String) =
+        zaaktypeRepository.findById(zaaktypeId.substringAfter(ZAAKTYPE_ID_PREFIX).toLong())
+            ?.toZaaktype()
+            ?: error("Zaaktype with id $zaaktypeId not found")
 
     private fun toResultaat(resultaatId: String) =
         resultaatRepository.findById(resultaatId.substringAfter(ZAAKTYPE_ID_PREFIX).toLong())
@@ -71,22 +73,3 @@ class ZaakConverter(
             ?: error("Zaakstatus with id $statusId not found")
 }
 
-private fun ReferentieZaakStatusEntity.toZaakstatus() =
-    Zaakstatus(
-        naam = naam,
-        omschrijving = omschrijving,
-        uitwisselingscode = uitwisselingsCode,
-        externeNaam = externeNaam,
-    )
-
-private fun ReferentieResultaatEntity.toResultaat() =
-    Resultaat(
-        naam = naam,
-        omschrijving = omschrijving,
-        uitwisselingscode = uitwisselingsCode,
-    )
-
-private fun BesluitEntity.toBesluit() =
-    Besluit(
-        besluitDatum = besluitdatum
-    )

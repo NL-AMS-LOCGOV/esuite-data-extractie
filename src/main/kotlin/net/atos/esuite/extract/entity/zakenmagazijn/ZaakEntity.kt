@@ -30,7 +30,7 @@ class ZaakEntity {
 
     @OneToOne
     @JoinColumn(name = "id_kanaal", referencedColumnName = "id_kanaal")
-    var kanaal: ReferentieKanaalEntity? = null
+    lateinit var kanaal: ReferentieKanaalEntity
 
     // Afdeling waar zaak in behandeling is
     @Column(name = "id_afdeling", length = 128)
@@ -50,7 +50,7 @@ class ZaakEntity {
 
     // Medewerker die de zaak heeft aangemaakt
     @Column(name = "id_aangemaaktdoor", length = 64)
-    var aangemaaktDoorId: String? = null
+    lateinit var aangemaaktDoorId: String
 
     @Column(name = "id_zaakstatus", length = 255)
     lateinit var statusId: String
@@ -114,9 +114,6 @@ class ZaakEntity {
     @Column(name = "ind_in_vernietiging")
     var inVernietiging = false
 
-    @Column(name = "notificeerbaar")
-    var notificeerbaar = false
-
     @OneToMany(mappedBy = "zaak")
     var taken: MutableSet<TaakEntity> = mutableSetOf()
 
@@ -148,9 +145,9 @@ class ZaakEntity {
     var documenten: MutableSet<DocumentEntity> = mutableSetOf()
 
     @OneToMany(mappedBy = "zaak")
-    var zaakdataElementen: MutableSet<net.atos.esuite.extract.entity.zakenmagazijn.dataelement.AbstractDataElementEntity> = mutableSetOf()
+    var zaakdataElementen: MutableSet<AbstractDataElementEntity> = mutableSetOf()
 
-    // ToDo: Locatie van de zaak gedefinieerd als een valide WKT representatie string
+    // Locatie van de zaak gedefinieerd als een valide WKT representatie string
     @Column(name = "geolocatie", length = Int.MAX_VALUE)
     var geolocatie: String? = null
 

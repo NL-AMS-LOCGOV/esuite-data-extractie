@@ -1,15 +1,15 @@
 package net.atos.esuite.extract.model
 
 import org.eclipse.microprofile.openapi.annotations.media.Schema
-import java.time.ZonedDateTime
+import java.time.LocalDate
 
 class OvergebrachteGegevens (
-    @field:Schema(description = "")
-    val overgebrachtOp: ZonedDateTime,
+    @field:Schema(description = "Datum waarop de zaak is overgebracht", implementation = LocalDate::class)
+    val overgebrachtOp: LocalDate,
 
-    @field:Schema(description = "")
-    val overgebrachtDoor: Medewerker,
+    @field:Schema(description = "Gebruikersnaam van medewerker die de zaak heeft overgebracht", maxLength = 128)
+    val overgebrachtDoor: String,
 
-    @field:Schema(description = "", maxLength = 255)
+    @field:Schema(description = "Locatie/instantie waarnaar de zaak is overgebracht", maxLength = 255)
     val overgebrachtNaar: String,
     )

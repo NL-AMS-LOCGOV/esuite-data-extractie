@@ -3,11 +3,11 @@ package net.atos.esuite.extract.repository
 import io.quarkus.hibernate.orm.panache.kotlin.PanacheRepository
 import jakarta.enterprise.context.ApplicationScoped
 import net.atos.esuite.extract.entity.zakenmagazijn.ZaakEntity
-import net.atos.esuite.extract.entity.zakenmagazijn.ZaaktypeEntity
 import jakarta.persistence.EntityManager
 import jakarta.persistence.criteria.CriteriaBuilder
 import jakarta.persistence.criteria.CriteriaQuery
 import jakarta.persistence.criteria.Root
+import net.atos.esuite.extract.entity.zakenmagazijn.ReferentieZaakTypeEntity
 
 @ApplicationScoped
 class ZaakRepository() : PanacheRepository<ZaakEntity> {
@@ -69,7 +69,7 @@ class ZaakRepository() : PanacheRepository<ZaakEntity> {
         zaaktypeFunctioneelId: String
     ) {
         val zaaktypeSubquery = query.subquery(String::class.java)
-        val zaaktypeRoot = zaaktypeSubquery.from(ZaaktypeEntity::class.java)
+        val zaaktypeRoot = zaaktypeSubquery.from(ReferentieZaakTypeEntity::class.java)
         zaaktypeSubquery
             .select(
                 cb.concat(

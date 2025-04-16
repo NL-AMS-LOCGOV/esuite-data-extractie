@@ -1,5 +1,5 @@
 package net.atos.esuite.extract.model
 
-class BAGObject {
+class Contact {
     // ToDo: Creeer inhoud
 }

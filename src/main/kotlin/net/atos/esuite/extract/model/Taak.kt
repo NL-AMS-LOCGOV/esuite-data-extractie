@@ -1,3 +1,5 @@
 package net.atos.esuite.extract.model
 
-class Taak ()
+class Taak () {
+    // ToDo: Creeer inhoud
+}

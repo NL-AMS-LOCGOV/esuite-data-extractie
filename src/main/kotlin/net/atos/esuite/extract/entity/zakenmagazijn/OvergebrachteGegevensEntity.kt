@@ -8,14 +8,14 @@ class OvergebrachteGegevensEntity {
 
     // Datum waarop de zaak is overgebracht
     @Column(name = "archief_overgebracht_op")
-    var overgebrachtOp: LocalDate? = null
+    lateinit var overgebrachtOp: LocalDate
 
     // Locatie/instantie waarnaar de zaak overgebracht is
     @Column(name = "archief_overgebracht_naar", length = 255)
-    var overgebrachtNaar: String? = null
+    lateinit var overgebrachtNaar: String
 
     // Naam medewerker die de zaak heeft overgebracht
     @Column(name = "archief_overgebracht_door", length = 128)
-    var overgebrachtDoor: String? = null
+    lateinit var overgebrachtDoor: String
 
 }

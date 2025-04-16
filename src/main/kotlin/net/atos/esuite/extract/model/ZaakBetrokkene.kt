@@ -1,3 +1,5 @@
 package net.atos.esuite.extract.model
 
-class ZaakBetrokkene ()
+class ZaakBetrokkene () {
+    // ToDo: Creeer inhoud
+}
