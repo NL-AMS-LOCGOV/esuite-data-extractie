@@ -107,7 +107,9 @@ fun DocumentEntity.toDocument() =
     Document()
 
 fun ZaakBAGObjectEntity.toBAGObject() =
-    BAGObject()
+    BAGObject(
+        bagObjectId = bagObjectId,
+    )
 
 fun ZaakBetrokkeneEntity.toZaakBetrokkene() =
     ZaakBetrokkene()
@@ -115,8 +117,14 @@ fun ZaakBetrokkeneEntity.toZaakBetrokkene() =
 fun TaakEntity.toTaak() =
     Taak()
 
-fun ZaakZaakEntity.toGekoppeldeZaak() =
-    GekoppeldeZaak()
-
 fun ZaakContactEntity.toContact() =
     Contact()
+
+fun ReferentieZaaRelatietypeEntity.toZaakRelatietype() =
+    ZaakRelatietype(
+        naam = naam,
+        omschrijving = omschrijving,
+        indicatieHoofdrelatie = indicatieHoofdrelatie,
+        inverseNaam = inverseZaakrelatietype.naam,
+        inverseOmschrijving = inverseZaakrelatietype.omschrijving,
+    )

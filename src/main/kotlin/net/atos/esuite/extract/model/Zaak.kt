@@ -117,7 +117,7 @@ class Zaak(
     val bagObjecten: List<BAGObject>?,
 
     @field:Schema(description = "Zaken gekoppeld aan zaak")
-    val gekoppeldeZaken: List<GekoppeldeZaak>?,
+    val gekoppeldeZaken: List<ZaakZaakKoppeling>?,
 
     @field:Schema(description = "Documenen gerelateerd aan zaak")
     val documenten: List<Document>?,

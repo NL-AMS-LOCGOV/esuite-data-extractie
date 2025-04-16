@@ -11,6 +11,7 @@ class ZaakConverter(
     private val zaakStatusRepository: ZaakStatusRepository,
     private val resultaatRepository: ResultaatRepository,
     private val zaaktypeRepository: ZaaktypeRepository,
+    private val zaakRelatietypeRepository: ZaakRelatietypeRepository,
 ) {
     fun toZaak(zaakEntity: ZaakEntity) =
         Zaak(
@@ -30,7 +31,7 @@ class ZaakConverter(
             fataledatum = zaakEntity.fataledatum,
             functioneleIdentificatie = zaakEntity.functioneelId,
             geautoriseerdeMedewerkers = zaakEntity.geautoriseerdeMedewerkers.ifEmpty { null },
-            gekoppeldeZaken = zaakEntity.relatieZaken.map { it.toGekoppeldeZaak() }.ifEmpty { null },
+            gekoppeldeZaken = zaakEntity.relatieZaken.map { toZaakZaakKoppeling(it) }.ifEmpty { null },
             geolocatie = null, // ToDo: Converteer geo gegevens
             groep = zaakEntity.groepId,
             historie = zaakEntity.historie.map { it.toZaakHistorie() },
@@ -71,5 +72,12 @@ class ZaakConverter(
         zaakStatusRepository.findById(statusId.substringAfter(ZAAKTYPE_ID_PREFIX).toLong())
             ?.toZaakstatus()
             ?: error("Zaakstatus with id $statusId not found")
+
+    private fun toZaakZaakKoppeling(zaakZaakEntity: ZaakZaakEntity) =
+        ZaakZaakKoppeling(
+            gekoppeldeZaak = zaakZaakEntity.zaak.functioneelId,
+            isDossierEigenaar = zaakZaakEntity.dossierEigenaar,
+            relatietype = zaakRelatietypeRepository.findById(zaakZaakEntity.relatietypeId)?.toZaakRelatietype(),
+        )
 }
 
