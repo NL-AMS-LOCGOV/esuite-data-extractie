@@ -128,3 +128,4 @@ fun ReferentieZaaRelatietypeEntity.toZaakRelatietype() =
         inverseNaam = inverseZaakrelatietype.naam,
         inverseOmschrijving = inverseZaakrelatietype.omschrijving,
     )
+
