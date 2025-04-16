@@ -1,9 +1,9 @@
 package net.atos.esuite.extract.model
 
-class Kanaal(
+class DocumentStatus(
     naam: String,
     omschrijving: String?
 ) : AbstractReferentie(
     naam = naam,
-    omschrijving = omschrijving,
+    omschrijving = omschrijving
 )

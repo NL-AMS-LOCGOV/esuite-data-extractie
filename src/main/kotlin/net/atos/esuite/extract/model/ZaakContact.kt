@@ -1,5 +1,5 @@
 package net.atos.esuite.extract.model
 
-class Contact {
+class ZaakContact {
     // ToDo: Creeer inhoud
 }

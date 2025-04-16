@@ -18,7 +18,7 @@ class DocumentEntity {
     lateinit var idFunctioneel: String
 
     @Column(name = "documentvorm_id", length = 255)
-    lateinit var documentvormId: String
+    var documentvormId: String? = null
 
     @Column(name = "documenttype_id", length = 255)
     lateinit var documenttypeId: String
@@ -98,7 +98,7 @@ class DocumentEntity {
 
     @ManyToOne
     @JoinColumn(name = "id_taak", referencedColumnName = "id_taak")
-    lateinit var taak: TaakEntity
+    var taak: TaakEntity? = null
 
     @OneToMany(mappedBy = "document")
     @OrderBy("identifier desc")
@@ -128,7 +128,7 @@ class DocumentEntity {
         joinColumns = [JoinColumn(name = "id_document")]
     )
     @Column(name = "medewerker")
-    var geautoriseerdeMedewerkers: MutableSet<String>? = mutableSetOf()
+    var geautoriseerdeMedewerkers: MutableSet<String> = mutableSetOf()
 
     // Of autorisatie op dit element aan of uit staat
     @Column(name = "autorisatie")
@@ -137,5 +137,4 @@ class DocumentEntity {
     // Indicatie of het document omgezet moet worden naar pdfa
     @Column(name = "converteren_naar_pdfa")
     var converterenNaarPdfa = false
-
 }

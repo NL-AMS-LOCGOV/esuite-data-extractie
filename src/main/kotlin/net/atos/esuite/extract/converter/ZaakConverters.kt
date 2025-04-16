@@ -103,9 +103,6 @@ fun ZaakNotitieEntity.toZaakNotitie() =
 fun AbstractDataElementEntity.toZaakData() =
     ZaakData()
 
-fun DocumentEntity.toDocument() =
-    Document()
-
 fun ZaakBAGObjectEntity.toBAGObject() =
     BAGObject(
         bagObjectId = bagObjectId,
@@ -117,15 +114,20 @@ fun ZaakBetrokkeneEntity.toZaakBetrokkene() =
 fun TaakEntity.toTaak() =
     Taak()
 
-fun ZaakContactEntity.toContact() =
-    Contact()
+fun ZaakContactEntity.toZaakContact() =
+    ZaakContact()
 
-fun ReferentieZaaRelatietypeEntity.toZaakRelatietype() =
-    ZaakRelatietype(
-        naam = naam,
-        omschrijving = omschrijving,
-        indicatieHoofdrelatie = indicatieHoofdrelatie,
-        inverseNaam = inverseZaakrelatietype.naam,
-        inverseOmschrijving = inverseZaakrelatietype.omschrijving,
+fun ZaakZaakEntity.toZaakZaakKoppeling() =
+    ZaakZaakKoppeling(
+        isDossierEigenaar = dossierEigenaar,
+        gekoppeldeZaak = zaak.functioneelId,
+        relatietype = when (relatietypeId) {
+            "HZ" -> ZaakRelatietype.hoofdzaak
+            "DZ" -> ZaakRelatietype.deelzaak
+            "GZ" -> ZaakRelatietype.gerelateerde_zaak
+            "VAZ" -> ZaakRelatietype.voorafgaande_zaak
+            "VVZ" -> ZaakRelatietype.vervolgzaak
+            else -> error("Invalid relatietypeId: $relatietypeId")
+        }
     )
 

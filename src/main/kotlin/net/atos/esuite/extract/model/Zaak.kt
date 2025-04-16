@@ -39,10 +39,10 @@ class Zaak(
     val kanaal: Kanaal,
 
     @field:Schema(description = "Tijdstip waarop zaak is aangemaakt", implementation = ZonedDateTime::class)
-    val creatieTijdstip: ZonedDateTime,
+    val creatieDatumTijd: ZonedDateTime,
 
     @field:Schema(description = "Meest recente tijdstip waarop zaak is gewijzigd", implementation = ZonedDateTime::class )
-    val wijzigTijdstip: ZonedDateTime?,
+    val wijzigDatumTijd: ZonedDateTime?,
 
     @field:Schema(description = "Datum waarop behandeling van zaak gestart is", implementation = LocalDate::class)
     val startdatum: LocalDate?,
@@ -57,7 +57,7 @@ class Zaak(
     val einddatum: LocalDate?,
 
     @field:Schema(description = "Huidige status van zaak")
-    val status: Zaakstatus,
+    val zaakStatus: Zaakstatus,
 
     @field:Schema(description = "Resultaat van zaak")
     val resultaat: Resultaat?,
@@ -89,7 +89,7 @@ class Zaak(
     @field:Schema(description = "Einddatum van een nu lopende opschorttermijn", implementation = LocalDate::class)
     val opschorttermijnEinddatum: LocalDate? = null,
 
-    @field:Schema(description = "Betreft dit een zaak met specifieke medewerker autorisatie")
+    @field:Schema(description = "Betreft dit een zaak met specifieke medewerker autorisatie", required = true)
     val isGeautoriseerdVoorMedewerkers: Boolean,
 
     @field:Schema(description = "Gebruikersnamen van medewerkers welke zijn geautoriseerd voor zaak")
@@ -126,5 +126,5 @@ class Zaak(
     val besluiten: List<Besluit>?,
 
     @field:Schema(description = "Contacten gerelateerd aan zaak")
-    val contacten: List<Contact>?,
+    val contacten: List<ZaakContact>?,
     )

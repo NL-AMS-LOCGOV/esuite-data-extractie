@@ -28,9 +28,11 @@ class Zaken(
     )
     fun zaakList(
         @QueryParam("zaaktype")
-        @Schema(description = "Zaaktype naam", maxLength = 255, required = true) zaaktype: String,
+        @Schema(description = "Zaaktype naam", maxLength = 255, required = true)
+        zaaktype: String,
 
-        @BeanParam bladerParameters: BladerParameters
+        @BeanParam
+        bladerParameters: BladerParameters
     ): Response {
         val (zaken, totaalAantalZaken) = zaakRepository.listByZaaktypeFunctioneelId(
             zaaktype, bladerParameters.page, bladerParameters.pageSize
