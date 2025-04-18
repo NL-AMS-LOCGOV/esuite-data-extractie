@@ -10,7 +10,7 @@ import jakarta.persistence.criteria.Root
 import net.atos.esuite.extract.entity.zakenmagazijn.ReferentieZaakTypeEntity
 
 @ApplicationScoped
-class ZaakRepository() : PanacheRepository<ZaakEntity> {
+class ZaakRepository : PanacheRepository<ZaakEntity> {
 
     companion object {
         const val ZAAKTYPE_ID_PREFIX = "ZTC2:"

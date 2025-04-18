@@ -40,3 +40,10 @@ fun DocumenthistorieEntity.toDocumentHistorie() =
 fun DocumentPublicatieEntity.toDocumentPublicatie() =
     DocumentPublicatie()
 
+fun ReferentieTaalEntity.toTaal() =
+    Taal(
+        naam = naam,
+        omschrijving = omschrijving,
+        functioneelId = functioneelId,
+    )
+
