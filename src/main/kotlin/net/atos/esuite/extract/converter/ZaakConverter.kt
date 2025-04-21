@@ -58,6 +58,12 @@ class ZaakConverter(
             zaaktype = toZaaktype(zaakEntity.zaaktypeId),
         )
 
+    fun toZaakOverzicht(zaakEntity: ZaakEntity) =
+        ZaakOverzicht(
+            functioneleIdentificatie = zaakEntity.functioneelId,
+            zaaktype = toZaaktype(zaakEntity.zaaktypeId),
+        )
+
     private fun toZaaktype(zaaktypeId: String) =
         zaaktypeRepository.findById(zaaktypeId.substringAfter(ZAAKTYPE_ID_PREFIX).toLong())
             ?.toZaaktype()

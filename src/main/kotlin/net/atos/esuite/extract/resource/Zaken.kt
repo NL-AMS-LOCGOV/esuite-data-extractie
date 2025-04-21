@@ -21,12 +21,12 @@ class Zaken(
 ) {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Operation(operationId = "zaak_list", summary = "Lijst van zaken opvragen")
+    @Operation(operationId = "zaak_list", summary = "Lijst van zaak overzichten opvragen")
     @APIResponse(
         responseCode = "200", description = "OK",
         content = [Content(schema = Schema(implementation = ZaakResults::class))]
     )
-    fun zaakList(
+    fun zaakOverzichtList(
         @QueryParam("zaaktype")
         @Schema(description = "Zaaktype naam", maxLength = 255, required = true)
         zaaktype: String,
@@ -42,7 +42,7 @@ class Zaken(
                 count = totaalAantalZaken,
                 previousPage = if (bladerParameters.page > 0) bladerParameters.page - 1 else null,
                 nextPage = if (totaalAantalZaken > (bladerParameters.page + 1) * bladerParameters.pageSize) bladerParameters.page + 1 else null,
-                results = zaken.map { zaakConverter.toZaak(it) },
+                results = zaken.map { zaakConverter.toZaakOverzicht(it) },
             )
         ).build()
     }
