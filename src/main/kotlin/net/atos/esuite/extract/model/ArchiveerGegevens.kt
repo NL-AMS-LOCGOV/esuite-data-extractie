@@ -26,7 +26,7 @@ class ArchiveerGegevens (
     val overgebrachteGegevens: OvergebrachteGegevens?,
 
     @field:Schema(description = "")
-    val isBeperkingOpenbaarheid: Boolean?,
+    val beperkingOpenbaarheid: Boolean?,
 
     @field:Schema(description = "")
     val beperkingOpenbaarheidReden: String?,

@@ -42,7 +42,7 @@ class Document(
     val documentVersturenDatum: LocalDate?,
 
     @field:Schema(description = "Is dit document een aanvraag document", required = true)
-    val isAanvraagDocument: Boolean,
+    val aanvraagDocument: Boolean,
 
     @field:Schema(description = "Datum ontvangst document", implementation = LocalDate::class)
     val ontvangstDatum: LocalDate?,
@@ -93,12 +93,12 @@ class Document(
     val geautoriseerdeMedewerkers: Set<String>?,
 
     @field:Schema(description = "Betreft dit een document met specifieke medewerker autorisatie", required = true)
-    val isGeautoriseerdVoorMedewerkers: Boolean,
+    val geautoriseerdVoorMedewerkers: Boolean,
 
     @field:Schema(description = "Indicatie of het document omgezet moet worden naar pdfa", required = true)
     val converterenNaarPdfa: Boolean,
 ) {
-    val isLocked: Boolean
-        @Schema(name = "isLocked", description = "Is document gelocked", required = true)
+    val locked: Boolean
+        @Schema(description = "Is document gelocked", required = true)
         get() = lockEigenaarId != null
 }

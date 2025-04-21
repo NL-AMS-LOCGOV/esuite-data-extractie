@@ -21,7 +21,7 @@ class Zaak(
     val zaaktype: Zaaktype,
 
     @field:Schema(description = "Is zaak vertrouwelijk", required = true)
-    val isVertrouwelijk: Boolean,
+    val vertrouwelijk: Boolean,
 
     @field:Schema(description = "Gebruikersnaam van behandelaar van zaak", maxLength = 64)
     val behandelaar: String?,
@@ -66,7 +66,7 @@ class Zaak(
     val betaalgegevens: Betaalgegevens?,
 
     @field:Schema(description = "Is zaak een intake", required = true)
-    val isIntake: Boolean,
+    val intake: Boolean,
 
     @field:Schema(description = "Archiveer gegevens van zaak")
     val archiveerGegevens: ArchiveerGegevens?,
@@ -90,7 +90,7 @@ class Zaak(
     val opschorttermijnEinddatum: LocalDate? = null,
 
     @field:Schema(description = "Betreft dit een zaak met specifieke medewerker autorisatie", required = true)
-    val isGeautoriseerdVoorMedewerkers: Boolean,
+    val geautoriseerdVoorMedewerkers: Boolean,
 
     @field:Schema(description = "Gebruikersnamen van medewerkers welke zijn geautoriseerd voor zaak")
     val geautoriseerdeMedewerkers: Set<String>?,
@@ -99,13 +99,13 @@ class Zaak(
     val notities: List<ZaakNotitie>?,
 
     @field:Schema(description = "Is voor zaak afhandeling een proces gestart", required = true)
-    val isProcesGestart: Boolean,
+    val procesGestart: Boolean,
 
     @field:Schema(description = "Is zaak heropend nadat de zaak was beëindigd", required = true)
-    val isHeropend: Boolean,
+    val heropend: Boolean,
 
     @field:Schema(description = "Is zaak in vernietiging", required = true)
-    val isVernietiging: Boolean,
+    val vernietiging: Boolean,
 
     @field:Schema(description = "Taken gerelateerd aan zaak")
     val taken: List<Taak>?,

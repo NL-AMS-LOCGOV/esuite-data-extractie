@@ -12,6 +12,7 @@ class ZaakConverter(
     private val resultaatRepository: ResultaatRepository,
     private val zaaktypeRepository: ZaaktypeRepository,
     private val documentConverter: DocumentConverter,
+    private val besluittypeRepository: BesluittypeRepository,
 ) {
     fun toZaak(zaakEntity: ZaakEntity) =
         Zaak(
@@ -20,7 +21,7 @@ class ZaakConverter(
             archiveerGegevens = zaakEntity.archiveergegevens?.toArchiveergegevens(),
             bagObjecten = zaakEntity.gekoppeldeBAGObjecten.map { it.toBAGObject() }.ifEmpty { null },
             behandelaar = zaakEntity.behandelaarId,
-            besluiten = zaakEntity.besluiten.map { it.toBesluit() }.ifEmpty { null },
+            besluiten = zaakEntity.besluiten.map { toBesluit(it) }.ifEmpty { null },
             betaalgegevens = zaakEntity.betaalgegevens?.toBetaalgegevens(),
             betrokkenen = zaakEntity.betrokkenen.map { it.toZaakBetrokkene() }.ifEmpty { null },
             contacten = zaakEntity.contacten.map { it.toZaakContact() }.ifEmpty { null },
@@ -35,12 +36,12 @@ class ZaakConverter(
             geolocatie = null, // ToDo: Converteer geo gegevens
             groep = zaakEntity.groepId,
             historie = zaakEntity.historie.map { it.toZaakHistorie() },
-            isGeautoriseerdVoorMedewerkers = zaakEntity.autorisatie,
-            isHeropend = zaakEntity.indicatieHeropend,
-            isIntake = zaakEntity.indicatieIntake,
-            isProcesGestart = zaakEntity.procesGestart,
-            isVernietiging = zaakEntity.inVernietiging,
-            isVertrouwelijk = zaakEntity.indicatieVertrouwelijk,
+            geautoriseerdVoorMedewerkers = zaakEntity.autorisatie,
+            heropend = zaakEntity.indicatieHeropend,
+            intake = zaakEntity.indicatieIntake,
+            procesGestart = zaakEntity.procesGestart,
+            vernietiging = zaakEntity.inVernietiging,
+            vertrouwelijk = zaakEntity.indicatieVertrouwelijk,
             kanaal = zaakEntity.kanaal.toKanaal(),
             notities = zaakEntity.notities.map { it.toZaakNotitie() }.ifEmpty { null },
             omschrijving = zaakEntity.omschrijving,
@@ -78,5 +79,26 @@ class ZaakConverter(
         zaakStatusRepository.findById(statusId.substringAfter(ZAAKTYPE_ID_PREFIX).toLong())
             ?.toZaakstatus()
             ?: error("Zaakstatus with id $statusId not found")
+
+    private fun toBesluittype(besluittypeId: String) =
+        besluittypeRepository.findById(besluittypeId.substringAfter(ZAAKTYPE_ID_PREFIX).toLong())
+            ?.toBesluittype()
+            ?: error("Besluittype with id $besluittypeId not found")
+
+    private fun toBesluit(besluitEntity: BesluitEntity) =
+        Besluit(
+            functioneleIdentificatie = besluitEntity.functioneelId,
+            besluittype = toBesluittype(besluitEntity.besluittypeId),
+            besluitDatum = besluitEntity.besluitdatum,
+            functioneleIdentificatieDocument = besluitEntity.document?.idFunctioneel,
+            documenttype = besluitEntity.documenttypeId?.let { documentConverter.toDocumenttype(it) },
+            ingangsdatum = besluitEntity.ingangsdatum,
+            vervaldatum = besluitEntity.vervaldatum,
+            berekenVervaldatum = besluitEntity.berekenVervaldatum,
+            reactiedatum = besluitEntity.reactiedatum,
+            publicatiedatum = besluitEntity.publicatiedatum,
+            toelichting = besluitEntity.toelichting,
+            procestermijnInMaanden = besluitEntity.procestermijnInMaanden,
+        )
 }
 

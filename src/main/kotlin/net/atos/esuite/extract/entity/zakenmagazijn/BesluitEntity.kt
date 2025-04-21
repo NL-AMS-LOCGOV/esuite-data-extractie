@@ -30,9 +30,9 @@ class BesluitEntity {
 
     @ManyToOne
     @JoinColumn(name = "id_document", referencedColumnName = "id_document")
-    lateinit var document: DocumentEntity
+    var document: DocumentEntity? = null
 
-    @Column(name = "id_documenttype", length = 255)
+    @Column(name = "id_documenttype", length = 128)
     var documenttypeId: String? = null
 
     // Datum waarop het besluit is aangemaakt

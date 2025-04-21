@@ -11,5 +11,5 @@ class ZaakZaakKoppeling(
     val relatietype: ZaakRelatietype,
 
     @field:Schema(description = "Indicatie of zaak eigenaar is van zaakdossier voor gekoppelde zaak in het DMS", required = true)
-    val isDossierEigenaar: Boolean,
+    val dossierEigenaar: Boolean,
 )

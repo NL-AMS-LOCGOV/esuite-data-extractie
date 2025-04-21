@@ -27,9 +27,21 @@ fun ReferentieResultaatEntity.toResultaat() =
         uitwisselingscode = uitwisselingsCode,
     )
 
-fun BesluitEntity.toBesluit() =
-    Besluit(
-        besluitDatum = besluitdatum
+fun  ReferentieBesluitcategorieEntity.toBesluitcategory() =
+    Besluitcategorie(
+        naam = naam,
+        omschrijving = omschrijving,
+    )
+
+fun ReferentieBesluittypeEntity.toBesluittype() =
+    Besluittype(
+        naam = naam,
+        omschrijving = omschrijving,
+        besluitcategorie = besluitcategorie.toBesluitcategory(),
+        reactietermijnInDagen = reactietermijnInDagen,
+        publicatieIndicatie = publicatieIndicatie,
+        publicatietekst = publicatietekst,
+        publicatietermijnInDagen = publicatietermijnInDagen,
     )
 
 fun BetaalgegevensEntity.toBetaalgegevens() =
@@ -62,7 +74,7 @@ fun ArchiveergegevensEntity.toArchiveergegevens() =
         overbrengenOp = overbrengenOp,
         overbrengenNaar = overbrengenNaar,
         overbrengenDoor = overbrengenDoor,
-        isBeperkingOpenbaarheid = beperkingOpenbaarheid,
+        beperkingOpenbaarheid = beperkingOpenbaarheid,
         beperkingOpenbaarheidReden = beperkingOpenbaarheidReden,
         beperkingOpenbaarheidVanaf = beperkingOpenbaarheidVanaf,
         beperkingOpenbaarheidTotEnMet = beperkingOpenbaarheidTotEnMet,
@@ -119,7 +131,7 @@ fun ZaakContactEntity.toZaakContact() =
 
 fun ZaakZaakEntity.toZaakZaakKoppeling() =
     ZaakZaakKoppeling(
-        isDossierEigenaar = dossierEigenaar,
+        dossierEigenaar = dossierEigenaar,
         gekoppeldeZaak = zaak.functioneelId,
         relatietype = when (relatietypeId) {
             "HZ" -> ZaakRelatietype.hoofdzaak

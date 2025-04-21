@@ -8,6 +8,7 @@ import net.atos.esuite.extract.entity.zakenmagazijn.DocumentRichting
 import net.atos.esuite.extract.entity.zakenmagazijn.DocumentVersturen
 import net.atos.esuite.extract.model.Document
 import net.atos.esuite.extract.model.DocumentMetadata
+import net.atos.esuite.extract.model.MetadataElement
 import net.atos.esuite.extract.repository.DocumentStatusRepository
 import net.atos.esuite.extract.repository.DocumentTypeRepository
 import net.atos.esuite.extract.repository.DocumentVormRepository
@@ -43,7 +44,7 @@ class DocumentConverter(
                 DocumentVersturen.MOET_NIET_VERSTUURD_WORDEN -> net.atos.esuite.extract.model.DocumentVersturen.moet_niet_verstuurd_worden
             },
             documentVersturenDatum = documentEntity.documentVersturenDatum,
-            isAanvraagDocument = documentEntity.indAanvraag,
+            aanvraagDocument = documentEntity.indAanvraag,
             ontvangstDatum = if (documentEntity.documentrichting == DocumentRichting.INKOMEND) documentEntity.ontvangstverzendcreatiedatum else null,
             verzendDatum = if (documentEntity.documentrichting == DocumentRichting.UITGAAND) documentEntity.ontvangstverzendcreatiedatum else null,
             documentrichting = when (documentEntity.documentrichting) {
@@ -64,9 +65,14 @@ class DocumentConverter(
             pdfaDocumentversie = documentEntity.pdfaDocumentVersieEntity?.toDocumentversie(),
             taal = documentEntity.taalId?.let { toTaal(it) },
             geautoriseerdeMedewerkers = documentEntity . geautoriseerdeMedewerkers . ifEmpty { null },
-            isGeautoriseerdVoorMedewerkers = documentEntity.autorisatie,
+            geautoriseerdVoorMedewerkers = documentEntity.autorisatie,
             converterenNaarPdfa = documentEntity.converterenNaarPdfa,
         )
+
+    fun toDocumenttype(documenttypeId: String) =
+        documentTypeRepository.findById(documenttypeId.substringAfter(ZAAKTYPE_ID_PREFIX).toLong())
+            ?.toDocumenttype()
+            ?: error("Document type id not found: $documenttypeId")
 
     private fun toDocumentVorm(documentVormId: String) =
         documentVormRepository.findById(documentVormId.substringAfter(ZAAKTYPE_ID_PREFIX).toLong())
@@ -78,24 +84,19 @@ class DocumentConverter(
             ?.toDocumentStatus()
             ?: error("Document status id not found: $documentStatusID")
 
-    private fun toDocumenttype(documenttypeId: String) =
-        documentTypeRepository.findById(documenttypeId.substringAfter(ZAAKTYPE_ID_PREFIX).toLong())
-            ?.toDocumenttype()
-            ?: error("Document type id not found: $documenttypeId")
-
     private fun toTaal(taalId: String) =
         taalRepository.findById(taalId.substringAfter(ZAAKTYPE_ID_PREFIX).toLong())
             ?.toTaal()
             ?: error("Taal with id $taalId not found")
 
+    private fun toMetadataElement(metadataelementId: String) =
+        metadataelementRepository.findById(metadataelementId.substringAfter(ZAAKTYPE_ID_PREFIX).toLong())
+            ?.toMetadataelement()
+            ?: error("Metadata element id not found: $metadataelementId")
+
     private fun toDocumentMetadata(documentMetadataEntity: DocumentMetadataEntity) =
         DocumentMetadata(
-            metadataElement = documentMetadataEntity.metadataelementId?.let
-            {
-                metadataelementRepository.findById(it.substringAfter(ZAAKTYPE_ID_PREFIX).toLong())
-                    ?.toMetadataelement()
-                    ?: error("Metadata element id not found: $it")
-            },
+            metadataElement = documentMetadataEntity.metadataelementId?.let { toMetadataElement(it) },
             waarde = documentMetadataEntity.waardeMetadata,
         )
 }
