@@ -55,11 +55,11 @@ class TaakEntity {
 
     // Type van de taak
     @Column(name = "taak_type", length = 255)
-    var taakType: String? = null
+    lateinit var taakType: String
 
     // Het originele taaktype waarmee de taak aangemaakt is.
     @Column(name = "taak_type_origineel", length = 255)
-    var taakTypeOrigineel: String? = null
+    lateinit var taakTypeOrigineel: String
 
     // Datum tot wanneer een taak is opgeschort
     @Column(name = "opschorttermijn_startdatum")

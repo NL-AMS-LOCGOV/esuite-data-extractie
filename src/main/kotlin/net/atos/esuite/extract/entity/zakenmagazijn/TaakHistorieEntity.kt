@@ -13,7 +13,7 @@ class TaakHistorieEntity: AbstractHistoryEntity() {
     var identifier: Long = 0
 
     @Column(name = "typewijziging", length = 64)
-    var typeWijziging: String? = null
+    lateinit var typeWijziging: String
 
     @ManyToOne
     @JoinColumn(name = "id_taak", referencedColumnName = "id_taak")
