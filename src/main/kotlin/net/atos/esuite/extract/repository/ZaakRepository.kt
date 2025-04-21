@@ -23,10 +23,10 @@ class ZaakRepository : PanacheRepository<ZaakEntity> {
         zaaktypeFunctioneelId: String,
         pageIndex: Int,
         pageSize: Int
-    ): Pair<List<ZaakEntity>, Int> {
+    ): ListResult<ZaakEntity> {
         val em = getEntityManager()
         val cb = em.criteriaBuilder
-        return Pair(
+        return ListResult(
             listByZaaktypeFunctioneelId(em, cb, zaaktypeFunctioneelId, pageIndex, pageSize),
             countByZaaktypeFunctioneelId(em, cb, zaaktypeFunctioneelId)
         )

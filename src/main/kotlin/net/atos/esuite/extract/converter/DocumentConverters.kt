@@ -29,21 +29,56 @@ fun ReferentieDocumentTypeEntity.toDocumenttype() =
     )
 
 fun DocumentVersieEntity.toDocumentversie() =
-    Documentversie()
+    Documentversie(
+        versienummer = versienummer,
+        bestandsId = bestandsId,
+        creatiedatum = creatiedatum,
+        auteur = auteur,
+        afzender = afzender,
+        bestandsnaam = bestandsnaam,
+        mimetype = mimetype,
+        ondertekeningen = ondertekeningen.map { it.toDocumentOndertekening() }.ifEmpty { null },
+    )
 
-fun DocumentMetadataEntity.toDocumentMetadata() =
-    DocumentMetadata()
+fun ReferentieMetadataelementEntity.toMetadataelement() =
+    MetadataElement(
+        naam = naam,
+        omschrijving,
+        label = label,
+        type = DocumentMetadataElementType.valueOf(type.lowercase()),
+        indicatieVerplicht = indicatieVerplicht,
+        indicatieVoorAlleDocumenttypes = indicatieVoorAlleDocumenttypes,
+    )
 
 fun DocumenthistorieEntity.toDocumentHistorie() =
-    Documenthistorie()
+    Documenthistorie(
+        wijzigingDatum = datumwijziging,
+        gewijzigdDoor = gewijzigddoor,
+        oudeWaarde = oudewaarde,
+        nieuweWaarde = nieuwewaarde,
+        toelichting = toelichting,
+        typeWijziging = typeWijziging,
+    )
 
 fun DocumentPublicatieEntity.toDocumentPublicatie() =
-    DocumentPublicatie()
+    DocumentPublicatie(
+        publicatiedatum = publicatiedatum,
+    )
 
 fun ReferentieTaalEntity.toTaal() =
     Taal(
         naam = naam,
         omschrijving = omschrijving,
         functioneelId = functioneelId,
+    )
+
+fun DocumentOndertekeningEntity.toDocumentOndertekening() =
+    DocumentOndertekening(
+        documentTitel = documentTitel,
+        ondertekenaar = ondertekenaar,
+        ondertekenDatum = ondertekenDatum.toZonedDateTime(),
+        creatieDatum = creatieDatum,
+        opmerking = opmerking,
+        gemandateerd = gemandateerd,
     )
 

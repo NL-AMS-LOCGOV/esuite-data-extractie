@@ -2,13 +2,16 @@ package net.atos.esuite.extract.converter
 
 import jakarta.enterprise.context.ApplicationScoped
 import net.atos.esuite.extract.entity.zakenmagazijn.DocumentEntity
+import net.atos.esuite.extract.entity.zakenmagazijn.DocumentMetadataEntity
 import net.atos.esuite.extract.entity.zakenmagazijn.DocumentPublicatieniveau
 import net.atos.esuite.extract.entity.zakenmagazijn.DocumentRichting
 import net.atos.esuite.extract.entity.zakenmagazijn.DocumentVersturen
 import net.atos.esuite.extract.model.Document
+import net.atos.esuite.extract.model.DocumentMetadata
 import net.atos.esuite.extract.repository.DocumentStatusRepository
 import net.atos.esuite.extract.repository.DocumentTypeRepository
 import net.atos.esuite.extract.repository.DocumentVormRepository
+import net.atos.esuite.extract.repository.MetadataelementRepository
 import net.atos.esuite.extract.repository.TaalRepository
 import net.atos.esuite.extract.repository.ZaakRepository.Companion.ZAAKTYPE_ID_PREFIX
 
@@ -18,6 +21,7 @@ class DocumentConverter(
     private val documentStatusRepository: DocumentStatusRepository,
     private val documentVormRepository: DocumentVormRepository,
     private val taalRepository: TaalRepository,
+    private val metadataelementRepository: MetadataelementRepository,
 ) {
     fun toDocument(documentEntity: DocumentEntity) =
         Document(
@@ -52,7 +56,7 @@ class DocumentConverter(
             lockEigenaarId = documentEntity.lockEigenaarId,
             lockDatumTijd = documentEntity.lockDatumTijd?.toZonedDateTime(),
             documentversies = documentEntity.documentversies.map { it.toDocumentversie() },
-            documentMetadata = documentEntity.documentMetadata.map { it.toDocumentMetadata() }.ifEmpty { null },
+            documentMetadata = documentEntity.documentMetadata.map { toDocumentMetadata(it) }.ifEmpty { null },
             taak = documentEntity.taak?.toTaak(),
             historie = documentEntity.historie.map { it.toDocumentHistorie() },
             publicaties = documentEntity.publicaties.map { it.toDocumentPublicatie() }.ifEmpty { null },
@@ -83,4 +87,15 @@ class DocumentConverter(
         taalRepository.findById(taalId.substringAfter(ZAAKTYPE_ID_PREFIX).toLong())
             ?.toTaal()
             ?: error("Taal with id $taalId not found")
+
+    private fun toDocumentMetadata(documentMetadataEntity: DocumentMetadataEntity) =
+        DocumentMetadata(
+            metadataElement = documentMetadataEntity.metadataelementId?.let
+            {
+                metadataelementRepository.findById(it.substringAfter(ZAAKTYPE_ID_PREFIX).toLong())
+                    ?.toMetadataelement()
+                    ?: error("Metadata element id not found: $it")
+            },
+            waarde = documentMetadataEntity.waardeMetadata,
+        )
 }
