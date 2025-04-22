@@ -44,4 +44,13 @@ private fun BedrijfEntity.toBedrijf() =
     )
 
 fun NotitieEntity.toNotitie() =
-    SubjectNotitie()
+    SubjectNotitie(
+        ingangsdatumGeldigheid = ingangsdatum,
+        einddatumGeldigheid =  datumgeldigtot,
+        afdeling = idAfdeling,
+        groep = idGroep,
+        aangemaaktOp = aangemaaktOp,
+        aangemaaktDoor = aangemaaktDoor,
+        titel = titel,
+        inhoud = inhoud,
+    )

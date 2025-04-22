@@ -6,10 +6,6 @@ import java.time.LocalDate
 
 @Entity
 @Table(name = "gm_notitie", schema = "basisgegevens")
-@AttributeOverride(
-    name = "identifier",
-    column = Column(name = "id_notitie")
-)
 class NotitieEntity {
 
     @Id

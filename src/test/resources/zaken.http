@@ -21,7 +21,7 @@ GET localhost:8080/zaken/3783-2016
 ### Zaak met archiveerGegevens
 GET localhost:8080/zaken/116-2025
 
-### Zaak met persoon met bsn als initiator en persoon en bedrijf als betrokkenen
+### Zaak met persoon met bsn als initiator en 2 personen en bedrijf als betrokkenen waarvan persoon notitie heeft
 GET localhost:8080/zaken/337-2023
 
 ### Zaak met bedrijf als initiator
