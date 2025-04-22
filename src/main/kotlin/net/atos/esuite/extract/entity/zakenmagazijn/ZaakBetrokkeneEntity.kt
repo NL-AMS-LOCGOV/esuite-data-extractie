@@ -24,9 +24,8 @@ class ZaakBetrokkeneEntity {
     @Column(name = "startdatum")
     var startdatum: LocalDate? = null
 
-    @OneToOne
-    @JoinColumn(name = "id_betrokkene", referencedColumnName = "id_subject")
-    lateinit var betrokkene: SubjectEntity
+    @Column(name = "id_betrokkene")
+    var betrokkeneId: Long = 0
 
     @Column(name = "typebetrokkene", length = 64)
     lateinit var zaakBetrokkeneType: String

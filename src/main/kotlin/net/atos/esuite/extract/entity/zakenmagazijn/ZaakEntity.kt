@@ -44,9 +44,8 @@ class ZaakEntity {
     @Column(name = "id_behandelaar", length = 64)
     var behandelaarId: String? = null
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_initiator", referencedColumnName = "id_subject")
-    var initiator: SubjectEntity? = null
+    @Column(name = "id_initiator")
+    var initiatorId: Long? = null
 
     // Medewerker die de zaak heeft aangemaakt
     @Column(name = "id_aangemaaktdoor", length = 64)
@@ -158,7 +157,8 @@ class ZaakEntity {
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(
         name = "zkn_zaak_geautoriseerde_medewerker", schema = "zakenmagazijn",
-        joinColumns = [JoinColumn(name = "id_zaak")])
+        joinColumns = [JoinColumn(name = "id_zaak")]
+    )
     @Column(name = "medewerker")
     var geautoriseerdeMedewerkers: MutableSet<String> = mutableSetOf()
 

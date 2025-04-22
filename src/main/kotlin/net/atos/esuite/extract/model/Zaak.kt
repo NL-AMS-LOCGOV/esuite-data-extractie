@@ -26,6 +26,9 @@ class Zaak(
     @field:Schema(description = "Gebruikersnaam van behandelaar van zaak", maxLength = 64)
     val behandelaar: String?,
 
+    @field:Schema(description = "Initiator van zaak")
+    val initiator: Subject?,
+
     @field:Schema(description = "Naam van afdeling waaraan zaak is toegekend", maxLength = 128)
     val afdeling: String?,
 

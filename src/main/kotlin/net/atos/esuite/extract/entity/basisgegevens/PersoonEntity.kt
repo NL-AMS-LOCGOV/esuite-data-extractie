@@ -24,4 +24,16 @@ class PersoonEntity: SubjectEntity() {
 
     @Column(name = "voorvoegsel", length = 10)
     var voorvoegsel: String? = null
+
+    @Column(name = "telefoonnummer", length = 20)
+    var telefoonnummer: String? = null
+
+    @Column(name = "telefoonnummer_alternatief", length = 20)
+    var telefoonnummerAlternatief: String? = null
+
+    @Column(name = "rekeningnummer", length = 64)
+    var rekeningnummer: String? = null
+
+    @Column(name = "emailadres", length = 255)
+    var emailadres: String? = null
 }

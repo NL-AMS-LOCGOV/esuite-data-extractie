@@ -22,4 +22,15 @@ class BedrijfEntity: SubjectEntity() {
     @Column(name = "bedrijfsnaam", length = 128)
     var bedrijfsnaam: String? = null
 
+    @Column(name = "telefoon", length = 20)
+    var telefoon: String? = null
+
+    @Column(name = "telefoonnummer_alternatief", length = 20)
+    var telefoonnummerAlternatief: String? = null
+
+    @Column(name = "bankrekening", length = 64)
+    var bankrekening: String? = null
+
+    @Column(name = "emailadres", length = 128)
+    var emailadres: String? = null
 }

@@ -5,6 +5,7 @@ import net.atos.esuite.extract.entity.zakenmagazijn.*
 import net.atos.esuite.extract.model.*
 import net.atos.esuite.extract.repository.*
 import net.atos.esuite.extract.repository.ZaakRepository.Companion.ZAAKTYPE_ID_PREFIX
+import kotlin.error
 
 @ApplicationScoped
 class ZaakConverter(
@@ -13,6 +14,7 @@ class ZaakConverter(
     private val zaaktypeRepository: ZaaktypeRepository,
     private val documentConverter: DocumentConverter,
     private val besluittypeRepository: BesluittypeRepository,
+    private val subjectRepository: SubjectRepository,
 ) {
     fun toZaak(zaakEntity: ZaakEntity) =
         Zaak(
@@ -23,7 +25,7 @@ class ZaakConverter(
             behandelaar = zaakEntity.behandelaarId,
             besluiten = zaakEntity.besluiten.map { toBesluit(it) }.ifEmpty { null },
             betaalgegevens = zaakEntity.betaalgegevens?.toBetaalgegevens(),
-            betrokkenen = zaakEntity.betrokkenen.map { it.toZaakBetrokkene() }.ifEmpty { null },
+            betrokkenen = zaakEntity.betrokkenen.map { toZaakBetrokkene(it) }.ifEmpty { null },
             contacten = zaakEntity.contacten.map { it.toZaakContact() }.ifEmpty { null },
             creatieDatumTijd = zaakEntity.creatiedatum.toZonedDateTime(),
             documenten = zaakEntity.documenten.map { documentConverter.toDocument(it) }.ifEmpty { null },
@@ -57,6 +59,11 @@ class ZaakConverter(
             wijzigDatumTijd = zaakEntity.wijzigdatum?.toZonedDateTime(),
             zaakdata = zaakEntity.zaakdataElementen.map { it.toZaakData() }.ifEmpty { null },
             zaaktype = toZaaktype(zaakEntity.zaaktypeId),
+            initiator = zaakEntity.initiatorId?.let {
+                subjectRepository.findById(it)
+                    ?.toSubject()
+                    ?: error("Initiator with id ${it} not found")
+            },
         )
 
     fun toZaakOverzicht(zaakEntity: ZaakEntity) =
@@ -84,6 +91,16 @@ class ZaakConverter(
         besluittypeRepository.findById(besluittypeId.substringAfter(ZAAKTYPE_ID_PREFIX).toLong())
             ?.toBesluittype()
             ?: error("Besluittype with id $besluittypeId not found")
+
+    private fun toZaakBetrokkene(zaakBetrokkeneEntity: ZaakBetrokkeneEntity) = ZaakBetrokkene(
+        indCorrespondentie = zaakBetrokkeneEntity.indCorrespondentie,
+        startdatum = zaakBetrokkeneEntity.startdatum,
+        typeBetrokkenheid = ZaakBetrokkenetype.valueOf(zaakBetrokkeneEntity.zaakBetrokkeneType.lowercase()),
+        toelichting = zaakBetrokkeneEntity.toelichting,
+        betrokkene = subjectRepository.findById(zaakBetrokkeneEntity.betrokkeneId)
+            ?.toSubject()
+            ?: error("Betrokkene with id ${zaakBetrokkeneEntity.betrokkeneId} not found")
+    )
 
     private fun toBesluit(besluitEntity: BesluitEntity) =
         Besluit(
