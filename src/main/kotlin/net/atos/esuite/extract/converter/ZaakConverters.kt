@@ -1,9 +1,5 @@
 package net.atos.esuite.extract.converter
 
-import net.atos.esuite.extract.entity.basisgegevens.BedrijfEntity
-import net.atos.esuite.extract.entity.basisgegevens.NotitieEntity
-import net.atos.esuite.extract.entity.basisgegevens.PersoonEntity
-import net.atos.esuite.extract.entity.basisgegevens.SubjectEntity
 import net.atos.esuite.extract.entity.zakenmagazijn.*
 import net.atos.esuite.extract.entity.zakenmagazijn.dataelement.AbstractDataElementEntity
 import net.atos.esuite.extract.model.*
@@ -132,8 +128,6 @@ fun TaakEntity.toTaak() = Taak(
     kvkNummer = kvkNummer,
     authenticatieniveau = authenticatieniveau,
 )
-
-fun ZaakContactEntity.toZaakContact() = ZaakContact()
 
 fun ZaakZaakEntity.toZaakZaakKoppeling() = ZaakZaakKoppeling(
     dossierEigenaar = dossierEigenaar, gekoppeldeZaak = zaak.functioneelId, relatietype = when (relatietypeId) {

@@ -12,7 +12,7 @@ class ContactBAGObjectEntity {
     var identifier: Long = 0
 
     @Column(name = "id_object", length = 128)
-    var bagObjectId: String? = null
+    lateinit var bagObjectId: String
 
     @ManyToOne
     @JoinColumn(name = "id_contact", referencedColumnName = "id_contact")

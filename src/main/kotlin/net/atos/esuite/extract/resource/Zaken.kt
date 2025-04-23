@@ -6,8 +6,11 @@ import jakarta.ws.rs.core.Response
 import jakarta.ws.rs.core.Response.ok
 import net.atos.esuite.extract.converter.ZaakConverter
 import net.atos.esuite.extract.model.BladerParameters
+import net.atos.esuite.extract.model.ContactOverzichtResults
 import net.atos.esuite.extract.model.Zaak
-import net.atos.esuite.extract.model.ZaakResults
+import net.atos.esuite.extract.model.Results
+import net.atos.esuite.extract.model.ZaakOverzicht
+import net.atos.esuite.extract.model.ZaakOverzichtResults
 import net.atos.esuite.extract.repository.ZaakRepository
 import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.media.Content
@@ -24,25 +27,24 @@ class Zaken(
     @Operation(operationId = "zaak_list", summary = "Lijst van zaak overzichten opvragen")
     @APIResponse(
         responseCode = "200", description = "OK",
-        content = [Content(schema = Schema(implementation = ZaakResults::class))]
+        content = [Content(schema = Schema(implementation = ZaakOverzichtResults::class))]
     )
     fun zaakOverzichtList(
         @QueryParam("zaaktype")
         @Schema(description = "Zaaktype naam", maxLength = 255, required = true)
         zaaktype: String,
 
-        @BeanParam
-        bladerParameters: BladerParameters
+        @BeanParam bladerParameters: BladerParameters
     ): Response {
         val (zaken, totaalAantalZaken) = zaakRepository.listByZaaktypeFunctioneelId(
             zaaktype, bladerParameters.page, bladerParameters.pageSize
         )
         return ok(
-            ZaakResults(
-                count = totaalAantalZaken,
-                previousPage = if (bladerParameters.page > 0) bladerParameters.page - 1 else null,
-                nextPage = if (totaalAantalZaken > (bladerParameters.page + 1) * bladerParameters.pageSize) bladerParameters.page + 1 else null,
-                results = zaken.map { zaakConverter.toZaakOverzicht(it) },
+            ZaakOverzichtResults(
+                zaken.map { zaakConverter.toZaakOverzicht(it) },
+                totaalAantalZaken,
+                bladerParameters.page,
+                bladerParameters.pageSize,
             )
         ).build()
     }

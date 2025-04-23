@@ -12,7 +12,7 @@ GET localhost:8080/zaken/12-2023
 ### Zaak met documenten
 GET localhost:8080/zaken/182-2025
 
-### Zaak met documenten
+### Zaak met documenten, contacten, bagobjecten en gerelateerde zaken.
 GET localhost:8080/zaken/2011-2019
 
 ### Zaak met archiveerGegevens.overgebrachteGegevens
@@ -26,3 +26,4 @@ GET localhost:8080/zaken/337-2023
 
 ### Zaak met bedrijf als initiator
 GET localhost:8080/zaken/1718-2020
+

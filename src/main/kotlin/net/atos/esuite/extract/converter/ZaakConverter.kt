@@ -26,7 +26,7 @@ class ZaakConverter(
             besluiten = zaakEntity.besluiten.map { toBesluit(it) }.ifEmpty { null },
             betaalgegevens = zaakEntity.betaalgegevens?.toBetaalgegevens(),
             betrokkenen = zaakEntity.betrokkenen.map { toZaakBetrokkene(it) }.ifEmpty { null },
-            contacten = zaakEntity.contacten.map { it.toZaakContact() }.ifEmpty { null },
+            contacten = zaakEntity.contacten.map { it.contact.functioneelId }.ifEmpty { null },
             creatieDatumTijd = zaakEntity.creatiedatum.toZonedDateTime(),
             documenten = zaakEntity.documenten.map { documentConverter.toDocument(it) }.ifEmpty { null },
             einddatum = zaakEntity.einddatum,

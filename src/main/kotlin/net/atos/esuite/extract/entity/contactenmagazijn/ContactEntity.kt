@@ -51,22 +51,21 @@ class ContactEntity {
     @Column(name = "ind_in_vernietiging")
     var inVernietiging = false
 
-    @OneToOne
-    @JoinColumn(name = "id_aanvrager", referencedColumnName = "id_subject")
-    var aanvragerSubject: SubjectEntity? = null
+    @Column(name = "id_aanvrager")
+    var aanvragerSubjectId : Long? = null
 
-    @OneToMany(mappedBy = "contact")
-    var objecten: MutableList<ContactBAGObjectEntity> = mutableListOf()
+    @OneToMany(mappedBy = "contact", fetch = FetchType.LAZY)
+    var gekoppeldeBAGObjecten: MutableList<ContactBAGObjectEntity> = mutableListOf()
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_contactprioriteit")
     var contactPrioriteit: ReferentieContactPrioriteitEntity? = null
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_contactstatus")
     var contactStatus: ReferentieContactStatusEntity? = null
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_contacttype")
     var contactType: ReferentieContactTypeEntity? = null
 
@@ -79,7 +78,7 @@ class ContactEntity {
     @Column(name = "einddatumtijd")
     var einddatumtijd: Instant? = null
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_kanaal", referencedColumnName = "id_kanaal")
     var kanaal: ReferentieKanaalEntity? = null
 
@@ -95,15 +94,15 @@ class ContactEntity {
     @Column(name = "id_behandelaar", length = 64)
     var behandelaarId: String? = null
 
-    @OneToMany(mappedBy = "contact")
+    @OneToMany(mappedBy = "contact", fetch = FetchType.LAZY)
     @OrderBy("identifier DESC")
     var contactHistorie: MutableList<ContactHistorieEntity> = mutableListOf()
 
-    @OneToMany(mappedBy = "contact")
+    @OneToMany(mappedBy = "contact", fetch = FetchType.LAZY)
     @OrderBy(value = "datumantwoord DESC")
     var voorlopigeAntwoorden: MutableList<VoorlopigAntwoordEntity> = mutableListOf()
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "con_contact_contact", schema = "contactenmagazijn",
         joinColumns = [JoinColumn(name = "id_contact_01", referencedColumnName = "id_contact")],
@@ -111,7 +110,7 @@ class ContactEntity {
     )
     var gekoppeldeContacten1: MutableSet<ContactEntity> = mutableSetOf()
 
-    @ManyToMany()
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "con_contact_contact", schema = "contactenmagazijn",
         joinColumns = [JoinColumn(name = "id_contact_02", referencedColumnName = "id_contact")],
@@ -119,10 +118,7 @@ class ContactEntity {
     )
     var gekoppeldeContacten2: MutableSet<ContactEntity> = mutableSetOf()
 
-    @OneToMany(mappedBy = "contact")
-    var gekoppeldeBAGObjecten: MutableList<ContactBAGObjectEntity> = mutableListOf()
-
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_organisatie", referencedColumnName = "id_organisatie")
     var organisatie: ReferentieOrganisatieEntity? = null
 }

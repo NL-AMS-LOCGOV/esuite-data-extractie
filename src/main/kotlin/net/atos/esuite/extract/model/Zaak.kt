@@ -128,6 +128,6 @@ class Zaak(
     @field:Schema(description = "Besluiten gerelateerd aan zaak")
     val besluiten: List<Besluit>?,
 
-    @field:Schema(description = "Contacten gerelateerd aan zaak")
-    val contacten: List<ZaakContact>?,
+    @field:Schema(description = "Functionele identificatie van contacten gerelateerd aan zaak")
+    val contacten: List<String>?,
     )
