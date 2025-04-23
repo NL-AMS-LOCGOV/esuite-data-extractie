@@ -5,7 +5,7 @@ import jakarta.persistence.*
 
 @Entity
 @DiscriminatorValue("OPTIES")
-class OptiesDataElementEntity: net.atos.esuite.extract.entity.zakenmagazijn.dataelement.AbstractDataElementEntity() {
+class OptiesDataElementEntity: AbstractDataElementEntity() {
 
     @ElementCollection
     @CollectionTable(

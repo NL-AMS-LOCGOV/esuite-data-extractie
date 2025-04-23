@@ -3,6 +3,7 @@ package net.atos.esuite.extract.model
 import org.eclipse.microprofile.openapi.annotations.media.Schema
 import java.time.LocalDate
 
+@Schema(allOf = [History::class])
 class Documenthistorie(
     wijzigingDatum: LocalDate?,
     gewijzigdDoor: String?,
@@ -13,7 +14,7 @@ class Documenthistorie(
     @field:Schema(description = "Type wijziging", maxLength = 64)
     val typeWijziging: String?,
 
-    ) : AbstractHistory(
+    ) : History(
     wijzigingDatum = wijzigingDatum,
     gewijzigdDoor = gewijzigdDoor,
     oudeWaarde = oudeWaarde,

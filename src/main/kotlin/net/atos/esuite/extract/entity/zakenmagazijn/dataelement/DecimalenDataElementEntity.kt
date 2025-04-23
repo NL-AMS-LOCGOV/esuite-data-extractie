@@ -6,7 +6,7 @@ import java.math.BigDecimal
 
 @Entity
 @DiscriminatorValue("DECIMALEN")
-class DecimalenDataElementEntity: net.atos.esuite.extract.entity.zakenmagazijn.dataelement.AbstractDataElementEntity() {
+class DecimalenDataElementEntity: AbstractDataElementEntity() {
 
     @ElementCollection
     @CollectionTable(

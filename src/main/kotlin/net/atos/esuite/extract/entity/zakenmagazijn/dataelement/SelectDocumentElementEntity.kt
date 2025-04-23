@@ -5,7 +5,7 @@ import jakarta.persistence.*
 
 @Entity
 @DiscriminatorValue("SELECT_DOCUMENTS")
-class SelectDocumentElementEntity: net.atos.esuite.extract.entity.zakenmagazijn.dataelement.AbstractDataElementEntity() {
+class SelectDocumentElementEntity: AbstractDataElementEntity() {
 
     @ElementCollection
     @CollectionTable(

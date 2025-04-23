@@ -5,5 +5,5 @@ import jakarta.persistence.Entity
 
 @Entity
 @DiscriminatorValue("ZAAK_BESLUIT")
-class ZaakBesluitItemDataElementEntity: net.atos.esuite.extract.entity.zakenmagazijn.dataelement.AbstractComplexDataElementEntity() {
+class ZaakBesluitItemDataElementEntity: AbstractComplexDataElementEntity() {
 }

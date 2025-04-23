@@ -2,6 +2,7 @@ package net.atos.esuite.extract.model
 
 import org.eclipse.microprofile.openapi.annotations.media.Schema
 
+@Schema(allOf = [Referentie::class])
 class Zaaktype(
     naam: String,
     omschrijving: String?,
@@ -12,7 +13,7 @@ class Zaaktype(
     @field:Schema(description = "Is zaaktype actief", required = true)
     val actief: Boolean,
 
-    ) : AbstractReferentie(
+    ) : Referentie(
     naam = naam,
     omschrijving = omschrijving
 )

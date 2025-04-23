@@ -8,5 +8,5 @@ import jakarta.persistence.Entity
  */
 @Entity
 @DiscriminatorValue("ADRESGEGEVENS")
-class AdresgegevensDataElementEntity: net.atos.esuite.extract.entity.zakenmagazijn.dataelement.AbstractComplexDataElementEntity() {
+class AdresgegevensDataElementEntity: AbstractComplexDataElementEntity() {
 }

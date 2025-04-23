@@ -6,7 +6,7 @@ import jakarta.persistence.Entity
 
 @Entity
 @DiscriminatorValue("STRING")
-class StringDataElementEntity: net.atos.esuite.extract.entity.zakenmagazijn.dataelement.AbstractDataElementEntity() {
+class StringDataElementEntity: AbstractDataElementEntity() {
 
     // De string waarde van de key, value pair, indien de waarde van type string is
     @Column(name = "string_waarde", length = Int.MAX_VALUE)

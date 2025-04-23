@@ -1,8 +1,17 @@
 package net.atos.esuite.extract.model
 
 import jakarta.persistence.Column
+import org.eclipse.microprofile.openapi.annotations.media.DiscriminatorMapping
 import org.eclipse.microprofile.openapi.annotations.media.Schema
 
+@Schema(
+    oneOf = [Persoon::class, Bedrijf::class],
+    discriminatorProperty = "subjecttype",
+    discriminatorMapping = [
+        DiscriminatorMapping("persoon", schema = Persoon::class),
+        DiscriminatorMapping("bedrijf", schema = Bedrijf::class)
+    ]
+)
 abstract class Subject(
 
     @field:Schema(description = "Type subject")

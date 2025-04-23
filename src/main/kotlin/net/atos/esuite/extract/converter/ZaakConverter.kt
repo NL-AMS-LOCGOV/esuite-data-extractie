@@ -57,7 +57,7 @@ class ZaakConverter(
             streefdatum = zaakEntity.streefdatum,
             taken = zaakEntity.taken.map { it.toTaak() }.ifEmpty { null },
             wijzigDatumTijd = zaakEntity.wijzigdatum?.toZonedDateTime(),
-            zaakdata = zaakEntity.zaakdataElementen.map { it.toZaakData() }.ifEmpty { null },
+            zaakdata = zaakEntity.zaakdataElementen.map { it.toDataElement() }.ifEmpty { null },
             zaaktype = toZaaktype(zaakEntity.zaaktypeId),
             initiator = zaakEntity.initiatorId?.let {
                 subjectRepository.findById(it)

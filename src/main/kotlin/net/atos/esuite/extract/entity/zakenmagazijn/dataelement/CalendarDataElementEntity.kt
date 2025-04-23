@@ -8,7 +8,7 @@ import java.time.OffsetDateTime
 
 @Entity
 @DiscriminatorValue("CALENDAR")
-class CalendarDataElementEntity: net.atos.esuite.extract.entity.zakenmagazijn.dataelement.AbstractDataElementEntity() {
+class CalendarDataElementEntity: AbstractDataElementEntity() {
 
     @Column(name = "calendar_waarde")
     var waarde: OffsetDateTime? = null

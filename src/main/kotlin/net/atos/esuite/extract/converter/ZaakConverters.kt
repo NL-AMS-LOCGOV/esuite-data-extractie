@@ -1,7 +1,6 @@
 package net.atos.esuite.extract.converter
 
 import net.atos.esuite.extract.entity.zakenmagazijn.*
-import net.atos.esuite.extract.entity.zakenmagazijn.dataelement.AbstractDataElementEntity
 import net.atos.esuite.extract.model.*
 
 fun ReferentieZaakTypeEntity.toZaaktype() = Zaaktype(
@@ -100,8 +99,6 @@ fun ZaakNotitieEntity.toZaakNotitie() = ZaakNotitie(
     datumTijd = datumTijd.toZonedDateTime(),
     notitie = notitie,
 )
-
-fun AbstractDataElementEntity.toZaakData() = ZaakData()
 
 fun ZaakBAGObjectEntity.toBAGObject() = BAGObject(
     bagObjectId = bagObjectId,

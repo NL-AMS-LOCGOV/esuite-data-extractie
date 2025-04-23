@@ -1,5 +1,6 @@
 package net.atos.esuite.extract.model
 
+import net.atos.esuite.extract.model.zaakdata.DataElement
 import org.eclipse.microprofile.openapi.annotations.media.Schema
 import java.time.LocalDate
 import java.time.ZonedDateTime
@@ -8,7 +9,11 @@ class Zaak(
     @field:Schema(description = "Zaaknummer in e-Suite", maxLength = 128)
     val functioneleIdentificatie: String,
 
-    @field:Schema(description = "Identificatie van zaak welke kan worden gebruikt bij koppelen met extern systeem", minLength = 5, maxLength = 40)
+    @field:Schema(
+        description = "Identificatie van zaak welke kan worden gebruikt bij koppelen met extern systeem",
+        minLength = 5,
+        maxLength = 40
+    )
     val externeIdentificatie: String,
 
     @field:Schema(description = "Omschrijving van zaak")
@@ -44,19 +49,22 @@ class Zaak(
     @field:Schema(description = "Tijdstip waarop zaak is aangemaakt", implementation = ZonedDateTime::class)
     val creatieDatumTijd: ZonedDateTime,
 
-    @field:Schema(description = "Meest recente tijdstip waarop zaak is gewijzigd", implementation = ZonedDateTime::class )
+    @field:Schema(
+        description = "Meest recente tijdstip waarop zaak is gewijzigd",
+        implementation = ZonedDateTime::class
+    )
     val wijzigDatumTijd: ZonedDateTime?,
 
     @field:Schema(description = "Datum waarop behandeling van zaak gestart is", implementation = LocalDate::class)
     val startdatum: LocalDate?,
 
-    @field:Schema(description = "Streefdatum van zaak", implementation = LocalDate::class )
+    @field:Schema(description = "Streefdatum van zaak", implementation = LocalDate::class)
     val streefdatum: LocalDate,
 
-    @field:Schema(description = "Fatale datum van zaak", implementation = LocalDate::class )
+    @field:Schema(description = "Fatale datum van zaak", implementation = LocalDate::class)
     val fataledatum: LocalDate?,
 
-    @field:Schema(description = "Einddatum van zaak", implementation = LocalDate::class )
+    @field:Schema(description = "Einddatum van zaak", implementation = LocalDate::class)
     val einddatum: LocalDate?,
 
     @field:Schema(description = "Huidige status van zaak")
@@ -81,7 +89,7 @@ class Zaak(
     val historie: List<ZaakHistorie>,
 
     @field:Schema(description = "Zaak specifieke data")
-    val zaakdata: List<ZaakData>?,
+    val zaakdata: List<DataElement>?,
 
     @field:Schema(description = "Naam van organisatie")
     val organisatie: String?,
@@ -130,4 +138,4 @@ class Zaak(
 
     @field:Schema(description = "Functionele identificatie van contacten gerelateerd aan zaak")
     val contacten: List<String>?,
-    )
+)

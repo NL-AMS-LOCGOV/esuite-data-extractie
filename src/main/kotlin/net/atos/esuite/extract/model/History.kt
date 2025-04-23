@@ -3,7 +3,7 @@ package net.atos.esuite.extract.model
 import org.eclipse.microprofile.openapi.annotations.media.Schema
 import java.time.LocalDate
 
-abstract class AbstractHistory(
+abstract class History(
     @field:Schema(description = "Datum waarop wijziging heeft plaatsgevonden", implementation = LocalDate::class)
     val wijzigingDatum: LocalDate?,
 

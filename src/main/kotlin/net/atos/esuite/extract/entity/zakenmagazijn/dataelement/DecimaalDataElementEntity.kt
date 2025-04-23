@@ -7,7 +7,7 @@ import java.math.BigDecimal
 
 @Entity
 @DiscriminatorValue("DECIMAAL")
-class DecimaalDataElementEntity: net.atos.esuite.extract.entity.zakenmagazijn.dataelement.AbstractDataElementEntity() {
+class DecimaalDataElementEntity: AbstractDataElementEntity() {
 
     @Column(name = "nummer_waarde", precision = 27, scale = 10)
     var waarde: BigDecimal? = null
@@ -15,6 +15,6 @@ class DecimaalDataElementEntity: net.atos.esuite.extract.entity.zakenmagazijn.da
     // De manier waarop het nummer_waarde veld geformatteerd moet worden
     @Enumerated(EnumType.STRING)
     @Column(name = "nummer_formattering")
-    var formattering: net.atos.esuite.extract.entity.zakenmagazijn.dataelement.NummerFormattering? = null
+    var formattering: NummerFormattering? = null
 
 }

@@ -5,7 +5,7 @@ import jakarta.persistence.*
 
 @Entity
 @DiscriminatorValue("STRINGS")
-class StringsDataElementEntity: net.atos.esuite.extract.entity.zakenmagazijn.dataelement.AbstractDataElementEntity() {
+class StringsDataElementEntity: AbstractDataElementEntity() {
 
     @ElementCollection
     @CollectionTable(

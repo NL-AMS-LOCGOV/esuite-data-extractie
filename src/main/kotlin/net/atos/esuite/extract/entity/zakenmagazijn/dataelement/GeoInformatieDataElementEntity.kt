@@ -5,5 +5,5 @@ import jakarta.persistence.Entity
 
 @Entity
 @DiscriminatorValue("GEO_INFORMATIE")
-class GeoInformatieDataElementEntity: net.atos.esuite.extract.entity.zakenmagazijn.dataelement.AbstractComplexDataElementEntity() {
+class GeoInformatieDataElementEntity: AbstractComplexDataElementEntity() {
 }

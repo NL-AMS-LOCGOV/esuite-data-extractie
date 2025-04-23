@@ -6,7 +6,7 @@ import jakarta.persistence.Entity
 
 @Entity
 @DiscriminatorValue("BOOLEAN")
-class BooleanDataElementEntity: net.atos.esuite.extract.entity.zakenmagazijn.dataelement.AbstractDataElementEntity() {
+class BooleanDataElementEntity: AbstractDataElementEntity() {
 
     @Column(name = "boolean_waarde")
     var waarde: Boolean? = null

@@ -7,7 +7,7 @@ import net.atos.esuite.extract.entity.zakenmagazijn.ZaakEntity
 @Entity
 @Inheritance
 @Table(name = "zkn_zaak_dataelement", schema = "zakenmagazijn")
-abstract class AbstractDataElementEntity {
+open class AbstractDataElementEntity {
 
     @Id
     @Column(name = "id_dataelement")

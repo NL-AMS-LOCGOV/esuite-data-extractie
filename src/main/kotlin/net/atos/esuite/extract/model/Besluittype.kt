@@ -2,6 +2,7 @@ package net.atos.esuite.extract.model
 
 import org.eclipse.microprofile.openapi.annotations.media.Schema
 
+@Schema(allOf = [Referentie::class])
 class Besluittype(
     naam: String,
     omschrijving: String?,
@@ -21,7 +22,7 @@ class Besluittype(
     @field:Schema(description = "Publicatie termijn in dagen")
     val publicatietermijnInDagen: Int?,
 
-    ) : AbstractReferentie(
+    ) : Referentie(
     naam = naam,
     omschrijving = omschrijving
 )

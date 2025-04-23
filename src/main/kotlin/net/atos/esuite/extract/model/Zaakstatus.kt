@@ -2,6 +2,7 @@ package net.atos.esuite.extract.model
 
 import org.eclipse.microprofile.openapi.annotations.media.Schema
 
+@Schema(allOf = [Referentie::class])
 class Zaakstatus(
     naam: String,
     omschrijving: String?,
@@ -17,7 +18,7 @@ class Zaakstatus(
     )
     val externeNaam: String?,
 
-    ) : AbstractReferentie(
+    ) : Referentie(
     naam = naam,
     omschrijving = omschrijving
 )

@@ -2,6 +2,7 @@ package net.atos.esuite.extract.model
 
 import org.eclipse.microprofile.openapi.annotations.media.Schema
 
+@Schema(allOf = [Referentie::class])
 class Documenttype(
     naam: String,
     omschrijving: String?,
@@ -12,7 +13,7 @@ class Documenttype(
     @field:Schema(description = "Default publicatieniveau")
     val publicatieniveau: DocumentPublicatieniveau
 
-) : AbstractReferentie(
+) : Referentie(
     naam = naam,
     omschrijving = omschrijving
 )

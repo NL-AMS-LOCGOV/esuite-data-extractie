@@ -2,6 +2,7 @@ package net.atos.esuite.extract.model
 
 import org.eclipse.microprofile.openapi.annotations.media.Schema
 
+@Schema(allOf = [Referentie::class])
 class ContactPrioriteit(
     naam: String,
     omschrijving: String?,
@@ -9,7 +10,7 @@ class ContactPrioriteit(
     @field:Schema(description = "Aantal dagen maximale doorlooptijd", required = true)
     val dagen: Int,
 
-) : AbstractReferentie(
+) : Referentie(
     naam = naam,
     omschrijving = omschrijving,
 )

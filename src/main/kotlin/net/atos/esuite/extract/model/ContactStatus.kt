@@ -2,6 +2,7 @@ package net.atos.esuite.extract.model
 
 import org.eclipse.microprofile.openapi.annotations.media.Schema
 
+@Schema(allOf = [Referentie::class])
 class ContactStatus(
     naam: String,
     omschrijving: String?,
@@ -9,7 +10,7 @@ class ContactStatus(
     @field:Schema(description = "Type status")
     val type: ContactStatusType?,
 
-    ) : AbstractReferentie(
+    ) : Referentie(
     naam = naam,
     omschrijving = omschrijving,
 )

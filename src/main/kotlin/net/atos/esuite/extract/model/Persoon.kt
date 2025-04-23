@@ -3,6 +3,7 @@ package net.atos.esuite.extract.model
 import jakarta.persistence.Column
 import org.eclipse.microprofile.openapi.annotations.media.Schema
 
+@Schema(allOf = [Subject::class])
 class Persoon(
     notities: List<SubjectNotitie>?,
     telefoonnummer: String?,

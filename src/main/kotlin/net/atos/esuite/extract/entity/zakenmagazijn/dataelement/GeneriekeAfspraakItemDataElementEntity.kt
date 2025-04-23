@@ -5,5 +5,5 @@ import jakarta.persistence.Entity
 
 @Entity
 @DiscriminatorValue("GENERIEKE_AFSPRAAK")
-class GeneriekeAfspraakItemDataElementEntity: net.atos.esuite.extract.entity.zakenmagazijn.dataelement.AbstractComplexDataElementEntity() {
+class GeneriekeAfspraakItemDataElementEntity: AbstractComplexDataElementEntity() {
 }

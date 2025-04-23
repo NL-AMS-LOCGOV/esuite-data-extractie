@@ -2,6 +2,7 @@ package net.atos.esuite.extract.model
 
 import org.eclipse.microprofile.openapi.annotations.media.Schema
 
+@Schema(allOf = [Referentie::class])
 class MetadataElement(
     naam: String,
     omschrijving: String?,
@@ -18,7 +19,7 @@ class MetadataElement(
     @field:Schema(description = "Indicatie of het metadata element gebruikt wordt bij alle documenttypes", required = true)
     val indicatieVoorAlleDocumenttypes: Boolean,
 
-    ) : AbstractReferentie(
+    ) : Referentie(
     naam = naam,
     omschrijving = omschrijving
 )
