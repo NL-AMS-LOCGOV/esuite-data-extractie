@@ -42,8 +42,12 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: {{ .Values.service.port }}
-              protocol: TCP
+              containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: {{ include "esuite-data-extractie.fullname" . }}
+            - secretRef:
+                name: {{ include "esuite-data-extractie.fullname" . }}
           {{- with .Values.livenessProbe }}
           livenessProbe:
             {{- toYaml . | nindent 12 }}
