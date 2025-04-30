@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "esuite-data-extractie.fullname" . }}
+  labels:
+    {{- include "esuite-data-extractie.labels" . | nindent 4 }}
+data:
+  QUARKUS_DATASOURCE_JDBC_URL: {{ required "Valid .Values.db.jdbcUrl entry required!" .Values.db.jdbcUrl | quote }}
+  QUARKUS_DATASOURCE_USERNAME: {{ required "Valid .Values.db.username entry required!" .Values.db.username | quote }}
