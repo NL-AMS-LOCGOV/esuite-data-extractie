@@ -1,8 +1,11 @@
 ###
 GET localhost:8080/contacten
+X-API-KEY: dev-api-key-for-testing
 
 ###
 GET localhost:8080/contacten?page=1&page_size=1000
+X-API-KEY: dev-api-key-for-testing
 
 ###
 GET localhost:8080/contacten/467-2024
+X-API-KEY: dev-api-key-for-testing
