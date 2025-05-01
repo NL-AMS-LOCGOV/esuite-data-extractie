@@ -1,2 +1,0 @@
-GET localhost:8080/zaaktypen
-X-API-KEY: dev-api-key-for-testing

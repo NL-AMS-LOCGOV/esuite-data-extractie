@@ -1784,21 +1784,20 @@ components:
         actief:
           type: boolean
           description: Is zaaktype actief
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      description: API key for authentication
+      name: X-API-KEY
+      in: header
 info:
   contact:
-    email: techsupport@example.com
-    name: Example API Support
-    url: http://exampleurl.com/contact
-  license:
-    name: Apache 2.0
-    url: https://www.apache.org/licenses/LICENSE-2.0.html
-  title: Example API
-  version: 1.0.1
-tags:
-  - name: widget
-    description: Widget operations.
-  - name: gasket
-    description: Operations related to gaskets
+    email: andy.verberne@atos.net
+    name: Andy Verberne
+  title: e-Suite data extractie API
+  version: 0.1.0
+security:
+  - ApiKeyAuth: [ ]
 paths:
   /contacten:
     get:

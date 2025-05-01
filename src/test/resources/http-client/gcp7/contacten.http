@@ -1,0 +1,11 @@
+###
+GET {{base-url}}/contacten
+X-API-KEY: {{api-key}}
+
+###
+GET {{base-url}}/contacten?page=1&page_size=1000
+X-API-KEY: {{api-key}}
+
+###
+GET {{base-url}}/contacten/467-2024
+X-API-KEY: {{api-key}}

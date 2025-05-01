@@ -1,0 +1,8 @@
+###
+GET {{base-url}}/zaken?zaaktype=GeenStartFormulier
+X-API-KEY: {{api-key}}
+
+###
+GET {{base-url}}/zaken/180-2025
+X-API-KEY: {{api-key}}
+

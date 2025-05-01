@@ -1,0 +1,2 @@
+GET {{base-url}}/zaaktypen
+X-API-KEY: {{api-key}}

@@ -5,7 +5,7 @@ import org.eclipse.microprofile.openapi.OASFilter
 import org.eclipse.microprofile.openapi.models.media.Schema
 
 @OpenApiFilter
-class OASFilter : OASFilter {
+class OpenApiSpecFilter : OASFilter {
 
     override fun filterSchema(schema: Schema): Schema? {
         schema.type = schema.type?.let { it.filter { it.name != "NULL" } }

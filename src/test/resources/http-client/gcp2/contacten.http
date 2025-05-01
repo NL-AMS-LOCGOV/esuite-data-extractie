@@ -1,0 +1,3 @@
+###
+GET {{base-url}}/contacten
+X-API-KEY: {{api-key}}

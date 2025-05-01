@@ -1,0 +1,38 @@
+GET {{base-url}}/zaken?zaaktype=MigratieTest1
+X-API-KEY: {{api-key}}
+
+###
+GET {{base-url}}/zaken?zaaktype=MigratieTest1&page=1
+X-API-KEY: {{api-key}}
+
+###
+GET {{base-url}}/zaken?zaaktype=MigratieTest1&page=2
+X-API-KEY: {{api-key}}
+
+### Zaak met besluit.
+GET {{base-url}}/zaken/12-2023
+X-API-KEY: {{api-key}}
+
+### Zaak met documenten
+GET {{base-url}}/zaken/182-2025
+X-API-KEY: {{api-key}}
+
+### Zaak met documenten, contacten, bagobjecten en gerelateerde zaken.
+GET {{base-url}}/zaken/2011-2019
+X-API-KEY: {{api-key}}
+
+### Zaak met archiveerGegevens.overgebrachteGegevens
+GET {{base-url}}/zaken/3783-2016
+X-API-KEY: {{api-key}}
+
+### Zaak met archiveerGegevens
+GET {{base-url}}/zaken/116-2025
+X-API-KEY: {{api-key}}
+
+### Zaak met persoon met bsn als initiator en 2 personen en bedrijf als betrokkenen waarvan persoon notitie heeft
+GET {{base-url}}/zaken/337-2023
+X-API-KEY: {{api-key}}
+
+### Zaak met bedrijf als initiator
+GET {{base-url}}/zaken/1718-2020
+X-API-KEY: {{api-key}}
