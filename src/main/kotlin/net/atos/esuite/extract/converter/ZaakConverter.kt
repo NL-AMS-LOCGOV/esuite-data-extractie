@@ -42,6 +42,7 @@ class ZaakConverter(
             heropend = zaakEntity.indicatieHeropend,
             intake = zaakEntity.indicatieIntake,
             procesGestart = zaakEntity.procesGestart,
+            ztc1MigratiedatumTijd = zaakEntity.ztc1Migratiedatumtijd?.toZonedDateTime(),
             vernietiging = zaakEntity.inVernietiging,
             vertrouwelijk = zaakEntity.indicatieVertrouwelijk,
             kanaal = zaakEntity.kanaal.toKanaal(),
@@ -64,6 +65,7 @@ class ZaakConverter(
                     ?.toSubject()
                     ?: error("Initiator with id ${it} not found")
             },
+            notificeerbaar = zaakEntity.notificeerbaar,
         )
 
     fun toZaakOverzicht(zaakEntity: ZaakEntity) =

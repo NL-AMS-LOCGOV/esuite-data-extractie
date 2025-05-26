@@ -112,11 +112,17 @@ class Zaak(
     @field:Schema(description = "Is voor zaak afhandeling een proces gestart", required = true)
     val procesGestart: Boolean,
 
+    @field:Schema(description = "Datum tijd waarop de zaak gemigreerd is van ZTC1 naar ZTC2", implementation = ZonedDateTime::class)
+    val ztc1MigratiedatumTijd: ZonedDateTime?,
+
     @field:Schema(description = "Is zaak heropend nadat de zaak was beëindigd", required = true)
     val heropend: Boolean,
 
     @field:Schema(description = "Is zaak in vernietiging", required = true)
     val vernietiging: Boolean,
+
+    @field:Schema(required = true)
+    val notificeerbaar: Boolean,
 
     @field:Schema(description = "Taken gerelateerd aan zaak")
     val taken: List<Taak>?,

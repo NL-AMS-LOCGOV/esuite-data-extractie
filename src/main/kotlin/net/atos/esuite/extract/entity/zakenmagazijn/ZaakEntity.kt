@@ -113,6 +113,10 @@ class ZaakEntity {
     @Column(name = "ind_in_vernietiging")
     var inVernietiging = false
 
+    // Indicatie of de zaak in vernietiging is
+    @Column(name = "notificeerbaar")
+    var notificeerbaar = false
+
     @OneToMany(mappedBy = "zaak", fetch = FetchType.LAZY)
     var taken: MutableSet<TaakEntity> = mutableSetOf()
 
@@ -169,6 +173,10 @@ class ZaakEntity {
     // Is voor de zaak een proces gestart
     @Column(name = "proces_gestart")
     var procesGestart = true
+
+    // Datum tijd waarop de zaak gemigreerd is van ZTC1 naar ZTC2
+    @Column(name = "ztc1_migratiedatumtijd")
+    var ztc1Migratiedatumtijd : Instant? = null
 
     @OneToMany(mappedBy = "zaak", fetch = FetchType.LAZY)
     var besluiten: MutableSet<BesluitEntity> = mutableSetOf()

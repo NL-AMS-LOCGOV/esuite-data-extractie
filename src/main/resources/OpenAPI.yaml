@@ -1386,6 +1386,7 @@ components:
         - procesGestart
         - heropend
         - vernietiging
+        - notificeerbaar
       properties:
         functioneleIdentificatie:
           type: string
@@ -1536,12 +1537,20 @@ components:
         procesGestart:
           type: boolean
           description: Is voor zaak afhandeling een proces gestart
+        ztc1MigratiedatumTijd:
+          type: string
+          format: date-time
+          examples:
+            - 2022-03-10T12:15:50-04:00
+          description: Datum tijd waarop de zaak gemigreerd is van ZTC1 naar ZTC2
         heropend:
           type: boolean
           description: Is zaak heropend nadat de zaak was beëindigd
         vernietiging:
           type: boolean
           description: Is zaak in vernietiging
+        notificeerbaar:
+          type: boolean
         taken:
           type: array
           items:
