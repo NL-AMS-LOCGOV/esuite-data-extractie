@@ -76,6 +76,7 @@ fun ArchiveergegevensEntity.toArchiveergegevens() = ArchiveerGegevens(
         else -> null
     },
     overgebrachteGegevens = overgebrachteGegevensEntity?.toOvergebrachteGegevens(),
+    zaaktypeNaam = zaaktypeNaam,
 )
 
 fun OvergebrachteGegevensEntity.toOvergebrachteGegevens() = OvergebrachteGegevens(

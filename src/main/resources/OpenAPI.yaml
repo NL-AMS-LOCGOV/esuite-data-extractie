@@ -43,54 +43,58 @@ components:
           format: date
           examples:
             - 2022-03-10
-          description: ""
+          description: Datum waarop de bewaartermijn afloopt
         bewaartermijnWaardering:
           type: string
-          description: ""
+          description: Waardering van de bewaartermijn
           $ref: "#/components/schemas/BewaartermijnWaardering"
         overbrengenOp:
           type: string
           format: date
           examples:
             - 2022-03-10
-          description: ""
+          description: Datum waarop de zaak overgebracht moet worden
         overbrengenNaar:
           type: string
           maxLength: 255
-          description: ""
+          description: Locatie/instantie waarnaar zaak overgebracht moet worden
         overbrengenDoor:
           type: string
           maxLength: 128
-          description: Gebruikernaam van medewerker
+          description: Naam medewerker die zaak op overbrengen zet
         overgebrachteGegevens:
           type: object
           description: ""
           $ref: "#/components/schemas/OvergebrachteGegevens"
         beperkingOpenbaarheid:
           type: boolean
-          description: ""
+          description: Aanduiding beperking openbaarheid
         beperkingOpenbaarheidReden:
           type: string
-          description: ""
+          description: Reden beperking openbaarheid
         beperkingOpenbaarheidVanaf:
           type: string
           format: date
           examples:
             - 2022-03-10
-          description: ""
+          description: Beperking openbaarheid datum vanaf
         beperkingOpenbaarheidTotEnMet:
           type: string
           format: date
           examples:
             - 2022-03-10
-          description: ""
+          description: Beperking openbaarheid datum tot en met
+        zaaktypeNaam:
+          type: string
+          maxLength: 255
+          description: "Naam van het zaaktype (zaaktype: naam_algemeen)"
         selectielijstItemNaam:
           type: string
           maxLength: 255
           description: ""
         overbrengenType:
           type: string
-          description: ""
+          description: Type overbrengen
           $ref: "#/components/schemas/OverbrengenType"
     BAGObject:
       type: object
