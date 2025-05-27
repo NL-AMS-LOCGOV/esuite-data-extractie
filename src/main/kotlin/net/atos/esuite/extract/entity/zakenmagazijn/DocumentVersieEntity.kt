@@ -1,6 +1,10 @@
 package net.atos.esuite.extract.entity.zakenmagazijn
 
 import jakarta.persistence.*
+import net.atos.esuite.extract.entity.configuratiemagazijn.ReferentieKanaalEntity
+import org.hibernate.annotations.JoinColumnOrFormula
+import org.hibernate.annotations.JoinColumnsOrFormulas
+import org.hibernate.annotations.JoinFormula
 import java.time.LocalDate
 
 
@@ -15,9 +19,17 @@ class DocumentVersieEntity {
     @Column(name = "versienummer")
     var versienummer = 0
 
-    // ID van het bestand dat het document bevat in het DMS.
-    @Column(name = "bestandsid", length = 255)
-    lateinit var bestandsId: String
+    @OneToOne
+    @JoinColumnsOrFormulas(
+        JoinColumnOrFormula(
+            formula = JoinFormula(
+                value = "CAST(bestandsid AS bigint)",
+                referencedColumnName = "id_documentinhoud"
+            )
+        )
+    )
+    @PrimaryKeyJoinColumn(name = "bestandsid")
+    lateinit var inhoud: DocumentInhoudEntity
 
     // Datum waarop de versie werd aangemaakt
     @Column(name = "creatiedatum")

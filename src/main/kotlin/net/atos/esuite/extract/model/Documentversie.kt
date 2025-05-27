@@ -28,4 +28,9 @@ class Documentversie(
     @field:Schema(description = "Ondertekeningen van document vdersie")
     val ondertekeningen: List<DocumentOndertekening>?,
 
-)
+    @field:Schema(description = "Grootte van document in bytes")
+    val documentgrootte: Long?,
+
+    @field:Schema(description = "Indicatie of de Blob gecomprimeerd is opgeslagen", required = true)
+    val compressed: Boolean,
+    )

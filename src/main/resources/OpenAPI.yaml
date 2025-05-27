@@ -900,6 +900,7 @@ components:
         - creatiedatum
         - bestandsnaam
         - mimetype
+        - compressed
       properties:
         versienummer:
           type: integer
@@ -937,6 +938,13 @@ components:
           items:
             $ref: "#/components/schemas/DocumentOndertekening"
           description: Ondertekeningen van document vdersie
+        documentgrootte:
+          type: integer
+          format: int64
+          description: Grootte van document in bytes
+        compressed:
+          type: boolean
+          description: Indicatie of de Blob gecomprimeerd is opgeslagen
     GeografischeInformatie:
       type: object
     History:
