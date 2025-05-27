@@ -53,6 +53,9 @@ class TaakEntity {
     @Column(name = "afgehandeldDoor", length = 255)
     var afgehandeldDoor: String? = null
 
+    @Column(name = "processtap", length = 255)
+    var processtap: String? = null
+
     // Type van de taak
     @Column(name = "taak_type", length = 255)
     lateinit var taakType: String
@@ -75,12 +78,16 @@ class TaakEntity {
     @OneToMany(mappedBy = "taak")
     var historie: MutableList<TaakHistorieEntity> = mutableListOf()
 
+    // Emails voor notificatie/herinneringsemail voor een externe taak
+    @Column(name = "toekenning_email")
+    var toekenningEmail: String? = null
+
     // Om een taak te koppelen aan een vestigingsnummer.
-    @Column(name = "vestigingsnummer", length = Int.MAX_VALUE)
+    @Column(name = "vestigingsnummer")
     var vestigingsnummer: String? = null
 
     // Om een taak te koppelen aan een kvknummer.
-    @Column(name = "kvknummer", length = Int.MAX_VALUE)
+    @Column(name = "kvknummer")
     var kvkNummer: String? = null
 
     // Het authenticatieniveau benodigd voor externen

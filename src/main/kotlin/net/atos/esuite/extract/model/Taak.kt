@@ -45,6 +45,9 @@ class Taak (
     @field:Schema(description = "Naam van gebruiker, afdeling of groep die taak heeft afgehandeld", maxLength = 255)
     val afgehandeldDoor: String?,
 
+    @field:Schema(maxLength = 255)
+    val processtap: String?,
+
     @field:Schema(description = "Taaktype")
     val taaktype: Taaktype,
 
@@ -59,6 +62,9 @@ class Taak (
 
     @field:Schema(description = "Historie van taak")
     val historie: List<TaakHistorie>,
+
+    @field:Schema(description = "Emails voor notificatie/herinneringsemail voor een externe taak")
+    val toekenningEmail: String?,
 
     @field:Schema(description = "Om taak te koppelen aan vestigingsnummer")
     val vestigingsnummer: String?,

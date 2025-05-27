@@ -1271,6 +1271,9 @@ components:
           type: string
           maxLength: 255
           description: "Naam van gebruiker, afdeling of groep die taak heeft afgehandeld"
+        processtap:
+          type: string
+          maxLength: 255
         taaktype:
           $ref: "#/components/schemas/Taaktype"
           type: string
@@ -1296,6 +1299,10 @@ components:
           items:
             $ref: "#/components/schemas/TaakHistorie"
           description: Historie van taak
+        toekenningEmail:
+          type: string
+          description: Emails voor notificatie/herinneringsemail voor een externe
+            taak
         vestigingsnummer:
           type: string
           description: Om taak te koppelen aan vestigingsnummer

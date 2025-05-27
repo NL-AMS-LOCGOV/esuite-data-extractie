@@ -125,6 +125,8 @@ fun TaakEntity.toTaak() = Taak(
     vestigingsnummer = vestigingsnummer,
     kvkNummer = kvkNummer,
     authenticatieniveau = authenticatieniveau,
+    processtap = processtap,
+    toekenningEmail = toekenningEmail,
 )
 
 fun ZaakZaakEntity.toZaakZaakKoppeling() = ZaakZaakKoppeling(
