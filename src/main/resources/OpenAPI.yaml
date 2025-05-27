@@ -1400,6 +1400,7 @@ components:
         - geautoriseerdVoorMedewerkers
         - procesGestart
         - heropend
+        - open
         - vernietiging
         - notificeerbaar
       properties:
@@ -1561,6 +1562,9 @@ components:
         heropend:
           type: boolean
           description: Is zaak heropend nadat de zaak was beëindigd
+        open:
+          type: boolean
+          description: Is zaak open (nog niet beëindigd)
         vernietiging:
           type: boolean
           description: Is zaak in vernietiging
@@ -1721,6 +1725,7 @@ components:
       required:
         - functioneleIdentificatie
         - zaaktype
+        - open
       properties:
         functioneleIdentificatie:
           type: string
@@ -1730,6 +1735,9 @@ components:
           $ref: "#/components/schemas/Zaaktype"
           type: object
           description: Zaaktype
+        open:
+          type: boolean
+          description: Is zaak open (nog niet beëindigd)
     ZaakOverzichtResults:
       type: object
       required:
@@ -1873,7 +1881,7 @@ paths:
                 $ref: "#/components/schemas/Contact"
       tags:
         - Contacten
-  /documenten/{bestandsId}/inhoud:
+  /documenten/inhoud/{bestandsId}:
     get:
       summary: Inhoud van een document ophalen
       operationId: document_inhoud_read
@@ -1925,6 +1933,12 @@ paths:
       summary: Lijst van zaak overzichten opvragen
       operationId: zaak_list
       parameters:
+        - name: inclusiefOpen
+          in: query
+          schema:
+            type: boolean
+            description: Inclusief open zaken
+            default: false
         - name: page
           in: query
           schema:

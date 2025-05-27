@@ -66,12 +66,14 @@ class ZaakConverter(
                     ?: error("Initiator with id ${it} not found")
             },
             notificeerbaar = zaakEntity.notificeerbaar,
+            open = zaakEntity.einddatum == null,
         )
 
     fun toZaakOverzicht(zaakEntity: ZaakEntity) =
         ZaakOverzicht(
             functioneleIdentificatie = zaakEntity.functioneelId,
             zaaktype = toZaaktype(zaakEntity.zaaktypeId),
+            zaakEntity.einddatum == null,
         )
 
     private fun toZaaktype(zaaktypeId: String) =

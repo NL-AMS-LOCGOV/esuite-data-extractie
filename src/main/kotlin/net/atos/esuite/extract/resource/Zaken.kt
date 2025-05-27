@@ -34,10 +34,14 @@ class Zaken(
         @Schema(description = "Zaaktype naam", maxLength = 255, required = true)
         zaaktype: String,
 
+        @QueryParam("inclusiefOpen")
+        @Schema(description = "Inclusief open zaken", defaultValue = "false")
+        inclusiefOpen: Boolean,
+        
         @BeanParam bladerParameters: BladerParameters
     ): Response {
         val (zaken, totaalAantalZaken) = zaakRepository.listByZaaktypeFunctioneelId(
-            zaaktype, bladerParameters.page, bladerParameters.pageSize
+            zaaktype, inclusiefOpen, bladerParameters.page, bladerParameters.pageSize
         )
         return ok(
             ZaakOverzichtResults(

@@ -118,6 +118,9 @@ class Zaak(
     @field:Schema(description = "Is zaak heropend nadat de zaak was beëindigd", required = true)
     val heropend: Boolean,
 
+    @field:Schema(description = "Is zaak open (nog niet beëindigd)", required = true)
+    val open: Boolean,
+
     @field:Schema(description = "Is zaak in vernietiging", required = true)
     val vernietiging: Boolean,
 

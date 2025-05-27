@@ -14,7 +14,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponse
 class Documenten {
 
     @GET
-    @Path("{bestandsId}/inhoud")
+    @Path("inhoud/{bestandsId}")
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(operationId = "document_inhoud_read", summary = "Inhoud van een document ophalen")
     @APIResponse(responseCode = "200", description = "OK")

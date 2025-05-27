@@ -10,4 +10,7 @@ class ZaakOverzicht(
 
     @field:Schema(description = "Zaaktype")
     val zaaktype: Zaaktype,
-    )
+
+    @field:Schema(description = "Is zaak open (nog niet beëindigd)", required = true)
+    val open: Boolean,
+)

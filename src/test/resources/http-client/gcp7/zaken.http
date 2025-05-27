@@ -1,4 +1,9 @@
+###
 GET {{base-url}}/zaken?zaaktype=MigratieTest1
+X-API-KEY: {{api-key}}
+
+###
+GET {{base-url}}/zaken?zaaktype=MigratieTest1&lopende=true
 X-API-KEY: {{api-key}}
 
 ###

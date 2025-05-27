@@ -21,6 +21,7 @@ class ZaakRepository : PanacheRepository<ZaakEntity> {
 
     fun listByZaaktypeFunctioneelId(
         zaaktypeFunctioneelId: String,
+        inclusiefOpen: Boolean, // ToDo: Tevens open zaken ophalen
         pageIndex: Int,
         pageSize: Int
     ): ListResult<ZaakEntity> {
