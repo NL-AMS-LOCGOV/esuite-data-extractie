@@ -5,5 +5,5 @@ import jakarta.enterprise.context.ApplicationScoped
 import net.atos.esuite.extract.entity.zakenmagazijn.ReferentieDocumentVormEntity
 
 @ApplicationScoped
-class DocumentVormRepository  : PanacheRepository<ReferentieDocumentVormEntity> {
+class DocumentVormRepository : PanacheRepository<ReferentieDocumentVormEntity> {
 }

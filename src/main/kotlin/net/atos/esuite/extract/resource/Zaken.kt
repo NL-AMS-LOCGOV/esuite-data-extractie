@@ -37,7 +37,7 @@ class Zaken(
         @QueryParam("inclusiefOpen")
         @Schema(description = "Inclusief open zaken", defaultValue = "false")
         inclusiefOpen: Boolean,
-        
+
         @BeanParam bladerParameters: BladerParameters
     ): Response {
         val (zaken, totaalAantalZaken) = zaakRepository.listByZaaktypeFunctioneelId(
@@ -64,6 +64,7 @@ class Zaken(
         return ok(
             zaakRepository.findByFunctioneleIdentificatie(functioneleIdentificatie)
                 ?.let { zaakConverter.toZaak(it) }
-                ?: throw WebApplicationException("Zaak not found", 404)).build()
+                ?: throw WebApplicationException("Zaak not found", 404)
+        ).build()
     }
 }
