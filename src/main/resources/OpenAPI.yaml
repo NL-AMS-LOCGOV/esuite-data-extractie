@@ -945,8 +945,30 @@ components:
         compressed:
           type: boolean
           description: Indicatie of de Blob gecomprimeerd is opgeslagen
+    Functie:
+      type: object
+      required:
+        - naam
+        - omschrijving
+        - actief
+      properties:
+        naam:
+          type: string
+          maxLength: 128
+          description: Naam van functie
+        omschrijving:
+          type: string
+          description: Omschrijving van functie
+        actief:
+          type: boolean
+          description: Is functie actief
     GeografischeInformatie:
       type: object
+    GeslachtMedewerker:
+      type: string
+      enum:
+        - man
+        - vrouw
     History:
       type: object
       properties:
@@ -973,6 +995,152 @@ components:
       type: object
       allOf:
         - $ref: "#/components/schemas/Referentie"
+    Medewerker:
+      type: object
+      required:
+        - gebruikersnaam
+        - volledigeNaam
+        - actief
+        - locked
+        - geslacht
+        - afdelingen
+        - groepen
+        - afdelingshoofdVan
+        - groepshoofdVan
+        - rollen
+        - rechten
+      properties:
+        gebruikersnaam:
+          type: string
+          uniqueItems: true
+          maxLength: 128
+          description: Gebruikersnaam van medewerker
+        volledigeNaam:
+          type: string
+          maxLength: 128
+          description: Volledige naam van medewerker
+        telefoonnummer:
+          type: string
+          maxLength: 20
+        emailadres:
+          type: string
+          maxLength: 64
+        actief:
+          type: boolean
+          description: Is medewerker actief
+        indiensttredingDatum:
+          type: string
+          format: date
+          examples:
+            - 2022-03-10
+          description: Datum indiensttreding
+        uitdiensttredingDatum:
+          type: string
+          format: date
+          examples:
+            - 2022-03-10
+          description: Datum uitdiensttreding
+        locked:
+          type: boolean
+          description: Is medewerker locked
+        externeNaam:
+          type: string
+          maxLength: 128
+          description: Externe naam van medewerker
+        functie:
+          type: object
+          description: Functie van medewerker
+          $ref: "#/components/schemas/Functie"
+        geslacht:
+          $ref: "#/components/schemas/GeslachtMedewerker"
+          type: string
+          description: Geslacht medewerker
+        laatsteLoginDatumTijd:
+          type: string
+          format: date-time
+          examples:
+            - 2022-03-10T12:15:50-04:00
+          description: Laatste logon datum/tijd van medewerker
+        opmerkingen:
+          type: string
+          description: Opmerkingen
+        primaireAfdeling:
+          type: string
+          description: Naam primaire afdeling
+        afdelingen:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+          description: Namen van afdelingen waarin medewerker zich bevindt
+        groepen:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+          description: Namen van groepen waarin medewerker zich bevindt
+        afdelingshoofdVan:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+          description: Namen van afdelingen waar medewerker hoofd van is
+        groepshoofdVan:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+          description: Namen van groepen waar medewerker hoofd van is
+        rollen:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: "#/components/schemas/Rol"
+          description: Rollen van medewerker
+        rechten:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: "#/components/schemas/Recht"
+          description: Rechten van medewerker
+    MedewerkerOverzicht:
+      type: object
+      required:
+        - gebruikersnaam
+        - volledigeNaam
+      properties:
+        gebruikersnaam:
+          type: string
+          uniqueItems: true
+          maxLength: 128
+          description: Gebruikersnaam van medewerker
+        volledigeNaam:
+          type: string
+          maxLength: 128
+          description: Volledige naam van medewerker
+    MedewerkerOverzichtResults:
+      type: object
+      required:
+        - count
+        - results
+      properties:
+        count:
+          type: integer
+          format: int32
+          description: Totaal aantal items
+        previousPage:
+          type: integer
+          format: int32
+          description: Vorige pagina met items
+        nextPage:
+          type: integer
+          format: int32
+          description: Volgende pagina met items
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/MedewerkerOverzicht"
+          description: Items in de huidige pagina
     MetadataElement:
       type: object
       required:
@@ -1072,6 +1240,131 @@ components:
           type: string
           maxLength: 10
           description: Voorvoegsel geslachtsnaam
+    Recht:
+      type: object
+      required:
+        - naam
+        - actief
+        - categorie
+        - operatie
+        - type
+      properties:
+        naam:
+          type: string
+          uniqueItems: true
+          maxLength: 255
+          description: Naam van recht
+        actief:
+          type: boolean
+          description: Is recht actief
+        categorie:
+          type: string
+          maxLength: 255
+          description: Categorie waartoe recht behoort
+        operatie:
+          $ref: "#/components/schemas/RechtOperatie"
+          type: string
+          description: Operatie waarvoor recht gebruikt wordt
+        type:
+          $ref: "#/components/schemas/RechtType"
+          type: string
+          description: Type object waarop operatie van toepassing is
+        waarde:
+          type: object
+          description: Waarde van het recht indien flexibel recht
+          $ref: "#/components/schemas/RechtWaarde"
+    RechtOperatie:
+      type: string
+      enum:
+        - tonen
+        - raadplegen
+        - bewerken
+        - toevoegen
+        - verwijderen
+        - overdragen
+        - starten
+        - heropenen
+        - verdelen
+        - importeren
+    RechtType:
+      type: string
+      enum:
+        - persoonsgegevens
+        - persoonsgegevens_extern
+        - persoonsgegevens_handmatig
+        - buitengemeentelijke_persoonsgegevens_extern
+        - bedrijfsgegevens
+        - bedrijfsgegevens_extern
+        - bedrijfsgegevens_handmatig
+        - bewaartermijn
+        - contact
+        - zaak
+        - voorlopig_antwoord_van_contact
+        - gegevens_voor_archivering
+        - notities
+        - vertrouwelijk_document
+        - betrokkene_aan_zaak
+        - tabblad_kcc
+        - tabblad_werklijsten
+        - tabblad_beheer
+        - tabblad_overzichten
+        - alle_geplande_overzichten
+        - bag_object_gegevens
+        - inbox_documenten
+        - alle_afspraken
+        - afspraak
+        - beheer_rapportagemodule
+        - beheer_afsprakenmodule
+        - afspraken_resourcepool
+        - beheer_zaaktypecatalogus
+        - beheer_domeinregistratie
+        - beheer_parameters
+        - alle_zaaktypen
+        - document
+        - document_bij_afgesloten_zaak
+        - domein
+        - veldtoegang
+        - recordmanagement
+        - autorisatiemanagement
+        - rapportage
+        - tabblad_gebruikers
+        - beheer_zgw_apis
+        - beheer_referentietabellen
+        - beheer_instellingen
+        - beheer_berichten_monitor
+        - vervaldatum_besluit
+        - notitie_bij_zaak
+        - notitie_bij_afgesloten_zaak
+        - zaaktype_van_zaak
+        - archieflijst_informatiebeheer
+        - archieflijst_proceseigenaar
+        - kwaliteitscontrolelijst
+    RechtWaarde:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Type recht waarde
+          $ref: "#/components/schemas/RechtWaardeType"
+        objectNaam:
+          type: string
+          maxLength: 255
+          description: Naam van object waarop 'type' van toepassing is
+        waarde:
+          type: string
+          maxLength: 255
+          description: Waarde van recht indien 'type'of 'objectNaam' niet bepaald
+            kunnen worden
+    RechtWaardeType:
+      type: string
+      enum:
+        - afdeling
+        - groep
+        - vestiging
+        - dsr_domein
+        - veld
+        - rapportage_categorie
+        - zaaktype
     Referentie:
       type: object
       required:
@@ -1096,6 +1389,23 @@ components:
           maxLength: 255
           description: Code welke gebruikt wordt voor het uitwisselen van zaak informatie
             naar externe systemen zoals bijvoorbeeld via StUF-ZKN-DMS
+    Rol:
+      type: object
+      required:
+        - naam
+        - omschrijving
+        - actief
+      properties:
+        naam:
+          type: string
+          maxLength: 128
+          description: Naam van rol
+        omschrijving:
+          type: string
+          description: Omschrijving van rol
+        actief:
+          type: boolean
+          description: Is rol actief
     SelectDocumentDataElement:
       type: object
       required:
@@ -1913,6 +2223,52 @@ paths:
           description: OK
       tags:
         - Domein Objecten
+  /medewerkers:
+    get:
+      summary: Lijst van medewerker overzichten opvragen
+      operationId: medewerker_list
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: page_size
+          in: query
+          schema:
+            type: integer
+            format: int32
+            description: Maximum aantal items per pagina
+            default: 100
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MedewerkerOverzichtResults"
+      tags:
+        - Medewerkers
+  /medewerkers/{gebruikersnaam}:
+    get:
+      summary: Een specifieke medewerker opvragen
+      operationId: medewerker_read
+      parameters:
+        - name: gebruikersnaam
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Medewerker"
+      tags:
+        - Medewerkers
   /zaaktypen:
     get:
       summary: Lijst van zaaktypen opvragen

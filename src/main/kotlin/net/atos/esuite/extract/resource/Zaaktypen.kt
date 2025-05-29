@@ -16,7 +16,7 @@ class Zaaktypen(
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(operationId = "zaaktype_list", summary = "Lijst van zaaktypen opvragen")
     @APIResponse(responseCode = "200", description = "OK")
-    fun zaakList(): List<Zaaktype> {
+    fun zaaktypeList(): List<Zaaktype> {
         return zaaktypeRepository.findAll().list().map { it.toZaaktype() }
     }
 }

@@ -10,11 +10,10 @@ import jakarta.ws.rs.core.MediaType
 import jakarta.ws.rs.core.Response
 import jakarta.ws.rs.core.Response.ok
 import net.atos.esuite.extract.converter.toMedewerker
+import net.atos.esuite.extract.converter.toMedewerkerOverzicht
 import net.atos.esuite.extract.model.BladerParameters
 import net.atos.esuite.extract.model.Medewerker
-import net.atos.esuite.extract.model.MedewerkerResults
-import net.atos.esuite.extract.model.Zaak
-import net.atos.esuite.extract.model.ZaakOverzichtResults
+import net.atos.esuite.extract.model.MedewerkerOverzichtResults
 import net.atos.esuite.extract.repository.MedewerkerRepository
 import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.media.Content
@@ -27,12 +26,12 @@ class Medewerkers(
 ) {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Operation(operationId = "medewerker_list", summary = "Lijst van medewerkers opvragen")
+    @Operation(operationId = "medewerker_list", summary = "Lijst van medewerker overzichten opvragen")
     @APIResponse(
         responseCode = "200", description = "OK",
-        content = [Content(schema = Schema(implementation = MedewerkerResults::class))]
+        content = [Content(schema = Schema(implementation = MedewerkerOverzichtResults::class))]
     )
-    fun medewerkerOverzichtList(
+    fun medewerkerList(
         @BeanParam bladerParameters: BladerParameters
     ): Response {
         val (medewerkers, totaalAantalMedewerkers) = medewerkerRepository.list(
@@ -40,8 +39,8 @@ class Medewerkers(
             bladerParameters.pageSize
         )
         return ok(
-            MedewerkerResults(
-                medewerkers.map { it.toMedewerker() },
+            MedewerkerOverzichtResults(
+                medewerkers.map { it.toMedewerkerOverzicht() },
                 totaalAantalMedewerkers,
                 bladerParameters.page,
                 bladerParameters.pageSize,

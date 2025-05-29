@@ -6,10 +6,7 @@ import jakarta.ws.rs.core.Response
 import jakarta.ws.rs.core.Response.ok
 import net.atos.esuite.extract.converter.ZaakConverter
 import net.atos.esuite.extract.model.BladerParameters
-import net.atos.esuite.extract.model.ContactOverzichtResults
 import net.atos.esuite.extract.model.Zaak
-import net.atos.esuite.extract.model.Results
-import net.atos.esuite.extract.model.ZaakOverzicht
 import net.atos.esuite.extract.model.ZaakOverzichtResults
 import net.atos.esuite.extract.repository.ZaakRepository
 import org.eclipse.microprofile.openapi.annotations.Operation
@@ -29,7 +26,7 @@ class Zaken(
         responseCode = "200", description = "OK",
         content = [Content(schema = Schema(implementation = ZaakOverzichtResults::class))]
     )
-    fun zaakOverzichtList(
+    fun zaakList(
         @QueryParam("zaaktype")
         @Schema(description = "Zaaktype naam", maxLength = 255, required = true)
         zaaktype: String,

@@ -5,3 +5,7 @@ X-API-KEY: {{api-key}}
 ###
 GET {{base-url}}/medewerkers/andy
 X-API-KEY: {{api-key}}
+
+###
+GET {{base-url}}/medewerkers/niek
+X-API-KEY: {{api-key}}

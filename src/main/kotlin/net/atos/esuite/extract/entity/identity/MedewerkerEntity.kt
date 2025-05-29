@@ -51,7 +51,7 @@ class MedewerkerEntity {
     @Column(name = "login_pogingen")
     var loginPogingen: Long = 0
 
-    //Aanduiding gebruiker actief
+    // Aanduiding gebruiker actief
     @Column(name = "actief")
     var actief = false
 
