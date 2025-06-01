@@ -15,12 +15,12 @@ import net.atos.esuite.extract.model.RechtWaarde
 import net.atos.esuite.extract.model.Rol
 
 fun MedewerkerEntity.toMedewerkerOverzicht() = MedewerkerOverzicht(
-    gebruikersnaam = medewerkernaam,
+    gebruikersnaam = gebruikersnaam,
     volledigeNaam = naam,
 )
 
 fun MedewerkerEntity.toMedewerker() = Medewerker(
-    gebruikersnaam = medewerkernaam,
+    gebruikersnaam = gebruikersnaam,
     volledigeNaam = naam,
     telefoonnummer = telefoon,
     emailadres = email,

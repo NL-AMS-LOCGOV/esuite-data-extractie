@@ -29,6 +29,39 @@ components:
         itemWaarde:
           type: string
           description: Item waarde
+    AfdelingOverzicht:
+      type: object
+      required:
+        - naam
+      properties:
+        naam:
+          type: string
+          uniqueItems: true
+          maxLength: 128
+          description: Naam van afdeling
+    AfdelingOverzichtResults:
+      type: object
+      required:
+        - count
+        - results
+      properties:
+        count:
+          type: integer
+          format: int32
+          description: Totaal aantal items
+        previousPage:
+          type: integer
+          format: int32
+          description: Vorige pagina met items
+        nextPage:
+          type: integer
+          format: int32
+          description: Volgende pagina met items
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/AfdelingOverzicht"
+          description: Items in de huidige pagina
     ArchiveerGegevens:
       type: object
       properties:
@@ -969,6 +1002,76 @@ components:
       enum:
         - man
         - vrouw
+    Groep:
+      type: object
+      required:
+        - naam
+        - omschrijving
+        - actief
+        - medewerkers
+      properties:
+        naam:
+          type: string
+          uniqueItems: true
+          maxLength: 128
+          description: Naam van groep
+        code:
+          type: string
+          maxLength: 128
+          description: Interne code van groep
+        omschrijving:
+          type: string
+          description: Omschrijving van groep
+        groepshoofd:
+          type: string
+          maxLength: 128
+          description: Gebruikersnaam van hoofd van groep
+        emailadres:
+          type: string
+          maxLength: 64
+          pattern: E-mailadres van groep
+        actief:
+          type: boolean
+          description: Is groep actief
+        medewerkers:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+          description: Gebruikersnamen van medewerkers in groep
+    GroepOverzicht:
+      type: object
+      required:
+        - naam
+      properties:
+        naam:
+          type: string
+          uniqueItems: true
+          maxLength: 128
+          description: Naam van groep
+    GroepOverzichtResults:
+      type: object
+      required:
+        - count
+        - results
+      properties:
+        count:
+          type: integer
+          format: int32
+          description: Totaal aantal items
+        previousPage:
+          type: integer
+          format: int32
+          description: Vorige pagina met items
+        nextPage:
+          type: integer
+          format: int32
+          description: Volgende pagina met items
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/GroepOverzicht"
+          description: Items in de huidige pagina
     History:
       type: object
       properties:
@@ -1022,9 +1125,11 @@ components:
         telefoonnummer:
           type: string
           maxLength: 20
+          description: Telefoonnummer van medewerker
         emailadres:
           type: string
           maxLength: 64
+          description: E-mailadres van medewerker
         actief:
           type: boolean
           description: Is medewerker actief
@@ -2145,6 +2250,52 @@ info:
 security:
   - ApiKeyAuth: [ ]
 paths:
+  /afdelingen:
+    get:
+      summary: Lijst van afdeling overzichten opvragen
+      operationId: afdeling_list
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: page_size
+          in: query
+          schema:
+            type: integer
+            format: int32
+            description: Maximum aantal items per pagina
+            default: 100
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AfdelingOverzichtResults"
+      tags:
+        - Afdelingen
+  /afdelingen/{naam}:
+    get:
+      summary: Een specifieke medewerker opvragen
+      operationId: afdeling_read
+      parameters:
+        - name: naam
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Medewerker"
+      tags:
+        - Afdelingen
   /contacten:
     get:
       summary: Lijst van contact overzichten opvragen
@@ -2223,6 +2374,52 @@ paths:
           description: OK
       tags:
         - Domein Objecten
+  /groepen:
+    get:
+      summary: Lijst van groep overzichten opvragen
+      operationId: groep_list
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: page_size
+          in: query
+          schema:
+            type: integer
+            format: int32
+            description: Maximum aantal items per pagina
+            default: 100
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GroepOverzichtResults"
+      tags:
+        - Groepen
+  /groepen/{naam}:
+    get:
+      summary: Een specifieke groep opvragen
+      operationId: groep_read
+      parameters:
+        - name: naam
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Groep"
+      tags:
+        - Groepen
   /medewerkers:
     get:
       summary: Lijst van medewerker overzichten opvragen

@@ -12,10 +12,10 @@ class Medewerker(
     @field:Schema(description = "Volledige naam van medewerker", maxLength = 128)
     val volledigeNaam: String,
 
-    @field:Schema(maxLength = 20)
+    @field:Schema(description = "Telefoonnummer van medewerker", maxLength = 20)
     val telefoonnummer: String?,
 
-    @field:Schema(maxLength = 64)
+    @field:Schema(description = "E-mailadres van medewerker", maxLength = 64)
     val emailadres: String?,
 
     @field:Schema(description = "Is medewerker actief", required = true)

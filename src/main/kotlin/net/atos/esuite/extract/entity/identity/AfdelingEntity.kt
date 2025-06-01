@@ -29,6 +29,7 @@ class AfdelingEntity {
     @Column(name = "omschrijving")
     lateinit var omschrijving: String
 
+    // Interne code van afdeling
     @Column(name = "code", length = 128, unique = true)
     var code: String? = null
 

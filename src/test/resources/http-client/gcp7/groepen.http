@@ -1,0 +1,7 @@
+###
+GET {{base-url}}/groepen
+X-API-KEY: {{api-key}}
+
+###
+GET {{base-url}}/groepen/GroepDefault
+X-API-KEY: {{api-key}}

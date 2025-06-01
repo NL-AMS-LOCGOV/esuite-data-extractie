@@ -42,6 +42,5 @@ class GroepEntity {
     var email: String? = null
 
     @ManyToMany(mappedBy = "groepen", fetch = FetchType.LAZY)
-    var medewerkers: MutableSet<MedewerkerEntity?>? = null
-
+    var medewerkers: MutableSet<MedewerkerEntity> = mutableSetOf()
 }

@@ -3,7 +3,6 @@ package net.atos.esuite.extract.entity.identity
 import jakarta.persistence.*
 import java.time.Instant
 import java.time.LocalDate
-import java.util.*
 
 @Entity
 @Table(name = "medewerker", schema = "identity")
@@ -23,7 +22,7 @@ class MedewerkerEntity {
 
     // Gebruikersnaam (voor inloggen)
     @Column(name = "medewerkernaam", length = 128, unique = true)
-    lateinit var medewerkernaam: String
+    lateinit var gebruikersnaam: String
 
     // Volledige naam
     @Column(name = "naam", length = 128)

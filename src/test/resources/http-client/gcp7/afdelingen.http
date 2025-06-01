@@ -1,0 +1,7 @@
+###
+GET {{base-url}}/afdelingen
+X-API-KEY: {{api-key}}
+
+###
+GET {{base-url}}/afdelingen/Algemeen
+X-API-KEY: {{api-key}}
