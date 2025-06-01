@@ -2,9 +2,9 @@ package net.atos.esuite.extract.resource
 
 import jakarta.ws.rs.*
 import jakarta.ws.rs.core.MediaType
-import net.atos.esuite.extract.converter.toZaaktype
-import net.atos.esuite.extract.model.Zaaktype
-import net.atos.esuite.extract.repository.ZaaktypeRepository
+import net.atos.esuite.extract.converter.zaak.toZaaktype
+import net.atos.esuite.extract.model.zaak.Zaaktype
+import net.atos.esuite.extract.repository.zaak.ZaaktypeRepository
 import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse
 

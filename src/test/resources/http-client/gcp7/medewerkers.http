@@ -2,10 +2,28 @@
 GET {{base-url}}/medewerkers
 X-API-KEY: {{api-key}}
 
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+%}
+
 ###
 GET {{base-url}}/medewerkers/andy
 X-API-KEY: {{api-key}}
 
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+%}
+
 ###
 GET {{base-url}}/medewerkers/niek
 X-API-KEY: {{api-key}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+%}

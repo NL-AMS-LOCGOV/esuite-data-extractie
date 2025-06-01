@@ -4,11 +4,11 @@ import jakarta.ws.rs.*
 import jakarta.ws.rs.core.MediaType
 import jakarta.ws.rs.core.Response
 import jakarta.ws.rs.core.Response.ok
-import net.atos.esuite.extract.converter.ZaakConverter
-import net.atos.esuite.extract.model.BladerParameters
-import net.atos.esuite.extract.model.Zaak
-import net.atos.esuite.extract.model.ZaakOverzichtResults
-import net.atos.esuite.extract.repository.ZaakRepository
+import net.atos.esuite.extract.converter.zaak.ZaakConverter
+import net.atos.esuite.extract.model.shared.BladerParameters
+import net.atos.esuite.extract.model.zaak.Zaak
+import net.atos.esuite.extract.model.zaak.ZaakOverzichtResults
+import net.atos.esuite.extract.repository.zaak.ZaakRepository
 import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.media.Content
 import org.eclipse.microprofile.openapi.annotations.media.Schema

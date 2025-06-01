@@ -2,6 +2,18 @@
 GET {{base-url}}/groepen
 X-API-KEY: {{api-key}}
 
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+%}
+
 ###
 GET {{base-url}}/groepen/GroepDefault
 X-API-KEY: {{api-key}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+%}

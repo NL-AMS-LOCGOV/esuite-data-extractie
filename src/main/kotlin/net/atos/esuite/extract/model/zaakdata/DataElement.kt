@@ -1,7 +1,5 @@
 package net.atos.esuite.extract.model.zaakdata
 
-import net.atos.esuite.extract.model.Bedrijf
-import net.atos.esuite.extract.model.Persoon
 import org.eclipse.microprofile.openapi.annotations.media.DiscriminatorMapping
 import org.eclipse.microprofile.openapi.annotations.media.Schema
 
