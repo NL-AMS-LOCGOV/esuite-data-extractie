@@ -38,12 +38,12 @@ fun ReferentieDocumentTypeEntity.toDocumenttype() =
         }
     )
 
-fun DocumentVersieEntity.toDocumentversie() =
+fun DocumentVersieEntity.toDocumentversie(documentInhoudEntity: DocumentInhoudEntity) =
     Documentversie(
         versienummer = versienummer,
-        bestandsId = inhoud.identifier.toString(),
-        documentgrootte = if (inhoud.documentgrootte > 0) inhoud.documentgrootte else null,
-        compressed = inhoud.compressed,
+        bestandsId = documentInhoudEntity.identifier,
+        documentgrootte = if (documentInhoudEntity.documentgrootte > 0) documentInhoudEntity.documentgrootte else null,
+        compressed = documentInhoudEntity.compressed,
         creatiedatum = creatiedatum,
         auteur = auteur,
         afzender = afzender,

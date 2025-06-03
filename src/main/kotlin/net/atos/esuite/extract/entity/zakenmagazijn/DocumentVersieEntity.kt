@@ -19,18 +19,10 @@ class DocumentVersieEntity {
     @Column(name = "versienummer")
     var versienummer = 0
 
-    @OneToOne
-    @JoinColumnsOrFormulas(
-        JoinColumnOrFormula(
-            formula = JoinFormula(
-                value = "CAST(bestandsid AS bigint)",
-                referencedColumnName = "id_documentinhoud"
-            )
-        )
-    )
-    @PrimaryKeyJoinColumn(name = "bestandsid")
-    lateinit var inhoud: DocumentInhoudEntity
-
+    // ID van het bestand dat het document bevat in het DMS.
+    @Column(name = "bestandsid", length = 255)
+    lateinit var bestandsId: String
+    
     // Datum waarop de versie werd aangemaakt
     @Column(name = "creatiedatum")
     lateinit var creatiedatum: LocalDate

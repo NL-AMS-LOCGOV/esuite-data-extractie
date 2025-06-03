@@ -7,8 +7,8 @@ class Documentversie(
     @field:Schema(description = "Versienummer van document versie", required = true)
     val versienummer: Int,
 
-    @field:Schema(description = "ID van het bestand dat de inhoud van document versie bevat in het DMS", maxLength = 255)
-    val bestandsId: String,
+    @field:Schema(description = "ID van document inhoud", required = true)
+    val bestandsId: Long,
 
     @field:Schema(description = "Datum waarop document versie werd aangemaakt", implementation = LocalDate::class)
     val creatiedatum: LocalDate,

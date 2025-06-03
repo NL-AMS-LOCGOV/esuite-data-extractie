@@ -10,6 +10,7 @@ import net.atos.esuite.extract.entity.zakenmagazijn.DocumentRichting
 import net.atos.esuite.extract.entity.zakenmagazijn.DocumentVersturen
 import net.atos.esuite.extract.model.document.Document
 import net.atos.esuite.extract.model.document.DocumentMetadata
+import net.atos.esuite.extract.repository.document.DocumentInhoudRepository
 import net.atos.esuite.extract.repository.document.DocumentStatusRepository
 import net.atos.esuite.extract.repository.document.DocumentTypeRepository
 import net.atos.esuite.extract.repository.document.DocumentVormRepository
@@ -24,7 +25,12 @@ class DocumentConverter(
     private val documentVormRepository: DocumentVormRepository,
     private val taalRepository: TaalRepository,
     private val metadataelementRepository: MetadataelementRepository,
+    private val documentInhoudRepository: DocumentInhoudRepository,
 ) {
+    companion object {
+        const val BESTANDS_ID_PREFIX = "dms:"
+    }
+
     fun toDocument(documentEntity: DocumentEntity) =
         Document(
             functioneleIdentificatie = documentEntity.idFunctioneel,
@@ -57,15 +63,16 @@ class DocumentConverter(
             beschrijving = documentEntity.beschrijving,
             lockEigenaarId = documentEntity.lockEigenaarId,
             lockDatumTijd = documentEntity.lockDatumTijd?.toZonedDateTime(),
-            documentversies = documentEntity.documentversies.map { it.toDocumentversie() },
+            documentversies = documentEntity.documentversies.map { it.toDocumentversie(toDocumentInhoudEntity(it.bestandsId)) },
             documentMetadata = documentEntity.documentMetadata.map { toDocumentMetadata(it) }.ifEmpty { null },
             taak = documentEntity.taak?.toTaak(),
             historie = documentEntity.historie.map { it.toDocumentHistorie() },
             publicaties = documentEntity.publicaties.map { it.toDocumentPublicatie() }.ifEmpty { null },
-            pdfaId = documentEntity.pdfaId,
-            pdfaDocumentversie = documentEntity.pdfaDocumentVersieEntity?.toDocumentversie(),
+            pdfaDocumentversie = documentEntity.pdfaDocumentVersieEntity?.let {
+                it.toDocumentversie(toDocumentInhoudEntity(it.bestandsId))
+            },
             taal = documentEntity.taalId?.let { toTaal(it) },
-            geautoriseerdeMedewerkers = documentEntity . geautoriseerdeMedewerkers . ifEmpty { null },
+            geautoriseerdeMedewerkers = documentEntity.geautoriseerdeMedewerkers.ifEmpty { null },
             geautoriseerdVoorMedewerkers = documentEntity.autorisatie,
             converterenNaarPdfa = documentEntity.converterenNaarPdfa,
         )
@@ -100,4 +107,11 @@ class DocumentConverter(
             metadataElement = documentMetadataEntity.metadataelementId?.let { toMetadataElement(it) },
             waarde = documentMetadataEntity.waardeMetadata,
         )
+
+    private fun toDocumentInhoudEntity(bestandsId: String) =
+        documentInhoudRepository.findById(toDocumentInhoudId(bestandsId))
+            ?: error("Document inhoud not found: $bestandsId")
+
+    private fun toDocumentInhoudId(bestandsId: String) =
+        bestandsId.substringAfter(BESTANDS_ID_PREFIX).toLong()
 }

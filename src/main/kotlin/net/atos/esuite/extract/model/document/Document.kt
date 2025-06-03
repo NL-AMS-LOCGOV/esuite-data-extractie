@@ -81,9 +81,6 @@ class Document(
     @field:Schema(description = "Document publicaties")
     val publicaties: List<DocumentPublicatie>?,
 
-    @field:Schema(description = "ID van bestand in DMS van PDFA versie van document", maxLength = 255)
-    val pdfaId: String?,
-
     @field:Schema(description = "Document versie van PDFA versie van document")
     val pdfaDocumentversie: Documentversie?,
 

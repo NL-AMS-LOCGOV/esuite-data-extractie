@@ -769,10 +769,6 @@ components:
           items:
             $ref: "#/components/schemas/DocumentPublicatie"
           description: Document publicaties
-        pdfaId:
-          type: string
-          maxLength: 255
-          description: ID van bestand in DMS van PDFA versie van document
         pdfaDocumentversie:
           type: object
           description: Document versie van PDFA versie van document
@@ -940,10 +936,9 @@ components:
           format: int32
           description: Versienummer van document versie
         bestandsId:
-          type: string
-          maxLength: 255
-          description: ID van het bestand dat de inhoud van document versie bevat
-            in het DMS
+          type: integer
+          format: int64
+          description: ID van document inhoud
         creatiedatum:
           type: string
           format: date
