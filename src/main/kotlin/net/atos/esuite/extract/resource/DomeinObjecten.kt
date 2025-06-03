@@ -8,7 +8,7 @@ import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.media.Schema
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse
 
-@Path("/domeinobjecten")
+@Path("domeinobjecten")
 class DomeinObjecten {
 
     @GET

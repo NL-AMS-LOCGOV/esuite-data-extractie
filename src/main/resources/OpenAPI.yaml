@@ -1477,6 +1477,38 @@ components:
         omschrijving:
           type: string
           description: Omschrijving
+    ReferentietabelOverzicht:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/Referentie"
+      properties:
+        aantalRecords:
+          type: integer
+          format: int64
+          description: Aantal records in tabel
+    ReferentietabelOverzichtResults:
+      type: object
+      required:
+        - count
+        - results
+      properties:
+        count:
+          type: integer
+          format: int32
+          description: Totaal aantal items
+        previousPage:
+          type: integer
+          format: int32
+          description: Vorige pagina met items
+        nextPage:
+          type: integer
+          format: int32
+          description: Volgende pagina met items
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/ReferentietabelOverzicht"
+          description: Items in de huidige pagina
     Resultaat:
       type: object
       required:
@@ -2461,6 +2493,33 @@ paths:
                 $ref: "#/components/schemas/Medewerker"
       tags:
         - Medewerkers
+  /referentietabellen:
+    get:
+      summary: Lijst van referentietabel overzichten opvragen
+      operationId: referentietabel_list
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: page_size
+          in: query
+          schema:
+            type: integer
+            format: int32
+            description: Maximum aantal items per pagina
+            default: 100
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReferentietabelOverzichtResults"
+      tags:
+        - Referentietabellen
   /zaaktypen:
     get:
       summary: Lijst van zaaktypen opvragen

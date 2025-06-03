@@ -19,7 +19,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Content
 import org.eclipse.microprofile.openapi.annotations.media.Schema
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse
 
-@Path("/contacten")
+@Path("contacten")
 class Contacten(
     private val contactRepository: ContactRepository,
     private val contactConverter: ContactConverter,

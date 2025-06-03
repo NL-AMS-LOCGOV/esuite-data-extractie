@@ -1,12 +1,12 @@
 package net.atos.esuite.extract.entity.contactenmagazijn
 
 import jakarta.persistence.*
-import net.atos.esuite.extract.entity.shared.AbstractReferentieLongIdEntity
+import net.atos.esuite.extract.entity.shared.AbstractReferentieEntity
 
 
 @Entity
 @Table(name = "con_ref_contactstatus", schema = "contactenmagazijn")
-class ReferentieContactStatusEntity: AbstractReferentieLongIdEntity() {
+class ReferentieContactStatusEntity: AbstractReferentieEntity() {
 
     @Id
     @Column(name = "id_contactstatus")

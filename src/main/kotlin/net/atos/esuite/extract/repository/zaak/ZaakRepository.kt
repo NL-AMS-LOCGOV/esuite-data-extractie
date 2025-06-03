@@ -4,7 +4,6 @@ import io.quarkus.hibernate.orm.panache.kotlin.PanacheRepository
 import jakarta.enterprise.context.ApplicationScoped
 import net.atos.esuite.extract.entity.zakenmagazijn.ZaakEntity
 import jakarta.persistence.EntityManager
-import jakarta.persistence.TypedQuery
 import jakarta.persistence.criteria.CriteriaBuilder
 import jakarta.persistence.criteria.CriteriaQuery
 import jakarta.persistence.criteria.Root
@@ -42,11 +41,11 @@ class ZaakRepository : PanacheRepository<ZaakEntity> {
         pageIndex: Int,
         pageSize: Int
     ): List<ZaakEntity> {
-        val zaakQuery = cb.createQuery(ZaakEntity::class.java)
-        val zaakRoot = zaakQuery.from(ZaakEntity::class.java)
-        zaakQuery.select(zaakRoot)
-        createZaaktypeSubQuery(cb, zaakQuery, zaakRoot, zaaktypeFunctioneelId)
-        return with(em.createQuery(zaakQuery)) {
+        val query = cb.createQuery(ZaakEntity::class.java)
+        val root = query.from(ZaakEntity::class.java)
+        query.select(root)
+        createZaaktypeSubQuery(cb, query, root, zaaktypeFunctioneelId)
+        return with(em.createQuery(query)) {
             firstResult = pageIndex * pageSize
             maxResults = pageSize
             resultList
@@ -58,11 +57,11 @@ class ZaakRepository : PanacheRepository<ZaakEntity> {
         cb: CriteriaBuilder,
         zaaktypeFunctioneelId: String
     ): Int {
-        val countQuery = cb.createQuery(Long::class.javaObjectType)
-        val zaakRoot = countQuery.from(ZaakEntity::class.java)
-        countQuery.select(cb.count(zaakRoot))
-        createZaaktypeSubQuery(cb, countQuery, zaakRoot, zaaktypeFunctioneelId)
-        return em.createQuery(countQuery).singleResult.toInt()
+        val query = cb.createQuery(Long::class.javaObjectType)
+        val root = query.from(ZaakEntity::class.java)
+        query.select(cb.count(root))
+        createZaaktypeSubQuery(cb, query, root, zaaktypeFunctioneelId)
+        return em.createQuery(query).singleResult.toInt()
     }
 
     private fun <T> createZaaktypeSubQuery(
@@ -71,15 +70,15 @@ class ZaakRepository : PanacheRepository<ZaakEntity> {
         root: Root<ZaakEntity>,
         zaaktypeFunctioneelId: String
     ) {
-        val zaaktypeSubquery = query.subquery(String::class.java)
-        val zaaktypeRoot = zaaktypeSubquery.from(ReferentieZaakTypeEntity::class.java)
-        zaaktypeSubquery
+        val subquery = query.subquery(String::class.java)
+        val subqueryRoot = subquery.from(ReferentieZaakTypeEntity::class.java)
+        subquery
             .select(
                 cb.concat(
-                    cb.literal(ZAAKTYPE_ID_PREFIX), zaaktypeRoot.get<Long>("identifier").`as`(String::class.java)
+                    cb.literal(ZAAKTYPE_ID_PREFIX), subqueryRoot.get<Long>("identifier").`as`(String::class.java)
                 )
-            ).where(cb.equal(zaaktypeRoot.get<String>("functioneelId"), zaaktypeFunctioneelId))
+            ).where(cb.equal(subqueryRoot.get<String>("functioneelId"), zaaktypeFunctioneelId))
         query
-            .where(cb.equal(root.get<String>("zaaktypeId"), zaaktypeSubquery))
+            .where(cb.equal(root.get<String>("zaaktypeId"), subquery))
     }
 }

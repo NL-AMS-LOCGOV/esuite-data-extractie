@@ -6,11 +6,11 @@ import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
 import jakarta.persistence.Table
-import net.atos.esuite.extract.entity.shared.AbstractReferentieLongIdEntity
+import net.atos.esuite.extract.entity.shared.AbstractReferentieEntity
 
 @Entity
 @Table(name = "ztc_ref_besluittype", schema = "zakenmagazijn")
-class ReferentieBesluittypeEntity : AbstractReferentieLongIdEntity() {
+class ReferentieBesluittypeEntity : AbstractReferentieEntity() {
 
     @Id
     @Column(name = "id_besluittype")

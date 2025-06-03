@@ -20,7 +20,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Content
 import org.eclipse.microprofile.openapi.annotations.media.Schema
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse
 
-@Path("/groepen")
+@Path("groepen")
 class Groepen(
     private val groepRepository: GroepRepository,
 ) {

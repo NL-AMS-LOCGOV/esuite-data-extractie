@@ -10,7 +10,7 @@ import jakarta.ws.rs.core.Response.ok
 import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse
 
-@Path("/documenten")
+@Path("documenten")
 class Documenten {
 
     @GET

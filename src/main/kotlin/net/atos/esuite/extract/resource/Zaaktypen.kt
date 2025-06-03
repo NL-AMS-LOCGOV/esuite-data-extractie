@@ -8,7 +8,7 @@ import net.atos.esuite.extract.repository.zaak.ZaaktypeRepository
 import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse
 
-@Path("/zaaktypen")
+@Path("zaaktypen")
 class Zaaktypen(
     private val zaaktypeRepository: ZaaktypeRepository
 ) {

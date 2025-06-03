@@ -1,22 +1,19 @@
-package net.atos.esuite.extract.repository.contact
+package net.atos.esuite.extract.repository.dsr
 
 import io.quarkus.hibernate.orm.panache.kotlin.PanacheRepository
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.persistence.EntityManager
 import jakarta.persistence.criteria.CriteriaBuilder
-import net.atos.esuite.extract.entity.contactenmagazijn.ContactEntity
+import net.atos.esuite.extract.entity.dsr.definitie.ReferentietabelDefinitieEntity
 import net.atos.esuite.extract.repository.ListResult
 
 @ApplicationScoped
-class ContactRepository : PanacheRepository<ContactEntity> {
-
-    fun findByFunctioneleIdentificatie(functioneleIdentificatie: String) =
-        find("functioneelId", functioneleIdentificatie).firstResult()
+class ReferentietabelDefinitieRepository : PanacheRepository<ReferentietabelDefinitieEntity> {
 
     fun list(
         pageIndex: Int,
         pageSize: Int
-    ): ListResult<ContactEntity> {
+    ) : ListResult<ReferentietabelDefinitieEntity> {
         val em = getEntityManager()
         val cb = em.criteriaBuilder
         return ListResult(
@@ -30,9 +27,9 @@ class ContactRepository : PanacheRepository<ContactEntity> {
         cb: CriteriaBuilder,
         pageIndex: Int,
         pageSize: Int
-    ): List<ContactEntity> {
-        val query = cb.createQuery(ContactEntity::class.java)
-        val root = query.from(ContactEntity::class.java)
+    ): List<ReferentietabelDefinitieEntity> {
+        val query = cb.createQuery(ReferentietabelDefinitieEntity::class.java)
+        val root = query.from(ReferentietabelDefinitieEntity::class.java)
         query.select(root)
         return with(em.createQuery(query)) {
             firstResult = pageIndex * pageSize
@@ -46,7 +43,7 @@ class ContactRepository : PanacheRepository<ContactEntity> {
         cb: CriteriaBuilder,
     ): Int {
         val query = cb.createQuery(Long::class.javaObjectType)
-        val root = query.from(ContactEntity::class.java)
+        val root = query.from(ReferentietabelDefinitieEntity::class.java)
         query.select(cb.count(root))
         return em.createQuery(query).singleResult.toInt()
     }

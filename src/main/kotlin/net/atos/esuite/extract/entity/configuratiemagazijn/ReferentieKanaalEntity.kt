@@ -1,12 +1,12 @@
 package net.atos.esuite.extract.entity.configuratiemagazijn
 
 import jakarta.persistence.*
-import net.atos.esuite.extract.entity.shared.AbstractReferentieLongIdEntity
+import net.atos.esuite.extract.entity.shared.AbstractReferentieEntity
 
 
 @Entity
 @Table(name = "conf_ref_kanaal", schema = "configuratiemagazijn")
-class ReferentieKanaalEntity : AbstractReferentieLongIdEntity() {
+class ReferentieKanaalEntity : AbstractReferentieEntity() {
 
     @Id
     @Column(name = "id_kanaal")

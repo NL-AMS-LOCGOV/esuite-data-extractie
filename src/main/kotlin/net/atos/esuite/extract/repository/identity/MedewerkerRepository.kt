@@ -3,7 +3,6 @@ package net.atos.esuite.extract.repository.identity
 import io.quarkus.hibernate.orm.panache.kotlin.PanacheRepository
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.persistence.EntityManager
-import jakarta.persistence.TypedQuery
 import jakarta.persistence.criteria.CriteriaBuilder
 import net.atos.esuite.extract.entity.identity.MedewerkerEntity
 import net.atos.esuite.extract.repository.ListResult
@@ -32,10 +31,10 @@ class MedewerkerRepository : PanacheRepository<MedewerkerEntity> {
         pageIndex: Int,
         pageSize: Int,
     ): List<MedewerkerEntity> {
-        val medewerkerQuery = cb.createQuery(MedewerkerEntity::class.java)
-        val medewerkerRoot = medewerkerQuery.from(MedewerkerEntity::class.java)
-        medewerkerQuery.select(medewerkerRoot)
-        return with(em.createQuery(medewerkerQuery)) {
+        val query = cb.createQuery(MedewerkerEntity::class.java)
+        val root = query.from(MedewerkerEntity::class.java)
+        query.select(root)
+        return with(em.createQuery(query)) {
             firstResult = pageIndex * pageSize
             maxResults = pageSize
             resultList
@@ -46,9 +45,9 @@ class MedewerkerRepository : PanacheRepository<MedewerkerEntity> {
         em: EntityManager,
         cb: CriteriaBuilder,
     ): Int {
-        val countQuery = cb.createQuery(Long::class.javaObjectType)
-        val medewerkerRoot = countQuery.from(MedewerkerEntity::class.java)
-        countQuery.select(cb.count(medewerkerRoot))
-        return em.createQuery(countQuery).singleResult.toInt()
+        val query = cb.createQuery(Long::class.javaObjectType)
+        val root = query.from(MedewerkerEntity::class.java)
+        query.select(cb.count(root))
+        return em.createQuery(query).singleResult.toInt()
     }
 }

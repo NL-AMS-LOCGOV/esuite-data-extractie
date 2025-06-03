@@ -8,7 +8,7 @@ import org.hibernate.type.SqlTypes
 
 
 @MappedSuperclass
-abstract class AbstractReferentieLongIdEntity {
+abstract class AbstractReferentieEntity {
 
     @Column(name = "naam", length = 255)
     lateinit var naam: String

@@ -14,7 +14,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Content
 import org.eclipse.microprofile.openapi.annotations.media.Schema
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse
 
-@Path("/zaken")
+@Path("zaken")
 class Zaken(
     private val zaakRepository: ZaakRepository,
     private val zaakConverter: ZaakConverter,
