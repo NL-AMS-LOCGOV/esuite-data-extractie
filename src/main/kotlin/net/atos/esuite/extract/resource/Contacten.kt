@@ -35,7 +35,7 @@ class Contacten(
         @BeanParam bladerParameters: BladerParameters
     ): Response {
         val (contacten, totaalAantalContacten) =
-            contactRepository.list(bladerParameters.page, bladerParameters.pageSize)
+            contactRepository.listAll(bladerParameters.page, bladerParameters.pageSize)
         return ok(
             ContactOverzichtResults(
                 contacten.map { contactConverter.toContactOverzicht(it) },

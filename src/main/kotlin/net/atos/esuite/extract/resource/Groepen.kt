@@ -34,7 +34,7 @@ class Groepen(
     fun groepList(
         @BeanParam bladerParameters: BladerParameters
     ): Response {
-        val (groepen, totaalAantalGroepen) = groepRepository.list(
+        val (groepen, totaalAantalGroepen) = groepRepository.listAll(
             bladerParameters.page,
             bladerParameters.pageSize
         )

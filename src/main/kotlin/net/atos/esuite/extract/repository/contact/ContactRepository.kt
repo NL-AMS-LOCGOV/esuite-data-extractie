@@ -13,19 +13,19 @@ class ContactRepository : PanacheRepository<ContactEntity> {
     fun findByFunctioneleIdentificatie(functioneleIdentificatie: String) =
         find("functioneelId", functioneleIdentificatie).firstResult()
 
-    fun list(
+    fun listAll(
         pageIndex: Int,
         pageSize: Int
     ): ListResult<ContactEntity> {
         val em = getEntityManager()
         val cb = em.criteriaBuilder
         return ListResult(
-            list(em, cb, pageIndex, pageSize),
-            count(em, cb)
+            listAll(em, cb, pageIndex, pageSize),
+            countAll(em, cb)
         )
     }
 
-    private fun list(
+    private fun listAll(
         em: EntityManager,
         cb: CriteriaBuilder,
         pageIndex: Int,
@@ -41,7 +41,7 @@ class ContactRepository : PanacheRepository<ContactEntity> {
         }
     }
 
-    private fun count(
+    private fun countAll(
         em: EntityManager,
         cb: CriteriaBuilder,
     ): Int {

@@ -10,22 +10,22 @@ import net.atos.esuite.extract.repository.ListResult
 @ApplicationScoped
 class MedewerkerRepository : PanacheRepository<MedewerkerEntity> {
 
-    fun list(
+    fun listAll(
         pageIndex: Int,
         pageSize: Int
     ): ListResult<MedewerkerEntity> {
         val em = getEntityManager()
         val cb = em.criteriaBuilder
         return ListResult(
-            list(em, cb, pageIndex, pageSize),
-            count(em, cb)
+            listAll(em, cb, pageIndex, pageSize),
+            countAll(em, cb)
         )
     }
 
     fun findByGebruikersnaam(gebruikersnaam: String) : MedewerkerEntity? =
         find("gebruikersnaam", gebruikersnaam).firstResult()
 
-    private fun list(
+    private fun listAll(
         em: EntityManager,
         cb: CriteriaBuilder,
         pageIndex: Int,
@@ -41,7 +41,7 @@ class MedewerkerRepository : PanacheRepository<MedewerkerEntity> {
         }
     }
 
-    private fun count(
+    private fun countAll(
         em: EntityManager,
         cb: CriteriaBuilder,
     ): Int {

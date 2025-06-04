@@ -34,7 +34,7 @@ class Medewerkers(
     fun medewerkerList(
         @BeanParam bladerParameters: BladerParameters
     ): Response {
-        val (medewerkers, totaalAantalMedewerkers) = medewerkerRepository.list(
+        val (medewerkers, totaalAantalMedewerkers) = medewerkerRepository.listAll(
             bladerParameters.page,
             bladerParameters.pageSize
         )

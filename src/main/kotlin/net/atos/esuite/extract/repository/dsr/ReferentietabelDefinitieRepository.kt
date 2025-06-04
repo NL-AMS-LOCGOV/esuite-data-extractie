@@ -10,19 +10,23 @@ import net.atos.esuite.extract.repository.ListResult
 @ApplicationScoped
 class ReferentietabelDefinitieRepository : PanacheRepository<ReferentietabelDefinitieEntity> {
 
-    fun list(
+    fun listAll(
         pageIndex: Int,
         pageSize: Int
-    ) : ListResult<ReferentietabelDefinitieEntity> {
+    ): ListResult<ReferentietabelDefinitieEntity> {
         val em = getEntityManager()
         val cb = em.criteriaBuilder
         return ListResult(
-            list(em, cb, pageIndex, pageSize),
-            count(em, cb)
+            listAll(em, cb, pageIndex, pageSize),
+            countAll(em, cb)
         )
     }
 
-    private fun list(
+    fun findByNaam(naam: String) =
+        find("naam", naam).firstResult()
+
+
+    private fun listAll(
         em: EntityManager,
         cb: CriteriaBuilder,
         pageIndex: Int,
@@ -38,7 +42,7 @@ class ReferentietabelDefinitieRepository : PanacheRepository<ReferentietabelDefi
         }
     }
 
-    private fun count(
+    private fun countAll(
         em: EntityManager,
         cb: CriteriaBuilder,
     ): Int {

@@ -311,6 +311,16 @@ components:
         waarde:
           type: boolean
           description: Boolean waarde data element
+    BooleanReferentietabelRecordAttribuut:
+      type: object
+      required:
+        - waarde
+      allOf:
+        - $ref: "#/components/schemas/ReferentietabelRecordAttribuut"
+      properties:
+        waarde:
+          type: boolean
+          description: Boolean waarde
     CalendarDataElement:
       type: object
       allOf:
@@ -618,6 +628,32 @@ components:
         - strings
         - digitale_notificaties
         - zaak_besluit
+    DatumReferentietabelRecordAttribuut:
+      type: object
+      required:
+        - waarde
+      allOf:
+        - $ref: "#/components/schemas/ReferentietabelRecordAttribuut"
+      properties:
+        waarde:
+          type: string
+          format: date-time
+          examples:
+            - 2022-03-10T12:15:50
+          description: Datum waarde
+    DatumTijdReferentietabelRecordAttribuut:
+      type: object
+      required:
+        - waarde
+      allOf:
+        - $ref: "#/components/schemas/ReferentietabelRecordAttribuut"
+      properties:
+        waarde:
+          type: string
+          format: date-time
+          examples:
+            - 2022-03-10T12:15:50-04:00
+          description: Datum/Tijd waarde
     DecimaalDataElement:
       type: object
       allOf:
@@ -630,6 +666,16 @@ components:
           type: string
           description: Manier waarop nummer geformatteerd moet worden
           $ref: "#/components/schemas/NummerFormattering"
+    DecimaalReferentietabelRecordAttribuut:
+      type: object
+      required:
+        - waarde
+      allOf:
+        - $ref: "#/components/schemas/ReferentietabelRecordAttribuut"
+      properties:
+        waarde:
+          type: number
+          description: Decimaal waarde
     DecimalenDataElement:
       type: object
       allOf:
@@ -990,6 +1036,16 @@ components:
         actief:
           type: boolean
           description: Is functie actief
+    GeoReferentietabelRecordAttribuut:
+      type: object
+      required:
+        - waarde
+      allOf:
+        - $ref: "#/components/schemas/ReferentietabelRecordAttribuut"
+      properties:
+        waarde:
+          type: string
+          description: Well-known text geografische informatie
     GeografischeInformatie:
       type: object
     GeslachtMedewerker:
@@ -1241,6 +1297,16 @@ components:
           items:
             $ref: "#/components/schemas/MedewerkerOverzicht"
           description: Items in de huidige pagina
+    MemoReferentietabelRecordAttribuut:
+      type: object
+      required:
+        - waarde
+      allOf:
+        - $ref: "#/components/schemas/ReferentietabelRecordAttribuut"
+      properties:
+        waarde:
+          type: string
+          description: Text waarde
     MetadataElement:
       type: object
       required:
@@ -1272,6 +1338,17 @@ components:
         - geheel_getal_geformatteerd
         - twee_decimalen_geformatteerd
         - maximaal_decimalen_geformatteerd
+    NummerReferentietabelRecordAttribuut:
+      type: object
+      required:
+        - waarde
+      allOf:
+        - $ref: "#/components/schemas/ReferentietabelRecordAttribuut"
+      properties:
+        waarde:
+          type: integer
+          format: int64
+          description: Integer waarde
     OptiesDataElement:
       type: object
       required:
@@ -1477,16 +1554,106 @@ components:
         omschrijving:
           type: string
           description: Omschrijving
-    ReferentietabelOverzicht:
+    Referentietabel:
       type: object
+      required:
+        - masterDetail
       allOf:
         - $ref: "#/components/schemas/Referentie"
       properties:
+        masterDetail:
+          type: boolean
+          description: Is referentie tabel een master/detail referentie tabel
         aantalRecords:
           type: integer
           format: int64
           description: Aantal records in tabel
-    ReferentietabelOverzichtResults:
+    ReferentietabelRecord:
+      type: object
+      required:
+        - naam
+        - omschrijving
+        - ingangsdatumGeldigheid
+        - attributen
+      properties:
+        naam:
+          type: string
+          maxLength: 128
+          description: Naam van record
+        omschrijving:
+          type: string
+          maxLength: 128
+          description: Omschrijving van record
+        ingangsdatumGeldigheid:
+          type: string
+          format: date
+          examples:
+            - 2022-03-10
+          description: 'Datum vanaf wanneer record geldig is '
+        einddatumGeldigheid:
+          type: string
+          format: date
+          examples:
+            - 2022-03-10
+          description: Datum waarna record niet meer geldig is
+        categorie:
+          type: string
+          maxLength: 64
+          description: Categorie van record
+        attributen:
+          type: array
+          items:
+            $ref: "#/components/schemas/ReferentietabelRecordAttribuut"
+          description: Attributen in record
+    ReferentietabelRecordAttribuut:
+      type: object
+      required:
+        - type
+        - naam
+      oneOf:
+        - $ref: "#/components/schemas/BooleanReferentietabelRecordAttribuut"
+        - $ref: "#/components/schemas/DatumReferentietabelRecordAttribuut"
+        - $ref: "#/components/schemas/DatumTijdReferentietabelRecordAttribuut"
+        - $ref: "#/components/schemas/DecimaalReferentietabelRecordAttribuut"
+        - $ref: "#/components/schemas/GeoReferentietabelRecordAttribuut"
+        - $ref: "#/components/schemas/MemoReferentietabelRecordAttribuut"
+        - $ref: "#/components/schemas/NummerReferentietabelRecordAttribuut"
+        - $ref: "#/components/schemas/StringReferentietabelRecordAttribuut"
+      discriminator:
+        propertyName: type
+        mapping:
+          boolean: "#/components/schemas/BooleanReferentietabelRecordAttribuut"
+          datum: "#/components/schemas/DatumReferentietabelRecordAttribuut"
+          datum_tijd: "#/components/schemas/DatumTijdReferentietabelRecordAttribuut"
+          decimaal: "#/components/schemas/DecimaalReferentietabelRecordAttribuut"
+          geo: "#/components/schemas/GeoReferentietabelRecordAttribuut"
+          memo: "#/components/schemas/MemoReferentietabelRecordAttribuut"
+          nummer: "#/components/schemas/NummerReferentietabelRecordAttribuut"
+          string: "#/components/schemas/StringReferentietabelRecordAttribuut"
+      properties:
+        type:
+          $ref: "#/components/schemas/ReferentietabelRecordAttribuutType"
+          type: string
+          description: Attribuut type
+        naam:
+          type: string
+          maxLength: 128
+          description: Naam van attribuut
+        omschrijving:
+          type: string
+          description: Omschrijving van attribuut
+    ReferentietabelRecordAttribuutType:
+      type: string
+      enum:
+        - boolean
+        - datum
+        - datum_tijd
+        - decimaal
+        - geo
+        - memo
+        - nummer
+        - string
+    ReferentietabelRecordResults:
       type: object
       required:
         - count
@@ -1507,7 +1674,30 @@ components:
         results:
           type: array
           items:
-            $ref: "#/components/schemas/ReferentietabelOverzicht"
+            $ref: "#/components/schemas/ReferentietabelRecord"
+          description: Items in de huidige pagina
+    ReferentietabelResults:
+      type: object
+      required:
+        - count
+        - results
+      properties:
+        count:
+          type: integer
+          format: int32
+          description: Totaal aantal items
+        previousPage:
+          type: integer
+          format: int32
+          description: Vorige pagina met items
+        nextPage:
+          type: integer
+          format: int32
+          description: Volgende pagina met items
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/Referentietabel"
           description: Items in de huidige pagina
     Resultaat:
       type: object
@@ -1558,6 +1748,16 @@ components:
         waarde:
           type: string
           description: String waarde data element
+    StringReferentietabelRecordAttribuut:
+      type: object
+      required:
+        - waarde
+      allOf:
+        - $ref: "#/components/schemas/ReferentietabelRecordAttribuut"
+      properties:
+        waarde:
+          type: string
+          description: String waarde
     StringsDataElement:
       type: object
       required:
@@ -2495,7 +2695,7 @@ paths:
         - Medewerkers
   /referentietabellen:
     get:
-      summary: Lijst van referentietabel overzichten opvragen
+      summary: Lijst van referentietabellen opvragen
       operationId: referentietabel_list
       parameters:
         - name: page
@@ -2517,7 +2717,58 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ReferentietabelOverzichtResults"
+                $ref: "#/components/schemas/ReferentietabelResults"
+      tags:
+        - Referentietabellen
+  /referentietabellen/{referentietabel_naam}:
+    get:
+      summary: Een specifieke referentietabel opvragen
+      operationId: referentietabel_read
+      parameters:
+        - name: referentietabel_naam
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Referentietabel"
+      tags:
+        - Referentietabellen
+  /referentietabellen/{referentietabel_naam}/records:
+    get:
+      summary: Records van een referentietabel opvragen
+      operationId: referentietabel_record_list
+      parameters:
+        - name: referentietabel_naam
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: page
+          in: query
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: page_size
+          in: query
+          schema:
+            type: integer
+            format: int32
+            description: Maximum aantal items per pagina
+            default: 100
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReferentietabelRecordResults"
       tags:
         - Referentietabellen
   /zaaktypen:

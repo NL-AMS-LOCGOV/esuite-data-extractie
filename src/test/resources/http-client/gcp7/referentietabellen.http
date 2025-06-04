@@ -7,3 +7,23 @@ X-API-KEY: {{api-key}}
         client.assert(response.status === 200, "Response status is not 200");
     });
 %}
+
+###
+GET {{base-url}}/referentietabellen/Test_Exporteren_Alle_Verschillende_datatypen
+X-API-KEY: {{api-key}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+%}
+
+###
+GET {{base-url}}/referentietabellen/Test_Exporteren_Alle_Verschillende_datatypen/records
+X-API-KEY: {{api-key}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+%}

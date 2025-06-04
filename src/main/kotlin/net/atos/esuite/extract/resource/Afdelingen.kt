@@ -34,7 +34,7 @@ class Afdelingen(
     fun afdelingList(
         @BeanParam bladerParameters: BladerParameters
     ): Response {
-        val (afdelingen, totaalAantalAfdelingen) = afdelingRepository.list(
+        val (afdelingen, totaalAantalAfdelingen) = afdelingRepository.listAll(
             bladerParameters.page,
             bladerParameters.pageSize
         )

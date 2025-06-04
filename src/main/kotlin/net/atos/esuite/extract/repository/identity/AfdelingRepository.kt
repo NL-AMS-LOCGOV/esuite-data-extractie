@@ -3,7 +3,6 @@ package net.atos.esuite.extract.repository.identity
 import io.quarkus.hibernate.orm.panache.kotlin.PanacheRepository
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.persistence.EntityManager
-import jakarta.persistence.TypedQuery
 import jakarta.persistence.criteria.CriteriaBuilder
 import net.atos.esuite.extract.entity.identity.AfdelingEntity
 import net.atos.esuite.extract.repository.ListResult
@@ -11,22 +10,22 @@ import net.atos.esuite.extract.repository.ListResult
 @ApplicationScoped
 class AfdelingRepository : PanacheRepository<AfdelingEntity> {
 
-    fun list(
+    fun listAll(
         pageIndex: Int,
         pageSize: Int
     ): ListResult<AfdelingEntity> {
         val em = getEntityManager()
         val cb = em.criteriaBuilder
         return ListResult(
-            list(em, cb, pageIndex, pageSize),
-            count(em, cb)
+            listAll(em, cb, pageIndex, pageSize),
+            countAll(em, cb)
         )
     }
 
     fun findByNaam(naam: String) : AfdelingEntity? =
         find("naam", naam).firstResult()
 
-    private fun list(
+    private fun listAll(
         em: EntityManager,
         cb: CriteriaBuilder,
         pageIndex: Int,
@@ -42,7 +41,7 @@ class AfdelingRepository : PanacheRepository<AfdelingEntity> {
         }
     }
 
-    private fun count(
+    private fun countAll(
         em: EntityManager,
         cb: CriteriaBuilder,
     ): Int {
