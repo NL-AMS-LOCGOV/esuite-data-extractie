@@ -14,7 +14,7 @@ import jakarta.persistence.*
 abstract class AbstractAttribuutWaardeEntity {
 
     @Id
-    @Column(name = "id_referentietabel_record")
+    @Column(name = "id_attribuut_waarde")
     var identifier: Long = 0
 
     @ManyToOne

@@ -9,7 +9,7 @@ import jakarta.persistence.Table
 import net.atos.esuite.extract.entity.shared.AbstractHistoryEntity
 
 @Entity
-@Table(name = "dsr_referentietabel_record", schema = "dsr")
+@Table(name = "dsr_domein_object_historie", schema = "dsr")
 class DomeinObjectHistorieEntity : AbstractHistoryEntity() {
 
     @Id

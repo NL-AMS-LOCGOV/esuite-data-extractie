@@ -3,11 +3,14 @@ package net.atos.esuite.extract.resource
 import jakarta.ws.rs.BeanParam
 import jakarta.ws.rs.GET
 import jakarta.ws.rs.Path
+import jakarta.ws.rs.PathParam
 import jakarta.ws.rs.Produces
+import jakarta.ws.rs.WebApplicationException
 import jakarta.ws.rs.core.MediaType
 import jakarta.ws.rs.core.Response
 import jakarta.ws.rs.core.Response.ok
 import net.atos.esuite.extract.converter.dsr.DomeinConverter
+import net.atos.esuite.extract.model.dsr.domein.Domein
 import net.atos.esuite.extract.model.dsr.domein.DomeinResults
 import net.atos.esuite.extract.model.shared.BladerParameters
 import net.atos.esuite.extract.repository.dsr.DomeinDefinitieRepository
@@ -44,23 +47,23 @@ class Domeinen(
         ).build()
     }
 
-//    @GET
-//    @Path("{referentietabel_naam}")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    @Operation(operationId = "referentietabel_read", summary = "Een specifieke referentietabel opvragen")
-//    @APIResponse(
-//        responseCode = "200",
-//        description = "OK",
-//        content = [Content(schema = Schema(implementation = Referentietabel::class))]
-//    )
-//    fun referentietabelRead(@PathParam("referentietabel_naam") referentietabelNaam: String): Response {
-//        return ok(
-//            referentietabelDefinitieRepository.findByNaam(referentietabelNaam)
-//                ?.let { referentietabelConverter.toReferentietabel(it) }
-//                ?: throw WebApplicationException("Referentietabel not found", 404))
-//            .build()
-//    }
-//
+    @GET
+    @Path("{domein_naam}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Operation(operationId = "domein_read", summary = "Een specifiek domein opvragen")
+    @APIResponse(
+        responseCode = "200",
+        description = "OK",
+        content = [Content(schema = Schema(implementation = Domein::class))]
+    )
+    fun domeinRead(@PathParam("domein_naam") domeinNaam: String): Response {
+        return ok(
+            domeinDefinitieRepository.findByNaam(domeinNaam)
+                ?.let { domeinConverter.toDomein(it) }
+                ?: throw WebApplicationException("Domein not found", 404))
+            .build()
+    }
+
 //    @GET
 //    @Path("{referentietabel_naam}/records")
 //    @Produces(MediaType.APPLICATION_JSON)
