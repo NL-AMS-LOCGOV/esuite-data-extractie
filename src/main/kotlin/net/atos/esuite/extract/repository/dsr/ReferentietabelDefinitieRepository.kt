@@ -11,7 +11,4 @@ import net.atos.esuite.extract.repository.ListResult
 
 @ApplicationScoped
 class ReferentietabelDefinitieRepository : BaseRepository<ReferentietabelDefinitieEntity>(ReferentietabelDefinitieEntity::class.java) {
-
-    fun findByNaam(naam: String) =
-        find("naam", naam).firstResult()
 }

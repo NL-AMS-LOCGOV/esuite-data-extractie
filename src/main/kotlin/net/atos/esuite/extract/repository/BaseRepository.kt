@@ -7,6 +7,9 @@ import net.atos.esuite.extract.entity.identity.AfdelingEntity
 
 abstract class BaseRepository<ENTITY : Any>(private val entityClass: Class<ENTITY>) : PanacheRepository<ENTITY> {
 
+    fun findByNaam(naam: String) =
+        find("naam", naam).firstResult()
+
     fun listAll(
         pageIndex: Int,
         pageSize: Int

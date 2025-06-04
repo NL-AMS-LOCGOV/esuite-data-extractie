@@ -10,7 +10,4 @@ import net.atos.esuite.extract.repository.ListResult
 
 @ApplicationScoped
 class AfdelingRepository : BaseRepository<AfdelingEntity>(AfdelingEntity::class.java) {
-
-    fun findByNaam(naam: String): AfdelingEntity? =
-        find("naam", naam).firstResult()
 }
