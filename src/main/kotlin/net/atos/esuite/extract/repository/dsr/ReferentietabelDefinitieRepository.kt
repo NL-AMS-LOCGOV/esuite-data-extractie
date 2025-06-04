@@ -5,50 +5,13 @@ import jakarta.enterprise.context.ApplicationScoped
 import jakarta.persistence.EntityManager
 import jakarta.persistence.criteria.CriteriaBuilder
 import net.atos.esuite.extract.entity.dsr.definitie.ReferentietabelDefinitieEntity
+import net.atos.esuite.extract.entity.identity.AfdelingEntity
+import net.atos.esuite.extract.repository.BaseRepository
 import net.atos.esuite.extract.repository.ListResult
 
 @ApplicationScoped
-class ReferentietabelDefinitieRepository : PanacheRepository<ReferentietabelDefinitieEntity> {
-
-    fun listAll(
-        pageIndex: Int,
-        pageSize: Int
-    ): ListResult<ReferentietabelDefinitieEntity> {
-        val em = getEntityManager()
-        val cb = em.criteriaBuilder
-        return ListResult(
-            listAll(em, cb, pageIndex, pageSize),
-            countAll(em, cb)
-        )
-    }
+class ReferentietabelDefinitieRepository : BaseRepository<ReferentietabelDefinitieEntity>(ReferentietabelDefinitieEntity::class.java) {
 
     fun findByNaam(naam: String) =
         find("naam", naam).firstResult()
-
-
-    private fun listAll(
-        em: EntityManager,
-        cb: CriteriaBuilder,
-        pageIndex: Int,
-        pageSize: Int
-    ): List<ReferentietabelDefinitieEntity> {
-        val query = cb.createQuery(ReferentietabelDefinitieEntity::class.java)
-        val root = query.from(ReferentietabelDefinitieEntity::class.java)
-        query.select(root)
-        return with(em.createQuery(query)) {
-            firstResult = pageIndex * pageSize
-            maxResults = pageSize
-            resultList
-        }
-    }
-
-    private fun countAll(
-        em: EntityManager,
-        cb: CriteriaBuilder,
-    ): Int {
-        val query = cb.createQuery(Long::class.javaObjectType)
-        val root = query.from(ReferentietabelDefinitieEntity::class.java)
-        query.select(cb.count(root))
-        return em.createQuery(query).singleResult.toInt()
-    }
 }
