@@ -7,7 +7,9 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema
 class Besluitcategorie (
     naam: String,
     omschrijving: String?,
+    actief: Boolean,
 ) : Referentie(
     naam = naam,
-    omschrijving = omschrijving
+    omschrijving = omschrijving,
+    actief = actief,
 )

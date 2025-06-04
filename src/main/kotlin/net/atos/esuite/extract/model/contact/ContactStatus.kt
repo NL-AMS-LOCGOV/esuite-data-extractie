@@ -7,6 +7,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema
 class ContactStatus(
     naam: String,
     omschrijving: String?,
+    actief: Boolean,
 
     @field:Schema(description = "Type status")
     val type: ContactStatusType?,
@@ -14,5 +15,6 @@ class ContactStatus(
     ) : Referentie(
     naam = naam,
     omschrijving = omschrijving,
+    actief = actief,
 )
 

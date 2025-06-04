@@ -27,12 +27,14 @@ fun ReferentieContactPrioriteitEntity.toContactPrioriteit() =
         naam = naam,
         omschrijving = omschrijving,
         dagen = dagen,
+        actief = actief,
     )
 
 fun ReferentieContactStatusEntity.toContactStatus() =
     ContactStatus(
         naam = naam,
         omschrijving = omschrijving,
+        actief = actief,
         type = when (type) {
             ContactStatusType.NIEUW -> net.atos.esuite.extract.model.contact.ContactStatusType.nieuw
             ContactStatusType.IN_BEHANDELING -> net.atos.esuite.extract.model.contact.ContactStatusType.in_behandeling
@@ -45,6 +47,7 @@ fun ReferentieContactTypeEntity.toContactType() =
     Contacttype(
         naam = naam,
         omschrijving = omschrijving,
+        actief = actief,
     )
 
 fun ContactHistorieEntity.toContactHistorie() =
@@ -69,4 +72,5 @@ fun ReferentieOrganisatieEntity.toOrganisatie() =
     Organisatie(
         naam = naam,
         omschrijving = omschrijving,
+        actief = actief,
     )

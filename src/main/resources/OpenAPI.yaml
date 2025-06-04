@@ -1546,6 +1546,7 @@ components:
       type: object
       required:
         - naam
+        - actief
       properties:
         naam:
           type: string
@@ -1554,6 +1555,9 @@ components:
         omschrijving:
           type: string
           description: Omschrijving
+        actief:
+          type: boolean
+          description: Actief
     Referentietabel:
       type: object
       required:
@@ -2451,7 +2455,6 @@ components:
       type: object
       required:
         - functioneleIdentificatie
-        - actief
       allOf:
         - $ref: "#/components/schemas/Referentie"
       properties:
@@ -2459,9 +2462,6 @@ components:
           type: string
           maxLength: 128
           description: Functionele identificatie van zaaktype
-        actief:
-          type: boolean
-          description: Is zaaktype actief
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

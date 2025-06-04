@@ -7,6 +7,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema
 class ContactPrioriteit(
     naam: String,
     omschrijving: String?,
+    actief: Boolean,
 
     @field:Schema(description = "Aantal dagen maximale doorlooptijd", required = true)
     val dagen: Int,
@@ -14,4 +15,5 @@ class ContactPrioriteit(
 ) : Referentie(
     naam = naam,
     omschrijving = omschrijving,
+    actief = actief,
 )

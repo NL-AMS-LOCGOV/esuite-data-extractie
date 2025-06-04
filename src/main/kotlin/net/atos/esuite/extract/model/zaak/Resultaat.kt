@@ -7,6 +7,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema
 class Resultaat(
     naam: String,
     omschrijving: String?,
+    actief: Boolean,
 
     @field:Schema(
         description = "Code welke gebruikt wordt voor het uitwisselen van zaak informatie naar externe systemen zoals bijvoorbeeld via StUF-ZKN-DMS",
@@ -16,4 +17,5 @@ class Resultaat(
 ) : Referentie(
     naam = naam,
     omschrijving = omschrijving,
+    actief = actief,
 )

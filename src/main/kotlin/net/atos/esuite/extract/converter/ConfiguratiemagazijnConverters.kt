@@ -7,4 +7,5 @@ fun ReferentieKanaalEntity.toKanaal() =
     Kanaal(
         naam = naam,
         omschrijving = omschrijving,
+        actief = actief,
     )

@@ -7,6 +7,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema
 class MetadataElement(
     naam: String,
     omschrijving: String?,
+    actief: Boolean,
 
     @field:Schema(description = "Label van metadata element", maxLength = 255)
     val label: String,
@@ -22,5 +23,6 @@ class MetadataElement(
 
     ) : Referentie(
     naam = naam,
-    omschrijving = omschrijving
+    omschrijving = omschrijving,
+    actief = actief,
 )

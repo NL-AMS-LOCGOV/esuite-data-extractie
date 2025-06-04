@@ -7,6 +7,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema
 class Documenttype(
     naam: String,
     omschrijving: String?,
+    actief: Boolean,
 
     @field:Schema(description = "Aanduiding documentcategorie", maxLength = 64)
     val documentcategorie: String?,
@@ -16,5 +17,6 @@ class Documenttype(
 
 ) : Referentie(
     naam = naam,
-    omschrijving = omschrijving
+    omschrijving = omschrijving,
+    actief = actief,
 )

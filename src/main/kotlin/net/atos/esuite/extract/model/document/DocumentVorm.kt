@@ -6,8 +6,10 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema
 @Schema(allOf = [Referentie::class])
 class DocumentVorm(
     naam: String,
-    omschrijving: String?
+    omschrijving: String?,
+    actief: Boolean,
 ) : Referentie(
     naam = naam,
-    omschrijving = omschrijving
+    omschrijving = omschrijving,
+    actief = actief,
 )

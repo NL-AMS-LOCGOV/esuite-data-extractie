@@ -7,6 +7,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema
 class Taal(
     naam: String,
     omschrijving: String?,
+    actief: Boolean,
 
     @field:Schema(description = "Functionele id: Code van de taal conform de ISO 639-2/B standaard", maxLength = 3)
     val functioneelId: String,
@@ -14,4 +15,5 @@ class Taal(
 ) : Referentie(
     naam = naam,
     omschrijving = omschrijving,
+    actief = actief,
 )

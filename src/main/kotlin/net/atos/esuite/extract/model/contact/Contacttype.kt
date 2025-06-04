@@ -7,8 +7,9 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema
 class Contacttype(
     naam: String,
     omschrijving: String?,
-
+    actief: Boolean,
     ) : Referentie(
     naam = naam,
     omschrijving = omschrijving,
+    actief = actief,
 )

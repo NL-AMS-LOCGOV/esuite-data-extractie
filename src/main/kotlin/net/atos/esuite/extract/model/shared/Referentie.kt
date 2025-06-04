@@ -9,4 +9,7 @@ abstract class Referentie(
 
     @field:Schema(description = "Omschrijving")
     val omschrijving: String?,
+
+    @field:Schema(description = "Actief", required = true)
+    val actief: Boolean,
 )

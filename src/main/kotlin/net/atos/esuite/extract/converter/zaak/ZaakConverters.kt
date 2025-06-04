@@ -34,6 +34,7 @@ fun ReferentieZaakTypeEntity.toZaaktype() = Zaaktype(
 fun ReferentieZaakStatusEntity.toZaakstatus() = Zaakstatus(
     naam = naam,
     omschrijving = omschrijving,
+    actief = actief,
     uitwisselingscode = uitwisselingsCode,
     externeNaam = externeNaam,
 )
@@ -41,17 +42,20 @@ fun ReferentieZaakStatusEntity.toZaakstatus() = Zaakstatus(
 fun ReferentieResultaatEntity.toResultaat() = Resultaat(
     naam = naam,
     omschrijving = omschrijving,
+    actief = actief,
     uitwisselingscode = uitwisselingsCode,
 )
 
 fun ReferentieBesluitcategorieEntity.toBesluitcategory() = Besluitcategorie(
     naam = naam,
     omschrijving = omschrijving,
+    actief = actief,
 )
 
 fun ReferentieBesluittypeEntity.toBesluittype() = Besluittype(
     naam = naam,
     omschrijving = omschrijving,
+    actief = actief,
     besluitcategorie = besluitcategorie.toBesluitcategory(),
     reactietermijnInDagen = reactietermijnInDagen,
     publicatieIndicatie = publicatieIndicatie,

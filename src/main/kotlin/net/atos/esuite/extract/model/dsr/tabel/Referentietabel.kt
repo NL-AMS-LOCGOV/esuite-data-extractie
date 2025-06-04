@@ -7,6 +7,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema
 class Referentietabel(
     naam: String,
     omschrijving: String?,
+    actief: Boolean,
 
     @field:Schema(description = "Is referentie tabel een master/detail referentie tabel", required = true)
     val masterDetail: Boolean,
@@ -16,4 +17,5 @@ class Referentietabel(
 ) : Referentie(
     naam = naam,
     omschrijving = omschrijving,
+    actief = actief,
 )

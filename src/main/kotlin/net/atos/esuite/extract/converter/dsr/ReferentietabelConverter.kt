@@ -13,6 +13,7 @@ class ReferentietabelConverter(
         Referentietabel(
             naam = referentietabelDefinitieEntity.naam,
             omschrijving = referentietabelDefinitieEntity.omschrijving,
+            actief = referentietabelDefinitieEntity.actief,
             masterDetail = referentietabelDefinitieEntity.masterDetail,
             aantalRecords = referentietabelRecordRepository.countByReferentietabelDefinitieId(referentietabelDefinitieEntity.identifier)
         )

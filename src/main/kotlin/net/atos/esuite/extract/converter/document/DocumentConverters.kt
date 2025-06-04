@@ -18,18 +18,21 @@ fun ReferentieDocumentVormEntity.toDocumentVorm() =
     DocumentVorm(
         naam = naam,
         omschrijving = omschrijving,
+        actief = actief,
     )
 
 fun ReferentieDocumentStatusEntity.toDocumentStatus() =
     DocumentStatus(
         naam = naam,
         omschrijving = omschrijving,
+        actief = actief,
     )
 
 fun ReferentieDocumentTypeEntity.toDocumenttype() =
     Documenttype(
         naam = naam,
         omschrijving = omschrijving,
+        actief = actief,
         documentcategorie = documentcategorie,
         publicatieniveau = when (publicatieniveau) {
             DocumentPublicatieniveau.EXTERN -> net.atos.esuite.extract.model.document.DocumentPublicatieniveau.extern
@@ -55,7 +58,8 @@ fun DocumentVersieEntity.toDocumentversie(documentInhoudEntity: DocumentInhoudEn
 fun ReferentieMetadataelementEntity.toMetadataelement() =
     MetadataElement(
         naam = naam,
-        omschrijving,
+        omschrijving = omschrijving,
+        actief = actief,
         label = label,
         type = DocumentMetadataElementType.valueOf(type.lowercase()),
         indicatieVerplicht = indicatieVerplicht,
@@ -81,6 +85,7 @@ fun ReferentieTaalEntity.toTaal() =
     Taal(
         naam = naam,
         omschrijving = omschrijving,
+        actief = actief,
         functioneelId = functioneelId,
     )
 

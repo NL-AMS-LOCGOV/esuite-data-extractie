@@ -7,15 +7,14 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema
 class Zaaktype(
     naam: String,
     omschrijving: String?,
+    actief: Boolean,
 
     @field:Schema(description = "Functionele identificatie van zaaktype", maxLength = 128)
     val functioneleIdentificatie: String,
 
-    @field:Schema(description = "Is zaaktype actief", required = true)
-    val actief: Boolean,
-
     ) : Referentie(
     naam = naam,
-    omschrijving = omschrijving
+    omschrijving = omschrijving,
+    actief = actief,
 )
 
