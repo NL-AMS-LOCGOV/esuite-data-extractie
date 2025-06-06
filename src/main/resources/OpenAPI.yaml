@@ -1078,6 +1078,7 @@ components:
       type: object
       required:
         - identifier
+        - naam
         - aangemaaktDoor
         - aangemaaktOp
         - attributen
@@ -1086,6 +1087,13 @@ components:
           type: integer
           format: int64
           description: Unieke identificatie van het domein object
+        naam:
+          type: string
+          maxLength: 128
+          description: Naam van type domein object
+        omschrijving:
+          type: string
+          description: Omschrijving van type domein object
         aangemaaktDoor:
           type: string
           maxLength: 64

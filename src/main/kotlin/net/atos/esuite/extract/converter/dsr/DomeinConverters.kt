@@ -36,6 +36,8 @@ import net.atos.esuite.extract.model.dsr.domein.StringDomeinObjectAttribuutWaard
 fun DomeinObjectEntity.toDomeinObject() =
     DomeinObject(
         identifier = identifier,
+        naam = domeinObjectDefinitie.naam,
+        omschrijving = domeinObjectDefinitie.omschrijving,
         aangemaaktDoor = idAangemaaktDoor,
         aangemaaktOp = aangemaaktOp,
         laatstGewijzigdDoor = idGewijzigdDoor,

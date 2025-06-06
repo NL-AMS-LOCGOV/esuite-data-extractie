@@ -7,6 +7,12 @@ class DomeinObject(
     @field:Schema(description = "Unieke identificatie van het domein object", required = true)
     val identifier: Long,
 
+    @field:Schema(description = "Naam van type domein object", maxLength = 128)
+    val naam: String,
+
+    @field:Schema(description = "Omschrijving van type domein object")
+    val omschrijving: String?,
+
     @field:Schema(description = "Gebruikersnaam van medewerker die domein object heeft aangemaakt", maxLength = 64)
     val aangemaaktDoor: String,
 
