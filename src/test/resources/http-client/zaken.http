@@ -107,3 +107,8 @@ X-API-KEY: {{api-key}}
         client.assert(response.status === 200, "Response status is not 200");
     });
 %}
+
+### GCP2
+GET {{base-url}}/zaken/180-2025
+X-API-KEY: {{api-key}}
+

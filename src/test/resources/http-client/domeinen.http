@@ -8,7 +8,10 @@ X-API-KEY: {{api-key}}
     });
 %}
 
-###
+############
+### GCP7 ###
+############
+
 GET {{base-url}}/domeinen/Cucumber
 X-API-KEY: {{api-key}}
 
@@ -30,6 +33,29 @@ X-API-KEY: {{api-key}}
 
 ###
 GET {{base-url}}/domeinen/BartDemoDomein/objecten
+X-API-KEY: {{api-key}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+%}
+
+############
+### GCP2 ###
+############
+
+GET {{base-url}}/domeinen/HVV%20Adressen
+X-API-KEY: {{api-key}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+%}
+
+###
+GET {{base-url}}/domeinen/HVV%20Adressen/objecten
 X-API-KEY: {{api-key}}
 
 > {%
