@@ -2786,7 +2786,7 @@ info:
     email: andy.verberne@atos.net
     name: Andy Verberne
   title: e-Suite data extractie API
-  version: 0.1.0
+  version: 0.2.0
 security:
   - ApiKeyAuth: [ ]
 paths:
