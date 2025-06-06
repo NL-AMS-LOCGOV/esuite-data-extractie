@@ -32,7 +32,7 @@ fun AbstractReferentietabelRecordExtraAttribuutEntity.toReferentietabelRecordAtt
         is MemoReferentietabelRecordExtraAttribuutEntity -> MemoReferentietabelRecordAttribuut(waarde)
         is NummerReferentietabelRecordExtraAttribuutEntity -> NummerReferentietabelRecordAttribuut(waarde)
         is StringReferentietabelRecordExtraAttribuutEntity -> StringReferentietabelRecordAttribuut(waarde)
-        else -> error("Unsupported data element type: ${this.javaClass.name}")
+        else -> error("Unsupported ReferentietabelRecordExtraAttribuutEntity type: ${this.javaClass.name}")
     }.also {
         it.naam = referentietabelAttribuutDefinitie.naam
         it.omschrijving = referentietabelAttribuutDefinitie.omschrijving

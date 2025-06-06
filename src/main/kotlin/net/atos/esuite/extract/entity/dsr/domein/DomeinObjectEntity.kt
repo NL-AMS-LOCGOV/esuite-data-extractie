@@ -12,7 +12,6 @@ import net.atos.esuite.extract.entity.dsr.definitie.DomeinObjectDefinitieEntity
 import org.hibernate.annotations.Fetch
 import org.hibernate.annotations.FetchMode
 import java.time.LocalDate
-import java.util.*
 
 /**
  * Entity class voor een domeinobject.
@@ -42,7 +41,7 @@ class DomeinObjectEntity {
     @Column(name = "id_gewijzigd_door", length = 64)
     var idGewijzigdDoor: String? = null
 
-    // Datum waarop domeino bject de laatste keer is gewijzigd
+    // Datum waarop domein object de laatste keer is gewijzigd
     @Column(name = "gewijzigd_op")
     var gewijzigdOp: LocalDate? = null
 

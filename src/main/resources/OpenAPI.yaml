@@ -311,6 +311,16 @@ components:
         waarde:
           type: boolean
           description: Boolean waarde data element
+    BooleanDomeinObjectAttribuutWaarde:
+      type: object
+      required:
+        - waarde
+      allOf:
+        - $ref: "#/components/schemas/DomeinObjectAttribuutWaarde"
+      properties:
+        waarde:
+          type: boolean
+          description: Boolean waarde
     BooleanReferentietabelRecordAttribuut:
       type: object
       required:
@@ -628,6 +638,19 @@ components:
         - strings
         - digitale_notificaties
         - zaak_besluit
+    DatumDomeinObjectAttribuutWaarde:
+      type: object
+      required:
+        - waarde
+      allOf:
+        - $ref: "#/components/schemas/DomeinObjectAttribuutWaarde"
+      properties:
+        waarde:
+          type: string
+          format: date
+          examples:
+            - 2022-03-10
+          description: Datum waarde
     DatumReferentietabelRecordAttribuut:
       type: object
       required:
@@ -637,10 +660,23 @@ components:
       properties:
         waarde:
           type: string
+          format: date
+          examples:
+            - 2022-03-10
+          description: Datum waarde
+    DatumTijdDomeinObjectAttribuutWaarde:
+      type: object
+      required:
+        - waarde
+      allOf:
+        - $ref: "#/components/schemas/DomeinObjectAttribuutWaarde"
+      properties:
+        waarde:
+          type: string
           format: date-time
           examples:
-            - 2022-03-10T12:15:50
-          description: Datum waarde
+            - 2022-03-10T12:15:50-04:00
+          description: Datum/Tijd waarde
     DatumTijdReferentietabelRecordAttribuut:
       type: object
       required:
@@ -666,6 +702,16 @@ components:
           type: string
           description: Manier waarop nummer geformatteerd moet worden
           $ref: "#/components/schemas/NummerFormattering"
+    DecimaalDomeinObjectAttribuutWaarde:
+      type: object
+      required:
+        - waarde
+      allOf:
+        - $ref: "#/components/schemas/DomeinObjectAttribuutWaarde"
+      properties:
+        waarde:
+          type: number
+          description: Decimaal waarde
     DecimaalReferentietabelRecordAttribuut:
       type: object
       required:
@@ -1019,6 +1065,221 @@ components:
         compressed:
           type: boolean
           description: Indicatie of de Blob gecomprimeerd is opgeslagen
+    Domein:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/Referentie"
+      properties:
+        aantalObjecten:
+          type: integer
+          format: int64
+          description: Aantal objecten in domein
+    DomeinObject:
+      type: object
+      required:
+        - identifier
+        - aangemaaktDoor
+        - aangemaaktOp
+        - attributen
+      properties:
+        identifier:
+          type: integer
+          format: int64
+          description: Unieke identificatie van het domein object
+        aangemaaktDoor:
+          type: string
+          maxLength: 64
+          description: Gebruikersnaam van medewerker die domein object heeft aangemaakt
+        aangemaaktOp:
+          type: string
+          format: date
+          examples:
+            - 2022-03-10
+          description: Datum waarop domein object is aangemaakt
+        laatstGewijzigdDoor:
+          type: string
+          maxLength: 64
+          description: Gebruikersnaam van medewerker die domein object als laatste
+            heeft gewijzigd
+        laatstGewijzigdOp:
+          type: string
+          format: date
+          examples:
+            - 2022-03-10
+          description: Datum waarop domein object de laatste keer is gewijzigd
+        attributen:
+          type: array
+          items:
+            $ref: "#/components/schemas/DomeinObjectAttribuut"
+          description: Attributen gerelateerd aan domein object
+        koppelingen:
+          type: array
+          items:
+            $ref: "#/components/schemas/DomeinObjectKoppeling"
+          description: "Zaken, contacten, personen, bedrijven of BAG objecten waaraan\
+            \ domein object gekoppeld is"
+        historie:
+          type: array
+          items:
+            $ref: "#/components/schemas/DomeinObjectHistorie"
+          description: Historie van domein object
+    DomeinObjectAttribuut:
+      type: object
+      required:
+        - naam
+        - waarden
+      properties:
+        naam:
+          type: string
+          maxLength: 128
+          description: Naam van domein object attribuut
+        omschrijving:
+          type: string
+          description: Omschrijving van domein object attribuut
+        waarden:
+          type: array
+          items:
+            $ref: "#/components/schemas/DomeinObjectAttribuutWaarde"
+          description: Waarden van domein object attribuut
+    DomeinObjectAttribuutWaarde:
+      type: object
+      required:
+        - type
+        - volgnummer
+      oneOf:
+        - $ref: "#/components/schemas/BooleanDomeinObjectAttribuutWaarde"
+        - $ref: "#/components/schemas/DatumDomeinObjectAttribuutWaarde"
+        - $ref: "#/components/schemas/DatumTijdDomeinObjectAttribuutWaarde"
+        - $ref: "#/components/schemas/DecimaalDomeinObjectAttribuutWaarde"
+        - $ref: "#/components/schemas/GeoDomeinObjectAttribuutWaarde"
+        - $ref: "#/components/schemas/MemoDomeinObjectAttribuutWaarde"
+        - $ref: "#/components/schemas/NummerDomeinObjectAttribuutWaarde"
+        - $ref: "#/components/schemas/StringDomeinObjectAttribuutWaarde"
+        - $ref: "#/components/schemas/DomeinObjectDomeinObjectAttribuutWaarde"
+        - $ref: "#/components/schemas/ReferentietabelRecordDomeinObjectAttribuutWaarde"
+      discriminator:
+        propertyName: type
+        mapping:
+          boolean: "#/components/schemas/BooleanDomeinObjectAttribuutWaarde"
+          datum: "#/components/schemas/DatumDomeinObjectAttribuutWaarde"
+          datum_tijd: "#/components/schemas/DatumTijdDomeinObjectAttribuutWaarde"
+          decimaal: "#/components/schemas/DecimaalDomeinObjectAttribuutWaarde"
+          geo: "#/components/schemas/GeoDomeinObjectAttribuutWaarde"
+          memo: "#/components/schemas/MemoDomeinObjectAttribuutWaarde"
+          nummer: "#/components/schemas/NummerDomeinObjectAttribuutWaarde"
+          string: "#/components/schemas/StringDomeinObjectAttribuutWaarde"
+          domein_object: "#/components/schemas/DomeinObjectDomeinObjectAttribuutWaarde"
+          referentietabel_record: "#/components/schemas/ReferentietabelRecordDomeinObjectAttribuutWaarde"
+      properties:
+        type:
+          $ref: "#/components/schemas/DomeinObjectAttribuutWaardeType"
+          type: string
+          description: Type attribuut waarde
+        volgnummer:
+          type: integer
+          format: int32
+          description: Positie van deze waarde tussen andere waarden voor attribuut
+    DomeinObjectAttribuutWaardeType:
+      type: string
+      enum:
+        - boolean
+        - datum
+        - datum_tijd
+        - decimaal
+        - geo
+        - memo
+        - nummer
+        - string
+        - domein_object
+        - referentietabel_record
+    DomeinObjectDomeinObjectAttribuutWaarde:
+      type: object
+      required:
+        - waarde
+      allOf:
+        - $ref: "#/components/schemas/DomeinObjectAttribuutWaarde"
+      properties:
+        waarde:
+          type: integer
+          format: int64
+          description: Identificatie van ander domein object binnen hetzelfde domein
+    DomeinObjectHistorie:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/History"
+      properties:
+        wijziging:
+          type: string
+          maxLength: 128
+          description: Naam gewijzigd attribut of koppeling
+    DomeinObjectKoppeling:
+      type: object
+      required:
+        - gekoppeldObjectType
+        - gekoppeldObjectId
+      properties:
+        gekoppeldObjectType:
+          $ref: "#/components/schemas/DomeinObjectKoppelingType"
+          type: string
+          description: Type object waaraan het domein object gekoppeld is
+        gekoppeldObjectId:
+          type: string
+          maxLength: 64
+          description: Id van object waaraan domein object gekoppeld is
+    DomeinObjectKoppelingType:
+      type: string
+      enum:
+        - zaak
+        - contact
+        - bag_object
+        - persoon
+        - bedrijf
+    DomeinObjectResults:
+      type: object
+      required:
+        - count
+        - results
+      properties:
+        count:
+          type: integer
+          format: int32
+          description: Totaal aantal items
+        previousPage:
+          type: integer
+          format: int32
+          description: Vorige pagina met items
+        nextPage:
+          type: integer
+          format: int32
+          description: Volgende pagina met items
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/DomeinObject"
+          description: Items in de huidige pagina
+    DomeinResults:
+      type: object
+      required:
+        - count
+        - results
+      properties:
+        count:
+          type: integer
+          format: int32
+          description: Totaal aantal items
+        previousPage:
+          type: integer
+          format: int32
+          description: Vorige pagina met items
+        nextPage:
+          type: integer
+          format: int32
+          description: Volgende pagina met items
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/Domein"
+          description: Items in de huidige pagina
     Functie:
       type: object
       required:
@@ -1036,6 +1297,16 @@ components:
         actief:
           type: boolean
           description: Is functie actief
+    GeoDomeinObjectAttribuutWaarde:
+      type: object
+      required:
+        - waarde
+      allOf:
+        - $ref: "#/components/schemas/DomeinObjectAttribuutWaarde"
+      properties:
+        waarde:
+          type: string
+          description: Well-known text geografische informatie
     GeoReferentietabelRecordAttribuut:
       type: object
       required:
@@ -1297,6 +1568,16 @@ components:
           items:
             $ref: "#/components/schemas/MedewerkerOverzicht"
           description: Items in de huidige pagina
+    MemoDomeinObjectAttribuutWaarde:
+      type: object
+      required:
+        - waarde
+      allOf:
+        - $ref: "#/components/schemas/DomeinObjectAttribuutWaarde"
+      properties:
+        waarde:
+          type: string
+          description: Text waarde
     MemoReferentietabelRecordAttribuut:
       type: object
       required:
@@ -1331,6 +1612,17 @@ components:
         indicatieVoorAlleDocumenttypes:
           type: boolean
           description: Indicatie of het metadata element gebruikt wordt bij alle documenttypes
+    NummerDomeinObjectAttribuutWaarde:
+      type: object
+      required:
+        - waarde
+      allOf:
+        - $ref: "#/components/schemas/DomeinObjectAttribuutWaarde"
+      properties:
+        waarde:
+          type: integer
+          format: int64
+          description: Integer waarde
     NummerFormattering:
       type: string
       enum:
@@ -1638,7 +1930,7 @@ components:
         type:
           $ref: "#/components/schemas/ReferentietabelRecordAttribuutType"
           type: string
-          description: Attribuut type
+          description: Type attribuut
         naam:
           type: string
           maxLength: 128
@@ -1657,6 +1949,17 @@ components:
         - memo
         - nummer
         - string
+    ReferentietabelRecordDomeinObjectAttribuutWaarde:
+      type: object
+      required:
+        - waarde
+      allOf:
+        - $ref: "#/components/schemas/DomeinObjectAttribuutWaarde"
+      properties:
+        waarde:
+          $ref: "#/components/schemas/ReferentietabelRecord"
+          type: object
+          description: Referentietabel record
     ReferentietabelRecordResults:
       type: object
       required:
@@ -1752,6 +2055,16 @@ components:
         waarde:
           type: string
           description: String waarde data element
+    StringDomeinObjectAttribuutWaarde:
+      type: object
+      required:
+        - waarde
+      allOf:
+        - $ref: "#/components/schemas/DomeinObjectAttribuutWaarde"
+      properties:
+        waarde:
+          type: string
+          description: String waarde
     StringReferentietabelRecordAttribuut:
       type: object
       required:
@@ -2584,23 +2897,84 @@ paths:
           description: OK
       tags:
         - Documenten
-  /domeinobjecten:
+  /domeinen:
     get:
-      summary: Domein objecten ophalen
-      operationId: domein_object_list
+      summary: Lijst van domeinen opvragen
+      operationId: domein_list
       parameters:
-        - name: zaakFunctioneleIdentificatie
+        - name: page
           in: query
           schema:
-            type: string
-            maxLength: 128
-            description: Zaaknummer van zaak
-          required: true
+            type: integer
+            format: int32
+            default: 0
+        - name: page_size
+          in: query
+          schema:
+            type: integer
+            format: int32
+            description: Maximum aantal items per pagina
+            default: 100
       responses:
         "200":
           description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DomeinResults"
       tags:
-        - Domein Objecten
+        - Domeinen
+  /domeinen/{domein_naam}:
+    get:
+      summary: Een specifiek domein opvragen
+      operationId: domein_read
+      parameters:
+        - name: domein_naam
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Domein"
+      tags:
+        - Domeinen
+  /domeinen/{domein_naam}/objecten:
+    get:
+      summary: Objecten van een domein opvragen
+      operationId: domein_object_list
+      parameters:
+        - name: domein_naam
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: page
+          in: query
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: page_size
+          in: query
+          schema:
+            type: integer
+            format: int32
+            description: Maximum aantal items per pagina
+            default: 100
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DomeinObjectResults"
+      tags:
+        - Domeinen
   /groepen:
     get:
       summary: Lijst van groep overzichten opvragen

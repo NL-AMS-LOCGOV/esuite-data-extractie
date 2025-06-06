@@ -5,11 +5,11 @@ import java.math.BigDecimal
 
 @Schema(allOf = [ReferentietabelRecordAttribuut::class])
 class DecimaalReferentietabelRecordAttribuut(
-    
+
     @field:Schema(description = "Decimaal waarde")
     val waarde: BigDecimal,
 
-) : ReferentietabelRecordAttribuut(ReferentietabelRecordAttribuutType.decimaal)
+    ) : ReferentietabelRecordAttribuut(ReferentietabelRecordAttribuutType.decimaal)
 
 
 

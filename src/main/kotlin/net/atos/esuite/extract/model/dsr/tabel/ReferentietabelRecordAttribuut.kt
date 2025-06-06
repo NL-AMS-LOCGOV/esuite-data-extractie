@@ -28,7 +28,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema
 )
 abstract class ReferentietabelRecordAttribuut(
 
-    @field:Schema(description = "Attribuut type")
+    @field:Schema(description = "Type attribuut")
     val type: ReferentietabelRecordAttribuutType,
 ) {
     @Schema(description = "Naam van attribuut", maxLength = 128 )

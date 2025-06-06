@@ -10,10 +10,13 @@ import jakarta.ws.rs.core.MediaType
 import jakarta.ws.rs.core.Response
 import jakarta.ws.rs.core.Response.ok
 import net.atos.esuite.extract.converter.dsr.DomeinConverter
+import net.atos.esuite.extract.converter.dsr.toDomeinObject
 import net.atos.esuite.extract.model.dsr.domein.Domein
+import net.atos.esuite.extract.model.dsr.domein.DomeinObjectResults
 import net.atos.esuite.extract.model.dsr.domein.DomeinResults
 import net.atos.esuite.extract.model.shared.BladerParameters
 import net.atos.esuite.extract.repository.dsr.DomeinDefinitieRepository
+import net.atos.esuite.extract.repository.dsr.DomeinObjectRepository
 import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.media.Content
 import org.eclipse.microprofile.openapi.annotations.media.Schema
@@ -23,6 +26,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponse
 class Domeinen(
     private val domeinDefinitieRepository: DomeinDefinitieRepository,
     private val domeinConverter: DomeinConverter,
+    private val domeinObjectRepository: DomeinObjectRepository,
 ) {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -64,28 +68,28 @@ class Domeinen(
             .build()
     }
 
-//    @GET
-//    @Path("{referentietabel_naam}/records")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    @Operation(operationId = "referentietabel_record_list", summary = "Records van een referentietabel opvragen")
-//    @APIResponse(
-//        responseCode = "200", description = "OK",
-//        content = [Content(schema = Schema(implementation = ReferentietabelRecordResults::class))]
-//    )
-//    fun referentietabelRecordList(
-//        @PathParam("referentietabel_naam") referentietabelNaam: String,
-//        @BeanParam bladerParameters: BladerParameters
-//    ): Response {
-//        val (records, totaalAantalRecords) = referentietabelRecordRepository.listByReferentietabelNaam(referentietabelNaam,
-//            bladerParameters.page, bladerParameters.pageSize
-//        )
-//        return ok(
-//            ReferentietabelRecordResults(
-//                records.map { it.toReferentietabelRecord() },
-//                totaalAantalRecords,
-//                bladerParameters.page,
-//                bladerParameters.pageSize,
-//            )
-//        ).build()
-//    }
+    @GET
+    @Path("{domein_naam}/objecten")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Operation(operationId = "domein_object_list", summary = "Objecten van een domein opvragen")
+    @APIResponse(
+        responseCode = "200", description = "OK",
+        content = [Content(schema = Schema(implementation = DomeinObjectResults::class))]
+    )
+    fun domeinObjectList(
+        @PathParam("domein_naam") domeinNaam: String,
+        @BeanParam bladerParameters: BladerParameters
+    ): Response {
+        val (objecten, totaalAantalObjecten) = domeinObjectRepository.listByDomeinNaam(domeinNaam,
+            bladerParameters.page, bladerParameters.pageSize
+        )
+        return ok(
+            DomeinObjectResults(
+                objecten.map { it.toDomeinObject() },
+                totaalAantalObjecten,
+                bladerParameters.page,
+                bladerParameters.pageSize,
+            )
+        ).build()
+    }
 }
