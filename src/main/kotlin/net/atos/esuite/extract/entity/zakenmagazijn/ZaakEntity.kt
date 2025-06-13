@@ -1,7 +1,6 @@
 package net.atos.esuite.extract.entity.zakenmagazijn
 
 import jakarta.persistence.*
-import net.atos.esuite.extract.entity.basisgegevens.SubjectEntity
 import net.atos.esuite.extract.entity.configuratiemagazijn.ReferentieKanaalEntity
 import net.atos.esuite.extract.entity.configuratiemagazijn.ReferentieOrganisatieEntity
 import net.atos.esuite.extract.entity.zakenmagazijn.dataelement.AbstractDataElementEntity

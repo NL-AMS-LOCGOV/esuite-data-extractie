@@ -9,6 +9,8 @@ class Persoon(
     telefoonnummerAlternatief: String?,
     emailadres: String?,
     rekeningnummer: String?,
+    ontvangenZaakNotificaties: Boolean?,
+    toestemmingZaakNotificatiesAlleenDigitaal: Boolean?,
 
     @field:Schema(description = "Burgerservicenummer (BSN)", minLength = 9, maxLength = 9)
     val burgerServiceNummer: String?,
@@ -32,4 +34,6 @@ class Persoon(
     telefoonnummerAlternatief = telefoonnummerAlternatief,
     emailadres = emailadres,
     rekeningnummer = rekeningnummer,
+    ontvangenZaakNotificaties = ontvangenZaakNotificaties,
+    toestemmingZaakNotificatiesAlleenDigitaal = toestemmingZaakNotificatiesAlleenDigitaal,
 )

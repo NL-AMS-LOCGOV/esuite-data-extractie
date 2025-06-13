@@ -9,6 +9,8 @@ class Bedrijf(
     telefoonnummerAlternatief: String?,
     emailadres: String?,
     rekeningnummer: String?,
+    ontvangenZaakNotificaties: Boolean?,
+    toestemmingZaakNotificatiesAlleenDigitaal: Boolean?,
 
     @field:Schema(description = "Kamer van koophandel (KvK) nummer", minLength = 8, maxLength = 8)
     val kvkNummer: String?,
@@ -22,11 +24,13 @@ class Bedrijf(
     @field:Schema(description = "Bedrijfsnaam", maxLength = 128)
     val bedrijfsnaam: String?
 
-    ) : Subject(
+) : Subject(
     subjecttype = Subjecttype.bedrijf,
     notities = notities,
     telefoonnummer = telefoonnummer,
     telefoonnummerAlternatief = telefoonnummerAlternatief,
     emailadres = emailadres,
     rekeningnummer = rekeningnummer,
+    ontvangenZaakNotificaties = ontvangenZaakNotificaties,
+    toestemmingZaakNotificatiesAlleenDigitaal = toestemmingZaakNotificatiesAlleenDigitaal,
 )

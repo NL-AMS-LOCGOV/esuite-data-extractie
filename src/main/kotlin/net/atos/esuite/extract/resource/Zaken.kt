@@ -53,7 +53,7 @@ class Zaken(
     @GET
     @Path("{functionele_Identificatie}")
     @Produces(MediaType.APPLICATION_JSON)
-    @Operation(operationId = "zaak_read", summary = "Een specifieke zaak opvragen")
+    @Operation(operationId = "zaak_read", summary = "Een specifieke zaak opvragen op basis van de functiele identificatie")
     @APIResponse(
         responseCode = "200", description = "OK", content = [Content(schema = Schema(implementation = Zaak::class))]
     )

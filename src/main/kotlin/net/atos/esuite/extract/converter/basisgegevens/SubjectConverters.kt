@@ -16,7 +16,7 @@ fun SubjectEntity.toSubject() =
         else -> error("Invalid SubjectEntity type: ${this.javaClass.simpleName}")
     }
 
-private fun PersoonEntity.toPersoon() =
+fun PersoonEntity.toPersoon() =
     Persoon(
         burgerServiceNummer = this.burgerServiceNummer,
         voornamen = voornamen,
@@ -28,9 +28,11 @@ private fun PersoonEntity.toPersoon() =
         emailadres = emailadres,
         rekeningnummer = rekeningnummer,
         notities = this.notities.map { it.toNotitie() }.ifEmpty { null },
+        ontvangenZaakNotificaties = ontvangenZaakNotificaties,
+        toestemmingZaakNotificatiesAlleenDigitaal = toestemmingZaakNotificatiesAlleenDigitaal,
     )
 
-private fun BedrijfEntity.toBedrijf() =
+fun BedrijfEntity.toBedrijf() =
     Bedrijf(
         notities = notities.map { it.toNotitie() }.ifEmpty { null },
         kvkNummer = kvknummer,
@@ -41,6 +43,8 @@ private fun BedrijfEntity.toBedrijf() =
         telefoonnummerAlternatief = telefoonnummerAlternatief,
         emailadres = emailadres,
         rekeningnummer = bankrekening,
+        ontvangenZaakNotificaties = ontvangenZaakNotificaties,
+        toestemmingZaakNotificatiesAlleenDigitaal = toestemmingZaakNotificatiesAlleenDigitaal,
     )
 
 fun NotitieEntity.toNotitie() =

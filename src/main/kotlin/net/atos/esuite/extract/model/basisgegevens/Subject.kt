@@ -28,6 +28,12 @@ abstract class Subject(
     @field:Schema(description = "Emailadres", maxLength = 255)
     val emailadres: String?,
 
+    @field:Schema(description = "Is het gewenst dat zaak notificaties worden ontvangen")
+    val ontvangenZaakNotificaties: Boolean?,
+
+    @field:Schema(description = "Mogen zaak notificaties alleen digitaal worden verstuurd en dus niet per post")
+    val toestemmingZaakNotificatiesAlleenDigitaal: Boolean?,
+
     @field:Schema(description = "Notities")
     val notities: List<SubjectNotitie>?
 )
