@@ -4,6 +4,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema
 
 @Schema(allOf = [Subject::class])
 class Bedrijf(
+    identifier: Long,
     notities: List<SubjectNotitie>?,
     telefoonnummer: String?,
     telefoonnummerAlternatief: String?,
@@ -25,6 +26,7 @@ class Bedrijf(
     val bedrijfsnaam: String?
 
 ) : Subject(
+    identifier = identifier,
     subjecttype = Subjecttype.bedrijf,
     notities = notities,
     telefoonnummer = telefoonnummer,

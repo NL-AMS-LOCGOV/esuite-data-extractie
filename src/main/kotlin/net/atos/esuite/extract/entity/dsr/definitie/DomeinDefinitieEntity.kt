@@ -2,12 +2,10 @@ package net.atos.esuite.extract.entity.dsr.definitie
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
-import jakarta.persistence.FetchType
 import jakarta.persistence.Id
 import jakarta.persistence.OneToMany
 import jakarta.persistence.Table
 import net.atos.esuite.extract.entity.shared.AbstractReferentieEntity
-import java.util.*
 
 /**
  * Entity class voor een domein.
@@ -21,6 +19,6 @@ class DomeinDefinitieEntity : AbstractReferentieEntity() {
     @Column(name = "id_def_domein")
     var identifier: Long = 0
 
-    @OneToMany(mappedBy = "domeinDefinitie", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "domeinDefinitie")
     var domeinObjectDefinities: MutableList<DomeinObjectDefinitieEntity> = mutableListOf()
 }

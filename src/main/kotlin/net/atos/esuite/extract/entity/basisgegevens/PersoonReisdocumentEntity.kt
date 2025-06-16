@@ -22,6 +22,7 @@ class PersoonReisdocumentEntity {
     @Column(name = "autoriteit_ontrekking", length = 255)
     var autoriteitOntrekking: String? = null
 
+    // Indicatie van rechtswege vervallen (I,V)
     @Column(name = "ind_vervallen", length = 1)
     var indicatieVervallen: String? = null
 

@@ -2,7 +2,6 @@ package net.atos.esuite.extract.entity.identity
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
-import jakarta.persistence.FetchType
 import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.JoinTable
@@ -29,10 +28,10 @@ class RolEntity {
     @Column(name = "actief")
     var actief = false
 
-    @ManyToMany(mappedBy = "rollen", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "rollen")
     var medewerkers: MutableSet<MedewerkerEntity> = mutableSetOf()
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany
     @JoinTable(
         name = "rol_recht", schema = "identity",
         joinColumns = [JoinColumn(name = "id_rol", referencedColumnName = "id_rol")],

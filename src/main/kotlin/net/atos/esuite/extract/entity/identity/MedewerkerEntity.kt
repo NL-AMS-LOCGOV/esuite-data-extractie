@@ -80,7 +80,7 @@ class MedewerkerEntity {
     @Column(name = "externenaam", length = 128)
     var externeNaam: String? = null
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany
     @JoinTable(
         name = "medewerker_rol", schema = "identity",
         joinColumns = [JoinColumn(name = "id_medewerker", referencedColumnName = "id_medewerker")],
@@ -88,7 +88,7 @@ class MedewerkerEntity {
     )
     var rollen: MutableSet<RolEntity> = mutableSetOf()
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany
     @JoinTable(
         name = "medewerker_groep", schema = "identity",
         joinColumns = [JoinColumn(name = "id_medewerker", referencedColumnName = "id_medewerker")],
@@ -96,7 +96,7 @@ class MedewerkerEntity {
     )
     var groepen: MutableSet<GroepEntity> = mutableSetOf()
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany
     @JoinTable(
         name = "medewerker_afdeling", schema = "identity",
         joinColumns = [JoinColumn(name = "id_medewerker", referencedColumnName = "id_medewerker")],

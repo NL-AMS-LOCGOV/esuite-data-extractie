@@ -2,7 +2,6 @@ package net.atos.esuite.extract.entity.identity
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
-import jakarta.persistence.FetchType
 import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToMany
@@ -41,6 +40,6 @@ class AfdelingEntity {
     @Column(name = "email", length = 64)
     var email: String? = null
 
-    @ManyToMany(mappedBy = "afdelingen", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "afdelingen")
     var medewerkers: MutableSet<MedewerkerEntity> = mutableSetOf()
 }

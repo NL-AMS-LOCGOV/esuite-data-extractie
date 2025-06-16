@@ -1,5 +1,15 @@
 ### Persoon met bsn.
-GET {{base-url}}/personen/220290258
+GET {{base-url}}/personen?bsn=220290258
+X-API-KEY: {{api-key}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+%}
+
+### Persoon op identifier
+GET {{base-url}}/personen/4115
 X-API-KEY: {{api-key}}
 
 > {%

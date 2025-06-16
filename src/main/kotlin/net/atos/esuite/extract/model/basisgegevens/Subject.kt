@@ -13,7 +13,10 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema
 )
 abstract class Subject(
 
-    @field:Schema(description = "Type subject")
+    @field:Schema(description = "Interne identifier")
+    val identifier: Long,
+
+    @field:Schema(description = "Type subject (persoon of bedrijf")
     val subjecttype: Subjecttype,
 
     @field:Schema(description = "Telefoonnummer", maxLength = 20)

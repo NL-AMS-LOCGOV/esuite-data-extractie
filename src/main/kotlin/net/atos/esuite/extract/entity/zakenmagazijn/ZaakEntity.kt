@@ -27,7 +27,7 @@ class ZaakEntity {
     @Column(name = "id_functioneel_extern", unique = true, length = 40)
     lateinit var externFunctioneelId: String
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "id_kanaal", referencedColumnName = "id_kanaal")
     lateinit var kanaal: ReferentieKanaalEntity
 
@@ -116,21 +116,21 @@ class ZaakEntity {
     @Column(name = "notificeerbaar")
     var notificeerbaar = false
 
-    @OneToMany(mappedBy = "zaak", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "zaak")
     var taken: MutableSet<TaakEntity> = mutableSetOf()
 
-    @OneToMany(mappedBy = "zaak", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "zaak")
     var betrokkenen: MutableSet<ZaakBetrokkeneEntity> = mutableSetOf()
 
-    @OneToMany(mappedBy = "zaak", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "zaak")
     @OrderBy(value = "identifier")
     var notities: MutableSet<ZaakNotitieEntity> = mutableSetOf()
 
-    @OneToMany(mappedBy = "zaak", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "zaak")
     var gekoppeldeBAGObjecten: MutableSet<ZaakBAGObjectEntity> = mutableSetOf()
 
     // Alle zaakrelaties waarin de huidige zaak de volgende zaak is
-    @OneToMany(mappedBy = "gekoppeldeZaak", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "gekoppeldeZaak")
     var relatieZaken: MutableSet<ZaakZaakEntity> = mutableSetOf()
 
     @Embedded
@@ -139,25 +139,25 @@ class ZaakEntity {
     @Embedded
     var betaalgegevens: BetaalgegevensEntity? = null
 
-    @OneToMany(mappedBy = "zaak", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "zaak")
     @OrderBy("identifier DESC")
     var historie: MutableSet<ZaakHistorieEntity> = mutableSetOf()
 
-    @OneToMany(mappedBy = "zaak", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "zaak")
     var documenten: MutableSet<DocumentEntity> = mutableSetOf()
 
-    @OneToMany(mappedBy = "zaak", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "zaak")
     var zaakdataElementen: MutableSet<AbstractDataElementEntity> = mutableSetOf()
 
     // Locatie van de zaak gedefinieerd als een valide WKT representatie string
     @Column(name = "geolocatie", length = Int.MAX_VALUE)
     var geolocatie: String? = null
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "id_organisatie", referencedColumnName = "id_organisatie")
     var organisatie: ReferentieOrganisatieEntity? = null
 
-    @ElementCollection(fetch = FetchType.LAZY)
+    @ElementCollection()
     @CollectionTable(
         name = "zkn_zaak_geautoriseerde_medewerker", schema = "zakenmagazijn",
         joinColumns = [JoinColumn(name = "id_zaak")]
@@ -177,9 +177,9 @@ class ZaakEntity {
     @Column(name = "ztc1_migratiedatumtijd")
     var ztc1Migratiedatumtijd : Instant? = null
 
-    @OneToMany(mappedBy = "zaak", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "zaak")
     var besluiten: MutableSet<BesluitEntity> = mutableSetOf()
 
-    @OneToMany(mappedBy = "zaak", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "zaak")
     var contacten: MutableSet<ZaakContactEntity> = mutableSetOf()
 }

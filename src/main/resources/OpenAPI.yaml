@@ -29,6 +29,72 @@ components:
         itemWaarde:
           type: string
           description: Item waarde
+    Adres:
+      type: object
+      required:
+        - type
+        - buitenlandsAdres
+        - land
+      properties:
+        type:
+          $ref: "#/components/schemas/AdresType"
+          type: string
+          description: Type adres
+        straatnaam:
+          type: string
+          maxLength: 64
+          description: Straatnaam
+        postcode:
+          type: string
+          maxLength: 6
+          description: Postcode
+        plaatsnaam:
+          type: string
+          maxLength: 128
+          description: Plaatsnaam
+        huisletter:
+          type: string
+          maxLength: 10
+          description: Huisletter
+        huisnummer:
+          type: integer
+          format: int32
+          description: Huisnummer
+        huisnummertoevoeging:
+          type: string
+          maxLength: 10
+          description: Huisnummertoevoeging
+        huisnummeraanduiding:
+          type: string
+          maxLength: 64
+          description: Huisnummeraanduiding
+        adresbuitenland1:
+          type: string
+          maxLength: 128
+          description: Adres buitenland 1
+        adresbuitenland2:
+          type: string
+          maxLength: 128
+          description: Adres buitenland 2
+        adresbuitenland3:
+          type: string
+          maxLength: 128
+          description: Adres buitenland 3
+        buitenlandsAdres:
+          type: boolean
+          description: Indicatie adres buitenland
+        land:
+          $ref: "#/components/schemas/Land"
+          type: object
+          description: Land
+    AdresType:
+      type: string
+      enum:
+        - correspondentie_adres
+        - inschrijf_adres_persoon
+        - verblijf_adres_persoon
+        - post_adres_bedrijf
+        - vestigings_adres_bedrijf
     AfdelingOverzicht:
       type: object
       required:
@@ -331,6 +397,17 @@ components:
         waarde:
           type: boolean
           description: Boolean waarde
+    BurgerlijkeStaat:
+      type: object
+      required:
+        - gbaCode
+      allOf:
+        - $ref: "#/components/schemas/Referentie"
+      properties:
+        gbaCode:
+          type: string
+          maxLength: 1
+          description: GBA landcode
     CalendarDataElement:
       type: object
       allOf:
@@ -1332,6 +1409,12 @@ components:
       enum:
         - man
         - vrouw
+    Geslachtsaanduiding:
+      type: string
+      enum:
+        - man
+        - vrouw
+        - onbekend
     Groep:
       type: object
       required:
@@ -1428,6 +1511,17 @@ components:
       type: object
       allOf:
         - $ref: "#/components/schemas/Referentie"
+    Land:
+      type: object
+      required:
+        - gbaCode
+      allOf:
+        - $ref: "#/components/schemas/Referentie"
+      properties:
+        gbaCode:
+          type: string
+          maxLength: 10
+          description: GBA landcode
     Medewerker:
       type: object
       required:
@@ -1620,6 +1714,40 @@ components:
         indicatieVoorAlleDocumenttypes:
           type: boolean
           description: Indicatie of het metadata element gebruikt wordt bij alle documenttypes
+    Naamgebruik:
+      type: string
+      enum:
+        - eigen_geslachtsnaam
+        - geslachtsnaam_partner_na_eigen_geslachtsnaam
+        - geslachtsnaam_partner
+        - geslachtsnaam_partner_voor_eigen_geslachtsnaam
+    Nationaliteit:
+      type: object
+      required:
+        - gbaCode
+      allOf:
+        - $ref: "#/components/schemas/Referentie"
+      properties:
+        redenVerkrijging:
+          type: string
+          maxLength: 255
+          description: Reden verkrijging nationaliteit
+        datumVerkrijging:
+          type: string
+          format: date
+          examples:
+            - 2022-03-10
+          description: Datum verkrijging nationaliteit
+        gbaCode:
+          type: string
+          maxLength: 10
+          description: GBA code
+    NietIngezeteneAanduiding:
+      type: string
+      enum:
+        - ingezetene
+        - niet_ingezetene
+        - ander_natuurlijk_persoon
     NummerDomeinObjectAttribuutWaarde:
       type: object
       required:
@@ -1649,6 +1777,22 @@ components:
           type: integer
           format: int64
           description: Integer waarde
+    OnvolledigeDatumType:
+      type: string
+      enum:
+        - jaar_en_maand_en_dag_onbekend
+        - maand_en_dag_onbekend
+        - dag_onbekend
+        - volledig
+    OpschortingsReden:
+      type: string
+      enum:
+        - standaard_waarde
+        - overlijden
+        - emigratie
+        - ministerieel_besluit
+        - pl_aangelegd_in_rni
+        - fout
     OptiesDataElement:
       type: object
       required:
@@ -1693,6 +1837,14 @@ components:
           description: Locatie/instantie waarnaar de zaak is overgebracht
     Persoon:
       type: object
+      required:
+        - geblokkeerd
+        - curateleRegister
+        - inOnderzoek
+        - beperkingVerstrekking
+        - handmatigToegevoegd
+        - afnemerIndicatie
+        - burgerlijkeStaat
       allOf:
         - $ref: "#/components/schemas/Subject"
       properties:
@@ -1712,11 +1864,149 @@ components:
         geslachtsNaam:
           type: string
           maxLength: 200
-          description: Naam
+          description: Achternaam
         voorvoegsel:
           type: string
           maxLength: 10
           description: Voorvoegsel geslachtsnaam
+        geslachtsaanduiding:
+          type: string
+          description: Geslachtsaanduiding
+          $ref: "#/components/schemas/Geslachtsaanduiding"
+        aanhefAanschrijving:
+          type: string
+          maxLength: 64
+          description: Aanhef van de aanschrijving
+        adelijkeTitel:
+          type: string
+          maxLength: 10
+          description: Adelijke titel
+        preAcademischeTitel:
+          type: string
+          maxLength: 20
+          description: Aanduiding pre academische titel
+        postAcademischeTitel:
+          type: string
+          maxLength: 20
+          description: Aanduiding post academische titel
+        naamgebruik:
+          type: string
+          description: Aanduiding van naamgebruik
+          $ref: "#/components/schemas/Naamgebruik"
+        geslachtsNaamPartner:
+          type: string
+          maxLength: 200
+          description: Achternaam partner
+        voorvoegselPartner:
+          type: string
+          maxLength: 10
+          description: Voorvoegsel geslachtsnaam partner
+        geboortedatum:
+          type: string
+          format: date
+          examples:
+            - 2022-03-10
+          description: Geboortedatum
+        geboorteplaats:
+          type: string
+          maxLength: 255
+          description: Geboorteplaats
+        overlijdensdatum:
+          type: string
+          format: date
+          examples:
+            - 2022-03-10
+          description: Overlijdensdatum
+        overlijdensplaats:
+          type: string
+          maxLength: 255
+          description: Overlijdensplaats
+        aNummer:
+          type: string
+          maxLength: 10
+          description: Gemeentelijk A-nummer
+        opschortingsReden:
+          type: string
+          description: Reden opschorting bijhouding adresgegevens
+          $ref: "#/components/schemas/OpschortingsReden"
+        opschortingsDatum:
+          type: string
+          format: date
+          examples:
+            - 2022-03-10
+          description: Datum opschorting bijhouding adresgegevens
+        geblokkeerd:
+          type: boolean
+          description: Indicatie blokkering tijdens verhuizing
+        curateleRegister:
+          type: boolean
+          description: Indicatie gezag- of curatelestelling
+        inOnderzoek:
+          type: boolean
+          description: Indicatie of er een onderzoek naar de persoon wordt uitgevoerd
+        geboortedatumVolledig:
+          type: string
+          description: Indicatie of de geboortedatum volledig is
+          $ref: "#/components/schemas/OnvolledigeDatumType"
+        overlijdensdatumVolledig:
+          type: string
+          description: Indicatie of datum van overlijden volledig is
+          $ref: "#/components/schemas/OnvolledigeDatumType"
+        beperkingVerstrekking:
+          type: boolean
+          description: Indicatie beperking verstrekking gegevens
+        nietIngezeteneAanduiding:
+          type: string
+          description: Indicatie niet-ingezetene
+          $ref: "#/components/schemas/NietIngezeteneAanduiding"
+        handmatigToegevoegd:
+          type: boolean
+          description: Indicatie handmatig toegevoegd
+        afnemerIndicatie:
+          type: boolean
+          description: Indicatie of de persoon geabonneerd is op updates vanuit de
+            makelaar
+        anpIdentificatie:
+          type: integer
+          format: int64
+          description: Ander Natuurlijk Persoon (ANP) identificatie gebruikt tijdens
+            verwerking van StUF-zaken berichten
+        gemeentecode:
+          type: string
+          maxLength: 10
+          description: Gemeente waarvan persoon een inwoner is
+        geboorteland:
+          type: object
+          description: Geboorteland
+          $ref: "#/components/schemas/Land"
+        overlijdensland:
+          type: object
+          description: Overlijdensland
+          $ref: "#/components/schemas/Land"
+        burgerlijkeStaat:
+          $ref: "#/components/schemas/BurgerlijkeStaat"
+          type: object
+          description: Burgerlijke staat
+        adressen:
+          type: array
+          items:
+            $ref: "#/components/schemas/Adres"
+          description: Adressen
+        nationaliteiten:
+          type: array
+          items:
+            $ref: "#/components/schemas/Nationaliteit"
+          description: Nationaliteiten
+        reisdocumenten:
+          type: array
+          items:
+            $ref: "#/components/schemas/Reisdocument"
+          description: Reisdocumenten
+        relaties:
+          type: array
+          items:
+            $ref: "#/components/schemas/Relatie"
+          description: Relaties met andere personen
     Recht:
       type: object
       required:
@@ -1842,6 +2132,16 @@ components:
         - veld
         - rapportage_categorie
         - zaaktype
+    RedenOntbindingVerbintenis:
+      type: string
+      enum:
+        - onbekend
+        - vermissing_en_ander_huwelijk
+        - nietig_verklaring
+        - overleden
+        - rechtsvermoeden_van_overlijden
+        - scheiding
+        - naar_vreemd_recht_anders_beeindigd
     Referentie:
       type: object
       required:
@@ -2014,6 +2314,108 @@ components:
           items:
             $ref: "#/components/schemas/Referentietabel"
           description: Items in de huidige pagina
+    Reisdocument:
+      type: object
+      required:
+        - gbaCode
+        - indicatieOnttrekking
+      allOf:
+        - $ref: "#/components/schemas/Referentie"
+      properties:
+        gbaCode:
+          type: string
+          maxLength: 2
+          description: GBA landcode
+        indicatieOnttrekking:
+          type: boolean
+          description: Indicatie onttrekking aan verkeer
+        autoriteitOntrekking:
+          type: string
+          maxLength: 255
+          description: Naam autoriteit die document heeft onttrokken
+        indicatieVervallen:
+          type: string
+          description: Indicatie onttrekking aan verkeer
+          $ref: "#/components/schemas/VervallenAanduiding"
+        autoriteitVervallen:
+          type: string
+          maxLength: 255
+          description: Naam autoriteit die document heeft onttrokken
+        einddatumGeldigheid:
+          type: string
+          format: date
+          examples:
+            - 2022-03-10
+          description: Einddatum geldigheid
+        reisdocumentnummer:
+          type: string
+          maxLength: 10
+          description: Reisdocument nummer
+        uitgiftedatum:
+          type: string
+          format: date
+          examples:
+            - 2022-03-10
+          description: Uitgifte datum
+        autoriteitUitgifte:
+          type: string
+          maxLength: 128
+          description: Naam autoriteit die document heeft onttrokken
+    Relatie:
+      type: object
+      required:
+        - type
+      properties:
+        type:
+          $ref: "#/components/schemas/RelatieType"
+          type: string
+          description: Aanduiding relatie
+        soortVerbintenis:
+          type: string
+          description: Soort verbintenis
+          $ref: "#/components/schemas/SoortVerbintenis"
+        datumSluitingVerbintenis:
+          type: string
+          format: date
+          examples:
+            - 2022-03-10
+          description: Datum sluiting van verbintenis
+        plaatsSluitingVerbintenis:
+          type: string
+          maxLength: 128
+          description: Plaats van sluiting van verbintenis
+        landSluitingVerbintenis:
+          type: object
+          description: Land van sluiting van verbintenis
+          $ref: "#/components/schemas/Land"
+        datumOntbindingVerbintenis:
+          type: string
+          format: date
+          examples:
+            - 2022-03-10
+          description: Datum ontbinding verbintenis
+        redenOntbindingVerbintenis:
+          type: string
+          description: Reden ontbinding verbintenis
+          $ref: "#/components/schemas/RedenOntbindingVerbintenis"
+        plaatsOntbindingVerbintenis:
+          type: string
+          maxLength: 128
+          description: Plaats van de ontbinding van verbintenis
+        landOntbindingVerbintenis:
+          type: object
+          description: Land van ontbinding van verbintenis
+          $ref: "#/components/schemas/Land"
+        identifierPersoon:
+          type: integer
+          format: int64
+          description: Interne identifier van gerelateerd persoon
+    RelatieType:
+      type: string
+      enum:
+        - is_ouder_van
+        - is_kind_van
+        - is_partner_van
     Resultaat:
       type: object
       required:
@@ -2055,6 +2457,11 @@ components:
           items:
             type: string
           description: Lijst van geselecteerde documenten
+    SoortVerbintenis:
+      type: string
+      enum:
+        - huwelijk
+        - partnerschap
     StringDataElement:
       type: object
       allOf:
@@ -2108,10 +2515,14 @@ components:
           persoon: "#/components/schemas/Persoon"
           bedrijf: "#/components/schemas/Bedrijf"
       properties:
+        identifier:
+          type: integer
+          format: int64
+          description: Interne identifier
         subjecttype:
           $ref: "#/components/schemas/Subjecttype"
           type: string
-          description: Type subject
+          description: Type subject (persoon of bedrijf
         telefoonnummer:
           type: string
           maxLength: 20
@@ -2128,6 +2539,13 @@ components:
           type: string
           maxLength: 255
           description: Emailadres
+        ontvangenZaakNotificaties:
+          type: boolean
+          description: Is het gewenst dat zaak notificaties worden ontvangen
+        toestemmingZaakNotificatiesAlleenDigitaal:
+          type: boolean
+          description: Mogen zaak notificaties alleen digitaal worden verstuurd en
+            dus niet per post
         notities:
           type: array
           items:
@@ -2326,6 +2744,11 @@ components:
           type: string
           maxLength: 3
           description: "Functionele id: Code van de taal conform de ISO 639-2/B standaard"
+    VervallenAanduiding:
+      type: string
+      enum:
+        - ingetrokken
+        - van_rechtswege_vervallen
     VoorlopigAntwoord:
       type: object
       required:
@@ -2794,7 +3217,7 @@ info:
     email: andy.verberne@atos.net
     name: Andy Verberne
   title: e-Suite data extractie API
-  version: 0.2.0
+  version: 0.3.0
 security:
   - ApiKeyAuth: [ ]
 paths:
@@ -3075,6 +3498,48 @@ paths:
                 $ref: "#/components/schemas/Medewerker"
       tags:
         - Medewerkers
+  /personen:
+    get:
+      summary: Een specifiek persoon opvragen op basis van de BSN
+      operationId: persoon_read_bsn
+      parameters:
+        - name: bsn
+          in: query
+          schema:
+            type: string
+            minLength: 9
+            maxLength: 9
+            description: Burgerservicenummer
+          required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Persoon"
+      tags:
+        - Personen
+  /personen/{identifier}:
+    get:
+      summary: Een specifiek persoon opvragen op basis van interne identifier
+      operationId: persoon_read
+      parameters:
+        - name: identifier
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Persoon"
+      tags:
+        - Personen
   /referentietabellen:
     get:
       summary: Lijst van referentietabellen opvragen
@@ -3210,7 +3675,7 @@ paths:
         - Zaken
   /zaken/{functionele_Identificatie}:
     get:
-      summary: Een specifieke zaak opvragen
+      summary: Een specifieke zaak opvragen op basis van de functiele identificatie
       operationId: zaak_read
       parameters:
         - name: functionele_Identificatie

@@ -9,7 +9,7 @@ import jakarta.persistence.Table
 
 @Entity
 @Table(name = "gm_adressen", schema = "basisgegevens")
-class AdresEntity {
+class   AdresEntity {
 
     @Id
     @Column(name = "id_adres")

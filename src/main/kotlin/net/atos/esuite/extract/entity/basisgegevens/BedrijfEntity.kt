@@ -2,6 +2,11 @@ package net.atos.esuite.extract.entity.basisgegevens
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
+import jakarta.persistence.JoinColumn
+import jakarta.persistence.JoinTable
+import jakarta.persistence.ManyToMany
+import jakarta.persistence.ManyToOne
+import jakarta.persistence.OneToMany
 import jakarta.persistence.PrimaryKeyJoinColumn
 import jakarta.persistence.Table
 import java.time.LocalDate
@@ -86,26 +91,25 @@ class BedrijfEntity : SubjectEntity() {
     @Column(name = "toestemmingZaakNotificatiesAlleenDigitaal")
     var toestemmingZaakNotificatiesAlleenDigitaal = false
 
-    // ToDo: 
-//    @ManyToOne
-//    @JoinColumn(name = "id_hoofdactiviteit", referencedColumnName = "id_hoofdactiviteit")
-//    var hoofdactiviteit: ReferentieHoofdactiviteitEntity? = null
-//
-//    @ManyToOne
-//    @JoinColumn(name = "id_rechtsvorm", referencedColumnName = "id_rechtsvorm")
-//    var rechtsvorm: ReferentieRechtsvormEntity? = null
-//
-//    @OneToMany(mappedBy = "bedrijf")
-//    var adressen: MutableSet<BedrijfAdresEntity> = mutableSetOf()
-//
-//    @ManyToMany
-//    @JoinTable(
-//        name = "gm_bedrijfnevenactiviteit", schema = "basisgegevens",
-//        joinColumns = [JoinColumn(name = "id_bedrijf")],
-//        inverseJoinColumns = [JoinColumn(name = "id_nevenactiviteit")]
-//    )
-//    var nevenactiviteiten: MutableSet<ReferentieNevenactiviteitEntity> = mutableSetOf()
-//
-//    @OneToMany(mappedBy = "bedrijf")
-//    var contactpersonen: MutableSet<ContactpersoonEntity> = mutableSetOf()
+    @ManyToOne
+    @JoinColumn(name = "id_hoofdactiviteit", referencedColumnName = "id_hoofdactiviteit")
+    var hoofdactiviteit: ReferentieHoofdactiviteitEntity? = null
+
+    @ManyToOne
+    @JoinColumn(name = "id_rechtsvorm", referencedColumnName = "id_rechtsvorm")
+    var rechtsvorm: ReferentieRechtsvormEntity? = null
+
+    @OneToMany(mappedBy = "bedrijf")
+    var adressen: MutableSet<BedrijfAdresEntity> = mutableSetOf()
+
+    @ManyToMany
+    @JoinTable(
+        name = "gm_bedrijfnevenactiviteit", schema = "basisgegevens",
+        joinColumns = [JoinColumn(name = "id_bedrijf")],
+        inverseJoinColumns = [JoinColumn(name = "id_nevenactiviteit")]
+    )
+    var nevenactiviteiten: MutableSet<ReferentieNevenactiviteitEntity> = mutableSetOf()
+
+    @OneToMany(mappedBy = "bedrijf")
+    var contactpersonen: MutableSet<ContactpersoonEntity> = mutableSetOf()
 }

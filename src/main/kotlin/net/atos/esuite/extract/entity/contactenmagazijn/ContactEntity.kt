@@ -1,7 +1,6 @@
 package net.atos.esuite.extract.entity.contactenmagazijn
 
 import jakarta.persistence.*
-import net.atos.esuite.extract.entity.basisgegevens.SubjectEntity
 import net.atos.esuite.extract.entity.configuratiemagazijn.ReferentieKanaalEntity
 import net.atos.esuite.extract.entity.configuratiemagazijn.ReferentieOrganisatieEntity
 import org.hibernate.annotations.JdbcTypeCode
@@ -54,18 +53,18 @@ class ContactEntity {
     @Column(name = "id_aanvrager")
     var aanvragerSubjectId : Long? = null
 
-    @OneToMany(mappedBy = "contact", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "contact")
     var gekoppeldeBAGObjecten: MutableList<ContactBAGObjectEntity> = mutableListOf()
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "id_contactprioriteit")
     var contactPrioriteit: ReferentieContactPrioriteitEntity? = null
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "id_contactstatus")
     var contactStatus: ReferentieContactStatusEntity? = null
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "id_contacttype")
     var contactType: ReferentieContactTypeEntity? = null
 
@@ -78,7 +77,7 @@ class ContactEntity {
     @Column(name = "einddatumtijd")
     var einddatumtijd: Instant? = null
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "id_kanaal", referencedColumnName = "id_kanaal")
     var kanaal: ReferentieKanaalEntity? = null
 
@@ -94,15 +93,15 @@ class ContactEntity {
     @Column(name = "id_behandelaar", length = 64)
     var behandelaarId: String? = null
 
-    @OneToMany(mappedBy = "contact", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "contact")
     @OrderBy("identifier DESC")
     var contactHistorie: MutableList<ContactHistorieEntity> = mutableListOf()
 
-    @OneToMany(mappedBy = "contact", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "contact")
     @OrderBy(value = "datumantwoord DESC")
     var voorlopigeAntwoorden: MutableList<VoorlopigAntwoordEntity> = mutableListOf()
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany
     @JoinTable(
         name = "con_contact_contact", schema = "contactenmagazijn",
         joinColumns = [JoinColumn(name = "id_contact_01", referencedColumnName = "id_contact")],
@@ -110,7 +109,7 @@ class ContactEntity {
     )
     var gekoppeldeContacten1: MutableSet<ContactEntity> = mutableSetOf()
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany
     @JoinTable(
         name = "con_contact_contact", schema = "contactenmagazijn",
         joinColumns = [JoinColumn(name = "id_contact_02", referencedColumnName = "id_contact")],
@@ -118,7 +117,7 @@ class ContactEntity {
     )
     var gekoppeldeContacten2: MutableSet<ContactEntity> = mutableSetOf()
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "id_organisatie", referencedColumnName = "id_organisatie")
     var organisatie: ReferentieOrganisatieEntity? = null
 }

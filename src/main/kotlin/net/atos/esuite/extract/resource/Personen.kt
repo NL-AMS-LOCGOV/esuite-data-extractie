@@ -4,6 +4,7 @@ import jakarta.ws.rs.GET
 import jakarta.ws.rs.Path
 import jakarta.ws.rs.PathParam
 import jakarta.ws.rs.Produces
+import jakarta.ws.rs.QueryParam
 import jakarta.ws.rs.WebApplicationException
 import jakarta.ws.rs.core.MediaType
 import jakarta.ws.rs.core.Response
@@ -22,13 +23,17 @@ class Personen(
 ) {
 
     @GET
-    @Path("{bsn}")
     @Produces(MediaType.APPLICATION_JSON)
-    @Operation(operationId = "persoon_read", summary = "Een specifiek persoon opvragen op basis van de BSN")
+    @Operation(operationId = "persoon_read_bsn", summary = "Een specifiek persoon opvragen op basis van de BSN")
     @APIResponse(
         responseCode = "200", description = "OK", content = [Content(schema = Schema(implementation = Persoon::class))]
     )
-    fun persoonRead(@PathParam("bsn") bsn: String): Response {
+    fun persoonReadViaBSN(
+        @QueryParam("bsn")
+        @Schema(description = "Burgerservicenummer", minLength = 9, maxLength = 9, required = true)
+        bsn: String
+    ): Response {
+
         return ok(
             persoonRepository.findByBSN(bsn)
                 ?.toPersoon()
@@ -36,4 +41,18 @@ class Personen(
         ).build()
     }
 
+    @GET
+    @Path("{identifier}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Operation(operationId = "persoon_read", summary = "Een specifiek persoon opvragen op basis van interne identifier")
+    @APIResponse(
+        responseCode = "200", description = "OK", content = [Content(schema = Schema(implementation = Persoon::class))]
+    )
+    fun persoonRead(@PathParam("identifier") identifier: Long): Response {
+        return ok(
+            persoonRepository.findById(identifier)
+                ?.toPersoon()
+                ?: throw WebApplicationException("Persoon not found", 404)
+        ).build()
+    }
 }

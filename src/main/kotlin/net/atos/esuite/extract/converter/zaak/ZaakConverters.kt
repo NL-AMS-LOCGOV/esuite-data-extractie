@@ -85,7 +85,8 @@ fun ArchiveergegevensEntity.toArchiveergegevens() = ArchiveerGegevens(
     bewaartermijnWaardering = when (bewaartermijnWaardering) {
         "B" -> BewaartermijnWaardering.bewaar
         "V" -> BewaartermijnWaardering.vernietig
-        else -> null
+        null -> null
+        else -> error("Invalid BewaartermijnWaardering: $bewaartermijnWaardering")
     },
     overbrengenOp = overbrengenOp,
     overbrengenNaar = overbrengenNaar,
@@ -98,7 +99,8 @@ fun ArchiveergegevensEntity.toArchiveergegevens() = ArchiveerGegevens(
     overbrengenType = when (overbrengenType) {
         "1" -> OverbrengenType.overdragen
         "2" -> OverbrengenType.overbrengen
-        else -> null
+        null -> null
+        else -> error("Invalid OverbrengenType: $overbrengenType")
     },
     overgebrachteGegevens = overgebrachteGegevensEntity?.toOvergebrachteGegevens(),
     zaaktypeNaam = zaaktypeNaam,

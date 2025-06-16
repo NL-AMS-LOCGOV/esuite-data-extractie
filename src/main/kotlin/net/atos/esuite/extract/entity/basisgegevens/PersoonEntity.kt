@@ -28,9 +28,11 @@ class PersoonEntity: SubjectEntity() {
     @Column(name = "voorvoegsel", length = 10)
     var voorvoegsel: String? = null
 
+    // Geslachtsaanduiding (O,M,V)
     @Column(name = "geslachtsaanduiding", length = 1)
     var geslachtsAanduiding: String? = null
 
+    // Aanhef van de aanschrijving
     @Column(name = "aanhefaanschrijving", length = 64)
     var aanhefAanschrijving: String? = null
 
@@ -43,6 +45,7 @@ class PersoonEntity: SubjectEntity() {
     @Column(name = "titel_post_academisch", length = 20)
     var titelPostAcademisch: String? = null
 
+    // Aanduiding van het naamgebruik (E, N, P, V)
     @Column(name = "aanduidingnaamgebruik", length = 1)
     var aanduidingNaamGebruik: String? = null
 
@@ -85,6 +88,7 @@ class PersoonEntity: SubjectEntity() {
     @Column(name = "rekeningnummer", length = 64)
     var rekeningnummer: String? = null
 
+    // Reden opschorting bijhouding adresgegevens ('.', O,E,M,F)
     @Column(name = "redenopschorting", length = 10)
     var redenOpschorting: String? = null
 
@@ -111,6 +115,7 @@ class PersoonEntity: SubjectEntity() {
     @Column(name = "ind_beperking_verstrekking")
     var indicatieBeperkingVerstrekking = false
 
+    // Indicatie niet-ingezetene (I,N,A)
     @Column(name = "ind_nietingezetene", length = 1)
     var indicatieNietIngezetene: String? = null
 
@@ -118,7 +123,7 @@ class PersoonEntity: SubjectEntity() {
     var indicatieHandmatigToegevoegd = false
 
     @Column(name = "ind_afnemer")
-    var indicatieAfnemer = false
+            var indicatieAfnemer = false
 
     @Column(name = "anp_identificatie", length = 19)
     var anpIdentificatie: Long? = null
