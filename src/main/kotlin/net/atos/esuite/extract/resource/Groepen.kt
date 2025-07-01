@@ -57,10 +57,11 @@ class Groepen(
         description = "OK",
         content = [Content(schema = Schema(implementation = Groep::class))]
     )
+    @APIResponse(responseCode = "404", description = "Groep not found")
     fun groepRead(@PathParam("naam") naam: String): Response {
         return ok(
             groepRepository.findByNaam(naam)
-                ?.let { it.toGroep() }
+                ?.toGroep()
                 ?: throw WebApplicationException("Groep not found", 404)
         ).build()
     }

@@ -57,10 +57,11 @@ class Medewerkers(
         description = "OK",
         content = [Content(schema = Schema(implementation = Medewerker::class))]
     )
+    @APIResponse(responseCode = "404", description = "Medewerker not found")
     fun medewerkerRead(@PathParam("gebruikersnaam") gebruikersnaam: String): Response {
         return ok(
             medewerkerRepository.findByGebruikersnaam(gebruikersnaam)
-                ?.let { it.toMedewerker() }
+                ?.toMedewerker()
                 ?: throw WebApplicationException("Medewerker not found", 404)
         ).build()
     }

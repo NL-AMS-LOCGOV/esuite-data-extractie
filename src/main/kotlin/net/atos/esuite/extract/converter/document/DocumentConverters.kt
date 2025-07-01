@@ -44,7 +44,7 @@ fun ReferentieDocumentTypeEntity.toDocumenttype() =
 fun DocumentVersieEntity.toDocumentversie(documentInhoudEntity: DocumentInhoudEntity) =
     Documentversie(
         versienummer = versienummer,
-        bestandsId = documentInhoudEntity.identifier,
+        documentInhoudID = documentInhoudEntity.identifier,
         documentgrootte = if (documentInhoudEntity.documentgrootte > 0) documentInhoudEntity.documentgrootte else null,
         compressed = documentInhoudEntity.compressed,
         creatiedatum = creatiedatum,

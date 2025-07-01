@@ -57,10 +57,11 @@ class Afdelingen(
         description = "OK",
         content = [Content(schema = Schema(implementation = Medewerker::class))]
     )
+    @APIResponse(responseCode = "404", description = "Afdeling not found")
     fun afdelingRead(@PathParam("naam") naam: String): Response {
         return ok(
             afdelingRepository.findByNaam(naam)
-                ?.let { it.toAfdeling() }
+                ?.toAfdeling()
                 ?: throw WebApplicationException("Afdeling not found", 404)
         ).build()
     }

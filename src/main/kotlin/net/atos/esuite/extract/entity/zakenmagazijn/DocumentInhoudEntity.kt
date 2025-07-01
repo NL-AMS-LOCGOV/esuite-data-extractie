@@ -1,9 +1,8 @@
 package net.atos.esuite.extract.entity.zakenmagazijn
 
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.Id
-import jakarta.persistence.Table
+import jakarta.persistence.*
+import java.sql.Blob
+
 
 @Entity
 @Table(name = "zkn_documentinhoud", schema = "zakenmagazijn")
@@ -14,10 +13,15 @@ class DocumentInhoudEntity {
     var identifier: Long = 0
 
     // Indicatie of document gecomprimeerd is opgeslagen.
-    @Column(name = "compressed", nullable = false)
+    @Column(name = "compressed")
     var compressed = false
 
     // Grootte van document in bytes
-    @Column(name = "documentgrootte", nullable = false)
+    @Column(name = "documentgrootte")
      var documentgrootte: Long = 0
+
+    @Basic(fetch = FetchType.LAZY)
+    @Column(name = "inhoud")
+    @Lob
+    var inhoud: Blob? = null
 }

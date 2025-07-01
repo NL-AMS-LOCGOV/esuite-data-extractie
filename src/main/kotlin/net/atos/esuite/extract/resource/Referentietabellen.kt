@@ -60,6 +60,7 @@ class Referentietabellen(
         description = "OK",
         content = [Content(schema = Schema(implementation = Referentietabel::class))]
     )
+    @APIResponse(responseCode = "404", description = "Referentietabel not found")
     fun referentietabelRead(@PathParam("referentietabel_naam") referentietabelNaam: String): Response {
         return ok(
             referentietabelDefinitieRepository.findByNaam(referentietabelNaam)

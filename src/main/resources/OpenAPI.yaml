@@ -1094,7 +1094,7 @@ components:
       type: object
       required:
         - versienummer
-        - bestandsId
+        - documentInhoudID
         - creatiedatum
         - bestandsnaam
         - mimetype
@@ -1104,7 +1104,7 @@ components:
           type: integer
           format: int32
           description: Versienummer van document versie
-        bestandsId:
+        documentInhoudID:
           type: integer
           format: int64
           description: ID van document inhoud
@@ -3217,7 +3217,7 @@ info:
     email: andy.verberne@atos.net
     name: Andy Verberne
   title: e-Suite data extractie API
-  version: 0.3.0
+  version: 0.4.0
 security:
   - ApiKeyAuth: [ ]
 paths:
@@ -3265,6 +3265,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Medewerker"
+        "404":
+          description: Afdeling not found
       tags:
         - Afdelingen
   /contacten:
@@ -3311,21 +3313,34 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Contact"
+        "404":
+          description: Contact not found
       tags:
         - Contacten
-  /documenten/inhoud/{bestandsId}:
+  /documenten/inhoud/{documentInhoudID}:
     get:
       summary: Inhoud van een document ophalen
       operationId: document_inhoud_read
       parameters:
-        - name: bestandsId
+        - name: documentInhoudID
           in: path
           required: true
           schema:
-            type: string
+            type: integer
+            format: int64
       responses:
         "200":
           description: OK
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+                description: Inhoud van het document
+        "404":
+          description: Document inhoud not found
+        "500":
+          description: Fout tijdens ophalen document inhoud
       tags:
         - Documenten
   /domeinen:
@@ -3372,6 +3387,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Domein"
+        "404":
+          description: Domein not found
       tags:
         - Domeinen
   /domeinen/{domein_naam}/objecten:
@@ -3450,6 +3467,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Groep"
+        "404":
+          description: Groep not found
       tags:
         - Groepen
   /medewerkers:
@@ -3496,6 +3515,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Medewerker"
+        "404":
+          description: Medewerker not found
       tags:
         - Medewerkers
   /personen:
@@ -3538,6 +3559,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Persoon"
+        "404":
+          description: Persoon not found
       tags:
         - Personen
   /referentietabellen:
@@ -3584,6 +3607,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Referentietabel"
+        "404":
+          description: Referentietabel not found
       tags:
         - Referentietabellen
   /referentietabellen/{referentietabel_naam}/records:
@@ -3690,5 +3715,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Zaak"
+        "404":
+          description: Zaak not found
       tags:
         - Zaken

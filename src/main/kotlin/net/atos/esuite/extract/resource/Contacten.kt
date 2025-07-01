@@ -53,6 +53,7 @@ class Contacten(
     @APIResponse(
         responseCode = "200", description = "OK", content = [Content(schema = Schema(implementation = Contact::class))]
     )
+    @APIResponse(responseCode = "404", description = "Contact not found")
     fun contactRead(@PathParam("functionele_Identificatie") functioneleIdentificatie: String): Response {
         return ok(
             contactRepository.findByFunctioneleIdentificatie(functioneleIdentificatie)

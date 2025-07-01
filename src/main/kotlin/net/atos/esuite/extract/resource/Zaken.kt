@@ -57,6 +57,7 @@ class Zaken(
     @APIResponse(
         responseCode = "200", description = "OK", content = [Content(schema = Schema(implementation = Zaak::class))]
     )
+    @APIResponse(responseCode = "404", description = "Zaak not found")
     fun zaakRead(@PathParam("functionele_Identificatie") functioneleIdentificatie: String): Response {
         return ok(
             zaakRepository.findByFunctioneleIdentificatie(functioneleIdentificatie)

@@ -60,6 +60,7 @@ class Domeinen(
         description = "OK",
         content = [Content(schema = Schema(implementation = Domein::class))]
     )
+    @APIResponse(responseCode = "404", description = "Domein not found")
     fun domeinRead(@PathParam("domein_naam") domeinNaam: String): Response {
         return ok(
             domeinDefinitieRepository.findByNaam(domeinNaam)

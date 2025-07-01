@@ -13,7 +13,7 @@ import org.eclipse.microprofile.openapi.annotations.security.SecurityScheme
 @OpenAPIDefinition(
     info = Info(
         title = "e-Suite data extractie API",
-        version = "0.3.0",
+        version = "0.4.0",
         contact = Contact(
             name = "Andy Verberne",
             email = "andy.verberne@atos.net"

@@ -48,6 +48,7 @@ class Personen(
     @APIResponse(
         responseCode = "200", description = "OK", content = [Content(schema = Schema(implementation = Persoon::class))]
     )
+    @APIResponse(responseCode = "404", description = "Persoon not found")
     fun persoonRead(@PathParam("identifier") identifier: Long): Response {
         return ok(
             persoonRepository.findById(identifier)

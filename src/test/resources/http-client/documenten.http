@@ -1,0 +1,23 @@
+### Klein document
+GET {{base-url}}/documenten/inhoud/50229
+Content-Type: application/json
+Accept: application/octet-stream, application/json
+X-API-KEY: {{api-key}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+%}
+
+### Groot document
+GET {{base-url}}/documenten/inhoud/50931
+Content-Type: application/json
+Accept: application/octet-stream, application/json
+X-API-KEY: {{api-key}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+%}
