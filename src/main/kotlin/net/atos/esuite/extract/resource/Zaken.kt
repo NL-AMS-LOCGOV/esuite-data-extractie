@@ -62,7 +62,7 @@ class Zaken(
         return ok(
             zaakRepository.findByFunctioneleIdentificatie(functioneleIdentificatie)
                 ?.let { zaakConverter.toZaak(it) }
-                ?: throw WebApplicationException("Zaak not found", 404)
+                ?: throw WebApplicationException("Zaak not found", Response.Status.NOT_FOUND)
         ).build()
     }
 }

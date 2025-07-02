@@ -62,7 +62,7 @@ class Medewerkers(
         return ok(
             medewerkerRepository.findByGebruikersnaam(gebruikersnaam)
                 ?.toMedewerker()
-                ?: throw WebApplicationException("Medewerker not found", 404)
+                ?: throw WebApplicationException("Medewerker not found", Response.Status.NOT_FOUND)
         ).build()
     }
 }

@@ -37,7 +37,13 @@ abstract class Subject(
     @field:Schema(description = "Mogen zaak notificaties alleen digitaal worden verstuurd en dus niet per post")
     val toestemmingZaakNotificatiesAlleenDigitaal: Boolean?,
 
+    @field:Schema(description = "Indicatie handmatig toegevoegd", required = true)
+    val handmatigToegevoegd: Boolean,
+
     @field:Schema(description = "Notities")
-    val notities: List<SubjectNotitie>?
-)
+    val notities: List<SubjectNotitie>?,
+
+    @field:Schema(description = "Adressen")
+    val adressen: List<Adres>?,
+    )
 

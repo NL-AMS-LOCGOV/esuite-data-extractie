@@ -62,7 +62,7 @@ class Afdelingen(
         return ok(
             afdelingRepository.findByNaam(naam)
                 ?.toAfdeling()
-                ?: throw WebApplicationException("Afdeling not found", 404)
+                ?: throw WebApplicationException("Afdeling not found", Response.Status.NOT_FOUND)
         ).build()
     }
 }

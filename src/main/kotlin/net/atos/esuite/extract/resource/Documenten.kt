@@ -50,12 +50,12 @@ class Documenten(
     @APIResponse(responseCode = "404", description = "Document inhoud not found")
     @APIResponse(responseCode = "500", description = "Fout tijdens ophalen document inhoud")
     fun documentInhoudRead(@PathParam("documentInhoudID") documentInhoudID: Long): Response {
-        userTransaction.setTransactionTimeout(300); // 5 minuten
-        userTransaction.begin();
+        userTransaction.setTransactionTimeout(300) // 5 minuten
+        userTransaction.begin()
         val documentInhoudEntity = documentInhoudRepository.findById(documentInhoudID)
-            ?: throw WebApplicationException("Document inhoud not found", 404)
+            ?: throw WebApplicationException("Document inhoud not found", Response.Status.NOT_FOUND)
         val inhoud = documentInhoudEntity.inhoud
-            ?: throw WebApplicationException("Document inhoud not found", 404)
+            ?: throw WebApplicationException("Document inhoud not found", Response.Status.NOT_FOUND)
         return ok(
             StreamingOutput { output: OutputStream ->
                 try {
@@ -64,7 +64,7 @@ class Documenten(
                 } catch (e: Exception) {
                     userTransaction.rollback()
                     logger.log(Level.SEVERE, "Fout tijdens ophalen document inhoud", e)
-                    throw WebApplicationException("Fout tijdens ophalen document inhoud", 500)
+                    throw WebApplicationException("Fout tijdens ophalen document inhoud", Response.Status.INTERNAL_SERVER_ERROR)
                 }
             })
             .type(MediaType.APPLICATION_OCTET_STREAM)
@@ -77,11 +77,11 @@ class Documenten(
             if (compressed) {
                 ZipInputStream(inputStream).use { zipInputStream ->
                     zipInputStream.getNextEntry()
-                    IOUtils.copy(zipInputStream, outputStream);
+                    IOUtils.copy(zipInputStream, outputStream)
                     zipInputStream.closeEntry()
                 }
             } else {
-                IOUtils.copy(inputStream, outputStream);
+                IOUtils.copy(inputStream, outputStream)
             }
         }
     }

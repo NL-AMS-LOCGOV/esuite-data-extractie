@@ -62,7 +62,7 @@ class Groepen(
         return ok(
             groepRepository.findByNaam(naam)
                 ?.toGroep()
-                ?: throw WebApplicationException("Groep not found", 404)
+                ?: throw WebApplicationException("Groep not found", Response.Status.NOT_FOUND)
         ).build()
     }
 }

@@ -58,6 +58,6 @@ class Contacten(
         return ok(
             contactRepository.findByFunctioneleIdentificatie(functioneleIdentificatie)
                 ?.let { contactConverter.toContact(it) }
-                ?: throw WebApplicationException("Contact not found", 404)).build()
+                ?: throw WebApplicationException("Contact not found", Response.Status.NOT_FOUND)).build()
     }
 }

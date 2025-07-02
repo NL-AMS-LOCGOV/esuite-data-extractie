@@ -65,7 +65,7 @@ class Domeinen(
         return ok(
             domeinDefinitieRepository.findByNaam(domeinNaam)
                 ?.let { domeinConverter.toDomein(it) }
-                ?: throw WebApplicationException("Domein not found", 404))
+                ?: throw WebApplicationException("Domein not found", Response.Status.NOT_FOUND))
             .build()
     }
 

@@ -28,7 +28,7 @@ class Personen(
     @APIResponse(
         responseCode = "200", description = "OK", content = [Content(schema = Schema(implementation = Persoon::class))]
     )
-    fun persoonReadViaBSN(
+    @APIResponse(responseCode = "400", description = "Persoon not found") fun persoonReadViaBSN(
         @QueryParam("bsn")
         @Schema(description = "Burgerservicenummer", minLength = 9, maxLength = 9, required = true)
         bsn: String
@@ -37,7 +37,7 @@ class Personen(
         return ok(
             persoonRepository.findByBSN(bsn)
                 ?.toPersoon()
-                ?: throw WebApplicationException("Persoon not found", 404)
+                ?: throw WebApplicationException("Persoon not found", Response.Status.NOT_FOUND)
         ).build()
     }
 
@@ -53,7 +53,7 @@ class Personen(
         return ok(
             persoonRepository.findById(identifier)
                 ?.toPersoon()
-                ?: throw WebApplicationException("Persoon not found", 404)
+                ?: throw WebApplicationException("Persoon not found", Response.Status.NOT_FOUND)
         ).build()
     }
 }

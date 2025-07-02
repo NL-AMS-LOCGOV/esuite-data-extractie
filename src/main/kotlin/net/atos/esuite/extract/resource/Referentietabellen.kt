@@ -65,7 +65,7 @@ class Referentietabellen(
         return ok(
             referentietabelDefinitieRepository.findByNaam(referentietabelNaam)
                 ?.let { referentietabelConverter.toReferentietabel(it) }
-                ?: throw WebApplicationException("Referentietabel not found", 404))
+                ?: throw WebApplicationException("Referentietabel not found", Response.Status.NOT_FOUND))
             .build()
     }
 

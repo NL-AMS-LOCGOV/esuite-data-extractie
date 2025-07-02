@@ -13,6 +13,8 @@ class Persoon(
     rekeningnummer: String?,
     ontvangenZaakNotificaties: Boolean?,
     toestemmingZaakNotificatiesAlleenDigitaal: Boolean?,
+    handmatigToegevoegd: Boolean,
+    adressen: List<Adres>?,
 
     @field:Schema(description = "Burgerservicenummer (BSN)", minLength = 9, maxLength = 9)
     val burgerServiceNummer: String?,
@@ -30,7 +32,7 @@ class Persoon(
     val voorvoegsel: String?,
 
     @field:Schema(description = "Geslachtsaanduiding")
-    val geslachtsaanduiding: Geslachtsaanduiding?,
+    val geslacht: Geslacht?,
 
     @field:Schema(description = "Aanhef van de aanschrijving", maxLength = 64)
     val aanhefAanschrijving: String?,
@@ -95,9 +97,6 @@ class Persoon(
     @field:Schema(description = "Indicatie niet-ingezetene")
     val nietIngezeteneAanduiding: NietIngezeteneAanduiding?,
 
-    @field:Schema(description = "Indicatie handmatig toegevoegd", required = true)
-    val handmatigToegevoegd: Boolean,
-
     @field:Schema(description = "Indicatie of de persoon geabonneerd is op updates vanuit de makelaar", required = true)
     val afnemerIndicatie: Boolean,
 
@@ -115,9 +114,6 @@ class Persoon(
 
     @field:Schema(description = "Burgerlijke staat")
     val burgerlijkeStaat: BurgerlijkeStaat,
-
-    @field:Schema(description = "Adressen")
-    val adressen: List<Adres>?,
 
     @field:Schema(description = "Nationaliteiten")
     val nationaliteiten: List<Nationaliteit>?,
@@ -138,4 +134,6 @@ class Persoon(
     rekeningnummer = rekeningnummer,
     ontvangenZaakNotificaties = ontvangenZaakNotificaties,
     toestemmingZaakNotificatiesAlleenDigitaal = toestemmingZaakNotificatiesAlleenDigitaal,
+    handmatigToegevoegd = handmatigToegevoegd,
+    adressen = adressen
 )

@@ -1,0 +1,49 @@
+### Bedrijven met KvK nummer.
+GET {{base-url}}/bedrijven?kvk_nummer=11111111
+X-API-KEY: {{api-key}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+%}
+
+### Bedrijven met vestigingsnummer.
+GET {{base-url}}/bedrijven?vestigingsnummer=777761616112
+X-API-KEY: {{api-key}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+%}
+
+### Bedrijf met KvK nummer en vestigingsnummer.
+GET {{base-url}}/bedrijven?kvk_nummer=11111111&vestigingsnummer=777761616112
+X-API-KEY: {{api-key}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+%}
+
+### Bedrijf met KvK nummer en vestigingsnummer bestaat niet
+GET {{base-url}}/bedrijven?kvk_nummer=11111111&vestigingsnummer=777761616343
+X-API-KEY: {{api-key}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+%}
+
+### Bedrijven zonder KvK nummer en vestigingsnummer
+GET {{base-url}}/bedrijven
+X-API-KEY: {{api-key}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 400, "Response status is not 400");
+    });
+%}

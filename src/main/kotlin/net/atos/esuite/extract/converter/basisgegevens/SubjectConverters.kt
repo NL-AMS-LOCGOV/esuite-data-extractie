@@ -1,21 +1,28 @@
 package net.atos.esuite.extract.converter.basisgegevens
 
+import net.atos.esuite.extract.entity.basisgegevens.AbstractSubjectAdresEntity
 import net.atos.esuite.extract.entity.basisgegevens.BedrijfEntity
+import net.atos.esuite.extract.entity.basisgegevens.ContactpersoonEntity
 import net.atos.esuite.extract.entity.basisgegevens.NotitieEntity
 import net.atos.esuite.extract.entity.basisgegevens.OnvolledigeDatumIndicatieType
-import net.atos.esuite.extract.entity.basisgegevens.PersoonAdresEntity
 import net.atos.esuite.extract.entity.basisgegevens.PersoonEntity
 import net.atos.esuite.extract.entity.basisgegevens.PersoonNationaliteitEntity
 import net.atos.esuite.extract.entity.basisgegevens.PersoonReisdocumentEntity
 import net.atos.esuite.extract.entity.basisgegevens.ReferentieBurgerlijkeStaatEntity
+import net.atos.esuite.extract.entity.basisgegevens.ReferentieHoofdactiviteitEntity
 import net.atos.esuite.extract.entity.basisgegevens.ReferentieLandEntity
+import net.atos.esuite.extract.entity.basisgegevens.ReferentieNevenactiviteitEntity
+import net.atos.esuite.extract.entity.basisgegevens.ReferentieRechtsvormEntity
 import net.atos.esuite.extract.entity.basisgegevens.RelatieEntity
 import net.atos.esuite.extract.entity.basisgegevens.SubjectEntity
 import net.atos.esuite.extract.model.basisgegevens.Adres
 import net.atos.esuite.extract.model.basisgegevens.AdresType
 import net.atos.esuite.extract.model.basisgegevens.Bedrijf
+import net.atos.esuite.extract.model.basisgegevens.Nevenactiviteit
 import net.atos.esuite.extract.model.basisgegevens.BurgerlijkeStaat
-import net.atos.esuite.extract.model.basisgegevens.Geslachtsaanduiding
+import net.atos.esuite.extract.model.basisgegevens.Contactpersoon
+import net.atos.esuite.extract.model.basisgegevens.Geslacht
+import net.atos.esuite.extract.model.basisgegevens.Hoofdactiviteit
 import net.atos.esuite.extract.model.basisgegevens.Land
 import net.atos.esuite.extract.model.basisgegevens.Naamgebruik
 import net.atos.esuite.extract.model.basisgegevens.Nationaliteit
@@ -23,6 +30,7 @@ import net.atos.esuite.extract.model.basisgegevens.NietIngezeteneAanduiding
 import net.atos.esuite.extract.model.basisgegevens.OnvolledigeDatumType
 import net.atos.esuite.extract.model.basisgegevens.OpschortingsReden
 import net.atos.esuite.extract.model.basisgegevens.Persoon
+import net.atos.esuite.extract.model.basisgegevens.Rechtsvorm
 import net.atos.esuite.extract.model.basisgegevens.RedenOntbindingVerbintenis
 import net.atos.esuite.extract.model.basisgegevens.Reisdocument
 import net.atos.esuite.extract.model.basisgegevens.Relatie
@@ -30,6 +38,8 @@ import net.atos.esuite.extract.model.basisgegevens.RelatieType
 import net.atos.esuite.extract.model.basisgegevens.SoortVerbintenis
 import net.atos.esuite.extract.model.basisgegevens.SubjectNotitie
 import net.atos.esuite.extract.model.basisgegevens.VervallenAanduiding
+import net.atos.esuite.extract.model.basisgegevens.Vestigingsstatus
+import net.atos.esuite.extract.model.basisgegevens.Vestigingstype
 import kotlin.collections.ifEmpty
 
 fun SubjectEntity.toSubject() =
@@ -54,7 +64,7 @@ fun PersoonEntity.toPersoon() =
         voorletters = voorletters,
         geslachtsNaam = geslachtsNaam,
         voorvoegsel = voorvoegsel,
-        toGeslachtsAanduiding(geslachtsAanduiding),
+        geslacht = toGeslacht(geslachtsAanduiding),
         aanhefAanschrijving = aanhefAanschrijving,
         adelijkeTitel = titelAdelijk,
         preAcademischeTitel = titelPreAcademisch,
@@ -86,8 +96,8 @@ fun PersoonEntity.toPersoon() =
         adressen = adressen.map { it.toAdres() }.ifEmpty { null },
         nationaliteiten = nationaliteiten.map { it.toNationaliteit() }.ifEmpty { null },
         reisdocumenten = reisdocumenten.map { it.toReisdocument() }.ifEmpty { null },
-        relaties = relaties.map {it.toRelatie()}.ifEmpty { null },
-        )
+        relaties = relaties.map { it.toRelatie() }.ifEmpty { null },
+    )
 
 fun BedrijfEntity.toBedrijf() =
     Bedrijf(
@@ -103,6 +113,29 @@ fun BedrijfEntity.toBedrijf() =
         rekeningnummer = bankrekening,
         ontvangenZaakNotificaties = ontvangenZaakNotificaties,
         toestemmingZaakNotificatiesAlleenDigitaal = toestemmingZaakNotificatiesAlleenDigitaal,
+        adressen = adressen.map { it.toAdres() }.ifEmpty { null },
+        handmatigToegevoegd = indicatieHandmatigToegevoegd,
+        vennootschapsnaam = vennootschapsnaam,
+        statutaireZetel = statutaireZetel,
+        datumVestiging = datumVestiging,
+        datumOpheffing = datumVestiging,
+        datumVoortzetting = datumVoortzetting,
+        faxnummer = telefax,
+        aantalWerknemers = aantalWerknemers,
+        inSurceance = indSurseance,
+        failliet = indFaillisement,
+        rsinummer = rsinummer,
+        vestigingsstatus = toVestigingsstatus(statusVestiging),
+        ingangsdatum = ingangsdatum,
+        mutatiedatum = mutatiedatum,
+        vestigingstype = when (indHoofdVestiging) {
+            true -> Vestigingstype.hoofdvestiging
+            false, null -> Vestigingstype.nevenvestiging
+        },
+        hoofdactiviteit = hoofdactiviteit?.toHoofdactiviteit(),
+        nevenactiviteiten = nevenactiviteiten.map { it.toNevenactiviteit() }.toSet().ifEmpty { null },
+        contactpersonen = contactpersonen.map { it.toContactpersoon() }.ifEmpty { null },
+        rechtsvorm = rechtsvorm?.toRechtsvorm(),
     )
 
 fun NotitieEntity.toNotitie() =
@@ -117,13 +150,13 @@ fun NotitieEntity.toNotitie() =
         inhoud = inhoud,
     )
 
-private fun toGeslachtsAanduiding(geslachtsAanduiding: String?) =
-    when (geslachtsAanduiding) {
-        "O" -> Geslachtsaanduiding.onbekend
-        "M" -> Geslachtsaanduiding.man
-        "V" -> Geslachtsaanduiding.vrouw
+private fun toGeslacht(geslacht: String?) =
+    when (geslacht) {
+        "O" -> Geslacht.onbekend
+        "M" -> Geslacht.man
+        "V" -> Geslacht.vrouw
         null -> null
-        else -> error("Invalid Geslachtsaanduiding: $geslachtsAanduiding")
+        else -> error("Invalid Geslacht: $geslacht")
     }
 
 private fun toNaamgebruik(aanduidingNaamGebruik: String?) =
@@ -183,7 +216,7 @@ private fun ReferentieBurgerlijkeStaatEntity.toBurgerlijkeSTaat() =
     )
 
 
-private fun PersoonAdresEntity.toAdres() =
+private fun AbstractSubjectAdresEntity.toAdres() =
     Adres(
         type = toAdresType(adresType),
         straatnaam = adres.straatnaam,
@@ -252,7 +285,7 @@ private fun RelatieEntity.toRelatie() =
 
 
 private fun toRelatieType(relatieType: String) =
-    when(relatieType) {
+    when (relatieType) {
         "O" -> RelatieType.is_ouder_van
         "K" -> RelatieType.is_kind_van
         "P" -> RelatieType.is_partner_van
@@ -260,7 +293,7 @@ private fun toRelatieType(relatieType: String) =
     }
 
 private fun toSoortVerbintenis(soortVerbintenis: String?) =
-    when(soortVerbintenis) {
+    when (soortVerbintenis) {
         "H" -> SoortVerbintenis.huwelijk
         "P" -> SoortVerbintenis.partnerschap
         null -> null
@@ -268,7 +301,7 @@ private fun toSoortVerbintenis(soortVerbintenis: String?) =
     }
 
 private fun toRedenOntbindingVerbintenis(redenOntbindingVerbintenis: String?) =
-    when(redenOntbindingVerbintenis) {
+    when (redenOntbindingVerbintenis) {
         "." -> RedenOntbindingVerbintenis.onbekend
         "A" -> RedenOntbindingVerbintenis.vermissing_en_ander_huwelijk
         "N" -> RedenOntbindingVerbintenis.nietig_verklaring
@@ -281,9 +314,57 @@ private fun toRedenOntbindingVerbintenis(redenOntbindingVerbintenis: String?) =
     }
 
 private fun toVervallenAanduiding(indicatieVervallen: String?) =
-    when(indicatieVervallen) {
+    when (indicatieVervallen) {
         "I" -> VervallenAanduiding.ingetrokken
         "V" -> VervallenAanduiding.van_rechtswege_vervallen
         null -> null
         else -> error("Invalid VervallenAanduiding: $indicatieVervallen")
     }
+
+private fun toVestigingsstatus(status: String?) =
+    when (status) {
+        "A" -> Vestigingsstatus.nieuw_in_handelsregister
+        "B" -> Vestigingsstatus.nieuw_voor_profielhouder
+        "C" -> Vestigingsstatus.vestiging_is_gewijzigd
+        "D" -> Vestigingsstatus.vervalt_voor_profielhouder_blijft_in_handelsregister
+        "E" -> Vestigingsstatus.opgeheven
+        "F" -> Vestigingsstatus.opgeheven_ongedaan_gemaakt
+        "H" -> Vestigingsstatus.opgeheven_ergens_anders_opnieuw
+        null -> null
+        else -> error("Invalid vestigingsstatus: $status")
+    }
+
+private fun ReferentieHoofdactiviteitEntity.toHoofdactiviteit() =
+    Hoofdactiviteit(
+        naam = naam,
+        omschrijving = omschrijving,
+        actief = actief,
+        code = code,
+    )
+
+private fun ReferentieNevenactiviteitEntity.toNevenactiviteit() =
+    Nevenactiviteit(
+        naam = naam,
+        omschrijving = omschrijving,
+        actief = actief,
+        code = code,
+    )
+
+private fun ContactpersoonEntity.toContactpersoon() =
+    Contactpersoon(
+        naam = naam,
+        geslacht = toGeslacht(geslacht),
+        emailadres = emailadres,
+        telefoonnummer = telefoon,
+        faxnummer = telefax,
+        functie = functie,
+    )
+
+private fun ReferentieRechtsvormEntity.toRechtsvorm() =
+    Rechtsvorm(
+        naam = naam,
+        omschrijving = omschrijving,
+        actief = actief,
+        code = code,
+        naamNhr = naamNhr,
+    )

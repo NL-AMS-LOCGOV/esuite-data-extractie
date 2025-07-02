@@ -4,7 +4,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema
 
 abstract class Referentie(
     
-    @field:Schema(description = "Naam", maxLength = 255)
+    @field:Schema(description = "Naam", maxLength = 255, uniqueItems = true)
     val naam: String,
 
     @field:Schema(description = "Omschrijving")

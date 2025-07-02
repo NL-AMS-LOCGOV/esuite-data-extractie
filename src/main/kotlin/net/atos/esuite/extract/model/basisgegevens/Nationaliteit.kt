@@ -18,8 +18,7 @@ class Nationaliteit(
 
     @field:Schema(description = "GBA code", maxLength = 10)
     val gbaCode: String,
-
-    ) : Referentie(
+) : Referentie(
     naam = naam,
     omschrijving = omschrijving,
     actief = actief,
