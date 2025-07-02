@@ -206,11 +206,6 @@ components:
           description: Identificatie van BAG object
     Bedrijf:
       type: object
-      required:
-        - inSurceance
-        - failliet
-        - ingangsdatum
-        - vestigingstype
       allOf:
         - $ref: "#/components/schemas/Subject"
       properties:
@@ -231,89 +226,7 @@ components:
         bedrijfsnaam:
           type: string
           maxLength: 128
-          description: De volledige bedrijfsnaam zoals bekend bij de KvK
-        vennootschapsnaam:
-          type: string
-          maxLength: 255
-          description: Vennootschapsnaam
-        statutaireZetel:
-          type: string
-          maxLength: 64
-          description: Plaats van de statutaire zetel
-        datumVestiging:
-          type: string
-          format: date
-          examples:
-            - 2022-03-10
-          description: Datum vestiging onderneming
-        datumOpheffing:
-          type: string
-          format: date
-          examples:
-            - 2022-03-10
-          description: Datum opheffing onderneming
-        datumVoortzetting:
-          type: string
-          format: date
-          examples:
-            - 2022-03-10
-          description: Datum voortzetting onderneming
-        faxnummer:
-          type: string
-          maxLength: 20
-          description: Telefaxnummer
-        aantalWerknemers:
-          type: integer
-          format: int32
-          description: Totaal aantal werknemers
-        inSurceance:
-          type: boolean
-          description: Indicatie surseance van betaling
-        failliet:
-          type: boolean
-          description: Indicatie van faillisement
-        rsinummer:
-          type: string
-          maxLength: 20
-          description: RSI nummer onderneming
-        vestigingsstatus:
-          type: string
-          description: Status vestiging
-          $ref: "#/components/schemas/Vestigingsstatus"
-        ingangsdatum:
-          type: string
-          format: date
-          examples:
-            - 2022-03-10
-          description: Ingangsdatum geldigheid record vanaf
-        mutatiedatum:
-          type: string
-          format: date
-          examples:
-            - 2022-03-10
-          description: Datum waarop record voor het laatst is gewijzigd
-        vestigingstype:
-          $ref: "#/components/schemas/Vestigingstype"
-          type: string
-          description: Vestigingstype
-        hoofdactiviteit:
-          type: object
-          description: Hoofdactiviteit
-          $ref: "#/components/schemas/Hoofdactiviteit"
-        rechtsvorm:
-          type: object
-          description: Rechtsvorm
-          $ref: "#/components/schemas/Rechtsvorm"
-        nevenactiviteiten:
-          type: array
-          uniqueItems: true
-          items:
-            $ref: "#/components/schemas/Nevenactiviteit"
-          description: Nevenactiviteiten
-        contactpersonen:
-          type: array
-          items:
-            $ref: "#/components/schemas/Contactpersoon"
+          description: Bedrijfsnaam
     Besluit:
       type: object
       required:
@@ -725,33 +638,6 @@ components:
         - nieuw
         - in_behandeling
         - afgehandeld
-    Contactpersoon:
-      type: object
-      properties:
-        naam:
-          type: string
-          maxLength: 128
-          description: Naam
-        geslacht:
-          type: string
-          description: Geslachtsaanduiding
-          $ref: "#/components/schemas/Geslacht"
-        emailadres:
-          type: string
-          maxLength: 128
-          description: Emailadres
-        telefoonnummer:
-          type: string
-          maxLength: 20
-          description: Telefoonnummer
-        faxnummer:
-          type: string
-          maxLength: 20
-          description: Telefaxnummer
-        functie:
-          type: string
-          maxLength: 64
-          description: Functie
     Contacttype:
       type: object
       allOf:
@@ -1479,14 +1365,6 @@ components:
           items:
             $ref: "#/components/schemas/Domein"
           description: Items in de huidige pagina
-    Fout:
-      type: object
-      required:
-        - melding
-      properties:
-        melding:
-          type: string
-          description: Melding van fout
     Functie:
       type: object
       required:
@@ -1526,17 +1404,17 @@ components:
           description: Well-known text geografische informatie
     GeografischeInformatie:
       type: object
-    Geslacht:
-      type: string
-      enum:
-        - man
-        - vrouw
-        - onbekend
     GeslachtMedewerker:
       type: string
       enum:
         - man
         - vrouw
+    Geslachtsaanduiding:
+      type: string
+      enum:
+        - man
+        - vrouw
+        - onbekend
     Groep:
       type: object
       required:
@@ -1629,17 +1507,6 @@ components:
         toelichting:
           type: string
           description: Toelichting of reden wijziging
-    Hoofdactiviteit:
-      type: object
-      required:
-        - code
-      allOf:
-        - $ref: "#/components/schemas/Referentie"
-      properties:
-        code:
-          type: string
-          maxLength: 7
-          description: Code
     Kanaal:
       type: object
       allOf:
@@ -1875,15 +1742,6 @@ components:
           type: string
           maxLength: 10
           description: GBA code
-    Nevenactiviteit:
-      type: object
-      allOf:
-        - $ref: "#/components/schemas/Referentie"
-      properties:
-        code:
-          type: string
-          maxLength: 7
-          description: Code
     NietIngezeteneAanduiding:
       type: string
       enum:
@@ -1984,6 +1842,7 @@ components:
         - curateleRegister
         - inOnderzoek
         - beperkingVerstrekking
+        - handmatigToegevoegd
         - afnemerIndicatie
         - burgerlijkeStaat
       allOf:
@@ -2010,10 +1869,10 @@ components:
           type: string
           maxLength: 10
           description: Voorvoegsel geslachtsnaam
-        geslacht:
+        geslachtsaanduiding:
           type: string
           description: Geslachtsaanduiding
-          $ref: "#/components/schemas/Geslacht"
+          $ref: "#/components/schemas/Geslachtsaanduiding"
         aanhefAanschrijving:
           type: string
           maxLength: 64
@@ -2100,6 +1959,9 @@ components:
           type: string
           description: Indicatie niet-ingezetene
           $ref: "#/components/schemas/NietIngezeteneAanduiding"
+        handmatigToegevoegd:
+          type: boolean
+          description: Indicatie handmatig toegevoegd
         afnemerIndicatie:
           type: boolean
           description: Indicatie of de persoon geabonneerd is op updates vanuit de
@@ -2125,6 +1987,11 @@ components:
           $ref: "#/components/schemas/BurgerlijkeStaat"
           type: object
           description: Burgerlijke staat
+        adressen:
+          type: array
+          items:
+            $ref: "#/components/schemas/Adres"
+          description: Adressen
         nationaliteiten:
           type: array
           items:
@@ -2265,21 +2132,6 @@ components:
         - veld
         - rapportage_categorie
         - zaaktype
-    Rechtsvorm:
-      type: object
-      required:
-        - code
-      allOf:
-        - $ref: "#/components/schemas/Referentie"
-      properties:
-        code:
-          type: string
-          maxLength: 2
-          description: Code
-        naamNhr:
-          type: string
-          uniqueItems: true
-          description: Naam Rechtsvorm uit Nieuw HandelsRegister
     RedenOntbindingVerbintenis:
       type: string
       enum:
@@ -2298,7 +2150,6 @@ components:
       properties:
         naam:
           type: string
-          uniqueItems: true
           maxLength: 255
           description: Naam
         omschrijving:
@@ -2655,7 +2506,6 @@ components:
       type: object
       required:
         - subjecttype
-        - handmatigToegevoegd
       oneOf:
         - $ref: "#/components/schemas/Persoon"
         - $ref: "#/components/schemas/Bedrijf"
@@ -2696,19 +2546,11 @@ components:
           type: boolean
           description: Mogen zaak notificaties alleen digitaal worden verstuurd en
             dus niet per post
-        handmatigToegevoegd:
-          type: boolean
-          description: Indicatie handmatig toegevoegd
         notities:
           type: array
           items:
             $ref: "#/components/schemas/SubjectNotitie"
           description: Notities
-        adressen:
-          type: array
-          items:
-            $ref: "#/components/schemas/Adres"
-          description: Adressen
     SubjectNotitie:
       type: object
       required:
@@ -2907,21 +2749,6 @@ components:
       enum:
         - ingetrokken
         - van_rechtswege_vervallen
-    Vestigingsstatus:
-      type: string
-      enum:
-        - nieuw_in_handelsregister
-        - nieuw_voor_profielhouder
-        - vestiging_is_gewijzigd
-        - vervalt_voor_profielhouder_blijft_in_handelsregister
-        - opgeheven
-        - opgeheven_ongedaan_gemaakt
-        - opgeheven_ergens_anders_opnieuw
-    Vestigingstype:
-      type: string
-      enum:
-        - hoofdvestiging
-        - nevenvestiging
     VoorlopigAntwoord:
       type: object
       required:
@@ -3442,42 +3269,6 @@ paths:
           description: Afdeling not found
       tags:
         - Afdelingen
-  /bedrijven:
-    get:
-      summary: Bedrijven opvragen op basis van een KvK nummer en of vestigingsnummer
-      operationId: bedrijf_list_kvk_nummer_vestigingsnummer
-      parameters:
-        - name: kvk_nummer
-          in: query
-          schema:
-            type: string
-            minLength: 8
-            maxLength: 8
-            description: KvK nummer
-        - name: vestigingsnummer
-          in: query
-          schema:
-            type: string
-            minLength: 12
-            maxLength: 12
-            description: vestigingsnummer
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Bedrijf"
-        "400":
-          description: Either KvK nummer or vestigingsnummer must be provided
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Fout"
-      tags:
-        - Bedrijven
   /contacten:
     get:
       summary: Lijst van contact overzichten opvragen
@@ -3748,8 +3539,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Persoon"
-        "400":
-          description: Persoon not found
       tags:
         - Personen
   /personen/{identifier}:

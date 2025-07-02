@@ -47,3 +47,23 @@ X-API-KEY: {{api-key}}
         client.assert(response.status === 400, "Response status is not 400");
     });
 %}
+
+### Bedrijf op identifier
+GET {{base-url}}/bedrijven/854559
+X-API-KEY: {{api-key}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+%}
+
+### Niet bestaand bedrijf op identifier
+GET {{base-url}}/bedrijven/854559928347
+X-API-KEY: {{api-key}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 404, "Response status is not 404");
+    });
+%}

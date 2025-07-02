@@ -2,9 +2,13 @@ package net.atos.esuite.extract.resource
 
 import jakarta.ws.rs.GET
 import jakarta.ws.rs.Path
+import jakarta.ws.rs.PathParam
 import jakarta.ws.rs.Produces
 import jakarta.ws.rs.QueryParam
+import jakarta.ws.rs.WebApplicationException
 import jakarta.ws.rs.core.MediaType
+import jakarta.ws.rs.core.Response
+import jakarta.ws.rs.core.Response.ok
 import net.atos.esuite.extract.converter.basisgegevens.toBedrijf
 import net.atos.esuite.extract.entity.basisgegevens.BedrijfEntity
 import net.atos.esuite.extract.model.basisgegevens.Bedrijf
@@ -48,5 +52,21 @@ class Bedrijven(
             else if (vestigingsnummer.isNullOrBlank()) bedrijfRepository.listByKvkNummer(kvkNummer)
             else bedrijfRepository.listByKvkNummerAndVestigingsnummer(kvkNummer, vestigingsnummer)
         return bedrijven.map { it.toBedrijf() }
+    }
+
+    @GET
+    @Path("{identifier}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Operation(operationId = "bedrijf_read", summary = "Een specifiek bedrijf opvragen op basis van interne identifier")
+    @APIResponse(
+        responseCode = "200", description = "OK", content = [Content(schema = Schema(implementation = Bedrijf::class))]
+    )
+    @APIResponse(responseCode = "404", description = "Bedrijf not found")
+    fun bedrijfRead(@PathParam("identifier") identifier: Long): Response {
+        return ok(
+            bedrijfRepository.findById(identifier)
+                ?.toBedrijf()
+                ?: throw WebApplicationException("Bedrijf not found", Response.Status.NOT_FOUND)
+        ).build()
     }
 }
