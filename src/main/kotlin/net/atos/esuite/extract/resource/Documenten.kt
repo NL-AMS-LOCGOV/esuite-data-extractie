@@ -4,15 +4,16 @@ import org.eclipse.microprofile.openapi.annotations.media.Content
 import jakarta.annotation.Resource
 import jakarta.transaction.UserTransaction
 import jakarta.ws.rs.GET
+import jakarta.ws.rs.NotFoundException
 import jakarta.ws.rs.Path
 import jakarta.ws.rs.PathParam
 import jakarta.ws.rs.Produces
-import jakarta.ws.rs.WebApplicationException
 import jakarta.ws.rs.core.HttpHeaders
 import jakarta.ws.rs.core.MediaType
 import jakarta.ws.rs.core.Response
 import jakarta.ws.rs.core.Response.ok
 import jakarta.ws.rs.core.StreamingOutput
+import net.atos.esuite.extract.model.shared.Fout
 import net.atos.esuite.extract.repository.document.DocumentInhoudRepository
 import org.apache.commons.io.IOUtils
 import org.eclipse.microprofile.openapi.annotations.Operation
@@ -26,6 +27,11 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema
 
 
 @Path("documenten")
+@APIResponse(responseCode = "401", description = "Unauthorized")
+@APIResponse(
+    responseCode = "500", description = "Internal Server Error",
+    content = [Content(schema = Schema(implementation = Fout::class))]
+)
 class Documenten(
     @Resource private val userTransaction: UserTransaction,
     private val documentInhoudRepository: DocumentInhoudRepository
@@ -47,15 +53,17 @@ class Documenten(
                     description = "Inhoud van het document"
                 )
             )])
-    @APIResponse(responseCode = "404", description = "Document inhoud not found")
-    @APIResponse(responseCode = "500", description = "Fout tijdens ophalen document inhoud")
+    @APIResponse(
+        responseCode = "404", description = "Not Found",
+        content = [Content(schema = Schema(implementation = Fout::class))]
+    )
     fun documentInhoudRead(@PathParam("documentInhoudID") documentInhoudID: Long): Response {
         userTransaction.setTransactionTimeout(300) // 5 minuten
         userTransaction.begin()
         val documentInhoudEntity = documentInhoudRepository.findById(documentInhoudID)
-            ?: throw WebApplicationException("Document inhoud not found", Response.Status.NOT_FOUND)
+            ?: throw NotFoundException("Document inhoud with ID '$documentInhoudID' Not Found")
         val inhoud = documentInhoudEntity.inhoud
-            ?: throw WebApplicationException("Document inhoud not found", Response.Status.NOT_FOUND)
+            ?: throw NotFoundException("Document inhoud with ID '$documentInhoudID' Is Empty")
         return ok(
             StreamingOutput { output: OutputStream ->
                 try {
@@ -64,7 +72,7 @@ class Documenten(
                 } catch (e: Exception) {
                     userTransaction.rollback()
                     logger.log(Level.SEVERE, "Fout tijdens ophalen document inhoud", e)
-                    throw WebApplicationException("Fout tijdens ophalen document inhoud", Response.Status.INTERNAL_SERVER_ERROR)
+                    error("Fout tijdens ophalen document inhoud")
                 }
             })
             .type(MediaType.APPLICATION_OCTET_STREAM)

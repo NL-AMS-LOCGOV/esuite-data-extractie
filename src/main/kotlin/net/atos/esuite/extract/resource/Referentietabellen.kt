@@ -2,10 +2,10 @@ package net.atos.esuite.extract.resource
 
 import jakarta.ws.rs.BeanParam
 import jakarta.ws.rs.GET
+import jakarta.ws.rs.NotFoundException
 import jakarta.ws.rs.Path
 import jakarta.ws.rs.PathParam
 import jakarta.ws.rs.Produces
-import jakarta.ws.rs.WebApplicationException
 import jakarta.ws.rs.core.MediaType
 import jakarta.ws.rs.core.Response
 import jakarta.ws.rs.core.Response.ok
@@ -15,6 +15,7 @@ import net.atos.esuite.extract.model.dsr.tabel.Referentietabel
 import net.atos.esuite.extract.model.dsr.tabel.ReferentietabelRecordResults
 import net.atos.esuite.extract.model.dsr.tabel.ReferentietabelResults
 import net.atos.esuite.extract.model.shared.BladerParameters
+import net.atos.esuite.extract.model.shared.Fout
 import net.atos.esuite.extract.repository.dsr.ReferentietabelDefinitieRepository
 import net.atos.esuite.extract.repository.dsr.ReferentietabelRecordRepository
 import org.eclipse.microprofile.openapi.annotations.Operation
@@ -23,6 +24,11 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse
 
 @Path("referentietabellen")
+@APIResponse(responseCode = "401", description = "Unauthorized")
+@APIResponse(
+    responseCode = "500", description = "Internal Server Error",
+    content = [Content(schema = Schema(implementation = Fout::class))]
+)
 class Referentietabellen(
     private val referentietabelDefinitieRepository: ReferentietabelDefinitieRepository,
     private val referentietabelRecordRepository: ReferentietabelRecordRepository,
@@ -52,20 +58,22 @@ class Referentietabellen(
     }
 
     @GET
-    @Path("{referentietabel_naam}")
+    @Path("{naam}")
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(operationId = "referentietabel_read", summary = "Een specifieke referentietabel opvragen")
     @APIResponse(
-        responseCode = "200",
-        description = "OK",
+        responseCode = "200", description = "OK",
         content = [Content(schema = Schema(implementation = Referentietabel::class))]
     )
-    @APIResponse(responseCode = "404", description = "Referentietabel not found")
-    fun referentietabelRead(@PathParam("referentietabel_naam") referentietabelNaam: String): Response {
+    @APIResponse(
+        responseCode = "404", description = "Not Found",
+        content = [Content(schema = Schema(implementation = Fout::class))]
+    )
+    fun referentietabelRead(@PathParam("naam") naam: String): Response {
         return ok(
-            referentietabelDefinitieRepository.findByNaam(referentietabelNaam)
+            referentietabelDefinitieRepository.findByNaam(naam)
                 ?.let { referentietabelConverter.toReferentietabel(it) }
-                ?: throw WebApplicationException("Referentietabel not found", Response.Status.NOT_FOUND))
+                ?: throw NotFoundException("Referentietabel with naam '$naam' Not Found"))
             .build()
     }
 

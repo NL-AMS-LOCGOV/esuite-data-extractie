@@ -2,10 +2,10 @@ package net.atos.esuite.extract.resource
 
 import jakarta.ws.rs.BeanParam
 import jakarta.ws.rs.GET
+import jakarta.ws.rs.NotFoundException
 import jakarta.ws.rs.Path
 import jakarta.ws.rs.PathParam
 import jakarta.ws.rs.Produces
-import jakarta.ws.rs.WebApplicationException
 import jakarta.ws.rs.core.MediaType
 import jakarta.ws.rs.core.Response
 import jakarta.ws.rs.core.Response.ok
@@ -15,6 +15,7 @@ import net.atos.esuite.extract.model.dsr.domein.Domein
 import net.atos.esuite.extract.model.dsr.domein.DomeinObjectResults
 import net.atos.esuite.extract.model.dsr.domein.DomeinResults
 import net.atos.esuite.extract.model.shared.BladerParameters
+import net.atos.esuite.extract.model.shared.Fout
 import net.atos.esuite.extract.repository.dsr.DomeinDefinitieRepository
 import net.atos.esuite.extract.repository.dsr.DomeinObjectRepository
 import org.eclipse.microprofile.openapi.annotations.Operation
@@ -23,6 +24,11 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse
 
 @Path("domeinen")
+@APIResponse(responseCode = "401", description = "Unauthorized")
+@APIResponse(
+    responseCode = "500", description = "Internal Server Error",
+    content = [Content(schema = Schema(implementation = Fout::class))]
+)
 class Domeinen(
     private val domeinDefinitieRepository: DomeinDefinitieRepository,
     private val domeinConverter: DomeinConverter,
@@ -52,20 +58,22 @@ class Domeinen(
     }
 
     @GET
-    @Path("{domein_naam}")
+    @Path("{naam}")
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(operationId = "domein_read", summary = "Een specifiek domein opvragen")
     @APIResponse(
-        responseCode = "200",
-        description = "OK",
+        responseCode = "200", description = "OK",
         content = [Content(schema = Schema(implementation = Domein::class))]
     )
-    @APIResponse(responseCode = "404", description = "Domein not found")
-    fun domeinRead(@PathParam("domein_naam") domeinNaam: String): Response {
+    @APIResponse(
+        responseCode = "404", description = "Not Found",
+        content = [Content(schema = Schema(implementation = Fout::class))]
+    )
+    fun domeinRead(@PathParam("naam") naam: String): Response {
         return ok(
-            domeinDefinitieRepository.findByNaam(domeinNaam)
+            domeinDefinitieRepository.findByNaam(naam)
                 ?.let { domeinConverter.toDomein(it) }
-                ?: throw WebApplicationException("Domein not found", Response.Status.NOT_FOUND))
+                ?: throw NotFoundException("Domein with naam '$naam' Not Found"))
             .build()
     }
 

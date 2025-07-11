@@ -1,11 +1,12 @@
 package net.atos.esuite.extract.resource
 
+import jakarta.ws.rs.BadRequestException
 import jakarta.ws.rs.GET
+import jakarta.ws.rs.NotFoundException
 import jakarta.ws.rs.Path
 import jakarta.ws.rs.PathParam
 import jakarta.ws.rs.Produces
 import jakarta.ws.rs.QueryParam
-import jakarta.ws.rs.WebApplicationException
 import jakarta.ws.rs.core.MediaType
 import jakarta.ws.rs.core.Response
 import jakarta.ws.rs.core.Response.ok
@@ -20,6 +21,11 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse
 
 @Path("bedrijven")
+@APIResponse(responseCode = "401", description = "Unauthorized")
+@APIResponse(
+    responseCode = "500", description = "Internal Server Error",
+    content = [Content(schema = Schema(implementation = Fout::class))]
+)
 class Bedrijven(
     private val bedrijfRepository: BedrijfRepository,
 ) {
@@ -29,12 +35,9 @@ class Bedrijven(
         operationId = "bedrijf_list_kvk_nummer_vestigingsnummer",
         summary = "Bedrijven opvragen op basis van een KvK nummer en of vestigingsnummer"
     )
+    @APIResponse(responseCode = "200", description = "OK")
     @APIResponse(
-        responseCode = "200",
-        description = "OK")
-    @APIResponse(
-        responseCode = "400",
-        description = "Either KvK nummer or vestigingsnummer must be provided",
+        responseCode = "400", description = "Bad Request",
         content = [Content(schema = Schema(implementation = Fout::class))]
     )
     fun bedrijfListOpKvkNummer(
@@ -45,7 +48,7 @@ class Bedrijven(
         @QueryParam("vestigingsnummer") vestigingsnummer: String?
     ): List<Bedrijf> {
         if (kvkNummer.isNullOrBlank() && vestigingsnummer.isNullOrBlank()) {
-            throw IllegalArgumentException("Either KvK nummer or vestigingsnummer must be provided")
+            throw BadRequestException("Either KvK nummer or vestigingsnummer must be provided")
         }
         val bedrijven: List<BedrijfEntity> =
             if (kvkNummer.isNullOrBlank()) bedrijfRepository.listByVestigingsnummer(vestigingsnummer!!)
@@ -59,14 +62,18 @@ class Bedrijven(
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(operationId = "bedrijf_read", summary = "Een specifiek bedrijf opvragen op basis van interne identifier")
     @APIResponse(
-        responseCode = "200", description = "OK", content = [Content(schema = Schema(implementation = Bedrijf::class))]
+        responseCode = "200", description = "OK",
+        content = [Content(schema = Schema(implementation = Bedrijf::class))]
     )
-    @APIResponse(responseCode = "404", description = "Bedrijf not found")
+    @APIResponse(
+        responseCode = "404", description = "Not Found",
+        content = [Content(schema = Schema(implementation = Fout::class))]
+    )
     fun bedrijfRead(@PathParam("identifier") identifier: Long): Response {
         return ok(
             bedrijfRepository.findById(identifier)
                 ?.toBedrijf()
-                ?: throw WebApplicationException("Bedrijf not found", Response.Status.NOT_FOUND)
+                ?: throw NotFoundException("Bedrijf with identifier '$identifier' Not Found")
         ).build()
     }
 }

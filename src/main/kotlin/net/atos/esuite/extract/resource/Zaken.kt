@@ -6,6 +6,7 @@ import jakarta.ws.rs.core.Response
 import jakarta.ws.rs.core.Response.ok
 import net.atos.esuite.extract.converter.zaak.ZaakConverter
 import net.atos.esuite.extract.model.shared.BladerParameters
+import net.atos.esuite.extract.model.shared.Fout
 import net.atos.esuite.extract.model.zaak.Zaak
 import net.atos.esuite.extract.model.zaak.ZaakOverzichtResults
 import net.atos.esuite.extract.repository.zaak.ZaakRepository
@@ -15,6 +16,11 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse
 
 @Path("zaken")
+@APIResponse(responseCode = "401", description = "Unauthorized")
+@APIResponse(
+    responseCode = "500", description = "Internal Server Error",
+    content = [Content(schema = Schema(implementation = Fout::class))]
+)
 class Zaken(
     private val zaakRepository: ZaakRepository,
     private val zaakConverter: ZaakConverter,
@@ -55,14 +61,18 @@ class Zaken(
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(operationId = "zaak_read", summary = "Een specifieke zaak opvragen op basis van de functiele identificatie")
     @APIResponse(
-        responseCode = "200", description = "OK", content = [Content(schema = Schema(implementation = Zaak::class))]
+        responseCode = "200", description = "OK",
+        content = [Content(schema = Schema(implementation = Zaak::class))]
     )
-    @APIResponse(responseCode = "404", description = "Zaak not found")
+    @APIResponse(
+        responseCode = "404", description = "Not Found",
+        content = [Content(schema = Schema(implementation = Fout::class))]
+    )
     fun zaakRead(@PathParam("functionele_Identificatie") functioneleIdentificatie: String): Response {
         return ok(
             zaakRepository.findByFunctioneleIdentificatie(functioneleIdentificatie)
                 ?.let { zaakConverter.toZaak(it) }
-                ?: throw WebApplicationException("Zaak not found", Response.Status.NOT_FOUND)
+                ?: throw NotFoundException("Zaak with functionele identificatie '$functioneleIdentificatie' Not Found")
         ).build()
     }
 }
