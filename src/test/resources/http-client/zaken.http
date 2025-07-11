@@ -9,12 +9,32 @@ X-API-KEY: {{api-key}}
 %}
 
 ###
-GET {{base-url}}/zaken?zaaktype=MigratieTest1&lopende=true
+GET {{base-url}}/zaken?zaaktype=MigratieTest1&inclusiefOpen=true
 X-API-KEY: {{api-key}}
 
 > {%
     client.test("Request executed successfully", function () {
         client.assert(response.status === 200, "Response status is not 200");
+    });
+%}
+
+###
+GET {{base-url}}/zaken?zaaktype=MigratieTest1&inclusiefOpen=false
+X-API-KEY: {{api-key}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+%}
+
+###
+GET {{base-url}}/zaken?zaaktype=MigratieTest1&inclusiefOpen=xxx
+X-API-KEY: {{api-key}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 400, "Response status is not 400");
     });
 %}
 

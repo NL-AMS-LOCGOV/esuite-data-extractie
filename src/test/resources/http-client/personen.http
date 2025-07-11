@@ -8,6 +8,26 @@ X-API-KEY: {{api-key}}
     });
 %}
 
+### Persoon met ongeldig bsn.
+GET {{base-url}}/personen?bsn=220290258xx
+X-API-KEY: {{api-key}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 400, "Response status is not 400");
+    });
+%}
+
+### Persoon met zonder bsn.
+GET {{base-url}}/personen
+X-API-KEY: {{api-key}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 400, "Response status is not 400");
+    });
+%}
+
 ### Persoon op identifier
 GET {{base-url}}/personen/4115
 X-API-KEY: {{api-key}}

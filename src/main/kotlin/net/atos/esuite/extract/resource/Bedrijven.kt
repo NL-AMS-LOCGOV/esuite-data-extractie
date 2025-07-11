@@ -14,7 +14,10 @@ import net.atos.esuite.extract.converter.basisgegevens.toBedrijf
 import net.atos.esuite.extract.entity.basisgegevens.BedrijfEntity
 import net.atos.esuite.extract.model.basisgegevens.Bedrijf
 import net.atos.esuite.extract.model.shared.Fout
+import net.atos.esuite.extract.model.shared.ValidatieFouten
 import net.atos.esuite.extract.repository.basisgegevens.BedrijfRepository
+import net.atos.esuite.extract.validation.ValidKVKNummer
+import net.atos.esuite.extract.validation.ValidVestigingsnummer
 import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.media.Content
 import org.eclipse.microprofile.openapi.annotations.media.Schema
@@ -32,20 +35,24 @@ class Bedrijven(
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(
-        operationId = "bedrijf_list_kvk_nummer_vestigingsnummer",
-        summary = "Bedrijven opvragen op basis van een KvK nummer en of vestigingsnummer"
+        operationId = "bedrijf_list",
+        summary = "Bedrijven opvragen op basis van KvK nummer en of vestigingsnummer"
     )
     @APIResponse(responseCode = "200", description = "OK")
     @APIResponse(
         responseCode = "400", description = "Bad Request",
-        content = [Content(schema = Schema(implementation = Fout::class))]
+        content = [Content(schema = Schema(implementation = ValidatieFouten::class))]
     )
-    fun bedrijfListOpKvkNummer(
+    fun bedrijfList(
         @Schema(description = "KvK nummer", minLength = 8, maxLength = 8)
-        @QueryParam("kvk_nummer") kvkNummer: String?,
+        @QueryParam("kvk_nummer")
+        @ValidKVKNummer
+        kvkNummer: String?,
 
         @Schema(description = "vestigingsnummer", minLength = 12, maxLength = 12)
-        @QueryParam("vestigingsnummer") vestigingsnummer: String?
+        @QueryParam("vestigingsnummer")
+        @ValidVestigingsnummer
+        vestigingsnummer: String?
     ): List<Bedrijf> {
         if (kvkNummer.isNullOrBlank() && vestigingsnummer.isNullOrBlank()) {
             throw BadRequestException("Either KvK nummer or vestigingsnummer must be provided")

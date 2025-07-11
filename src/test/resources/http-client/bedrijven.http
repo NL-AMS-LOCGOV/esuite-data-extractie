@@ -48,6 +48,16 @@ X-API-KEY: {{api-key}}
     });
 %}
 
+### Bedrijf met invalide KvK nummer en vestigingsnummer.
+GET {{base-url}}/bedrijven?kvk_nummer=11111111x&vestigingsnummer=777761616112x
+X-API-KEY: {{api-key}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 400, "Response status is not 400");
+    });
+%}
+
 ### Bedrijf op identifier
 GET {{base-url}}/bedrijven/854559
 X-API-KEY: {{api-key}}

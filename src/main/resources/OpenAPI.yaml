@@ -1486,7 +1486,7 @@ components:
       properties:
         melding:
           type: string
-          description: Melding van fout
+          description: Foutmelding
     Functie:
       type: object
       required:
@@ -2902,6 +2902,37 @@ components:
           type: string
           maxLength: 3
           description: "Functionele id: Code van de taal conform de ISO 639-2/B standaard"
+    ValidatieFout:
+      type: object
+      required:
+        - message
+        - field
+        - value
+      properties:
+        message:
+          type: string
+          description: Validatie foutmelding
+        field:
+          type: string
+          description: Naam veld met foutieve waarde
+        value:
+          type: string
+          description: Foutieve waarde
+    ValidatieFouten:
+      type: object
+      required:
+        - aantal
+        - fouten
+      properties:
+        aantal:
+          type: integer
+          format: int32
+          description: Foutmelding
+        fouten:
+          type: array
+          items:
+            $ref: "#/components/schemas/ValidatieFout"
+          description: Validatie fouten
     VervallenAanduiding:
       type: string
       enum:
@@ -3390,7 +3421,7 @@ info:
     email: andy.verberne@atos.net
     name: Andy Verberne
   title: e-Suite data extractie API
-  version: 0.6.0
+  version: 0.7.0
 security:
   - ApiKeyAuth: [ ]
 paths:
@@ -3464,8 +3495,8 @@ paths:
         - Afdelingen
   /bedrijven:
     get:
-      summary: Bedrijven opvragen op basis van een KvK nummer en of vestigingsnummer
-      operationId: bedrijf_list_kvk_nummer_vestigingsnummer
+      summary: Bedrijven opvragen op basis van KvK nummer en of vestigingsnummer
+      operationId: bedrijf_list
       parameters:
         - name: kvk_nummer
           in: query
@@ -3503,7 +3534,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Fout"
+                $ref: "#/components/schemas/ValidatieFouten"
       tags:
         - Bedrijven
   /bedrijven/{identifier}:
@@ -3890,8 +3921,8 @@ paths:
         - Medewerkers
   /personen:
     get:
-      summary: Een specifiek persoon opvragen op basis van de BSN
-      operationId: persoon_read_bsn
+      summary: Personen opvragen op basis van BSN
+      operationId: persoon_list
       parameters:
         - name: bsn
           in: query
@@ -3915,13 +3946,15 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Persoon"
-        "404":
-          description: Not Found
+                type: array
+                items:
+                  $ref: "#/components/schemas/Persoon"
+        "400":
+          description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Fout"
+                $ref: "#/components/schemas/ValidatieFouten"
       tags:
         - Personen
   /personen/{identifier}:
@@ -4135,6 +4168,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ZaakOverzichtResults"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidatieFouten"
       tags:
         - Zaken
   /zaken/{functionele_Identificatie}:

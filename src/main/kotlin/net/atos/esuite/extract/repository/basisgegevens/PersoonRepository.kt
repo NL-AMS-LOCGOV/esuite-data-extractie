@@ -8,5 +8,5 @@ import net.atos.esuite.extract.entity.basisgegevens.PersoonEntity
 class PersoonRepository : PanacheRepository<PersoonEntity> {
     
     fun findByBSN(bsn: String) =
-        find("burgerServiceNummer", bsn).firstResult()
+        find("burgerServiceNummer", bsn).list()
 }
