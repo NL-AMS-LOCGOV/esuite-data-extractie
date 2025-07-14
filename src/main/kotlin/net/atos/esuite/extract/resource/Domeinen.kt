@@ -1,5 +1,6 @@
 package net.atos.esuite.extract.resource
 
+import jakarta.validation.Valid
 import jakarta.ws.rs.BeanParam
 import jakarta.ws.rs.GET
 import jakarta.ws.rs.NotFoundException
@@ -42,7 +43,7 @@ class Domeinen(
         content = [Content(schema = Schema(implementation = DomeinResults::class))]
     )
     fun domeinList(
-        @BeanParam bladerParameters: BladerParameters
+        @BeanParam @Valid bladerParameters: BladerParameters
     ): Response {
         val (domeinen, totaalAantalDomeinen) = domeinDefinitieRepository.listAll(
             bladerParameters.page, bladerParameters.pageSize
@@ -87,7 +88,7 @@ class Domeinen(
     )
     fun domeinObjectList(
         @PathParam("domein_naam") domeinNaam: String,
-        @BeanParam bladerParameters: BladerParameters
+        @BeanParam @Valid bladerParameters: BladerParameters
     ): Response {
         val (objecten, totaalAantalObjecten) = domeinObjectRepository.listByDomeinNaam(domeinNaam,
             bladerParameters.page, bladerParameters.pageSize

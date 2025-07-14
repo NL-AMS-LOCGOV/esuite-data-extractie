@@ -20,8 +20,6 @@ import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse
 import java.io.OutputStream
 import java.sql.Blob
-import java.util.logging.Level
-import java.util.logging.Logger
 import java.util.zip.ZipInputStream
 import org.eclipse.microprofile.openapi.annotations.media.Schema
 
@@ -36,9 +34,6 @@ class Documenten(
     @Resource private val userTransaction: UserTransaction,
     private val documentInhoudRepository: DocumentInhoudRepository
 ) {
-    private val logger = Logger.getLogger(Documenten::class.java.getName())
-
-
     @GET
     @Path("inhoud/{documentInhoudID}")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
@@ -52,7 +47,8 @@ class Documenten(
                     format = "binary",
                     description = "Inhoud van het document"
                 )
-            )])
+            )]
+    )
     @APIResponse(
         responseCode = "404", description = "Not Found",
         content = [Content(schema = Schema(implementation = Fout::class))]
@@ -69,10 +65,8 @@ class Documenten(
                 try {
                     copyBlob(inhoud, documentInhoudEntity.compressed, output)
                     userTransaction.commit()
-                } catch (e: Exception) {
+                } finally {
                     userTransaction.rollback()
-                    logger.log(Level.SEVERE, "Fout tijdens ophalen document inhoud", e)
-                    error("Fout tijdens ophalen document inhoud")
                 }
             })
             .type(MediaType.APPLICATION_OCTET_STREAM)

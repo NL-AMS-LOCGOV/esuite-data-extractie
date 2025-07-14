@@ -58,6 +58,36 @@ X-API-KEY: {{api-key}}
     });
 %}
 
+###
+GET {{base-url}}/zaken?zaaktype=MigratieTest1&page=99
+X-API-KEY: {{api-key}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+%}
+
+###
+GET {{base-url}}/zaken?zaaktype=MigratieTest1&page=x&page_size=y
+X-API-KEY: {{api-key}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 400, "Response status is not 400");
+    });
+%}
+
+###
+GET {{base-url}}/zaken?zaaktype=MigratieTest1&page=-1&page_size=-1
+X-API-KEY: {{api-key}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 400, "Response status is not 400");
+    });
+%}
+
 ### Zaak met besluit.
 GET {{base-url}}/zaken/12-2023
 X-API-KEY: {{api-key}}

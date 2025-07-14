@@ -1,5 +1,6 @@
 package net.atos.esuite.extract.resource
 
+import jakarta.validation.Valid
 import jakarta.ws.rs.BeanParam
 import jakarta.ws.rs.GET
 import jakarta.ws.rs.NotFoundException
@@ -38,7 +39,7 @@ class Contacten(
         content = [Content(schema = Schema(implementation = ContactOverzichtResults::class))]
     )
     fun contactList(
-        @BeanParam bladerParameters: BladerParameters
+        @BeanParam @Valid bladerParameters: BladerParameters
     ): Response {
         val (contacten, totaalAantalContacten) =
             contactRepository.listAll(bladerParameters.page, bladerParameters.pageSize)

@@ -1,5 +1,6 @@
 package net.atos.esuite.extract.resource
 
+import jakarta.validation.Valid
 import jakarta.validation.constraints.NotNull
 import jakarta.ws.rs.*
 import jakarta.ws.rs.core.MediaType
@@ -51,7 +52,7 @@ class Zaken(
         @ValidBoolean
         inclusiefOpen: String? = BooleanValidator.FALSE,
 
-        @BeanParam bladerParameters: BladerParameters
+        @BeanParam @Valid bladerParameters: BladerParameters
     ): Response {
         val (zaken, totaalAantalZaken) = zaakRepository.listByZaaktypeFunctioneelId(
             zaaktype, BooleanValidator.equalsTrue(inclusiefOpen), bladerParameters.page, bladerParameters.pageSize

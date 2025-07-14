@@ -1,5 +1,6 @@
 package net.atos.esuite.extract.resource
 
+import jakarta.validation.Valid
 import jakarta.ws.rs.BeanParam
 import jakarta.ws.rs.GET
 import jakarta.ws.rs.NotFoundException
@@ -38,7 +39,7 @@ class Medewerkers(
         content = [Content(schema = Schema(implementation = MedewerkerOverzichtResults::class))]
     )
     fun medewerkerList(
-        @BeanParam bladerParameters: BladerParameters
+        @BeanParam @Valid bladerParameters: BladerParameters
     ): Response {
         val (medewerkers, totaalAantalMedewerkers) = medewerkerRepository.listAll(
             bladerParameters.page,

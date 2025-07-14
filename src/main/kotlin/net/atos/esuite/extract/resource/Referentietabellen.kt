@@ -1,5 +1,6 @@
 package net.atos.esuite.extract.resource
 
+import jakarta.validation.Valid
 import jakarta.ws.rs.BeanParam
 import jakarta.ws.rs.GET
 import jakarta.ws.rs.NotFoundException
@@ -42,7 +43,7 @@ class Referentietabellen(
         content = [Content(schema = Schema(implementation = ReferentietabelResults::class))]
     )
     fun referentietabelList(
-        @BeanParam bladerParameters: BladerParameters
+        @BeanParam @Valid bladerParameters: BladerParameters
     ): Response {
         val (referentietabellen, totaalAantalReferentietabellen) = referentietabelDefinitieRepository.listAll(
             bladerParameters.page, bladerParameters.pageSize
@@ -87,7 +88,7 @@ class Referentietabellen(
     )
     fun referentietabelRecordList(
         @PathParam("referentietabel_naam") referentietabelNaam: String,
-        @BeanParam bladerParameters: BladerParameters
+        @BeanParam @Valid bladerParameters: BladerParameters
     ): Response {
         val (records, totaalAantalRecords) = referentietabelRecordRepository.listByReferentietabelNaam(referentietabelNaam,
             bladerParameters.page, bladerParameters.pageSize
