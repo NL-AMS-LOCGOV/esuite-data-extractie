@@ -1514,6 +1514,32 @@ components:
         waarde:
           type: string
           description: Well-known text geografische informatie
+    GeoJsonGeometry:
+      type: object
+      required:
+        - type
+      oneOf:
+        - $ref: "#/components/schemas/Point"
+        - $ref: "#/components/schemas/LineString"
+        - $ref: "#/components/schemas/MultiLineString"
+        - $ref: "#/components/schemas/Polygon"
+        - $ref: "#/components/schemas/MultiPolygon"
+        - $ref: "#/components/schemas/GeometryCollection"
+      description: GeoJSON Geometry object
+      discriminator:
+        propertyName: type
+        mapping:
+          Point: "#/components/schemas/Point"
+          LineString: "#/components/schemas/LineString"
+          MultiLineString: "#/components/schemas/MultiLineString"
+          Polygon: "#/components/schemas/Polygon"
+          MultiPolygon: "#/components/schemas/MultiPolygon"
+          GeometryCollection: "#/components/schemas/GeometryCollection"
+      properties:
+        type:
+          $ref: "#/components/schemas/GeometryType"
+          type: string
+          description: Geometry type
     GeoReferentietabelRecordAttribuut:
       type: object
       required:
@@ -1524,8 +1550,30 @@ components:
         waarde:
           type: string
           description: Well-known text geografische informatie
-    GeografischeInformatie:
+    GeometryCollection:
       type: object
+      required:
+        - type
+        - geometries
+      description: GeoJSON GeometryCollection Geometry object
+      properties:
+        type:
+          $ref: "#/components/schemas/GeometryType"
+          type: string
+          description: Geometry type
+        geometries:
+          type: array
+          items:
+            $ref: "#/components/schemas/GeoJsonGeometry"
+    GeometryType:
+      type: string
+      enum:
+        - Point
+        - LineString
+        - MultiLineString
+        - Polygon
+        - MultiPolygon
+        - GeometryCollection
     Geslacht:
       type: string
       enum:
@@ -1655,6 +1703,30 @@ components:
           type: string
           maxLength: 10
           description: GBA landcode
+    Line2D:
+      type: array
+      minItems: 2
+      items:
+        type: array
+        maxItems: 2
+        minItems: 2
+        items:
+          type: number
+        description: "Position as [longitude, latitude]"
+      description: A connected sequence of two or more points
+    LineString:
+      type: object
+      required:
+        - type
+        - coordinates
+      description: GeoJSON LineString Geometry object
+      properties:
+        type:
+          $ref: "#/components/schemas/GeometryType"
+          type: string
+          description: Geometry type
+        coordinates:
+          $ref: "#/components/schemas/Line2D"
     Medewerker:
       type: object
       required:
@@ -1847,6 +1919,36 @@ components:
         indicatieVoorAlleDocumenttypes:
           type: boolean
           description: Indicatie of het metadata element gebruikt wordt bij alle documenttypes
+    MultiLineString:
+      type: object
+      required:
+        - type
+        - coordinates
+      description: GeoJSON MultiLineString Geometry object
+      properties:
+        type:
+          $ref: "#/components/schemas/GeometryType"
+          type: string
+          description: Geometry type
+        coordinates:
+          type: array
+          items:
+            $ref: "#/components/schemas/Line2D"
+    MultiPolygon:
+      type: object
+      required:
+        - type
+        - coordinates
+      description: GeoJSON MultiPolygon Geometry object
+      properties:
+        type:
+          $ref: "#/components/schemas/GeometryType"
+          type: string
+          description: Geometry type
+        coordinates:
+          type: array
+          items:
+            $ref: "#/components/schemas/Polygon2D"
     Naamgebruik:
       type: string
       enum:
@@ -2140,6 +2242,55 @@ components:
           items:
             $ref: "#/components/schemas/Relatie"
           description: Relaties met andere personen
+    Point:
+      type: object
+      required:
+        - type
+        - coordinates
+      description: GeoJSON Point Geometry object
+      properties:
+        type:
+          $ref: "#/components/schemas/GeometryType"
+          type: string
+          description: Geometry type
+        coordinates:
+          $ref: "#/components/schemas/Point2D"
+    Point2D:
+      type: array
+      maxItems: 2
+      minItems: 2
+      items:
+        type: number
+      description: "Position as [longitude, latitude]"
+    Polygon:
+      type: object
+      required:
+        - type
+        - coordinates
+      description: GeoJSON Polygon Geometry object
+      properties:
+        type:
+          $ref: "#/components/schemas/GeometryType"
+          type: string
+          description: Geometry type
+        coordinates:
+          $ref: "#/components/schemas/Polygon2D"
+    Polygon2D:
+      type: array
+      items:
+        type: array
+        minItems: 4
+        items:
+          type: array
+          maxItems: 2
+          minItems: 2
+          items:
+            type: number
+          description: "Position as [longitude, latitude]"
+        description: A connected sequence of four or more points creating a closed
+          ring
+      description: The first ring is the outer boundary. Any subsequent rings represent
+        holes (interior boundaries)
     Recht:
       type: object
       required:
@@ -2577,6 +2728,17 @@ components:
           maxLength: 255
           description: Code welke gebruikt wordt voor het uitwisselen van zaak informatie
             naar externe systemen zoals bijvoorbeeld via StUF-ZKN-DMS
+    Ring2D:
+      type: array
+      minItems: 4
+      items:
+        type: array
+        maxItems: 2
+        minItems: 2
+        items:
+          type: number
+        description: "Position as [longitude, latitude]"
+      description: A connected sequence of four or more points creating a closed ring
     Rol:
       type: object
       required:
@@ -3106,8 +3268,8 @@ components:
           $ref: "#/components/schemas/ArchiveerGegevens"
         geolocatie:
           type: object
-          description: Archiveer gegevens van zaak
-          $ref: "#/components/schemas/GeografischeInformatie"
+          description: Locatie van zaak
+          $ref: "#/components/schemas/GeoJsonGeometry"
         historie:
           type: array
           items:
@@ -3425,7 +3587,7 @@ info:
     email: andy.verberne@atos.net
     name: Andy Verberne
   title: e-Suite data extractie API
-  version: 0.7.0
+  version: 0.8.0
 security:
   - ApiKeyAuth: [ ]
 paths:

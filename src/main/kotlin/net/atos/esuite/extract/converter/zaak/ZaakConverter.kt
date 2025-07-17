@@ -11,7 +11,6 @@ import net.atos.esuite.extract.model.zaak.Zaak
 import net.atos.esuite.extract.model.zaak.ZaakBetrokkene
 import net.atos.esuite.extract.model.zaak.ZaakBetrokkenetype
 import net.atos.esuite.extract.model.zaak.ZaakOverzicht
-import net.atos.esuite.extract.repository.*
 import net.atos.esuite.extract.repository.basisgegevens.SubjectRepository
 import net.atos.esuite.extract.repository.zaak.BesluittypeRepository
 import net.atos.esuite.extract.repository.zaak.ResultaatRepository
@@ -48,7 +47,7 @@ class ZaakConverter(
             functioneleIdentificatie = zaakEntity.functioneelId,
             geautoriseerdeMedewerkers = zaakEntity.geautoriseerdeMedewerkers.ifEmpty { null },
             gekoppeldeZaken = zaakEntity.relatieZaken.map { it.toZaakZaakKoppeling() }.ifEmpty { null },
-            geolocatie = null, // ToDo: Converteer geo gegevens
+            geolocatie = zaakEntity.geolocatie?.let { convertToGeoJsonGeometry(it)},
             groep = zaakEntity.groepId,
             historie = zaakEntity.historie.map { it.toZaakHistorie() },
             geautoriseerdVoorMedewerkers = zaakEntity.autorisatie,
