@@ -54,13 +54,16 @@ class Bedrijven(
         @ValidVestigingsnummer
         vestigingsnummer: String?
     ): List<Bedrijf> {
-        if (kvkNummer.isNullOrBlank() && vestigingsnummer.isNullOrBlank()) {
-            throw BadRequestException("Either KvK nummer or vestigingsnummer must be provided")
-        }
         val bedrijven: List<BedrijfEntity> =
-            if (kvkNummer.isNullOrBlank()) bedrijfRepository.listByVestigingsnummer(vestigingsnummer!!)
-            else if (vestigingsnummer.isNullOrBlank()) bedrijfRepository.listByKvkNummer(kvkNummer)
-            else bedrijfRepository.listByKvkNummerAndVestigingsnummer(kvkNummer, vestigingsnummer)
+            when {
+                !kvkNummer.isNullOrBlank() && !vestigingsnummer.isNullOrBlank() ->
+                    bedrijfRepository.listByKvkNummerAndVestigingsnummer(kvkNummer, vestigingsnummer)
+                !kvkNummer.isNullOrBlank() ->
+                    bedrijfRepository.listByKvkNummer(kvkNummer)
+                !vestigingsnummer.isNullOrBlank() ->
+                    bedrijfRepository.listByVestigingsnummer(vestigingsnummer)
+                else -> throw BadRequestException("Either KvK nummer or vestigingsnummer must be provided")
+            }
         return bedrijven.map { it.toBedrijf() }
     }
 

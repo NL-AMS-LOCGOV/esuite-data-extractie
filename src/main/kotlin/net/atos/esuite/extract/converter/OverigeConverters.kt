@@ -5,7 +5,7 @@ import java.time.LocalDate
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
-private const val ZONE_ID = "Europe/Amsterdam"
+private val ZONE_ID = "Europe/Amsterdam"
 
 fun Instant.toZonedDateTime() =
     ZonedDateTime.ofInstant(this, ZoneId.of(ZONE_ID))

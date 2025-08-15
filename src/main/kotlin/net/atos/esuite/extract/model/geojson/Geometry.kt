@@ -4,7 +4,7 @@ import org.eclipse.microprofile.openapi.annotations.media.DiscriminatorMapping
 import org.eclipse.microprofile.openapi.annotations.media.Schema
 
 @Schema(
-    description = "GeoJSON Geometry object",
+    description = "GeoJSON Geometry object in coördinatensysteem: RD-NEW (EPSG-code: 28992)",
     discriminatorProperty = "type",
     discriminatorMapping = [
         DiscriminatorMapping("Point", schema = Point::class),
@@ -23,7 +23,11 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema
         GeometryCollection::class
     ]
 )
-abstract class GeoJsonGeometry(
+sealed class Geometry(
     @field:Schema(description = "Geometry type")
     val type: GeometryType,
 )
+
+interface GeometryFactory {
+    fun createFromWKT(wkt: String): Geometry
+}

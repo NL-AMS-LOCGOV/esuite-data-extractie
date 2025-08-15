@@ -1,8 +1,10 @@
 package net.atos.esuite.extract.model.geojson
 
 import org.eclipse.microprofile.openapi.annotations.media.Schema
+import org.eclipse.microprofile.openapi.annotations.media.SchemaProperty
 
-@Schema(description = "GeoJSON MultiPolygon Geometry object")
-class MultiPolygon(
-    val coordinates: List<Polygon2D>
-) : GeoJsonGeometry(GeometryType.MultiPolygon)
+@Schema(
+    description = "GeoJSON MultiPolygon Geometry object",
+    properties = [SchemaProperty(name = "type", defaultValue = "MultiPolygon")]
+)
+class MultiPolygon private constructor(val coordinates: List<Polygon2D>) : Geometry(GeometryType.MultiPolygon)

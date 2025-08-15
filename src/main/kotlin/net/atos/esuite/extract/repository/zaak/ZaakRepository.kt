@@ -13,10 +13,6 @@ import net.atos.esuite.extract.repository.ListResult
 @ApplicationScoped
 class ZaakRepository : PanacheRepository<ZaakEntity> {
 
-    companion object {
-        const val ZAAKTYPE_ID_PREFIX = "ZTC2:"
-    }
-
     fun findByFunctioneleIdentificatie(functioneleIdentificatie: String) =
         find("functioneelId", functioneleIdentificatie).firstResult()
 

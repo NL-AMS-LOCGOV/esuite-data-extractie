@@ -4,7 +4,7 @@ import net.atos.esuite.extract.model.bag.BAGObject
 import net.atos.esuite.extract.model.basisgegevens.Subject
 import net.atos.esuite.extract.model.besluit.Besluit
 import net.atos.esuite.extract.model.document.Document
-import net.atos.esuite.extract.model.geojson.GeoJsonGeometry
+import net.atos.esuite.extract.model.geojson.Geometry
 import net.atos.esuite.extract.model.shared.Kanaal
 import net.atos.esuite.extract.model.zaakdata.DataElement
 import org.eclipse.microprofile.openapi.annotations.media.Schema
@@ -89,7 +89,7 @@ class Zaak(
     val archiveerGegevens: ArchiveerGegevens?,
 
     @field:Schema(description = "Locatie van zaak")
-    val geolocatie: GeoJsonGeometry?,
+    val geolocatie: Geometry?,
 
     @field:Schema(description = "Historie van zaak")
     val historie: List<ZaakHistorie>,

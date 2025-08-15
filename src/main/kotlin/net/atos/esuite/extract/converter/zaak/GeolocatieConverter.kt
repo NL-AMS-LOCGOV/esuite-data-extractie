@@ -1,11 +1,13 @@
 package net.atos.esuite.extract.converter.zaak
 
-import net.atos.esuite.extract.model.geojson.GeoJsonGeometry
+import net.atos.esuite.extract.model.geojson.LineString
 import net.atos.esuite.extract.model.geojson.Point
-import net.atos.esuite.extract.model.geojson.Point2D
-import java.math.BigDecimal
+import net.atos.esuite.extract.model.geojson.isLineString
+import net.atos.esuite.extract.model.geojson.isPoint
 
-fun convertToGeoJsonGeometry(wkt: String): GeoJsonGeometry {
-     return Point(Point2D(BigDecimal("1.0"), BigDecimal("2.0")))
-}
-
+fun convertToGeoJsonGeometry(wkt: String) =
+    when {
+        isPoint(wkt) -> Point.createFromWKT(wkt)
+        isLineString(wkt) -> LineString.createFromWKT(wkt)
+        else -> error("Unsupported geometry type: $wkt")
+    }

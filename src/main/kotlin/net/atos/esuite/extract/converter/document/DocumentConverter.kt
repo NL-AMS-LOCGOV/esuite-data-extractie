@@ -16,7 +16,7 @@ import net.atos.esuite.extract.repository.document.DocumentTypeRepository
 import net.atos.esuite.extract.repository.document.DocumentVormRepository
 import net.atos.esuite.extract.repository.document.MetadataelementRepository
 import net.atos.esuite.extract.repository.document.TaalRepository
-import net.atos.esuite.extract.repository.zaak.ZaakRepository.Companion.ZAAKTYPE_ID_PREFIX
+import net.atos.esuite.extract.repository.zaak.ZAAKTYPE_ID_PREFIX
 
 @ApplicationScoped
 class DocumentConverter(
@@ -27,9 +27,7 @@ class DocumentConverter(
     private val metadataelementRepository: MetadataelementRepository,
     private val documentInhoudRepository: DocumentInhoudRepository,
 ) {
-    companion object {
-        const val BESTANDS_ID_PREFIX = "dms:"
-    }
+    private val BESTANDS_ID_PREFIX = "dms:"
 
     fun toDocument(documentEntity: DocumentEntity) =
         Document(

@@ -46,7 +46,7 @@ fun SubjectEntity.toSubject() =
     when (this) {
         is PersoonEntity -> this.toPersoon()
         is BedrijfEntity -> this.toBedrijf()
-        else -> error("Invalid SubjectEntity type: ${this.javaClass.simpleName}")
+        else -> error("Unsupported SubjectEntity type: ${this.javaClass.simpleName}")
     }
 
 fun PersoonEntity.toPersoon() =

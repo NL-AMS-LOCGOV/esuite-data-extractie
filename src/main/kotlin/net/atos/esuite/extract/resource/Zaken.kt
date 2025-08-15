@@ -13,7 +13,8 @@ import net.atos.esuite.extract.model.shared.ValidatieFouten
 import net.atos.esuite.extract.model.zaak.Zaak
 import net.atos.esuite.extract.model.zaak.ZaakOverzichtResults
 import net.atos.esuite.extract.repository.zaak.ZaakRepository
-import net.atos.esuite.extract.validation.BooleanValidator
+import net.atos.esuite.extract.validation.FALSE
+import net.atos.esuite.extract.validation.TRUE
 import net.atos.esuite.extract.validation.ValidBoolean
 import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.media.Content
@@ -50,12 +51,12 @@ class Zaken(
         @QueryParam("inclusiefOpen")
         @Schema(description = "Inclusief open zaken", defaultValue = "false", implementation = Boolean::class)
         @ValidBoolean
-        inclusiefOpen: String? = BooleanValidator.FALSE,
+        inclusiefOpen: String? = FALSE,
 
         @BeanParam @Valid bladerParameters: BladerParameters
     ): Response {
         val (zaken, totaalAantalZaken) = zaakRepository.listByZaaktypeFunctioneelId(
-            zaaktype, BooleanValidator.equalsTrue(inclusiefOpen), bladerParameters.page, bladerParameters.pageSize
+            zaaktype, inclusiefOpen == TRUE, bladerParameters.page, bladerParameters.pageSize
         )
         return ok(
             ZaakOverzichtResults(

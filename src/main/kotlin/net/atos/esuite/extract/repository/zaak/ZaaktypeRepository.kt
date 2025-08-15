@@ -4,6 +4,8 @@ import io.quarkus.hibernate.orm.panache.kotlin.PanacheRepository
 import jakarta.enterprise.context.ApplicationScoped
 import net.atos.esuite.extract.entity.zakenmagazijn.ReferentieZaakTypeEntity
 
+val ZAAKTYPE_ID_PREFIX = "ZTC2:"
+
 @ApplicationScoped
 class ZaaktypeRepository : PanacheRepository<ReferentieZaakTypeEntity> {
 

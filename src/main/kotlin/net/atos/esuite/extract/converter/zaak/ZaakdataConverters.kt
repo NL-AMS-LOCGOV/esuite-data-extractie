@@ -58,7 +58,7 @@ fun AbstractDataElementEntity.toDataElement(): DataElement =
         is StringsDataElementEntity -> StringsDataElement(waarde)
         is ToestemmingDigitaleNotificatiesDataElementEntity -> ComplexDataElement(digitale_notificaties, complexeWaarde)
         is ZaakBesluitItemDataElementEntity -> ComplexDataElement(zaak_besluit, complexeWaarde)
-        else -> error("Unsupported data element type: ${this.javaClass.name}")
+        else -> error("Unsupported DataElementEntity type: ${this.javaClass.name}")
     }.also {
         it.naam = sleutel
         it.omschrijving = omschrijving

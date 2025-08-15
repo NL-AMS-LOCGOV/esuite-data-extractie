@@ -14,7 +14,7 @@ import net.atos.esuite.extract.model.zaak.ZaakOverzicht
 import net.atos.esuite.extract.repository.basisgegevens.SubjectRepository
 import net.atos.esuite.extract.repository.zaak.BesluittypeRepository
 import net.atos.esuite.extract.repository.zaak.ResultaatRepository
-import net.atos.esuite.extract.repository.zaak.ZaakRepository.Companion.ZAAKTYPE_ID_PREFIX
+import net.atos.esuite.extract.repository.zaak.ZAAKTYPE_ID_PREFIX
 import net.atos.esuite.extract.repository.zaak.ZaakStatusRepository
 import net.atos.esuite.extract.repository.zaak.ZaaktypeRepository
 import kotlin.error
