@@ -7,6 +7,7 @@ import net.atos.esuite.extract.converter.toKanaal
 import net.atos.esuite.extract.converter.toZonedDateTime
 import net.atos.esuite.extract.entity.zakenmagazijn.*
 import net.atos.esuite.extract.model.besluit.Besluit
+import net.atos.esuite.extract.model.geojson.WKT
 import net.atos.esuite.extract.model.zaak.Zaak
 import net.atos.esuite.extract.model.zaak.ZaakBetrokkene
 import net.atos.esuite.extract.model.zaak.ZaakBetrokkenetype
@@ -47,7 +48,7 @@ class ZaakConverter(
             functioneleIdentificatie = zaakEntity.functioneelId,
             geautoriseerdeMedewerkers = zaakEntity.geautoriseerdeMedewerkers.ifEmpty { null },
             gekoppeldeZaken = zaakEntity.relatieZaken.map { it.toZaakZaakKoppeling() }.ifEmpty { null },
-            geolocatie = zaakEntity.geolocatie?.let { convertToGeoJsonGeometry(it)},
+            geolocatie = zaakEntity.geolocatie?.let { convertToGeoJsonGeometry(WKT(it))},
             groep = zaakEntity.groepId,
             historie = zaakEntity.historie.map { it.toZaakHistorie() },
             geautoriseerdVoorMedewerkers = zaakEntity.autorisatie,

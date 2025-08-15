@@ -28,6 +28,10 @@ sealed class Geometry(
     val type: GeometryType,
 )
 
+// Well-Known Text
+@JvmInline
+value class WKT(val value: String)
+
 interface GeometryFactory {
-    fun createFromWKT(wkt: String): Geometry
+    fun create(wkt: WKT): Geometry
 }

@@ -6,7 +6,7 @@ import java.math.BigDecimal
 
 private val LINESTRING = "LINESTRING"
 
-fun isLineString(wkt: String) = wkt.startsWith(LINESTRING)
+fun isLineString(wkt: WKT) = wkt.value.startsWith(LINESTRING)
 
 @Schema(
     description = "GeoJSON LineString Geometry object",
@@ -15,7 +15,7 @@ fun isLineString(wkt: String) = wkt.startsWith(LINESTRING)
 class LineString private constructor(val coordinates: Line2D) : Geometry(GeometryType.LineString) {
     
     companion object : GeometryFactory {
-        override fun createFromWKT(wkt: String) = LineString(
+        override fun create(wkt: WKT) = LineString(
             Line2D(
                 listOf(
                     Point2D(BigDecimal("1.0"), BigDecimal("1.0")),
