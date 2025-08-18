@@ -44,5 +44,5 @@ class DomeinObjectDefinitieEntity {
         name = "dsr_def_domein_object_koppelbaar_aan", schema = "dsr",
         joinColumns = [JoinColumn(name = "id_def_domein_object", referencedColumnName = "id_def_domein_object")]
     )
-    lateinit var koppelbaarAanTypes: MutableList<DomeinObjectDefinitieKoppelbaarAanEntity>
+    lateinit var koppelbaarAanTypes: List<DomeinObjectDefinitieKoppelbaarAanEntity>
 }

@@ -163,7 +163,7 @@ class ZaakEntity {
         joinColumns = [JoinColumn(name = "id_zaak")]
     )
     @Column(name = "medewerker")
-    lateinit var geautoriseerdeMedewerkers: MutableSet<String>
+    lateinit var geautoriseerdeMedewerkers: Set<String>
 
     // Of autorisatie op dit element aan of uit staat
     @Column(name = "autorisatie")

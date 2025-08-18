@@ -12,5 +12,5 @@ class DocumentDataElementEntity: AbstractDataElementEntity() {
         name = "zkn_zaak_dataelement_documentwaardes", schema = "zakenmagazijn",
         joinColumns = [JoinColumn(name = "id_dataelement", referencedColumnName = "id_dataelement")]
     )
-    lateinit var documentEntities: MutableList<DocumentItemEntity>
+    lateinit var documentEntities: List<DocumentItemEntity>
 }

@@ -109,7 +109,7 @@ class DocumentEntity {
         name = "zkn_documentpublicatie", schema = "zakenmagazijn",
         joinColumns = [JoinColumn(name = "id_document", referencedColumnName = "id_document")]
     )
-    lateinit var publicaties: MutableSet<DocumentPublicatieEntity>
+    lateinit var publicaties: Set<DocumentPublicatieEntity>
 
     // ID van het bestand in het DMS van de PDFA versie van het document.
     @Column(name = "pdfaid", length = 255)
@@ -128,7 +128,7 @@ class DocumentEntity {
         joinColumns = [JoinColumn(name = "id_document")]
     )
     @Column(name = "medewerker")
-    lateinit var geautoriseerdeMedewerkers: MutableSet<String>
+    lateinit var geautoriseerdeMedewerkers: Set<String>
 
     // Of autorisatie op dit element aan of uit staat
     @Column(name = "autorisatie")
