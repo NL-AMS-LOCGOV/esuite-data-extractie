@@ -19,5 +19,5 @@ class ReferentieHoofdactiviteitEntity : AbstractReferentieEntity() {
     lateinit var code: String
 
     @OneToMany(mappedBy = "hoofdactiviteit")
-    val bedrijven: MutableList<BedrijfEntity> = mutableListOf()
+    lateinit var bedrijven: MutableList<BedrijfEntity>
 }

@@ -13,5 +13,5 @@ class DecimalenDataElementEntity: AbstractDataElementEntity() {
         name = "zkn_zaak_dataelement_nummerwaardes", schema = "zakenmagazijn",
         joinColumns = [JoinColumn(name = "id_dataelement", referencedColumnName = "id_dataelement")]
     )
-    val waarde: MutableSet<BigDecimal> = mutableSetOf()
+    lateinit var waarde: MutableSet<BigDecimal>
 }

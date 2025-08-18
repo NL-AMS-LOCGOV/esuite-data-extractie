@@ -13,5 +13,5 @@ class OptiesDataElementEntity: AbstractDataElementEntity() {
         joinColumns = [JoinColumn(name = "id_dataelement", referencedColumnName = "id_dataelement")]
     )
     @Column(name = "gemarshallde_optie_waarde")
-    val gemarshalldeOptieWaarde: MutableList<String> = mutableListOf()
+    lateinit var gemarshalldeOptieWaarde: MutableList<String>
 }

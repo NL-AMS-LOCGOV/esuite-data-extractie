@@ -32,5 +32,5 @@ class AttribuutEntity {
 
     @OneToMany(mappedBy = "attribuut")
     @OrderBy("volgnummer asc")
-    val waarden: MutableList<AbstractAttribuutWaardeEntity> = mutableListOf()
+    lateinit var waarden: MutableList<AbstractAttribuutWaardeEntity>
 }

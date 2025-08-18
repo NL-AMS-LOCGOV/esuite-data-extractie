@@ -43,5 +43,5 @@ class ReferentietabelRecordEntity {
     var categorie: String? = null
 
     @OneToMany(mappedBy = "referentietabelRecord")
-    val extraAttributen: MutableList<AbstractReferentietabelRecordExtraAttribuutEntity> = mutableListOf()
+    lateinit var extraAttributen: MutableList<AbstractReferentietabelRecordExtraAttribuutEntity>
 }

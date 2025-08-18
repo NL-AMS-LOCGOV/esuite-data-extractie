@@ -147,14 +147,14 @@ class PersoonEntity: SubjectEntity() {
     lateinit var burgerlijkestaat: ReferentieBurgerlijkeStaatEntity
 
     @OneToMany(mappedBy = "persoon")
-    val adressen: MutableSet<PersoonAdresEntity> = mutableSetOf()
+    lateinit var  adressen: MutableSet<PersoonAdresEntity>
 
     @OneToMany(mappedBy = "persoon")
-    val nationaliteiten: MutableSet<PersoonNationaliteitEntity> = mutableSetOf()
+    lateinit var nationaliteiten: MutableSet<PersoonNationaliteitEntity>
 
     @OneToMany(mappedBy = "persoon")
-    val reisdocumenten: MutableSet<PersoonReisdocumentEntity> = mutableSetOf()
+    lateinit var reisdocumenten: MutableSet<PersoonReisdocumentEntity>
 
     @OneToMany(mappedBy = "persoon")
-    val relaties: MutableSet<RelatieEntity> = mutableSetOf()
+    lateinit var relaties: MutableSet<RelatieEntity>
 }

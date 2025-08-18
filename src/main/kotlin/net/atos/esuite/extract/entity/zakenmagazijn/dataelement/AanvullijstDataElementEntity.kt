@@ -12,5 +12,5 @@ class AanvullijstDataElementEntity: AbstractDataElementEntity() {
         name = "zkn_zaak_dataelement_aanvullijstrecords", schema = "zakenmagazijn",
         joinColumns = [JoinColumn(name = "id_dataelement", referencedColumnName = "id_dataelement")]
     )
-    val records: MutableList<AanvullijstRecordEntity> = mutableListOf()
+    lateinit var records: MutableList<AanvullijstRecordEntity>
 }

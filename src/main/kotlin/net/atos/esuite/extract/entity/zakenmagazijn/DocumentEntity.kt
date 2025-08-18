@@ -87,10 +87,10 @@ class DocumentEntity {
 
     @OneToMany(mappedBy = "document")
     @OrderBy("versienummer asc")
-    val documentversies: MutableSet<DocumentVersieEntity> = mutableSetOf()
+    lateinit var documentversies: MutableSet<DocumentVersieEntity>
 
     @OneToMany(mappedBy = "document")
-    val documentMetadata: MutableSet<DocumentMetadataEntity> = mutableSetOf()
+    lateinit var documentMetadata: MutableSet<DocumentMetadataEntity>
 
     @ManyToOne
     @JoinColumn(name = "id_zaak", referencedColumnName = "id_zaak")
@@ -102,14 +102,14 @@ class DocumentEntity {
 
     @OneToMany(mappedBy = "document")
     @OrderBy("identifier desc")
-    val historie: MutableList<DocumenthistorieEntity> = mutableListOf()
+    lateinit var historie: MutableList<DocumenthistorieEntity>
 
     @ElementCollection
     @JoinTable(
         name = "zkn_documentpublicatie", schema = "zakenmagazijn",
         joinColumns = [JoinColumn(name = "id_document", referencedColumnName = "id_document")]
     )
-    val publicaties: MutableSet<DocumentPublicatieEntity> = mutableSetOf()
+    lateinit var publicaties: MutableSet<DocumentPublicatieEntity>
 
     // ID van het bestand in het DMS van de PDFA versie van het document.
     @Column(name = "pdfaid", length = 255)
@@ -128,7 +128,7 @@ class DocumentEntity {
         joinColumns = [JoinColumn(name = "id_document")]
     )
     @Column(name = "medewerker")
-    val geautoriseerdeMedewerkers: MutableSet<String> = mutableSetOf()
+    lateinit var geautoriseerdeMedewerkers: MutableSet<String>
 
     // Of autorisatie op dit element aan of uit staat
     @Column(name = "autorisatie")

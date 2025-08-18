@@ -12,5 +12,5 @@ class StringsDataElementEntity: AbstractDataElementEntity() {
         name = "zkn_zaak_dataelement_stringwaardes", schema = "zakenmagazijn",
         joinColumns = [JoinColumn(name = "id_dataelement", referencedColumnName = "id_dataelement")]
     )
-    val waarde: MutableList<String> = mutableListOf()
+    lateinit var waarde: MutableList<String>
 }

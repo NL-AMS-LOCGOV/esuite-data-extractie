@@ -117,21 +117,21 @@ class ZaakEntity {
     var notificeerbaar = false
 
     @OneToMany(mappedBy = "zaak")
-    val taken: MutableSet<TaakEntity> = mutableSetOf()
+    lateinit var taken: MutableSet<TaakEntity>
 
     @OneToMany(mappedBy = "zaak")
-    val betrokkenen: MutableSet<ZaakBetrokkeneEntity> = mutableSetOf()
+    lateinit var betrokkenen: MutableSet<ZaakBetrokkeneEntity>
 
     @OneToMany(mappedBy = "zaak")
     @OrderBy(value = "identifier")
-    val notities: MutableSet<ZaakNotitieEntity> = mutableSetOf()
+    lateinit var notities: MutableSet<ZaakNotitieEntity>
 
     @OneToMany(mappedBy = "zaak")
-    val gekoppeldeBAGObjecten: MutableSet<ZaakBAGObjectEntity> = mutableSetOf()
+    lateinit var gekoppeldeBAGObjecten: MutableSet<ZaakBAGObjectEntity>
 
     // Alle zaakrelaties waarin de huidige zaak de volgende zaak is
     @OneToMany(mappedBy = "gekoppeldeZaak")
-    val relatieZaken: MutableSet<ZaakZaakEntity> = mutableSetOf()
+    lateinit var relatieZaken: MutableSet<ZaakZaakEntity>
 
     @Embedded
     var archiveergegevens: ArchiveergegevensEntity? = null
@@ -141,13 +141,13 @@ class ZaakEntity {
 
     @OneToMany(mappedBy = "zaak")
     @OrderBy("identifier DESC")
-    val historie: MutableSet<ZaakHistorieEntity> = mutableSetOf()
+    lateinit var historie: MutableSet<ZaakHistorieEntity>
 
     @OneToMany(mappedBy = "zaak")
-    val documenten: MutableSet<DocumentEntity> = mutableSetOf()
+    lateinit var documenten: MutableSet<DocumentEntity>
 
     @OneToMany(mappedBy = "zaak")
-    val zaakdataElementen: MutableSet<AbstractDataElementEntity> = mutableSetOf()
+    lateinit var zaakdataElementen: MutableSet<AbstractDataElementEntity>
 
     // Locatie van de zaak gedefinieerd als een valide WKT representatie string
     @Column(name = "geolocatie", length = Int.MAX_VALUE)
@@ -163,7 +163,7 @@ class ZaakEntity {
         joinColumns = [JoinColumn(name = "id_zaak")]
     )
     @Column(name = "medewerker")
-    val geautoriseerdeMedewerkers: MutableSet<String> = mutableSetOf()
+    lateinit var geautoriseerdeMedewerkers: MutableSet<String>
 
     // Of autorisatie op dit element aan of uit staat
     @Column(name = "autorisatie")
@@ -178,8 +178,8 @@ class ZaakEntity {
     var ztc1Migratiedatumtijd : Instant? = null
 
     @OneToMany(mappedBy = "zaak")
-    val besluiten: MutableSet<BesluitEntity> = mutableSetOf()
+    lateinit var besluiten: MutableSet<BesluitEntity>
 
     @OneToMany(mappedBy = "zaak")
-    val contacten: MutableSet<ZaakContactEntity> = mutableSetOf()
+    lateinit var contacten: MutableSet<ZaakContactEntity>
 }

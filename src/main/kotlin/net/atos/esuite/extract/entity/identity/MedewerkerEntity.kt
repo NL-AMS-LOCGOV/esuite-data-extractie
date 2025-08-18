@@ -86,7 +86,7 @@ class MedewerkerEntity {
         joinColumns = [JoinColumn(name = "id_medewerker", referencedColumnName = "id_medewerker")],
         inverseJoinColumns = [JoinColumn(name = "id_rol", referencedColumnName = "id_rol")]
     )
-    val rollen: MutableSet<RolEntity> = mutableSetOf()
+    lateinit var rollen: MutableSet<RolEntity>
 
     @ManyToMany
     @JoinTable(
@@ -94,7 +94,7 @@ class MedewerkerEntity {
         joinColumns = [JoinColumn(name = "id_medewerker", referencedColumnName = "id_medewerker")],
         inverseJoinColumns = [JoinColumn(name = "id_groep", referencedColumnName = "id_groep")]
     )
-    val groepen: MutableSet<GroepEntity> = mutableSetOf()
+    lateinit var groepen: MutableSet<GroepEntity>
 
     @ManyToMany
     @JoinTable(
@@ -102,5 +102,5 @@ class MedewerkerEntity {
         joinColumns = [JoinColumn(name = "id_medewerker", referencedColumnName = "id_medewerker")],
         inverseJoinColumns = [JoinColumn(name = "id_afdeling", referencedColumnName = "id_afdeling")]
     )
-    val afdelingen: MutableSet<AfdelingEntity> = mutableSetOf()
+    lateinit var afdelingen: MutableSet<AfdelingEntity>
 }

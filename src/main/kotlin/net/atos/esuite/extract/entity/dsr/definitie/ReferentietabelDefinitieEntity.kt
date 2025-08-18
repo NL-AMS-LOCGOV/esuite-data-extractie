@@ -26,5 +26,5 @@ class ReferentietabelDefinitieEntity : AbstractReferentieEntity() {
 
     @OneToMany(mappedBy = "referentietabel")
     @OrderBy("volgnummer ASC")
-    val attribuutDefinities: MutableList<ReferentietabelAttribuutDefinitieEntity> = mutableListOf()
+    lateinit var attribuutDefinities: MutableList<ReferentietabelAttribuutDefinitieEntity>
 }

@@ -76,7 +76,7 @@ class TaakEntity {
     lateinit var zaak: ZaakEntity
 
     @OneToMany(mappedBy = "taak")
-    val historie: MutableList<TaakHistorieEntity> = mutableListOf()
+    lateinit var historie: MutableList<TaakHistorieEntity>
 
     // Emails voor notificatie/herinneringsemail voor een externe taak
     @Column(name = "toekenning_email")

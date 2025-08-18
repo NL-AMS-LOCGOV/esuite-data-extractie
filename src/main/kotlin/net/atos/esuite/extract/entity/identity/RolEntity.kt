@@ -29,7 +29,7 @@ class RolEntity {
     var actief = false
 
     @ManyToMany(mappedBy = "rollen")
-    val medewerkers: MutableSet<MedewerkerEntity> = mutableSetOf()
+    lateinit var medewerkers: MutableSet<MedewerkerEntity>
 
     @ManyToMany
     @JoinTable(
@@ -37,5 +37,5 @@ class RolEntity {
         joinColumns = [JoinColumn(name = "id_rol", referencedColumnName = "id_rol")],
         inverseJoinColumns = [JoinColumn(name = "id_recht", referencedColumnName = "id_recht")]
     )
-    val rechten: MutableSet<RechtEntity> = mutableSetOf()
+    lateinit var rechten: MutableSet<RechtEntity>
 }

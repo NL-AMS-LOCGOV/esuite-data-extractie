@@ -44,6 +44,6 @@ class DocumentVersieEntity {
 
     @OneToMany(mappedBy = "documentVersie")
     @OrderBy("ondertekenDatum desc")
-    val ondertekeningen: MutableSet<DocumentOndertekeningEntity> = mutableSetOf()
+    lateinit var ondertekeningen: MutableSet<DocumentOndertekeningEntity>
 
 }

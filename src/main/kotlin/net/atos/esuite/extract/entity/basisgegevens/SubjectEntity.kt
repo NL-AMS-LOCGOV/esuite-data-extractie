@@ -12,5 +12,5 @@ class SubjectEntity {
     var identifier: Long = 0
 
     @OneToMany(mappedBy = "subject")
-    val notities: MutableList<NotitieEntity> = mutableListOf()
+    lateinit var notities: MutableList<NotitieEntity>
 }

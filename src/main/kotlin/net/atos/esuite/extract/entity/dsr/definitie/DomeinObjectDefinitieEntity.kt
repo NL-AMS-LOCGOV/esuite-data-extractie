@@ -37,12 +37,12 @@ class DomeinObjectDefinitieEntity {
 
     @OneToMany(mappedBy = "domeinObjectDefinitie")
     @OrderBy("volgnummer ASC")
-    val attribuutDefinities: MutableList<AbstractAttribuutDefinitieEntity> = mutableListOf()
+    lateinit var attribuutDefinities: MutableList<AbstractAttribuutDefinitieEntity>
 
     @ElementCollection
     @CollectionTable(
         name = "dsr_def_domein_object_koppelbaar_aan", schema = "dsr",
         joinColumns = [JoinColumn(name = "id_def_domein_object", referencedColumnName = "id_def_domein_object")]
     )
-    val koppelbaarAanTypes: MutableList<DomeinObjectDefinitieKoppelbaarAanEntity> = mutableListOf()
+    lateinit var koppelbaarAanTypes: MutableList<DomeinObjectDefinitieKoppelbaarAanEntity>
 }
