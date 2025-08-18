@@ -1,10 +1,6 @@
 package net.atos.esuite.extract.entity.zakenmagazijn
 
 import jakarta.persistence.*
-import net.atos.esuite.extract.entity.configuratiemagazijn.ReferentieKanaalEntity
-import org.hibernate.annotations.JoinColumnOrFormula
-import org.hibernate.annotations.JoinColumnsOrFormulas
-import org.hibernate.annotations.JoinFormula
 import java.time.LocalDate
 
 
@@ -48,6 +44,6 @@ class DocumentVersieEntity {
 
     @OneToMany(mappedBy = "documentVersie")
     @OrderBy("ondertekenDatum desc")
-    var ondertekeningen: MutableSet<DocumentOndertekeningEntity> = mutableSetOf()
+    val ondertekeningen: MutableSet<DocumentOndertekeningEntity> = mutableSetOf()
 
 }

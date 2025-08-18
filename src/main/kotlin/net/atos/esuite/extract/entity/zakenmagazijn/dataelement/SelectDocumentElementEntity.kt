@@ -13,5 +13,5 @@ class SelectDocumentElementEntity: AbstractDataElementEntity() {
         joinColumns = [JoinColumn(name = "id_dataelement", referencedColumnName = "id_dataelement")]
     )
     @Column(name = "gemarshallde_selectdocument_waarde")
-    var gemarshalldeOptieWaarde: MutableList<String> = mutableListOf()
+    val gemarshalldeOptieWaarde: MutableList<String> = mutableListOf()
 }

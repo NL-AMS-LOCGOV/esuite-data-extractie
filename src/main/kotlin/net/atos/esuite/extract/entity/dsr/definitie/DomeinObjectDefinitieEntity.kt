@@ -10,7 +10,6 @@ import jakarta.persistence.ManyToOne
 import jakarta.persistence.OneToMany
 import jakarta.persistence.OrderBy
 import jakarta.persistence.Table
-import java.util.*
 
 /**
  * Entity class voor de definitie van een DSR-domeinobject.
@@ -38,12 +37,12 @@ class DomeinObjectDefinitieEntity {
 
     @OneToMany(mappedBy = "domeinObjectDefinitie")
     @OrderBy("volgnummer ASC")
-    var attribuutDefinities: MutableList<AbstractAttribuutDefinitieEntity> = mutableListOf()
+    val attribuutDefinities: MutableList<AbstractAttribuutDefinitieEntity> = mutableListOf()
 
     @ElementCollection
     @CollectionTable(
         name = "dsr_def_domein_object_koppelbaar_aan", schema = "dsr",
         joinColumns = [JoinColumn(name = "id_def_domein_object", referencedColumnName = "id_def_domein_object")]
     )
-    var koppelbaarAanTypes: MutableList<DomeinObjectDefinitieKoppelbaarAanEntity> = mutableListOf()
+    val koppelbaarAanTypes: MutableList<DomeinObjectDefinitieKoppelbaarAanEntity> = mutableListOf()
 }

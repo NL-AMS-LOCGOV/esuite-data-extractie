@@ -121,7 +121,7 @@ class BedrijfEntity : SubjectEntity() {
     var rechtsvorm: ReferentieRechtsvormEntity? = null
 
     @OneToMany(mappedBy = "bedrijf")
-    var adressen: MutableSet<BedrijfAdresEntity> = mutableSetOf()
+    val adressen: MutableSet<BedrijfAdresEntity> = mutableSetOf()
 
     @ManyToMany
     @JoinTable(
@@ -129,8 +129,8 @@ class BedrijfEntity : SubjectEntity() {
         joinColumns = [JoinColumn(name = "id_bedrijf")],
         inverseJoinColumns = [JoinColumn(name = "id_nevenactiviteit")]
     )
-    var nevenactiviteiten: MutableSet<ReferentieNevenactiviteitEntity> = mutableSetOf()
+    val nevenactiviteiten: MutableSet<ReferentieNevenactiviteitEntity> = mutableSetOf()
 
     @OneToMany(mappedBy = "bedrijf")
-    var contactpersonen: MutableSet<ContactpersoonEntity> = mutableSetOf()
+    val contactpersonen: MutableSet<ContactpersoonEntity> = mutableSetOf()
 }

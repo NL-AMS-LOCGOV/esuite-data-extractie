@@ -19,5 +19,5 @@ class ReferentieRechtsvormEntity : AbstractReferentieEntity() {
     var naamNhr: String? = null
 
     @OneToMany(mappedBy = "rechtsvorm")
-    var bedrijven: MutableList<BedrijfEntity> = mutableListOf()
+    val bedrijven: MutableList<BedrijfEntity> = mutableListOf()
 }

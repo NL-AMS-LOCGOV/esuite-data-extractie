@@ -33,9 +33,9 @@ fun AbstractReferentietabelRecordExtraAttribuutEntity.toReferentietabelRecordAtt
         is NummerReferentietabelRecordExtraAttribuutEntity -> NummerReferentietabelRecordAttribuut(waarde)
         is StringReferentietabelRecordExtraAttribuutEntity -> StringReferentietabelRecordAttribuut(waarde)
         else -> error("Unsupported ReferentietabelRecordExtraAttribuutEntity type: ${this.javaClass.name}")
-    }.also {
-        it.naam = referentietabelAttribuutDefinitie.naam
-        it.omschrijving = referentietabelAttribuutDefinitie.omschrijving
+    }.apply {
+        naam = referentietabelAttribuutDefinitie.naam
+        omschrijving = referentietabelAttribuutDefinitie.omschrijving
     }
 
 fun ReferentietabelRecordEntity.toReferentietabelRecord() =

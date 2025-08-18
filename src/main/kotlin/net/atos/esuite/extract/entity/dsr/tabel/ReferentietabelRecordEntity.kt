@@ -7,10 +7,8 @@ import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
 import jakarta.persistence.OneToMany
 import jakarta.persistence.Table
-import jakarta.persistence.Temporal
 import net.atos.esuite.extract.entity.dsr.definitie.ReferentietabelDefinitieEntity
 import java.time.LocalDate
-import java.util.*
 
 /**
  * Entity class voor één waarde in een referentietabel.
@@ -45,5 +43,5 @@ class ReferentietabelRecordEntity {
     var categorie: String? = null
 
     @OneToMany(mappedBy = "referentietabelRecord")
-    var extraAttributen: MutableList<AbstractReferentietabelRecordExtraAttribuutEntity> = mutableListOf()
+    val extraAttributen: MutableList<AbstractReferentietabelRecordExtraAttribuutEntity> = mutableListOf()
 }

@@ -46,13 +46,13 @@ class DomeinObjectEntity {
     var gewijzigdOp: LocalDate? = null
 
     @OneToMany(mappedBy = "domeinObject")
-    var attributen: MutableList<AttribuutEntity> = mutableListOf()
+    val attributen: MutableList<AttribuutEntity> = mutableListOf()
 
     @OneToMany(mappedBy = "domeinObject")
     @Fetch(FetchMode.JOIN)
-    var koppelingen: MutableList<DomeinObjectKoppelingEntity> = mutableListOf()
+    val koppelingen: MutableList<DomeinObjectKoppelingEntity> = mutableListOf()
 
     @OneToMany(mappedBy = "domeinObject")
     @OrderBy("identifier desc")
-    var historie: MutableList<DomeinObjectHistorieEntity> = mutableListOf()
+    val historie: MutableList<DomeinObjectHistorieEntity> = mutableListOf()
 }

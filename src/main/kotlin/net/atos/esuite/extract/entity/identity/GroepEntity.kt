@@ -41,5 +41,5 @@ class GroepEntity {
     var email: String? = null
 
     @ManyToMany(mappedBy = "groepen")
-    var medewerkers: MutableSet<MedewerkerEntity> = mutableSetOf()
+    val medewerkers: MutableSet<MedewerkerEntity> = mutableSetOf()
 }

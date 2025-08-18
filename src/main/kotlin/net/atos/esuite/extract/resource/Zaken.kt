@@ -14,7 +14,6 @@ import net.atos.esuite.extract.model.zaak.Zaak
 import net.atos.esuite.extract.model.zaak.ZaakOverzichtResults
 import net.atos.esuite.extract.repository.zaak.ZaakRepository
 import net.atos.esuite.extract.validation.FALSE
-import net.atos.esuite.extract.validation.TRUE
 import net.atos.esuite.extract.validation.ValidBoolean
 import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.media.Content
@@ -56,7 +55,7 @@ class Zaken(
         @BeanParam @Valid bladerParameters: BladerParameters
     ): Response {
         val (zaken, totaalAantalZaken) = zaakRepository.listByZaaktypeFunctioneelId(
-            zaaktype, inclusiefOpen == TRUE, bladerParameters.page, bladerParameters.pageSize
+            zaaktype, inclusiefOpen.toBoolean(), bladerParameters.page, bladerParameters.pageSize
         )
         return ok(
             ZaakOverzichtResults(

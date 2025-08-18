@@ -54,7 +54,7 @@ class ContactEntity {
     var aanvragerSubjectId : Long? = null
 
     @OneToMany(mappedBy = "contact")
-    var gekoppeldeBAGObjecten: MutableList<ContactBAGObjectEntity> = mutableListOf()
+    val gekoppeldeBAGObjecten: MutableList<ContactBAGObjectEntity> = mutableListOf()
 
     @ManyToOne
     @JoinColumn(name = "id_contactprioriteit")
@@ -95,11 +95,11 @@ class ContactEntity {
 
     @OneToMany(mappedBy = "contact")
     @OrderBy("identifier DESC")
-    var contactHistorie: MutableList<ContactHistorieEntity> = mutableListOf()
+    val contactHistorie: MutableList<ContactHistorieEntity> = mutableListOf()
 
     @OneToMany(mappedBy = "contact")
     @OrderBy(value = "datumantwoord DESC")
-    var voorlopigeAntwoorden: MutableList<VoorlopigAntwoordEntity> = mutableListOf()
+    val voorlopigeAntwoorden: MutableList<VoorlopigAntwoordEntity> = mutableListOf()
 
     @ManyToMany
     @JoinTable(
@@ -107,7 +107,7 @@ class ContactEntity {
         joinColumns = [JoinColumn(name = "id_contact_01", referencedColumnName = "id_contact")],
         inverseJoinColumns = [JoinColumn(name = "id_contact_02", referencedColumnName = "id_contact")]
     )
-    var gekoppeldeContacten1: MutableSet<ContactEntity> = mutableSetOf()
+    val gekoppeldeContacten1: MutableSet<ContactEntity> = mutableSetOf()
 
     @ManyToMany
     @JoinTable(
@@ -115,7 +115,7 @@ class ContactEntity {
         joinColumns = [JoinColumn(name = "id_contact_02", referencedColumnName = "id_contact")],
         inverseJoinColumns = [JoinColumn(name = "id_contact_01", referencedColumnName = "id_contact")]
     )
-    var gekoppeldeContacten2: MutableSet<ContactEntity> = mutableSetOf()
+    val gekoppeldeContacten2: MutableSet<ContactEntity> = mutableSetOf()
 
     @OneToOne
     @JoinColumn(name = "id_organisatie", referencedColumnName = "id_organisatie")

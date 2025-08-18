@@ -41,5 +41,5 @@ class AfdelingEntity {
     var email: String? = null
 
     @ManyToMany(mappedBy = "afdelingen")
-    var medewerkers: MutableSet<MedewerkerEntity> = mutableSetOf()
+    val medewerkers: MutableSet<MedewerkerEntity> = mutableSetOf()
 }

@@ -7,7 +7,6 @@ import jakarta.persistence.OneToMany
 import jakarta.persistence.OrderBy
 import jakarta.persistence.Table
 import net.atos.esuite.extract.entity.shared.AbstractReferentieEntity
-import java.util.*
 
 /**
  * Entity class voor de definitie van een referentietabel.
@@ -27,5 +26,5 @@ class ReferentietabelDefinitieEntity : AbstractReferentieEntity() {
 
     @OneToMany(mappedBy = "referentietabel")
     @OrderBy("volgnummer ASC")
-    var attribuutDefinities: MutableList<ReferentietabelAttribuutDefinitieEntity> = mutableListOf()
+    val attribuutDefinities: MutableList<ReferentietabelAttribuutDefinitieEntity> = mutableListOf()
 }

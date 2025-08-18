@@ -20,5 +20,5 @@ class DomeinDefinitieEntity : AbstractReferentieEntity() {
     var identifier: Long = 0
 
     @OneToMany(mappedBy = "domeinDefinitie")
-    var domeinObjectDefinities: MutableList<DomeinObjectDefinitieEntity> = mutableListOf()
+    val domeinObjectDefinities: MutableList<DomeinObjectDefinitieEntity> = mutableListOf()
 }
