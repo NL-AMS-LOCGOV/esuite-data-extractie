@@ -9,12 +9,9 @@ package net.atos.esuite.extract.validation
 fun commitsToElevenCheck(value: String): Boolean {
     val length = value.length
     var check = 0
-
-    for (i in length downTo 2) {
+    (length downTo 2).forEach { i ->
         check += i * value[length - i].digitToInt()
     }
-
     check += -1 * value[length - 1].digitToInt()
-
     return check % 11 == 0
 }

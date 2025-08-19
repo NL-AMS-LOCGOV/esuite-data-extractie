@@ -25,6 +25,6 @@ class Point2DJsonbAdapter : JsonbAdapter<Point2D, Array<BigDecimal>> {
     override fun adaptToJson(point2D: Point2D): Array<BigDecimal> = point2D.toCoordinates()
 
     override fun adaptFromJson(json: Array<BigDecimal>): Point2D {
-        TODO("Not yet implemented")
+        error("Not supported")
     }
 }
