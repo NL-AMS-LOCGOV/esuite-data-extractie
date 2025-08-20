@@ -23,7 +23,7 @@ class Ring2DJsonbAdapter : JsonbAdapter<Ring2D, Array<Array<BigDecimal>>> {
     override fun adaptToJson(ring: Ring2D): Array<Array<BigDecimal>> = ring.toCoordinates()
 
     override fun adaptFromJson(json: Array<Array<BigDecimal>>): Ring2D {
-        TODO("Not yet implemented")
+        error("Not supported")
     }
 }
 

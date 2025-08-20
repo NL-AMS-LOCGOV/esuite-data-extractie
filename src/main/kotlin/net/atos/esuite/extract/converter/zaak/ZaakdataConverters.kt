@@ -59,9 +59,9 @@ fun AbstractDataElementEntity.toDataElement(): DataElement =
         is ToestemmingDigitaleNotificatiesDataElementEntity -> ComplexDataElement(digitale_notificaties, complexeWaarde)
         is ZaakBesluitItemDataElementEntity -> ComplexDataElement(zaak_besluit, complexeWaarde)
         else -> error("Unsupported DataElementEntity type: ${this.javaClass.name}")
-    }.also {
-        it.naam = sleutel
-        it.omschrijving = omschrijving
+    }.apply {
+        naam = sleutel
+        omschrijving = this@toDataElement.omschrijving
     }
 
 private fun AanvullijstRecordEntity.toAanvullijstRecord() =

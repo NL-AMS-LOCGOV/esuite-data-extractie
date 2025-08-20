@@ -69,8 +69,8 @@ fun AbstractAttribuutWaardeEntity.toDomeinObjectAttribuutWaarde() =
             referentietabelRecord.toReferentietabelRecord()
         )
         else -> error("Unsupported AttribuutWaardeEntity type: ${this.javaClass.name}")
-    }.also {
-        it.volgnummer = volgnummer
+    }.apply {
+        volgnummer = this@toDomeinObjectAttribuutWaarde.volgnummer
     }
 
 fun DomeinObjectKoppelingEntity.toDomeinObjectKoppeling() =

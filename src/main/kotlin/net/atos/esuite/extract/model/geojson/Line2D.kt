@@ -23,7 +23,7 @@ class Line2DJsonbAdapter : JsonbAdapter<Line2D, Array<Array<BigDecimal>>> {
     override fun adaptToJson(line: Line2D): Array<Array<BigDecimal>> = line.toCoordinates()
 
     override fun adaptFromJson(json: Array<Array<BigDecimal>>): Line2D {
-        TODO("Not yet implemented")
+        error("Not supported")
     }
 }
 

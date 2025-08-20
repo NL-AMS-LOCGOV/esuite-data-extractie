@@ -22,6 +22,6 @@ class Polygon2DJsonbAdapter : JsonbAdapter<Polygon2D, Array<Array<Array<BigDecim
     override fun adaptToJson(polygon: Polygon2D): Array<Array<Array<BigDecimal>>> = polygon.toCoordinates()
 
     override fun adaptFromJson(json: Array<Array<Array<BigDecimal>>>): Polygon2D {
-        TODO("Not yet implemented")
+        error("Not supported")
     }
 }
