@@ -5,7 +5,9 @@ import net.atos.esuite.extract.converter.basisgegevens.toSubject
 import net.atos.esuite.extract.converter.document.DocumentConverter
 import net.atos.esuite.extract.converter.toKanaal
 import net.atos.esuite.extract.converter.toZonedDateTime
-import net.atos.esuite.extract.entity.zakenmagazijn.*
+import net.atos.esuite.extract.entity.zakenmagazijn.BesluitEntity
+import net.atos.esuite.extract.entity.zakenmagazijn.ZaakBetrokkeneEntity
+import net.atos.esuite.extract.entity.zakenmagazijn.ZaakEntity
 import net.atos.esuite.extract.model.besluit.Besluit
 import net.atos.esuite.extract.model.geojson.WKT
 import net.atos.esuite.extract.model.zaak.Zaak
@@ -13,12 +15,7 @@ import net.atos.esuite.extract.model.zaak.ZaakBetrokkene
 import net.atos.esuite.extract.model.zaak.ZaakBetrokkenetype
 import net.atos.esuite.extract.model.zaak.ZaakOverzicht
 import net.atos.esuite.extract.repository.basisgegevens.SubjectRepository
-import net.atos.esuite.extract.repository.zaak.BesluittypeRepository
-import net.atos.esuite.extract.repository.zaak.ResultaatRepository
-import net.atos.esuite.extract.repository.zaak.ZAAKTYPE_ID_PREFIX
-import net.atos.esuite.extract.repository.zaak.ZaakStatusRepository
-import net.atos.esuite.extract.repository.zaak.ZaaktypeRepository
-import kotlin.error
+import net.atos.esuite.extract.repository.zaak.*
 
 @ApplicationScoped
 class ZaakConverter(
@@ -85,7 +82,6 @@ class ZaakConverter(
     fun toZaakOverzicht(zaakEntity: ZaakEntity) =
         ZaakOverzicht(
             functioneleIdentificatie = zaakEntity.functioneelId,
-            zaaktype = toZaaktype(zaakEntity.zaaktypeId),
             zaakEntity.einddatum == null,
         )
 

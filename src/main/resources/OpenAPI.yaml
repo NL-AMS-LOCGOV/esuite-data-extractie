@@ -108,9 +108,14 @@ components:
     AfdelingOverzichtResults:
       type: object
       required:
-        - count
         - results
+        - count
       properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/AfdelingOverzicht"
+          description: Items in de huidige pagina
         count:
           type: integer
           format: int32
@@ -123,11 +128,6 @@ components:
           type: integer
           format: int32
           description: Volgende pagina met items
-        results:
-          type: array
-          items:
-            $ref: "#/components/schemas/AfdelingOverzicht"
-          description: Items in de huidige pagina
     ArchiveerGegevens:
       type: object
       properties:
@@ -679,9 +679,14 @@ components:
     ContactOverzichtResults:
       type: object
       required:
-        - count
         - results
+        - count
       properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/ContactOverzicht"
+          description: Items in de huidige pagina
         count:
           type: integer
           format: int32
@@ -694,11 +699,6 @@ components:
           type: integer
           format: int32
           description: Volgende pagina met items
-        results:
-          type: array
-          items:
-            $ref: "#/components/schemas/ContactOverzicht"
-          description: Items in de huidige pagina
     ContactPrioriteit:
       type: object
       required:
@@ -1436,32 +1436,14 @@ components:
     DomeinObjectResults:
       type: object
       required:
-        - count
         - results
+        - count
       properties:
-        count:
-          type: integer
-          format: int32
-          description: Totaal aantal items
-        previousPage:
-          type: integer
-          format: int32
-          description: Vorige pagina met items
-        nextPage:
-          type: integer
-          format: int32
-          description: Volgende pagina met items
         results:
           type: array
           items:
             $ref: "#/components/schemas/DomeinObject"
           description: Items in de huidige pagina
-    DomeinResults:
-      type: object
-      required:
-        - count
-        - results
-      properties:
         count:
           type: integer
           format: int32
@@ -1474,11 +1456,29 @@ components:
           type: integer
           format: int32
           description: Volgende pagina met items
+    DomeinResults:
+      type: object
+      required:
+        - results
+        - count
+      properties:
         results:
           type: array
           items:
             $ref: "#/components/schemas/Domein"
           description: Items in de huidige pagina
+        count:
+          type: integer
+          format: int32
+          description: Totaal aantal items
+        previousPage:
+          type: integer
+          format: int32
+          description: Vorige pagina met items
+        nextPage:
+          type: integer
+          format: int32
+          description: Volgende pagina met items
     Fout:
       type: object
       required:
@@ -1514,7 +1514,17 @@ components:
         waarde:
           type: string
           description: Well-known text geografische informatie
-    GeoJsonGeometry:
+    GeoReferentietabelRecordAttribuut:
+      type: object
+      required:
+        - waarde
+      allOf:
+        - $ref: "#/components/schemas/ReferentietabelRecordAttribuut"
+      properties:
+        waarde:
+          type: string
+          description: Well-known text geografische informatie
+    Geometry:
       type: object
       required:
         - type
@@ -1525,7 +1535,8 @@ components:
         - $ref: "#/components/schemas/Polygon"
         - $ref: "#/components/schemas/MultiPolygon"
         - $ref: "#/components/schemas/GeometryCollection"
-      description: GeoJSON Geometry object
+      description: "GeoJSON Geometry object in coördinatensysteem: RD-NEW (EPSG-code:\
+        \ 28992)"
       discriminator:
         propertyName: type
         mapping:
@@ -1540,16 +1551,6 @@ components:
           $ref: "#/components/schemas/GeometryType"
           type: string
           description: Geometry type
-    GeoReferentietabelRecordAttribuut:
-      type: object
-      required:
-        - waarde
-      allOf:
-        - $ref: "#/components/schemas/ReferentietabelRecordAttribuut"
-      properties:
-        waarde:
-          type: string
-          description: Well-known text geografische informatie
     GeometryCollection:
       type: object
       required:
@@ -1561,10 +1562,11 @@ components:
           $ref: "#/components/schemas/GeometryType"
           type: string
           description: Geometry type
+          default: GeometryCollection
         geometries:
           type: array
           items:
-            $ref: "#/components/schemas/GeoJsonGeometry"
+            $ref: "#/components/schemas/Geometry"
     GeometryType:
       type: string
       enum:
@@ -1635,9 +1637,14 @@ components:
     GroepOverzichtResults:
       type: object
       required:
-        - count
         - results
+        - count
       properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/GroepOverzicht"
+          description: Items in de huidige pagina
         count:
           type: integer
           format: int32
@@ -1650,11 +1657,6 @@ components:
           type: integer
           format: int32
           description: Volgende pagina met items
-        results:
-          type: array
-          items:
-            $ref: "#/components/schemas/GroepOverzicht"
-          description: Items in de huidige pagina
     History:
       type: object
       properties:
@@ -1725,6 +1727,7 @@ components:
           $ref: "#/components/schemas/GeometryType"
           type: string
           description: Geometry type
+          default: LineString
         coordinates:
           $ref: "#/components/schemas/Line2D"
     Medewerker:
@@ -1855,9 +1858,14 @@ components:
     MedewerkerOverzichtResults:
       type: object
       required:
-        - count
         - results
+        - count
       properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/MedewerkerOverzicht"
+          description: Items in de huidige pagina
         count:
           type: integer
           format: int32
@@ -1870,11 +1878,6 @@ components:
           type: integer
           format: int32
           description: Volgende pagina met items
-        results:
-          type: array
-          items:
-            $ref: "#/components/schemas/MedewerkerOverzicht"
-          description: Items in de huidige pagina
     MemoDomeinObjectAttribuutWaarde:
       type: object
       required:
@@ -1930,6 +1933,7 @@ components:
           $ref: "#/components/schemas/GeometryType"
           type: string
           description: Geometry type
+          default: MultiLineString
         coordinates:
           type: array
           items:
@@ -1945,6 +1949,7 @@ components:
           $ref: "#/components/schemas/GeometryType"
           type: string
           description: Geometry type
+          default: MultiPolygon
         coordinates:
           type: array
           items:
@@ -2253,6 +2258,7 @@ components:
           $ref: "#/components/schemas/GeometryType"
           type: string
           description: Geometry type
+          default: Point
         coordinates:
           $ref: "#/components/schemas/Point2D"
     Point2D:
@@ -2273,6 +2279,7 @@ components:
           $ref: "#/components/schemas/GeometryType"
           type: string
           description: Geometry type
+          default: Polygon
         coordinates:
           $ref: "#/components/schemas/Polygon2D"
     Polygon2D:
@@ -2571,32 +2578,14 @@ components:
     ReferentietabelRecordResults:
       type: object
       required:
-        - count
         - results
+        - count
       properties:
-        count:
-          type: integer
-          format: int32
-          description: Totaal aantal items
-        previousPage:
-          type: integer
-          format: int32
-          description: Vorige pagina met items
-        nextPage:
-          type: integer
-          format: int32
-          description: Volgende pagina met items
         results:
           type: array
           items:
             $ref: "#/components/schemas/ReferentietabelRecord"
           description: Items in de huidige pagina
-    ReferentietabelResults:
-      type: object
-      required:
-        - count
-        - results
-      properties:
         count:
           type: integer
           format: int32
@@ -2609,11 +2598,29 @@ components:
           type: integer
           format: int32
           description: Volgende pagina met items
+    ReferentietabelResults:
+      type: object
+      required:
+        - results
+        - count
+      properties:
         results:
           type: array
           items:
             $ref: "#/components/schemas/Referentietabel"
           description: Items in de huidige pagina
+        count:
+          type: integer
+          format: int32
+          description: Totaal aantal items
+        previousPage:
+          type: integer
+          format: int32
+          description: Vorige pagina met items
+        nextPage:
+          type: integer
+          format: int32
+          description: Volgende pagina met items
     Reisdocument:
       type: object
       required:
@@ -3269,7 +3276,7 @@ components:
         geolocatie:
           type: object
           description: Locatie van zaak
-          $ref: "#/components/schemas/GeoJsonGeometry"
+          $ref: "#/components/schemas/Geometry"
         historie:
           type: array
           items:
@@ -3484,26 +3491,26 @@ components:
       type: object
       required:
         - functioneleIdentificatie
-        - zaaktype
         - open
       properties:
         functioneleIdentificatie:
           type: string
           maxLength: 128
           description: Zaaknummer in e-Suite
-        zaaktype:
-          $ref: "#/components/schemas/Zaaktype"
-          type: object
-          description: Zaaktype
         open:
           type: boolean
           description: Is zaak open (nog niet beëindigd)
     ZaakOverzichtResults:
       type: object
       required:
-        - count
         - results
+        - count
       properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/ZaakOverzicht"
+          description: Items in de huidige pagina
         count:
           type: integer
           format: int32
@@ -3516,11 +3523,6 @@ components:
           type: integer
           format: int32
           description: Volgende pagina met items
-        results:
-          type: array
-          items:
-            $ref: "#/components/schemas/ZaakOverzicht"
-          description: Items in de huidige pagina
     ZaakRelatietype:
       type: string
       enum:
