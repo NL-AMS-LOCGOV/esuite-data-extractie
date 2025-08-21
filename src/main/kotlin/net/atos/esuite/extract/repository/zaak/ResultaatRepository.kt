@@ -5,5 +5,4 @@ import jakarta.enterprise.context.ApplicationScoped
 import net.atos.esuite.extract.entity.zakenmagazijn.ReferentieResultaatEntity
 
 @ApplicationScoped
-class ResultaatRepository : PanacheRepository<ReferentieResultaatEntity> {
-}
+class ResultaatRepository : PanacheRepository<ReferentieResultaatEntity>

@@ -8,5 +8,4 @@ val ZAAKTYPE_ID_PREFIX = "ZTC2:"
 
 @ApplicationScoped
 class ZaaktypeRepository : PanacheRepository<ReferentieZaakTypeEntity> {
-
 }

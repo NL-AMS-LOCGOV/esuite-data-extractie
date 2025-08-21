@@ -5,5 +5,5 @@ import jakarta.enterprise.context.ApplicationScoped
 import net.atos.esuite.extract.entity.zakenmagazijn.ReferentieBesluittypeEntity
 
 @ApplicationScoped
-class BesluittypeRepository : PanacheRepository<ReferentieBesluittypeEntity> {
-}
+class BesluittypeRepository : PanacheRepository<ReferentieBesluittypeEntity>
+
