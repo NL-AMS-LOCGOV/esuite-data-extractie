@@ -10,7 +10,7 @@ import java.util.logging.Logger
 @Provider
 class ThrowableExceptionMapper : ExceptionMapper<Throwable> {
 
-    private val logger = Logger.getLogger(ThrowableExceptionMapper::class.java.getName())
+    private val logger = Logger.getLogger(ThrowableExceptionMapper::class.qualifiedName)
 
     override fun toResponse(throwable: Throwable): Response {
         logger.log(Level.SEVERE, "Internal server error: ${throwable.message}", throwable)
