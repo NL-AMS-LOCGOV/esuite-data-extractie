@@ -5,12 +5,12 @@ import jakarta.ws.rs.*
 import jakarta.ws.rs.core.MediaType
 import jakarta.ws.rs.core.Response
 import jakarta.ws.rs.core.Response.ok
+import net.atos.esuite.extract.api.convert.identity.toMedewerker
+import net.atos.esuite.extract.api.convert.identity.toMedewerkerOverzicht
 import net.atos.esuite.extract.api.model.identity.Medewerker
 import net.atos.esuite.extract.api.model.identity.MedewerkerOverzichtResults
 import net.atos.esuite.extract.api.model.shared.BladerParameters
 import net.atos.esuite.extract.api.model.shared.Fout
-import net.atos.esuite.extract.convert.identity.toMedewerker
-import net.atos.esuite.extract.convert.identity.toMedewerkerOverzicht
 import net.atos.esuite.extract.db.repository.identity.MedewerkerRepository
 import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.media.Content

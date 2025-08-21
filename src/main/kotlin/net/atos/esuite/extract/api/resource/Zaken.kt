@@ -6,6 +6,7 @@ import jakarta.ws.rs.*
 import jakarta.ws.rs.core.MediaType
 import jakarta.ws.rs.core.Response
 import jakarta.ws.rs.core.Response.ok
+import net.atos.esuite.extract.api.convert.zaak.ZaakConverter
 import net.atos.esuite.extract.api.model.shared.BladerParameters
 import net.atos.esuite.extract.api.model.shared.Fout
 import net.atos.esuite.extract.api.model.shared.ValidatieFouten
@@ -13,7 +14,6 @@ import net.atos.esuite.extract.api.model.zaak.Zaak
 import net.atos.esuite.extract.api.model.zaak.ZaakOverzichtResults
 import net.atos.esuite.extract.api.validation.FALSE
 import net.atos.esuite.extract.api.validation.ValidBoolean
-import net.atos.esuite.extract.convert.zaak.ZaakConverter
 import net.atos.esuite.extract.db.repository.zaak.ZaakRepository
 import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.media.Content

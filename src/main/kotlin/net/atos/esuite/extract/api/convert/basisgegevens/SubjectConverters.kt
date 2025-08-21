@@ -1,4 +1,4 @@
-package net.atos.esuite.extract.convert.basisgegevens
+package net.atos.esuite.extract.api.convert.basisgegevens
 
 import net.atos.esuite.extract.api.model.basisgegevens.*
 import net.atos.esuite.extract.db.entity.basisgegevens.*

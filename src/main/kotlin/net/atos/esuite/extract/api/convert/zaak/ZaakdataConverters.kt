@@ -1,4 +1,4 @@
-package net.atos.esuite.extract.convert.zaak
+package net.atos.esuite.extract.api.convert.zaak
 
 import net.atos.esuite.extract.api.model.zaakdata.*
 import net.atos.esuite.extract.api.model.zaakdata.DataElementType.*

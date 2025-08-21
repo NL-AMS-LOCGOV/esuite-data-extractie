@@ -5,13 +5,13 @@ import jakarta.ws.rs.*
 import jakarta.ws.rs.core.MediaType
 import jakarta.ws.rs.core.Response
 import jakarta.ws.rs.core.Response.ok
+import net.atos.esuite.extract.api.convert.dsr.ReferentietabelConverter
+import net.atos.esuite.extract.api.convert.dsr.toReferentietabelRecord
 import net.atos.esuite.extract.api.model.dsr.tabel.Referentietabel
 import net.atos.esuite.extract.api.model.dsr.tabel.ReferentietabelRecordResults
 import net.atos.esuite.extract.api.model.dsr.tabel.ReferentietabelResults
 import net.atos.esuite.extract.api.model.shared.BladerParameters
 import net.atos.esuite.extract.api.model.shared.Fout
-import net.atos.esuite.extract.convert.dsr.ReferentietabelConverter
-import net.atos.esuite.extract.convert.dsr.toReferentietabelRecord
 import net.atos.esuite.extract.db.repository.dsr.ReferentietabelDefinitieRepository
 import net.atos.esuite.extract.db.repository.dsr.ReferentietabelRecordRepository
 import org.eclipse.microprofile.openapi.annotations.Operation

@@ -1,16 +1,16 @@
-package net.atos.esuite.extract.convert.zaak
+package net.atos.esuite.extract.api.convert.zaak
 
 import jakarta.enterprise.context.ApplicationScoped
+import net.atos.esuite.extract.api.convert.basisgegevens.toSubject
+import net.atos.esuite.extract.api.convert.document.DocumentConverter
+import net.atos.esuite.extract.api.convert.shared.toKanaal
+import net.atos.esuite.extract.api.convert.shared.toZonedDateTime
 import net.atos.esuite.extract.api.model.besluit.Besluit
 import net.atos.esuite.extract.api.model.geojson.WKT
 import net.atos.esuite.extract.api.model.zaak.Zaak
 import net.atos.esuite.extract.api.model.zaak.ZaakBetrokkene
 import net.atos.esuite.extract.api.model.zaak.ZaakBetrokkenetype
 import net.atos.esuite.extract.api.model.zaak.ZaakOverzicht
-import net.atos.esuite.extract.convert.basisgegevens.toSubject
-import net.atos.esuite.extract.convert.document.DocumentConverter
-import net.atos.esuite.extract.convert.shared.toKanaal
-import net.atos.esuite.extract.convert.shared.toZonedDateTime
 import net.atos.esuite.extract.db.entity.zakenmagazijn.BesluitEntity
 import net.atos.esuite.extract.db.entity.zakenmagazijn.ZaakBetrokkeneEntity
 import net.atos.esuite.extract.db.entity.zakenmagazijn.ZaakEntity

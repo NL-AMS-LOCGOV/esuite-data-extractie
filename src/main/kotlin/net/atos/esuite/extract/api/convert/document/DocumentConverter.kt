@@ -1,10 +1,10 @@
-package net.atos.esuite.extract.convert.document
+package net.atos.esuite.extract.api.convert.document
 
 import jakarta.enterprise.context.ApplicationScoped
+import net.atos.esuite.extract.api.convert.shared.toZonedDateTime
+import net.atos.esuite.extract.api.convert.zaak.toTaak
 import net.atos.esuite.extract.api.model.document.Document
 import net.atos.esuite.extract.api.model.document.DocumentMetadata
-import net.atos.esuite.extract.convert.shared.toZonedDateTime
-import net.atos.esuite.extract.convert.zaak.toTaak
 import net.atos.esuite.extract.db.entity.zakenmagazijn.*
 import net.atos.esuite.extract.db.repository.document.*
 import net.atos.esuite.extract.db.repository.zaak.ZAAKTYPE_ID_PREFIX

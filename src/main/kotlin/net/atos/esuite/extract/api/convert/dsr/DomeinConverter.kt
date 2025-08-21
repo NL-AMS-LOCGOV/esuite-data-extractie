@@ -1,4 +1,4 @@
-package net.atos.esuite.extract.convert.dsr
+package net.atos.esuite.extract.api.convert.dsr
 
 import jakarta.enterprise.context.ApplicationScoped
 import net.atos.esuite.extract.api.model.dsr.domein.Domein

@@ -1,8 +1,8 @@
-package net.atos.esuite.extract.convert.contact
+package net.atos.esuite.extract.api.convert.contact
 
+import net.atos.esuite.extract.api.convert.shared.toZonedDateTime
 import net.atos.esuite.extract.api.model.bag.BAGObject
 import net.atos.esuite.extract.api.model.contact.*
-import net.atos.esuite.extract.convert.shared.toZonedDateTime
 import net.atos.esuite.extract.db.entity.configuratiemagazijn.ReferentieOrganisatieEntity
 import net.atos.esuite.extract.db.entity.contactenmagazijn.*
 import net.atos.esuite.extract.db.entity.contactenmagazijn.ContactStatusType

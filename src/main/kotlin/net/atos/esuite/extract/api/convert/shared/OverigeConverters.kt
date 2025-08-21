@@ -1,4 +1,4 @@
-package net.atos.esuite.extract.convert.shared
+package net.atos.esuite.extract.api.convert.shared
 
 import java.time.Instant
 import java.time.LocalDate

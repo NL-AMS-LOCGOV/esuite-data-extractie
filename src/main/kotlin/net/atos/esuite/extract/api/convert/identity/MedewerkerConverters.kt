@@ -1,7 +1,7 @@
-package net.atos.esuite.extract.convert.identity
+package net.atos.esuite.extract.api.convert.identity
 
+import net.atos.esuite.extract.api.convert.shared.toZonedDateTime
 import net.atos.esuite.extract.api.model.identity.*
-import net.atos.esuite.extract.convert.shared.toZonedDateTime
 import net.atos.esuite.extract.db.entity.identity.FunctieEntity
 import net.atos.esuite.extract.db.entity.identity.MedewerkerEntity
 import net.atos.esuite.extract.db.entity.identity.RechtEntity

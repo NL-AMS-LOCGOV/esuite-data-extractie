@@ -1,8 +1,8 @@
-package net.atos.esuite.extract.convert.dsr
+package net.atos.esuite.extract.api.convert.dsr
 
+import net.atos.esuite.extract.api.convert.shared.toLocalDate
+import net.atos.esuite.extract.api.convert.shared.toZonedDateTime
 import net.atos.esuite.extract.api.model.dsr.tabel.*
-import net.atos.esuite.extract.convert.shared.toLocalDate
-import net.atos.esuite.extract.convert.shared.toZonedDateTime
 import net.atos.esuite.extract.db.entity.dsr.tabel.*
 
 fun AbstractReferentietabelRecordExtraAttribuutEntity.toReferentietabelRecordAttribuut() =

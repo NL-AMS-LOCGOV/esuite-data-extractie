@@ -1,10 +1,10 @@
-package net.atos.esuite.extract.convert.zaak
+package net.atos.esuite.extract.api.convert.zaak
 
+import net.atos.esuite.extract.api.convert.shared.toZonedDateTime
 import net.atos.esuite.extract.api.model.bag.BAGObject
 import net.atos.esuite.extract.api.model.besluit.Besluitcategorie
 import net.atos.esuite.extract.api.model.besluit.Besluittype
 import net.atos.esuite.extract.api.model.zaak.*
-import net.atos.esuite.extract.convert.shared.toZonedDateTime
 import net.atos.esuite.extract.db.entity.zakenmagazijn.*
 
 fun ReferentieZaakTypeEntity.toZaaktype() = Zaaktype(

@@ -5,13 +5,13 @@ import jakarta.ws.rs.*
 import jakarta.ws.rs.core.MediaType
 import jakarta.ws.rs.core.Response
 import jakarta.ws.rs.core.Response.ok
+import net.atos.esuite.extract.api.convert.dsr.DomeinConverter
+import net.atos.esuite.extract.api.convert.dsr.toDomeinObject
 import net.atos.esuite.extract.api.model.dsr.domein.Domein
 import net.atos.esuite.extract.api.model.dsr.domein.DomeinObjectResults
 import net.atos.esuite.extract.api.model.dsr.domein.DomeinResults
 import net.atos.esuite.extract.api.model.shared.BladerParameters
 import net.atos.esuite.extract.api.model.shared.Fout
-import net.atos.esuite.extract.convert.dsr.DomeinConverter
-import net.atos.esuite.extract.convert.dsr.toDomeinObject
 import net.atos.esuite.extract.db.repository.dsr.DomeinDefinitieRepository
 import net.atos.esuite.extract.db.repository.dsr.DomeinObjectRepository
 import org.eclipse.microprofile.openapi.annotations.Operation

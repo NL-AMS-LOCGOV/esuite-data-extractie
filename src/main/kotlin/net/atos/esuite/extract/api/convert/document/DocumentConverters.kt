@@ -1,7 +1,7 @@
-package net.atos.esuite.extract.convert.document
+package net.atos.esuite.extract.api.convert.document
 
+import net.atos.esuite.extract.api.convert.shared.toZonedDateTime
 import net.atos.esuite.extract.api.model.document.*
-import net.atos.esuite.extract.convert.shared.toZonedDateTime
 import net.atos.esuite.extract.db.entity.zakenmagazijn.*
 import net.atos.esuite.extract.db.entity.zakenmagazijn.DocumentPublicatieniveau
 

@@ -4,9 +4,9 @@ import jakarta.ws.rs.GET
 import jakarta.ws.rs.Path
 import jakarta.ws.rs.Produces
 import jakarta.ws.rs.core.MediaType
+import net.atos.esuite.extract.api.convert.zaak.toZaaktype
 import net.atos.esuite.extract.api.model.shared.Fout
 import net.atos.esuite.extract.api.model.zaak.Zaaktype
-import net.atos.esuite.extract.convert.zaak.toZaaktype
 import net.atos.esuite.extract.db.repository.zaak.ZaaktypeRepository
 import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.media.Content

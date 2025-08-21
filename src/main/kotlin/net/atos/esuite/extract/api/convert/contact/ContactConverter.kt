@@ -1,11 +1,11 @@
-package net.atos.esuite.extract.convert.contact
+package net.atos.esuite.extract.api.convert.contact
 
 import jakarta.enterprise.context.ApplicationScoped
+import net.atos.esuite.extract.api.convert.basisgegevens.toSubject
+import net.atos.esuite.extract.api.convert.shared.toKanaal
+import net.atos.esuite.extract.api.convert.shared.toZonedDateTime
 import net.atos.esuite.extract.api.model.contact.Contact
 import net.atos.esuite.extract.api.model.contact.ContactOverzicht
-import net.atos.esuite.extract.convert.basisgegevens.toSubject
-import net.atos.esuite.extract.convert.shared.toKanaal
-import net.atos.esuite.extract.convert.shared.toZonedDateTime
 import net.atos.esuite.extract.db.entity.contactenmagazijn.ContactEntity
 import net.atos.esuite.extract.db.repository.basisgegevens.SubjectRepository
 

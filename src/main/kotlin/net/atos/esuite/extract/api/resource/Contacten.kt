@@ -5,11 +5,11 @@ import jakarta.ws.rs.*
 import jakarta.ws.rs.core.MediaType
 import jakarta.ws.rs.core.Response
 import jakarta.ws.rs.core.Response.ok
+import net.atos.esuite.extract.api.convert.contact.ContactConverter
 import net.atos.esuite.extract.api.model.contact.Contact
 import net.atos.esuite.extract.api.model.contact.ContactOverzichtResults
 import net.atos.esuite.extract.api.model.shared.BladerParameters
 import net.atos.esuite.extract.api.model.shared.Fout
-import net.atos.esuite.extract.convert.contact.ContactConverter
 import net.atos.esuite.extract.db.repository.contact.ContactRepository
 import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.media.Content

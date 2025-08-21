@@ -1,4 +1,4 @@
-package net.atos.esuite.extract.convert.identity
+package net.atos.esuite.extract.api.convert.identity
 
 import net.atos.esuite.extract.api.model.identity.Groep
 import net.atos.esuite.extract.api.model.identity.GroepOverzicht
