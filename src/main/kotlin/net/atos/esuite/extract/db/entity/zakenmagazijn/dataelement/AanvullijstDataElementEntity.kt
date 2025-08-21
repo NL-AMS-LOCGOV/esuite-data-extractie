@@ -1,0 +1,16 @@
+package net.atos.esuite.extract.db.entity.zakenmagazijn.dataelement
+
+import jakarta.persistence.*
+
+
+@Entity
+@DiscriminatorValue("AANVULLIJST")
+class AanvullijstDataElementEntity: AbstractDataElementEntity() {
+
+    @ElementCollection
+    @CollectionTable(
+        name = "zkn_zaak_dataelement_aanvullijstrecords", schema = "zakenmagazijn",
+        joinColumns = [JoinColumn(name = "id_dataelement", referencedColumnName = "id_dataelement")]
+    )
+    lateinit var records: List<AanvullijstRecordEntity>
+}

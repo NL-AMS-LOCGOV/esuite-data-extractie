@@ -1,5 +1,6 @@
 package net.atos.esuite.extract.validation
 
+import net.atos.esuite.extract.api.validation.commitsToElevenCheck
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test

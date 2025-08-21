@@ -1,0 +1,13 @@
+package net.atos.esuite.extract.api.model.shared
+
+import jakarta.json.bind.annotation.JsonbPropertyOrder
+import org.eclipse.microprofile.openapi.annotations.media.Schema
+
+@JsonbPropertyOrder("melding", "aantal", "fouten")
+class ValidatieFouten(
+    @field:Schema(description = "Validatie fouten")
+    val fouten: List<ValidatieFout>,
+    
+    @field:Schema(description = "Foutmelding", required = true)
+    val aantal: Int = fouten.size
+) : Fout(melding = "Validatie fout(en)")
