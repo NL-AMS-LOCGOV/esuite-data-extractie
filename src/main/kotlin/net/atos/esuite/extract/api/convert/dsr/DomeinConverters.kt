@@ -1,9 +1,25 @@
 package net.atos.esuite.extract.api.convert.dsr
 
+import jakarta.enterprise.context.ApplicationScoped
 import net.atos.esuite.extract.api.convert.shared.toLocalDate
 import net.atos.esuite.extract.api.convert.shared.toZonedDateTime
 import net.atos.esuite.extract.api.model.dsr.domein.*
+import net.atos.esuite.extract.db.entity.dsr.definitie.DomeinDefinitieEntity
 import net.atos.esuite.extract.db.entity.dsr.domein.*
+import net.atos.esuite.extract.db.repository.dsr.DomeinObjectRepository
+
+@ApplicationScoped
+class DomeinConverter(
+    private val domeinObjectRepository: DomeinObjectRepository,
+) {
+    fun toDomein(domeinDefinitieEntity: DomeinDefinitieEntity) =
+        Domein(
+            naam = domeinDefinitieEntity.naam,
+            omschrijving = domeinDefinitieEntity.omschrijving,
+            actief = domeinDefinitieEntity.actief,
+            aantalObjecten = domeinObjectRepository.countByDomeinDefinitieId(domeinDefinitieEntity.identifier),
+        )
+}
 
 fun DomeinObjectEntity.toDomeinObject() =
     DomeinObject(
@@ -19,14 +35,14 @@ fun DomeinObjectEntity.toDomeinObject() =
         historie = historie.map { it.toDomeinObjectHistorie() }.ifEmpty { null },
     )
 
-fun AttribuutEntity.toDomeinObjectAttribuut() =
+private fun AttribuutEntity.toDomeinObjectAttribuut() =
     DomeinObjectAttribuut(
         naam = attribuutDefinitie.naam,
         omschrijving = attribuutDefinitie.omschrijving,
         waarden = waarden.map { it.toDomeinObjectAttribuutWaarde() },
     )
 
-fun AbstractAttribuutWaardeEntity.toDomeinObjectAttribuutWaarde() =
+private fun AbstractAttribuutWaardeEntity.toDomeinObjectAttribuutWaarde() =
     when (this) {
         is BooleanAttribuutWaardeEntity -> BooleanDomeinObjectAttribuutWaarde(waarde)
         is DatumAttribuutWaardeEntity -> DatumDomeinObjectAttribuutWaarde(waarde.toLocalDate())
@@ -45,13 +61,13 @@ fun AbstractAttribuutWaardeEntity.toDomeinObjectAttribuutWaarde() =
         volgnummer = this@toDomeinObjectAttribuutWaarde.volgnummer
     }
 
-fun DomeinObjectKoppelingEntity.toDomeinObjectKoppeling() =
+private fun DomeinObjectKoppelingEntity.toDomeinObjectKoppeling() =
     DomeinObjectKoppeling(
         gekoppeldObjectType = DomeinObjectKoppelingType.valueOf(gekoppeldAanType.lowercase()),
         gekoppeldObjectId = idGekoppeldObject,
     )
 
-fun DomeinObjectHistorieEntity.toDomeinObjectHistorie() =
+private fun DomeinObjectHistorieEntity.toDomeinObjectHistorie() =
     DomeinObjectHistorie(
         wijzigingDatum = datumwijziging,
         gewijzigdDoor = gewijzigddoor,

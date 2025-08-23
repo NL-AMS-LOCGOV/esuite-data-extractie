@@ -4,7 +4,7 @@ import jakarta.validation.Constraint
 import jakarta.validation.Payload
 import kotlin.reflect.KClass
 
-@Target(AnnotationTarget.FIELD, AnnotationTarget.VALUE_PARAMETER)
+@Target(AnnotationTarget.PROPERTY, AnnotationTarget.VALUE_PARAMETER)
 @Constraint(validatedBy = [KVKNummerValidator::class])
 annotation class ValidKVKNummer(
     val message: String = "Invalide KvK-nummer",

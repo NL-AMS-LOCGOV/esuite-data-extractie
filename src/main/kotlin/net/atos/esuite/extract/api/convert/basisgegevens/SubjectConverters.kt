@@ -99,7 +99,7 @@ fun BedrijfEntity.toBedrijf() =
         rechtsvorm = rechtsvorm?.toRechtsvorm(),
     )
 
-fun NotitieEntity.toNotitie() =
+private fun NotitieEntity.toNotitie() =
     SubjectNotitie(
         ingangsdatumGeldigheid = ingangsdatum,
         einddatumGeldigheid = datumgeldigtot,
