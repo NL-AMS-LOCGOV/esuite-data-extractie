@@ -7,7 +7,6 @@ class VestigingsnummerValidator : ConstraintValidator<ValidVestigingsnummer, Str
 
     private val VESTIGINGSNUMMER_PATTERN = Regex("^\\d{12}$")
 
-    override fun isValid(bsn: String?, context: ConstraintValidatorContext?): Boolean {
-        return bsn?.matches(VESTIGINGSNUMMER_PATTERN) ?: true
-    }
+    override fun isValid(vestigingsnummer: String?, context: ConstraintValidatorContext?) =
+        vestigingsnummer?.matches(VESTIGINGSNUMMER_PATTERN) ?: true
 }

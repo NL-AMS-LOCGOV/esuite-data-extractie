@@ -7,7 +7,6 @@ class KVKNummerValidator : ConstraintValidator<ValidKVKNummer, String> {
 
     private val KVK_NUMMER_PATTERN = Regex("^\\d{8}$")
 
-    override fun isValid(bsn: String?, context: ConstraintValidatorContext?): Boolean {
-        return bsn?.matches(KVK_NUMMER_PATTERN) ?: true
-    }
+    override fun isValid(kvkNummer: String?, context: ConstraintValidatorContext?) =
+        kvkNummer?.matches(KVK_NUMMER_PATTERN) ?: true
 }

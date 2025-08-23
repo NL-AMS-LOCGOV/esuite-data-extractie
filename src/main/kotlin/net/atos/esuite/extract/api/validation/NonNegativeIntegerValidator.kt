@@ -5,9 +5,6 @@ import jakarta.validation.ConstraintValidatorContext
 
 class NonNegativeIntegerValidator : ConstraintValidator<ValidNonNegativeInteger, String> {
 
-    override fun isValid(integer: String?, context: ConstraintValidatorContext): Boolean {
-        return integer?.let {
-            it.toIntOrNull()?.let { i -> i >= 0 } ?: false
-        } ?: true
-    }
+    override fun isValid(integer: String?, context: ConstraintValidatorContext?) =
+        integer?.let { it.toIntOrNull()?.let { i -> i >= 0 } ?: false } ?: true
 }
