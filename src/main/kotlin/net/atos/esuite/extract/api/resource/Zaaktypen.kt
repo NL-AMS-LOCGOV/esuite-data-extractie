@@ -10,7 +10,7 @@ import net.atos.esuite.extract.api.convert.shared.toPage
 import net.atos.esuite.extract.api.convert.zaak.toZaaktype
 import net.atos.esuite.extract.api.model.shared.BladerParameters
 import net.atos.esuite.extract.api.model.shared.Fout
-import net.atos.esuite.extract.api.model.zaak.ZaaktypeResults
+import net.atos.esuite.extract.api.model.shared.Results
 import net.atos.esuite.extract.db.repository.zaak.ZaaktypeRepository
 import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.media.Content
@@ -29,17 +29,9 @@ class Zaaktypen(
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(operationId = "zaaktype_list", summary = "Lijst van zaaktypen opvragen")
-    @APIResponse(
-        responseCode = "200", description = "OK",
-        content = [Content(schema = Schema(implementation = ZaaktypeResults::class))]
-    )
+    @APIResponse(responseCode = "200", description = "OK")
     fun zaaktypeList(@BeanParam @Valid bladerParameters: BladerParameters) =
         with(zaaktypeRepository.findAll().page(bladerParameters.toPage())) {
-            ZaaktypeResults(
-                list().map { it.toZaaktype() },
-                count(),
-                hasPreviousPage(),
-                hasNextPage(),
-            )
+            Results(list().map { it.toZaaktype() }, count(), hasPreviousPage(), hasNextPage())
         }
 }

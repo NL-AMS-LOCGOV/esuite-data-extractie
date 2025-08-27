@@ -2,8 +2,8 @@ package net.atos.esuite.extract.api.model.shared
 
 import org.eclipse.microprofile.openapi.annotations.media.Schema
 
-open class Results<T>(
-    @field:Schema(description = "Reslultaat op huidige pagina")
+class Results<T>(
+    @field:Schema(description = "Reslultaten op huidige pagina")
     val results: List<T>,
 
     @field:Schema(description = "Totaal aantal", required = true)

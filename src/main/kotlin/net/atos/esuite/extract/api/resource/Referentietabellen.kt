@@ -6,11 +6,9 @@ import jakarta.ws.rs.core.MediaType
 import net.atos.esuite.extract.api.convert.dsr.ReferentietabelConverter
 import net.atos.esuite.extract.api.convert.dsr.toReferentietabelRecord
 import net.atos.esuite.extract.api.convert.shared.toPage
-import net.atos.esuite.extract.api.model.dsr.tabel.Referentietabel
-import net.atos.esuite.extract.api.model.dsr.tabel.ReferentietabelRecordResults
-import net.atos.esuite.extract.api.model.dsr.tabel.ReferentietabelResults
 import net.atos.esuite.extract.api.model.shared.BladerParameters
 import net.atos.esuite.extract.api.model.shared.Fout
+import net.atos.esuite.extract.api.model.shared.Results
 import net.atos.esuite.extract.db.repository.dsr.ReferentietabelDefinitieRepository
 import net.atos.esuite.extract.db.repository.dsr.ReferentietabelRecordRepository
 import org.eclipse.microprofile.openapi.annotations.Operation
@@ -32,27 +30,19 @@ class Referentietabellen(
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(operationId = "referentietabel_list", summary = "Lijst van referentietabellen opvragen")
-    @APIResponse(
-        responseCode = "200", description = "OK",
-        content = [Content(schema = Schema(implementation = ReferentietabelResults::class))]
-    )
+    @APIResponse(responseCode = "200", description = "OK")
     fun referentietabelList(
         @BeanParam @Valid bladerParameters: BladerParameters
     ) =
         with(referentietabelDefinitieRepository.findAll().page(bladerParameters.toPage())) {
-            ReferentietabelResults(
-                list().map { referentietabelConverter.toReferentietabel(it) }, count(), hasPreviousPage(), hasNextPage()
-            )
+            Results(list().map { referentietabelConverter.toReferentietabel(it) }, count(), hasPreviousPage(), hasNextPage())
         }
 
     @GET
     @Path("{naam}")
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(operationId = "referentietabel_read", summary = "Een specifieke referentietabel opvragen")
-    @APIResponse(
-        responseCode = "200", description = "OK",
-        content = [Content(schema = Schema(implementation = Referentietabel::class))]
-    )
+    @APIResponse(responseCode = "200", description = "OK")
     @APIResponse(
         responseCode = "404", description = "Not Found",
         content = [Content(schema = Schema(implementation = Fout::class))]
@@ -66,17 +56,12 @@ class Referentietabellen(
     @Path("{referentietabel_naam}/records")
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(operationId = "referentietabel_record_list", summary = "Records van een referentietabel opvragen")
-    @APIResponse(
-        responseCode = "200", description = "OK",
-        content = [Content(schema = Schema(implementation = ReferentietabelRecordResults::class))]
-    )
+    @APIResponse(responseCode = "200", description = "OK")
     fun referentietabelRecordList(
         @PathParam("referentietabel_naam") referentietabelNaam: String,
         @BeanParam @Valid bladerParameters: BladerParameters
     ) =
         with(referentietabelRecordRepository.listByReferentietabelNaam(referentietabelNaam).page(bladerParameters.toPage())) {
-            ReferentietabelRecordResults(
-                list().map { it.toReferentietabelRecord() }, count(), hasPreviousPage(), hasNextPage(),
-            )
+            Results(list().map { it.toReferentietabelRecord() }, count(), hasPreviousPage(), hasNextPage())
         }
 }

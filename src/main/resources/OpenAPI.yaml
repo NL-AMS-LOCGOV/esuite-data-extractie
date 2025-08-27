@@ -95,6 +95,43 @@ components:
         - verblijf_adres_persoon
         - post_adres_bedrijf
         - vestigings_adres_bedrijf
+    Afdeling:
+      type: object
+      required:
+        - naam
+        - omschrijving
+        - actief
+        - medewerkers
+      properties:
+        naam:
+          type: string
+          uniqueItems: true
+          maxLength: 128
+          description: Naam van afdeling
+        code:
+          type: string
+          maxLength: 128
+          description: Interne code van afdeling
+        omschrijving:
+          type: string
+          description: Omschrijving van afdeling
+        afdelingshoofd:
+          type: string
+          maxLength: 128
+          description: Gebruikersnaam van hoofd van afdeling
+        emailadres:
+          type: string
+          maxLength: 64
+          pattern: E-mailadres van afdeling
+        actief:
+          type: boolean
+          description: Is afdeling actief
+        medewerkers:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+          description: Gebruikersnamen van medewerkers in afdeling
     AfdelingOverzicht:
       type: object
       required:
@@ -105,29 +142,6 @@ components:
           uniqueItems: true
           maxLength: 128
           description: Naam van afdeling
-    AfdelingOverzichtResults:
-      type: object
-      required:
-        - results
-        - count
-        - previousPage
-        - nextPage
-      properties:
-        results:
-          type: array
-          items:
-            $ref: "#/components/schemas/AfdelingOverzicht"
-          description: Reslultaat op huidige pagina
-        count:
-          type: integer
-          format: int64
-          description: Totaal aantal
-        previousPage:
-          type: boolean
-          description: Is er een vorige pagina
-        nextPage:
-          type: boolean
-          description: Is er een volgende pagina
     ArchiveerGegevens:
       type: object
       properties:
@@ -676,29 +690,6 @@ components:
           type: string
           maxLength: 128
           description: Functionele identificatie
-    ContactOverzichtResults:
-      type: object
-      required:
-        - results
-        - count
-        - previousPage
-        - nextPage
-      properties:
-        results:
-          type: array
-          items:
-            $ref: "#/components/schemas/ContactOverzicht"
-          description: Reslultaat op huidige pagina
-        count:
-          type: integer
-          format: int64
-          description: Totaal aantal
-        previousPage:
-          type: boolean
-          description: Is er een vorige pagina
-        nextPage:
-          type: boolean
-          description: Is er een volgende pagina
     ContactPrioriteit:
       type: object
       required:
@@ -1433,52 +1424,6 @@ components:
         - bag_object
         - persoon
         - bedrijf
-    DomeinObjectResults:
-      type: object
-      required:
-        - results
-        - count
-        - previousPage
-        - nextPage
-      properties:
-        results:
-          type: array
-          items:
-            $ref: "#/components/schemas/DomeinObject"
-          description: Reslultaat op huidige pagina
-        count:
-          type: integer
-          format: int64
-          description: Totaal aantal
-        previousPage:
-          type: boolean
-          description: Is er een vorige pagina
-        nextPage:
-          type: boolean
-          description: Is er een volgende pagina
-    DomeinResults:
-      type: object
-      required:
-        - results
-        - count
-        - previousPage
-        - nextPage
-      properties:
-        results:
-          type: array
-          items:
-            $ref: "#/components/schemas/Domein"
-          description: Reslultaat op huidige pagina
-        count:
-          type: integer
-          format: int64
-          description: Totaal aantal
-        previousPage:
-          type: boolean
-          description: Is er een vorige pagina
-        nextPage:
-          type: boolean
-          description: Is er een volgende pagina
     Fout:
       type: object
       required:
@@ -1634,29 +1579,6 @@ components:
           uniqueItems: true
           maxLength: 128
           description: Naam van groep
-    GroepOverzichtResults:
-      type: object
-      required:
-        - results
-        - count
-        - previousPage
-        - nextPage
-      properties:
-        results:
-          type: array
-          items:
-            $ref: "#/components/schemas/GroepOverzicht"
-          description: Reslultaat op huidige pagina
-        count:
-          type: integer
-          format: int64
-          description: Totaal aantal
-        previousPage:
-          type: boolean
-          description: Is er een vorige pagina
-        nextPage:
-          type: boolean
-          description: Is er een volgende pagina
     History:
       type: object
       properties:
@@ -1855,29 +1777,6 @@ components:
           type: string
           maxLength: 128
           description: Volledige naam van medewerker
-    MedewerkerOverzichtResults:
-      type: object
-      required:
-        - results
-        - count
-        - previousPage
-        - nextPage
-      properties:
-        results:
-          type: array
-          items:
-            $ref: "#/components/schemas/MedewerkerOverzicht"
-          description: Reslultaat op huidige pagina
-        count:
-          type: integer
-          format: int64
-          description: Totaal aantal
-        previousPage:
-          type: boolean
-          description: Is er een vorige pagina
-        nextPage:
-          type: boolean
-          description: Is er een volgende pagina
     MemoDomeinObjectAttribuutWaarde:
       type: object
       required:
@@ -2575,52 +2474,6 @@ components:
           $ref: "#/components/schemas/ReferentietabelRecord"
           type: object
           description: Referentietabel record
-    ReferentietabelRecordResults:
-      type: object
-      required:
-        - results
-        - count
-        - previousPage
-        - nextPage
-      properties:
-        results:
-          type: array
-          items:
-            $ref: "#/components/schemas/ReferentietabelRecord"
-          description: Reslultaat op huidige pagina
-        count:
-          type: integer
-          format: int64
-          description: Totaal aantal
-        previousPage:
-          type: boolean
-          description: Is er een vorige pagina
-        nextPage:
-          type: boolean
-          description: Is er een volgende pagina
-    ReferentietabelResults:
-      type: object
-      required:
-        - results
-        - count
-        - previousPage
-        - nextPage
-      properties:
-        results:
-          type: array
-          items:
-            $ref: "#/components/schemas/Referentietabel"
-          description: Reslultaat op huidige pagina
-        count:
-          type: integer
-          format: int64
-          description: Totaal aantal
-        previousPage:
-          type: boolean
-          description: Is er een vorige pagina
-        nextPage:
-          type: boolean
-          description: Is er een volgende pagina
     Reisdocument:
       type: object
       required:
@@ -2735,6 +2588,259 @@ components:
           maxLength: 255
           description: Code welke gebruikt wordt voor het uitwisselen van zaak informatie
             naar externe systemen zoals bijvoorbeeld via StUF-ZKN-DMS
+    ResultsAfdelingOverzicht:
+      type: object
+      required:
+        - results
+        - count
+        - previousPage
+        - nextPage
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/AfdelingOverzicht"
+          description: Reslultaten op huidige pagina
+        count:
+          type: integer
+          format: int64
+          description: Totaal aantal
+        previousPage:
+          type: boolean
+          description: Is er een vorige pagina
+        nextPage:
+          type: boolean
+          description: Is er een volgende pagina
+    ResultsBedrijf:
+      type: object
+      required:
+        - results
+        - count
+        - previousPage
+        - nextPage
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/Bedrijf"
+          description: Reslultaten op huidige pagina
+        count:
+          type: integer
+          format: int64
+          description: Totaal aantal
+        previousPage:
+          type: boolean
+          description: Is er een vorige pagina
+        nextPage:
+          type: boolean
+          description: Is er een volgende pagina
+    ResultsContactOverzicht:
+      type: object
+      required:
+        - results
+        - count
+        - previousPage
+        - nextPage
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/ContactOverzicht"
+          description: Reslultaten op huidige pagina
+        count:
+          type: integer
+          format: int64
+          description: Totaal aantal
+        previousPage:
+          type: boolean
+          description: Is er een vorige pagina
+        nextPage:
+          type: boolean
+          description: Is er een volgende pagina
+    ResultsDomein:
+      type: object
+      required:
+        - results
+        - count
+        - previousPage
+        - nextPage
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/Domein"
+          description: Reslultaten op huidige pagina
+        count:
+          type: integer
+          format: int64
+          description: Totaal aantal
+        previousPage:
+          type: boolean
+          description: Is er een vorige pagina
+        nextPage:
+          type: boolean
+          description: Is er een volgende pagina
+    ResultsDomeinObject:
+      type: object
+      required:
+        - results
+        - count
+        - previousPage
+        - nextPage
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/DomeinObject"
+          description: Reslultaten op huidige pagina
+        count:
+          type: integer
+          format: int64
+          description: Totaal aantal
+        previousPage:
+          type: boolean
+          description: Is er een vorige pagina
+        nextPage:
+          type: boolean
+          description: Is er een volgende pagina
+    ResultsGroepOverzicht:
+      type: object
+      required:
+        - results
+        - count
+        - previousPage
+        - nextPage
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/GroepOverzicht"
+          description: Reslultaten op huidige pagina
+        count:
+          type: integer
+          format: int64
+          description: Totaal aantal
+        previousPage:
+          type: boolean
+          description: Is er een vorige pagina
+        nextPage:
+          type: boolean
+          description: Is er een volgende pagina
+    ResultsMedewerkerOverzicht:
+      type: object
+      required:
+        - results
+        - count
+        - previousPage
+        - nextPage
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/MedewerkerOverzicht"
+          description: Reslultaten op huidige pagina
+        count:
+          type: integer
+          format: int64
+          description: Totaal aantal
+        previousPage:
+          type: boolean
+          description: Is er een vorige pagina
+        nextPage:
+          type: boolean
+          description: Is er een volgende pagina
+    ResultsReferentietabel:
+      type: object
+      required:
+        - results
+        - count
+        - previousPage
+        - nextPage
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/Referentietabel"
+          description: Reslultaten op huidige pagina
+        count:
+          type: integer
+          format: int64
+          description: Totaal aantal
+        previousPage:
+          type: boolean
+          description: Is er een vorige pagina
+        nextPage:
+          type: boolean
+          description: Is er een volgende pagina
+    ResultsReferentietabelRecord:
+      type: object
+      required:
+        - results
+        - count
+        - previousPage
+        - nextPage
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/ReferentietabelRecord"
+          description: Reslultaten op huidige pagina
+        count:
+          type: integer
+          format: int64
+          description: Totaal aantal
+        previousPage:
+          type: boolean
+          description: Is er een vorige pagina
+        nextPage:
+          type: boolean
+          description: Is er een volgende pagina
+    ResultsZaakOverzicht:
+      type: object
+      required:
+        - results
+        - count
+        - previousPage
+        - nextPage
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/ZaakOverzicht"
+          description: Reslultaten op huidige pagina
+        count:
+          type: integer
+          format: int64
+          description: Totaal aantal
+        previousPage:
+          type: boolean
+          description: Is er een vorige pagina
+        nextPage:
+          type: boolean
+          description: Is er een volgende pagina
+    ResultsZaaktype:
+      type: object
+      required:
+        - results
+        - count
+        - previousPage
+        - nextPage
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/Zaaktype"
+          description: Reslultaten op huidige pagina
+        count:
+          type: integer
+          format: int64
+          description: Totaal aantal
+        previousPage:
+          type: boolean
+          description: Is er een vorige pagina
+        nextPage:
+          type: boolean
+          description: Is er een volgende pagina
     Ring2D:
       type: array
       minItems: 4
@@ -3495,29 +3601,6 @@ components:
         open:
           type: boolean
           description: Is zaak open (nog niet beëindigd)
-    ZaakOverzichtResults:
-      type: object
-      required:
-        - results
-        - count
-        - previousPage
-        - nextPage
-      properties:
-        results:
-          type: array
-          items:
-            $ref: "#/components/schemas/ZaakOverzicht"
-          description: Reslultaat op huidige pagina
-        count:
-          type: integer
-          format: int64
-          description: Totaal aantal
-        previousPage:
-          type: boolean
-          description: Is er een vorige pagina
-        nextPage:
-          type: boolean
-          description: Is er een volgende pagina
     ZaakRelatietype:
       type: string
       enum:
@@ -3573,29 +3656,6 @@ components:
           type: string
           maxLength: 128
           description: Functionele identificatie van zaaktype
-    ZaaktypeResults:
-      type: object
-      required:
-        - results
-        - count
-        - previousPage
-        - nextPage
-      properties:
-        results:
-          type: array
-          items:
-            $ref: "#/components/schemas/Zaaktype"
-          description: Reslultaat op huidige pagina
-        count:
-          type: integer
-          format: int64
-          description: Totaal aantal
-        previousPage:
-          type: boolean
-          description: Is er een vorige pagina
-        nextPage:
-          type: boolean
-          description: Is er een volgende pagina
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
@@ -3644,7 +3704,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/AfdelingOverzichtResults"
+                $ref: "#/components/schemas/ResultsAfdelingOverzicht"
       tags:
         - Afdelingen
   /afdelingen/{naam}:
@@ -3671,7 +3731,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Medewerker"
+                $ref: "#/components/schemas/Afdeling"
         "404":
           description: Not Found
           content:
@@ -3692,6 +3752,20 @@ paths:
             minLength: 8
             maxLength: 8
             description: KvK nummer
+        - name: page
+          in: query
+          schema:
+            type: integer
+            format: int32
+            description: Gewenste pagina; start bij 0
+            default: 0
+        - name: page_size
+          in: query
+          schema:
+            type: integer
+            format: int32
+            description: Maximum aantal items per pagina
+            default: 100
         - name: vestigingsnummer
           in: query
           schema:
@@ -3713,9 +3787,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Bedrijf"
+                $ref: "#/components/schemas/ResultsBedrijf"
         "400":
           description: Bad Request
           content:
@@ -3791,7 +3863,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ContactOverzichtResults"
+                $ref: "#/components/schemas/ResultsContactOverzicht"
       tags:
         - Contacten
   /contacten/{functionele_Identificatie}:
@@ -3896,7 +3968,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/DomeinResults"
+                $ref: "#/components/schemas/ResultsDomein"
       tags:
         - Domeinen
   /domeinen/{domein_naam}/objecten:
@@ -3937,7 +4009,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/DomeinObjectResults"
+                $ref: "#/components/schemas/ResultsDomeinObject"
       tags:
         - Domeinen
   /domeinen/{naam}:
@@ -4006,7 +4078,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/GroepOverzichtResults"
+                $ref: "#/components/schemas/ResultsGroepOverzicht"
       tags:
         - Groepen
   /groepen/{naam}:
@@ -4075,7 +4147,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/MedewerkerOverzichtResults"
+                $ref: "#/components/schemas/ResultsMedewerkerOverzicht"
       tags:
         - Medewerkers
   /medewerkers/{gebruikersnaam}:
@@ -4216,7 +4288,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ReferentietabelResults"
+                $ref: "#/components/schemas/ResultsReferentietabel"
       tags:
         - Referentietabellen
   /referentietabellen/{naam}:
@@ -4290,7 +4362,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ReferentietabelRecordResults"
+                $ref: "#/components/schemas/ResultsReferentietabelRecord"
       tags:
         - Referentietabellen
   /zaaktypen:
@@ -4326,7 +4398,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ZaaktypeResults"
+                $ref: "#/components/schemas/ResultsZaaktype"
       tags:
         - Zaaktypen
   /zaken:
@@ -4375,7 +4447,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ZaakOverzichtResults"
+                $ref: "#/components/schemas/ResultsZaakOverzicht"
         "400":
           description: Bad Request
           content:

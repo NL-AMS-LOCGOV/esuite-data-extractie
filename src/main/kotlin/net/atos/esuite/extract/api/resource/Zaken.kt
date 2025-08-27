@@ -8,9 +8,8 @@ import net.atos.esuite.extract.api.convert.shared.toPage
 import net.atos.esuite.extract.api.convert.zaak.ZaakConverter
 import net.atos.esuite.extract.api.model.shared.BladerParameters
 import net.atos.esuite.extract.api.model.shared.Fout
+import net.atos.esuite.extract.api.model.shared.Results
 import net.atos.esuite.extract.api.model.shared.ValidatieFouten
-import net.atos.esuite.extract.api.model.zaak.Zaak
-import net.atos.esuite.extract.api.model.zaak.ZaakOverzichtResults
 import net.atos.esuite.extract.api.validation.FALSE
 import net.atos.esuite.extract.api.validation.ValidBoolean
 import net.atos.esuite.extract.db.repository.zaak.ZaakRepository
@@ -32,10 +31,7 @@ class Zaken(
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(operationId = "zaak_list", summary = "Lijst van zaak overzichten opvragen")
-    @APIResponse(
-        responseCode = "200", description = "OK",
-        content = [Content(schema = Schema(implementation = ZaakOverzichtResults::class))]
-    )
+    @APIResponse(responseCode = "200", description = "OK")
     @APIResponse(
         responseCode = "400", description = "Bad Request",
         content = [Content(schema = Schema(implementation = ValidatieFouten::class))]
@@ -57,19 +53,14 @@ class Zaken(
             zaakRepository.listByZaaktypeFunctioneelId(zaaktype, inclusiefOpen.toBoolean())
                 .page(bladerParameters.toPage())
         ) {
-            ZaakOverzichtResults(
-                list().map { zaakConverter.toZaakOverzicht(it) }, count(), hasPreviousPage(), hasNextPage(),
-            )
+            Results(list().map { zaakConverter.toZaakOverzicht(it) }, count(), hasPreviousPage(), hasNextPage())
         }
 
     @GET
     @Path("{functionele_Identificatie}")
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(operationId = "zaak_read", summary = "Een specifieke zaak opvragen op basis van de functiele identificatie")
-    @APIResponse(
-        responseCode = "200", description = "OK",
-        content = [Content(schema = Schema(implementation = Zaak::class))]
-    )
+    @APIResponse(responseCode = "200", description = "OK")
     @APIResponse(
         responseCode = "404", description = "Not Found",
         content = [Content(schema = Schema(implementation = Fout::class))]

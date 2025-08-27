@@ -6,11 +6,9 @@ import jakarta.ws.rs.core.MediaType
 import net.atos.esuite.extract.api.convert.dsr.DomeinConverter
 import net.atos.esuite.extract.api.convert.dsr.toDomeinObject
 import net.atos.esuite.extract.api.convert.shared.toPage
-import net.atos.esuite.extract.api.model.dsr.domein.Domein
-import net.atos.esuite.extract.api.model.dsr.domein.DomeinObjectResults
-import net.atos.esuite.extract.api.model.dsr.domein.DomeinResults
 import net.atos.esuite.extract.api.model.shared.BladerParameters
 import net.atos.esuite.extract.api.model.shared.Fout
+import net.atos.esuite.extract.api.model.shared.Results
 import net.atos.esuite.extract.db.repository.dsr.DomeinDefinitieRepository
 import net.atos.esuite.extract.db.repository.dsr.DomeinObjectRepository
 import org.eclipse.microprofile.openapi.annotations.Operation
@@ -32,30 +30,19 @@ class Domeinen(
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(operationId = "domein_list", summary = "Lijst van domeinen opvragen")
-    @APIResponse(
-        responseCode = "200", description = "OK",
-        content = [Content(schema = Schema(implementation = DomeinResults::class))]
-    )
+    @APIResponse(responseCode = "200", description = "OK")
     fun domeinList(
         @BeanParam @Valid bladerParameters: BladerParameters
     ) =
         with(domeinDefinitieRepository.findAll().page(bladerParameters.toPage())) {
-            DomeinResults(
-                list().map { domeinConverter.toDomein(it) },
-                count(),
-                hasPreviousPage(),
-                hasNextPage(),
-            )
+            Results(list().map { domeinConverter.toDomein(it) }, count(), hasPreviousPage(), hasNextPage())
         }
 
     @GET
     @Path("{naam}")
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(operationId = "domein_read", summary = "Een specifiek domein opvragen")
-    @APIResponse(
-        responseCode = "200", description = "OK",
-        content = [Content(schema = Schema(implementation = Domein::class))]
-    )
+    @APIResponse(responseCode = "200", description = "OK")
     @APIResponse(
         responseCode = "404", description = "Not Found",
         content = [Content(schema = Schema(implementation = Fout::class))]
@@ -69,15 +56,12 @@ class Domeinen(
     @Path("{domein_naam}/objecten")
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(operationId = "domein_object_list", summary = "Objecten van een domein opvragen")
-    @APIResponse(
-        responseCode = "200", description = "OK",
-        content = [Content(schema = Schema(implementation = DomeinObjectResults::class))]
-    )
+    @APIResponse(responseCode = "200", description = "OK")
     fun domeinObjectList(
         @PathParam("domein_naam") domeinNaam: String,
         @BeanParam @Valid bladerParameters: BladerParameters
     ) =
         with(domeinObjectRepository.listByDomeinNaam(domeinNaam).page(bladerParameters.toPage())) {
-            DomeinObjectResults(list().map { it.toDomeinObject() }, count(), hasPreviousPage(), hasNextPage())
+            Results(list().map { it.toDomeinObject() }, count(), hasPreviousPage(), hasNextPage())
         }
 }

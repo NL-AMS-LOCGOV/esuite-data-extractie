@@ -6,10 +6,9 @@ import jakarta.ws.rs.core.MediaType
 import net.atos.esuite.extract.api.convert.identity.toAfdeling
 import net.atos.esuite.extract.api.convert.identity.toAfdelingOverzicht
 import net.atos.esuite.extract.api.convert.shared.toPage
-import net.atos.esuite.extract.api.model.identity.AfdelingOverzichtResults
-import net.atos.esuite.extract.api.model.identity.Medewerker
 import net.atos.esuite.extract.api.model.shared.BladerParameters
 import net.atos.esuite.extract.api.model.shared.Fout
+import net.atos.esuite.extract.api.model.shared.Results
 import net.atos.esuite.extract.db.repository.identity.AfdelingRepository
 import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.media.Content
@@ -28,25 +27,17 @@ class Afdelingen(
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(operationId = "afdeling_list", summary = "Lijst van afdeling overzichten opvragen")
-    @APIResponse(
-        responseCode = "200", description = "OK",
-        content = [Content(schema = Schema(implementation = AfdelingOverzichtResults::class))]
-    )
-    fun afdelingList(
-        @BeanParam @Valid bladerParameters: BladerParameters
-    ) =
+    @APIResponse(responseCode = "200", description = "OK")
+    fun afdelingList(@BeanParam @Valid bladerParameters: BladerParameters) =
         with(afdelingRepository.findAll().page(bladerParameters.toPage())) {
-            AfdelingOverzichtResults(list().map { it.toAfdelingOverzicht() }, count(), hasPreviousPage(), hasNextPage())
+            Results(list().map { it.toAfdelingOverzicht() }, count(), hasPreviousPage(), hasNextPage())
         }
 
     @GET
     @Path("{naam}")
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(operationId = "afdeling_read", summary = "Een specifieke afdeling opvragen")
-    @APIResponse(
-        responseCode = "200", description = "OK",
-        content = [Content(schema = Schema(implementation = Medewerker::class))]
-    )
+    @APIResponse(responseCode = "200", description = "OK")
     @APIResponse(
         responseCode = "404", description = "Not Found",
         content = [Content(schema = Schema(implementation = Fout::class))]

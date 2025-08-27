@@ -5,7 +5,10 @@ X-API-KEY: {{api-key}}
 > {%
     client.test("Request executed successfully", function () {
         client.assert(response.status === 200, "Response status is not 200");
-        client.assert(response.body.length === 15, "Response body length is not 15")
+        client.assert(response.body.results.length === 15, "Response body results size is not 15")
+        client.assert(response.body.count === 15, "Response body count is not 15")
+        client.assert(!response.body.previousPage, "Response body previousPage is not false")
+        client.assert(!response.body.nextPage, "Response body nextPage is not false")
     });
 %}
 
@@ -16,7 +19,10 @@ X-API-KEY: {{api-key}}
 > {%
     client.test("Request executed successfully", function () {
         client.assert(response.status === 200, "Response status is not 200");
-        client.assert(response.body.length === 1, "Response body length is not 1")
+        client.assert(response.body.results.length === 1, "Response body results size is not 1")
+        client.assert(response.body.count === 1, "Response body count is not 1")
+        client.assert(!response.body.previousPage, "Response body previousPage is not false")
+        client.assert(!response.body.nextPage, "Response body nextPage is not false")
     });
 %}
 
@@ -27,7 +33,10 @@ X-API-KEY: {{api-key}}
 > {%
     client.test("Request executed successfully", function () {
         client.assert(response.status === 200, "Response status is not 200");
-        client.assert(response.body.length === 1, "Response body length is not 1")
+        client.assert(response.body.results.length === 1, "Response body results size is not 1")
+        client.assert(response.body.count === 1, "Response body count is not 1")
+        client.assert(!response.body.previousPage, "Response body previousPage is not false")
+        client.assert(!response.body.nextPage, "Response body nextPage is not false")
     });
 %}
 
@@ -38,7 +47,10 @@ X-API-KEY: {{api-key}}
 > {%
     client.test("Request executed successfully", function () {
         client.assert(response.status === 200, "Response status is not 200");
-        client.assert(response.body.length === 0, "Response body length is not 0")
+        client.assert(response.body.results.length === 0, "Response body results size is not 0")
+        client.assert(response.body.count === 0, "Response body count is not 0")
+        client.assert(!response.body.previousPage, "Response body previousPage is not false")
+        client.assert(!response.body.nextPage, "Response body nextPage is not false")
     });
 %}
 

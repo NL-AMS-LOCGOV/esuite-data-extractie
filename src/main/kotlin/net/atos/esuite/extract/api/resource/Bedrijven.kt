@@ -1,10 +1,13 @@
 package net.atos.esuite.extract.api.resource
 
+import jakarta.validation.Valid
 import jakarta.ws.rs.*
 import jakarta.ws.rs.core.MediaType
 import net.atos.esuite.extract.api.convert.basisgegevens.toBedrijf
-import net.atos.esuite.extract.api.model.basisgegevens.Bedrijf
+import net.atos.esuite.extract.api.convert.shared.toPage
+import net.atos.esuite.extract.api.model.shared.BladerParameters
 import net.atos.esuite.extract.api.model.shared.Fout
+import net.atos.esuite.extract.api.model.shared.Results
 import net.atos.esuite.extract.api.model.shared.ValidatieFouten
 import net.atos.esuite.extract.api.validation.ValidKVKNummer
 import net.atos.esuite.extract.api.validation.ValidVestigingsnummer
@@ -43,29 +46,32 @@ class Bedrijven(
         @Schema(description = "vestigingsnummer", minLength = 12, maxLength = 12)
         @QueryParam("vestigingsnummer")
         @ValidVestigingsnummer
-        vestigingsnummer: String?
+        vestigingsnummer: String?,
+
+        @BeanParam @Valid bladerParameters: BladerParameters
     ) =
-        when {
-            !kvkNummer.isNullOrBlank() && !vestigingsnummer.isNullOrBlank() ->
-                bedrijfRepository.listByKvkNummerAndVestigingsnummer(kvkNummer, vestigingsnummer)
+        with(
+            when {
+                !kvkNummer.isNullOrBlank() && !vestigingsnummer.isNullOrBlank() ->
+                    bedrijfRepository.listByKvkNummerAndVestigingsnummer(kvkNummer, vestigingsnummer)
 
-            !kvkNummer.isNullOrBlank() ->
-                bedrijfRepository.listByKvkNummer(kvkNummer)
+                !kvkNummer.isNullOrBlank() ->
+                    bedrijfRepository.listByKvkNummer(kvkNummer)
 
-            !vestigingsnummer.isNullOrBlank() ->
-                bedrijfRepository.listByVestigingsnummer(vestigingsnummer)
+                !vestigingsnummer.isNullOrBlank() ->
+                    bedrijfRepository.listByVestigingsnummer(vestigingsnummer)
 
-            else -> throw BadRequestException("Either KvK nummer or vestigingsnummer must be provided")
-        }.list().map { it.toBedrijf() }
+                else -> throw BadRequestException("Either KvK nummer or vestigingsnummer must be provided")
+            }.page(bladerParameters.toPage())
+        ) {
+            Results(list().map { it.toBedrijf() }, count(), hasPreviousPage(), hasNextPage())
+        }
 
     @GET
     @Path("{identifier}")
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(operationId = "bedrijf_read", summary = "Een specifiek bedrijf opvragen op basis van interne identifier")
-    @APIResponse(
-        responseCode = "200", description = "OK",
-        content = [Content(schema = Schema(implementation = Bedrijf::class))]
-    )
+    @APIResponse(responseCode = "200", description = "OK")
     @APIResponse(
         responseCode = "404", description = "Not Found",
         content = [Content(schema = Schema(implementation = Fout::class))]

@@ -4,7 +4,6 @@ import jakarta.validation.constraints.NotNull
 import jakarta.ws.rs.*
 import jakarta.ws.rs.core.MediaType
 import net.atos.esuite.extract.api.convert.basisgegevens.toPersoon
-import net.atos.esuite.extract.api.model.basisgegevens.Persoon
 import net.atos.esuite.extract.api.model.shared.Fout
 import net.atos.esuite.extract.api.model.shared.ValidatieFouten
 import net.atos.esuite.extract.api.validation.ValidBSN
@@ -44,10 +43,7 @@ class Personen(
     @Path("{identifier}")
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(operationId = "persoon_read", summary = "Een specifiek persoon opvragen op basis van interne identifier")
-    @APIResponse(
-        responseCode = "200", description = "OK",
-        content = [Content(schema = Schema(implementation = Persoon::class))]
-    )
+    @APIResponse(responseCode = "200", description = "OK")
     @APIResponse(
         responseCode = "404", description = "Not Found",
         content = [Content(schema = Schema(implementation = Fout::class))]
