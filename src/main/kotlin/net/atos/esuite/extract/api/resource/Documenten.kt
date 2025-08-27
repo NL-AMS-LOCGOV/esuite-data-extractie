@@ -1,7 +1,7 @@
 package net.atos.esuite.extract.api.resource
 
-import jakarta.annotation.Resource
-import jakarta.transaction.UserTransaction
+import io.quarkus.narayana.jta.BeginOptions
+import io.quarkus.narayana.jta.QuarkusTransaction
 import jakarta.ws.rs.*
 import jakarta.ws.rs.core.HttpHeaders
 import jakarta.ws.rs.core.MediaType
@@ -27,7 +27,6 @@ import java.util.zip.ZipInputStream
     content = [Content(schema = Schema(implementation = Fout::class))]
 )
 class Documenten(
-    @Resource private val userTransaction: UserTransaction,
     private val documentInhoudRepository: DocumentInhoudRepository
 ) {
     @GET
@@ -50,8 +49,7 @@ class Documenten(
         content = [Content(schema = Schema(implementation = Fout::class))]
     )
     fun documentInhoudRead(@PathParam("documentInhoudID") documentInhoudID: Long): Response {
-        userTransaction.setTransactionTimeout(300) // 5 minuten
-        userTransaction.begin()
+        QuarkusTransaction.begin(BeginOptions().timeout(300)) // 5 minuten
         val documentInhoudEntity = documentInhoudRepository.findById(documentInhoudID)
             ?: throw NotFoundException("Document inhoud with ID '$documentInhoudID' Not Found")
         val inhoud = documentInhoudEntity.inhoud
@@ -60,9 +58,9 @@ class Documenten(
             StreamingOutput { output: OutputStream ->
                 try {
                     copyBlob(inhoud, documentInhoudEntity.compressed, output)
-                    userTransaction.commit()
+                    QuarkusTransaction.commit()
                 } finally {
-                    userTransaction.rollback()
+                    QuarkusTransaction.rollback()
                 }
             })
             .type(MediaType.APPLICATION_OCTET_STREAM)
