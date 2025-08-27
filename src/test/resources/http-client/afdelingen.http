@@ -5,6 +5,10 @@ X-API-KEY: {{api-key}}
 > {%
     client.test("Request executed successfully", function () {
         client.assert(response.status === 200, "Response status is not 200");
+        client.assert(response.body.results.length === 100, "Response body results size is not 100")
+        client.assert(response.body.count === 159, "Response body count is not 159")
+        client.assert(!response.body.previousPage, "Response body previousPage is not false")
+        client.assert(response.body.nextPage, "Response body nextPage is not true")
     });
 %}
 
@@ -15,5 +19,16 @@ X-API-KEY: {{api-key}}
 > {%
     client.test("Request executed successfully", function () {
         client.assert(response.status === 200, "Response status is not 200");
+    });
+%}
+
+###
+GET {{base-url}}/afdelingen/NIET_BESTAAND
+X-API-KEY: {{api-key}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 404, "Response status is not 404");
+        client.assert(response.body.melding === "Afdeling with naam 'NIET_BESTAAND' not found", "Response body melding is not \"Afdeling with naam 'NIET_BESTAAND' not found\"")
     });
 %}

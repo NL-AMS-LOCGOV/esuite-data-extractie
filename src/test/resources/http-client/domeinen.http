@@ -5,19 +5,21 @@ X-API-KEY: {{api-key}}
 > {%
     client.test("Request executed successfully", function () {
         client.assert(response.status === 200, "Response status is not 200");
+        client.assert(response.body.results.length === 44, "Response body results size is not 44")
+        client.assert(response.body.count === 44, "Response body count is not 44")
+        client.assert(!response.body.previousPage, "Response body previousPage is not false")
+        client.assert(!response.body.nextPage, "Response body nextPage is not false")
     });
 %}
 
-############
-### GCP7 ###
-############
-
+###
 GET {{base-url}}/domeinen/Cucumber
 X-API-KEY: {{api-key}}
 
 > {%
     client.test("Request executed successfully", function () {
         client.assert(response.status === 200, "Response status is not 200");
+        client.assert(response.body.aantalObjecten === 39, "Response body aantalObjecten is not 39");
     });
 %}
 
@@ -28,6 +30,10 @@ X-API-KEY: {{api-key}}
 > {%
     client.test("Request executed successfully", function () {
         client.assert(response.status === 200, "Response status is not 200");
+        client.assert(response.body.results.length === 39, "Response body results size is not 39")
+        client.assert(response.body.count === 39, "Response body count is not 39")
+        client.assert(!response.body.previousPage, "Response body previousPage is not false")
+        client.assert(!response.body.nextPage, "Response body nextPage is not false")
     });
 %}
 
@@ -38,6 +44,10 @@ X-API-KEY: {{api-key}}
 > {%
     client.test("Request executed successfully", function () {
         client.assert(response.status === 200, "Response status is not 200");
+        client.assert(response.body.results.length === 100, "Response body results size is not 100")
+        client.assert(response.body.count === 138, "Response body count is not 138")
+        client.assert(!response.body.previousPage, "Response body previousPage is not false")
+        client.assert(response.body.nextPage, "Response body nextPage is not true")
     });
 %}
 
@@ -45,21 +55,21 @@ X-API-KEY: {{api-key}}
 ### GCP2 ###
 ############
 
-GET {{base-url}}/domeinen/HVV%20Adressen
-X-API-KEY: {{api-key}}
-
-> {%
-    client.test("Request executed successfully", function () {
-        client.assert(response.status === 200, "Response status is not 200");
-    });
-%}
-
-###
-GET {{base-url}}/domeinen/HVV%20Adressen/objecten
-X-API-KEY: {{api-key}}
-
-> {%
-    client.test("Request executed successfully", function () {
-        client.assert(response.status === 200, "Response status is not 200");
-    });
-%}
+#GET {{base-url}}/domeinen/HVV%20Adressen
+#X-API-KEY: {{api-key}}
+#
+#> {%
+#    client.test("Request executed successfully", function () {
+#        client.assert(response.status === 200, "Response status is not 200");
+#    });
+#%}
+#
+####
+#GET {{base-url}}/domeinen/HVV%20Adressen/objecten
+#X-API-KEY: {{api-key}}
+#
+#> {%
+#    client.test("Request executed successfully", function () {
+#        client.assert(response.status === 200, "Response status is not 200");
+#    });
+#%}

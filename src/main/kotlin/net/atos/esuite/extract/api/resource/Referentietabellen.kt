@@ -3,10 +3,9 @@ package net.atos.esuite.extract.api.resource
 import jakarta.validation.Valid
 import jakarta.ws.rs.*
 import jakarta.ws.rs.core.MediaType
-import jakarta.ws.rs.core.Response
-import jakarta.ws.rs.core.Response.ok
 import net.atos.esuite.extract.api.convert.dsr.ReferentietabelConverter
 import net.atos.esuite.extract.api.convert.dsr.toReferentietabelRecord
+import net.atos.esuite.extract.api.convert.shared.toPage
 import net.atos.esuite.extract.api.model.dsr.tabel.Referentietabel
 import net.atos.esuite.extract.api.model.dsr.tabel.ReferentietabelRecordResults
 import net.atos.esuite.extract.api.model.dsr.tabel.ReferentietabelResults
@@ -39,19 +38,12 @@ class Referentietabellen(
     )
     fun referentietabelList(
         @BeanParam @Valid bladerParameters: BladerParameters
-    ): Response {
-        val (referentietabellen, totaalAantalReferentietabellen) = referentietabelDefinitieRepository.listAll(
-            bladerParameters.page, bladerParameters.pageSize
-        )
-        return ok(
+    ) =
+        with(referentietabelDefinitieRepository.findAll().page(bladerParameters.toPage())) {
             ReferentietabelResults(
-                referentietabellen.map { referentietabelConverter.toReferentietabel(it) },
-                totaalAantalReferentietabellen,
-                bladerParameters.page,
-                bladerParameters.pageSize,
+                list().map { referentietabelConverter.toReferentietabel(it) }, count(), hasPreviousPage(), hasNextPage()
             )
-        ).build()
-    }
+        }
 
     @GET
     @Path("{naam}")
@@ -65,13 +57,10 @@ class Referentietabellen(
         responseCode = "404", description = "Not Found",
         content = [Content(schema = Schema(implementation = Fout::class))]
     )
-    fun referentietabelRead(@PathParam("naam") naam: String): Response {
-        return ok(
-            referentietabelDefinitieRepository.findByNaam(naam)
-                ?.let { referentietabelConverter.toReferentietabel(it) }
-                ?: throw NotFoundException("Referentietabel with naam '$naam' Not Found"))
-            .build()
-    }
+    fun referentietabelRead(@PathParam("naam") naam: String) =
+        referentietabelDefinitieRepository.findByNaam(naam)
+            ?.let { referentietabelConverter.toReferentietabel(it) }
+            ?: throw NotFoundException("Referentietabel with naam '$naam' not found")
 
     @GET
     @Path("{referentietabel_naam}/records")
@@ -84,17 +73,10 @@ class Referentietabellen(
     fun referentietabelRecordList(
         @PathParam("referentietabel_naam") referentietabelNaam: String,
         @BeanParam @Valid bladerParameters: BladerParameters
-    ): Response {
-        val (records, totaalAantalRecords) = referentietabelRecordRepository.listByReferentietabelNaam(referentietabelNaam,
-            bladerParameters.page, bladerParameters.pageSize
-        )
-        return ok(
+    ) =
+        with(referentietabelRecordRepository.listByReferentietabelNaam(referentietabelNaam).page(bladerParameters.toPage())) {
             ReferentietabelRecordResults(
-                records.map { it.toReferentietabelRecord() },
-                totaalAantalRecords,
-                bladerParameters.page,
-                bladerParameters.pageSize,
+                list().map { it.toReferentietabelRecord() }, count(), hasPreviousPage(), hasNextPage(),
             )
-        ).build()
-    }
+        }
 }

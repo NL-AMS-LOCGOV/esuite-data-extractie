@@ -2,15 +2,12 @@ package net.atos.esuite.extract.api.resource
 
 import jakarta.ws.rs.*
 import jakarta.ws.rs.core.MediaType
-import jakarta.ws.rs.core.Response
-import jakarta.ws.rs.core.Response.ok
 import net.atos.esuite.extract.api.convert.basisgegevens.toBedrijf
 import net.atos.esuite.extract.api.model.basisgegevens.Bedrijf
 import net.atos.esuite.extract.api.model.shared.Fout
 import net.atos.esuite.extract.api.model.shared.ValidatieFouten
 import net.atos.esuite.extract.api.validation.ValidKVKNummer
 import net.atos.esuite.extract.api.validation.ValidVestigingsnummer
-import net.atos.esuite.extract.db.entity.basisgegevens.BedrijfEntity
 import net.atos.esuite.extract.db.repository.basisgegevens.BedrijfRepository
 import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.media.Content
@@ -47,19 +44,19 @@ class Bedrijven(
         @QueryParam("vestigingsnummer")
         @ValidVestigingsnummer
         vestigingsnummer: String?
-    ): List<Bedrijf> {
-        val bedrijven: List<BedrijfEntity> =
-            when {
-                !kvkNummer.isNullOrBlank() && !vestigingsnummer.isNullOrBlank() ->
-                    bedrijfRepository.listByKvkNummerAndVestigingsnummer(kvkNummer, vestigingsnummer)
-                !kvkNummer.isNullOrBlank() ->
-                    bedrijfRepository.listByKvkNummer(kvkNummer)
-                !vestigingsnummer.isNullOrBlank() ->
-                    bedrijfRepository.listByVestigingsnummer(vestigingsnummer)
-                else -> throw BadRequestException("Either KvK nummer or vestigingsnummer must be provided")
-            }
-        return bedrijven.map { it.toBedrijf() }
-    }
+    ) =
+        when {
+            !kvkNummer.isNullOrBlank() && !vestigingsnummer.isNullOrBlank() ->
+                bedrijfRepository.listByKvkNummerAndVestigingsnummer(kvkNummer, vestigingsnummer)
+
+            !kvkNummer.isNullOrBlank() ->
+                bedrijfRepository.listByKvkNummer(kvkNummer)
+
+            !vestigingsnummer.isNullOrBlank() ->
+                bedrijfRepository.listByVestigingsnummer(vestigingsnummer)
+
+            else -> throw BadRequestException("Either KvK nummer or vestigingsnummer must be provided")
+        }.list().map { it.toBedrijf() }
 
     @GET
     @Path("{identifier}")
@@ -73,11 +70,8 @@ class Bedrijven(
         responseCode = "404", description = "Not Found",
         content = [Content(schema = Schema(implementation = Fout::class))]
     )
-    fun bedrijfRead(@PathParam("identifier") identifier: Long): Response {
-        return ok(
-            bedrijfRepository.findById(identifier)
-                ?.toBedrijf()
-                ?: throw NotFoundException("Bedrijf with identifier '$identifier' Not Found")
-        ).build()
-    }
+    fun bedrijfRead(@PathParam("identifier") identifier: Long) =
+        bedrijfRepository.findById(identifier)
+            ?.toBedrijf()
+            ?: throw NotFoundException("Bedrijf with identifier '$identifier' not found")
 }

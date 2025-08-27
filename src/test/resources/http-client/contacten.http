@@ -5,6 +5,52 @@ X-API-KEY: {{api-key}}
 > {%
     client.test("Request executed successfully", function () {
         client.assert(response.status === 200, "Response status is not 200");
+        client.assert(response.body.results.length === 100, "Response body results size is not 100")
+        client.assert(response.body.count === 2641, "Response body count is not 9335")
+        client.assert(!response.body.previousPage, "Response body previousPage is not false")
+        client.assert(response.body.nextPage, "Response body nextPage is not true")
+    });
+%}
+
+###
+GET {{base-url}}/contacten?page=0&page_size=20
+X-API-KEY: {{api-key}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+        client.assert(response.body.results.length === 20, "Response body results size is not 20")
+        client.assert(response.body.count === 2641, "Response body count is not 9335")
+        client.assert(!response.body.previousPage, "Response body previousPage is not false")
+        client.assert(response.body.nextPage, "Response body nextPage is not true")
+    });
+%}
+
+###
+GET {{base-url}}/contacten?page=1&page_size=20
+X-API-KEY: {{api-key}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+        client.assert(response.body.results.length === 20, "Response body results size is not 20")
+        client.assert(response.body.count === 2641, "Response body count is not 9335")
+        client.assert(response.body.previousPage, "Response body previousPage is not true")
+        client.assert(response.body.nextPage, "Response body nextPage is not true")
+    });
+%}
+
+###
+GET {{base-url}}/contacten?page=0&page_size=1000
+X-API-KEY: {{api-key}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+        client.assert(response.body.results.length === 1000, "Response body results size is not 1000")
+        client.assert(response.body.count === 2641, "Response body count is not 9335")
+        client.assert(!response.body.previousPage, "Response body previousPage is not false")
+        client.assert(response.body.nextPage, "Response body nextPage is not true")
     });
 %}
 
@@ -15,6 +61,24 @@ X-API-KEY: {{api-key}}
 > {%
     client.test("Request executed successfully", function () {
         client.assert(response.status === 200, "Response status is not 200");
+        client.assert(response.body.results.length === 1000, "Response body results size is not 1000")
+        client.assert(response.body.count === 2641, "Response body count is not 9335")
+        client.assert(response.body.previousPage, "Response body previousPage is not true")
+        client.assert(response.body.nextPage, "Response body nextPage is not true")
+    });
+%}
+
+###
+GET {{base-url}}/contacten?page=2&page_size=1000
+X-API-KEY: {{api-key}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+        client.assert(response.body.results.length === 641, "Response body results size is not 641")
+        client.assert(response.body.count === 2641, "Response body count is not 9335")
+        client.assert(response.body.previousPage, "Response body previousPage is not true")
+        client.assert(!response.body.nextPage, "Response body nextPage is not false")
     });
 %}
 
@@ -25,5 +89,16 @@ X-API-KEY: {{api-key}}
 > {%
     client.test("Request executed successfully", function () {
         client.assert(response.status === 200, "Response status is not 200");
+    });
+%}
+
+###
+GET {{base-url}}/contacten/NIET-BESTAAND
+X-API-KEY: {{api-key}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 404, "Response status is not 404");
+        client.assert(response.body.melding === "Contact with functionele identificatie 'NIET-BESTAAND' not found", "Response body melding is not \"Contact with functionele identificatie 'NIET-BESTAAND' not found\"")
     });
 %}

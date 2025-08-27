@@ -6,7 +6,7 @@ import net.atos.esuite.extract.db.entity.basisgegevens.PersoonEntity
 
 @ApplicationScoped
 class PersoonRepository : PanacheRepository<PersoonEntity> {
-    
-    fun findByBSN(bsn: String) =
-        find("burgerServiceNummer", bsn).list()
+
+    fun listByBSN(bsn: String) =
+        find("burgerServiceNummer", bsn)
 }

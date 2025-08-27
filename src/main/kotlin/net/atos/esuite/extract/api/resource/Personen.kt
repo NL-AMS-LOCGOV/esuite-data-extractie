@@ -3,8 +3,6 @@ package net.atos.esuite.extract.api.resource
 import jakarta.validation.constraints.NotNull
 import jakarta.ws.rs.*
 import jakarta.ws.rs.core.MediaType
-import jakarta.ws.rs.core.Response
-import jakarta.ws.rs.core.Response.ok
 import net.atos.esuite.extract.api.convert.basisgegevens.toPersoon
 import net.atos.esuite.extract.api.model.basisgegevens.Persoon
 import net.atos.esuite.extract.api.model.shared.Fout
@@ -40,9 +38,7 @@ class Personen(
         @ValidBSN
         @NotNull(message = "BSN is a required field")
         bsn: String
-    ): List<Persoon> {
-        return persoonRepository.findByBSN(bsn).map { it.toPersoon() }
-    }
+    ) = persoonRepository.listByBSN(bsn).list().map { it.toPersoon() }
 
     @GET
     @Path("{identifier}")
@@ -56,11 +52,8 @@ class Personen(
         responseCode = "404", description = "Not Found",
         content = [Content(schema = Schema(implementation = Fout::class))]
     )
-    fun persoonRead(@PathParam("identifier") identifier: Long): Response {
-        return ok(
-            persoonRepository.findById(identifier)
-                ?.toPersoon()
-                ?: throw NotFoundException("Persoon with identifier '$identifier' Not Found")
-        ).build()
-    }
+    fun persoonRead(@PathParam("identifier") identifier: Long) =
+        persoonRepository.findById(identifier)
+            ?.toPersoon()
+            ?: throw NotFoundException("Persoon with identifier '$identifier' not found")
 }

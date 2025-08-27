@@ -3,10 +3,9 @@ package net.atos.esuite.extract.api.resource
 import jakarta.validation.Valid
 import jakarta.ws.rs.*
 import jakarta.ws.rs.core.MediaType
-import jakarta.ws.rs.core.Response
-import jakarta.ws.rs.core.Response.ok
 import net.atos.esuite.extract.api.convert.identity.toGroep
 import net.atos.esuite.extract.api.convert.identity.toGroepOverzicht
+import net.atos.esuite.extract.api.convert.shared.toPage
 import net.atos.esuite.extract.api.model.identity.Groep
 import net.atos.esuite.extract.api.model.identity.GroepOverzichtResults
 import net.atos.esuite.extract.api.model.shared.BladerParameters
@@ -35,20 +34,10 @@ class Groepen(
     )
     fun groepList(
         @BeanParam @Valid bladerParameters: BladerParameters
-    ): Response {
-        val (groepen, totaalAantalGroepen) = groepRepository.listAll(
-            bladerParameters.page,
-            bladerParameters.pageSize
-        )
-        return ok(
-            GroepOverzichtResults(
-                results = groepen.map { it.toGroepOverzicht() },
-                totaalAantalGroepen,
-                bladerParameters.page,
-                bladerParameters.pageSize,
-            )
-        ).build()
-    }
+    ) =
+        with(groepRepository.findAll().page(bladerParameters.toPage())) {
+            GroepOverzichtResults(results = list().map { it.toGroepOverzicht() }, count(), hasPreviousPage(), hasNextPage())
+        }
 
     @GET
     @Path("{naam}")
@@ -62,11 +51,8 @@ class Groepen(
         responseCode = "404", description = "Not Found",
         content = [Content(schema = Schema(implementation = Fout::class))]
     )
-    fun groepRead(@PathParam("naam") naam: String): Response {
-        return ok(
-            groepRepository.findByNaam(naam)
-                ?.toGroep()
-                ?: throw NotFoundException("Groep with naam '$naam' Not Found with name '$naam'")
-        ).build()
-    }
+    fun groepRead(@PathParam("naam") naam: String) =
+        groepRepository.findByNaam(naam)
+            ?.toGroep()
+            ?: throw NotFoundException("Groep with naam '$naam' not found'")
 }

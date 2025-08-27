@@ -1,9 +1,9 @@
 package net.atos.esuite.extract.db.repository.zaak
 
+import io.quarkus.hibernate.orm.panache.kotlin.PanacheQuery
 import io.quarkus.hibernate.orm.panache.kotlin.PanacheRepository
 import jakarta.enterprise.context.ApplicationScoped
 import net.atos.esuite.extract.db.entity.zakenmagazijn.ZaakEntity
-import net.atos.esuite.extract.db.util.ListResult
 
 @ApplicationScoped
 class ZaakRepository : PanacheRepository<ZaakEntity> {
@@ -14,9 +14,7 @@ class ZaakRepository : PanacheRepository<ZaakEntity> {
     fun listByZaaktypeFunctioneelId(
         zaaktypeFunctioneelId: String,
         inclusiefOpen: Boolean, // ToDo: Tevens open zaken ophalen
-        pageIndex: Int,
-        pageSize: Int
-    ): ListResult<ZaakEntity> {
+    ): PanacheQuery<ZaakEntity> {
         val query = """
             SELECT zaak FROM ZaakEntity zaak 
             WHERE zaak.zaaktypeId = (
@@ -25,9 +23,6 @@ class ZaakRepository : PanacheRepository<ZaakEntity> {
                 WHERE zaaktype.functioneelId = ?1
             )
         """
-        return ListResult(
-            find(query, zaaktypeFunctioneelId).page(pageIndex, pageSize).list(),
-            count(query, zaaktypeFunctioneelId).toInt()
-        )
+        return find(query, zaaktypeFunctioneelId)
     }
 }

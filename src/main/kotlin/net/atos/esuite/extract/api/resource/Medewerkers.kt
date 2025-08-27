@@ -3,10 +3,9 @@ package net.atos.esuite.extract.api.resource
 import jakarta.validation.Valid
 import jakarta.ws.rs.*
 import jakarta.ws.rs.core.MediaType
-import jakarta.ws.rs.core.Response
-import jakarta.ws.rs.core.Response.ok
 import net.atos.esuite.extract.api.convert.identity.toMedewerker
 import net.atos.esuite.extract.api.convert.identity.toMedewerkerOverzicht
+import net.atos.esuite.extract.api.convert.shared.toPage
 import net.atos.esuite.extract.api.model.identity.Medewerker
 import net.atos.esuite.extract.api.model.identity.MedewerkerOverzichtResults
 import net.atos.esuite.extract.api.model.shared.BladerParameters
@@ -35,20 +34,10 @@ class Medewerkers(
     )
     fun medewerkerList(
         @BeanParam @Valid bladerParameters: BladerParameters
-    ): Response {
-        val (medewerkers, totaalAantalMedewerkers) = medewerkerRepository.listAll(
-            bladerParameters.page,
-            bladerParameters.pageSize
-        )
-        return ok(
-            MedewerkerOverzichtResults(
-                medewerkers.map { it.toMedewerkerOverzicht() },
-                totaalAantalMedewerkers,
-                bladerParameters.page,
-                bladerParameters.pageSize,
-            )
-        ).build()
-    }
+    ) =
+        with(medewerkerRepository.findAll().page(bladerParameters.toPage())) {
+            MedewerkerOverzichtResults(list().map { it.toMedewerkerOverzicht() }, count(), hasPreviousPage(), hasNextPage())
+        }
 
     @GET
     @Path("{gebruikersnaam}")
@@ -62,11 +51,8 @@ class Medewerkers(
         responseCode = "404", description = "Not Found",
         content = [Content(schema = Schema(implementation = Fout::class))]
     )
-    fun medewerkerRead(@PathParam("gebruikersnaam") gebruikersnaam: String): Response {
-        return ok(
-            medewerkerRepository.findByGebruikersnaam(gebruikersnaam)
-                ?.toMedewerker()
-                ?: throw NotFoundException("Medewerker with gebruikersnaam '$gebruikersnaam' Not Found")
-        ).build()
-    }
+    fun medewerkerRead(@PathParam("gebruikersnaam") gebruikersnaam: String) =
+        medewerkerRepository.findByGebruikersnaam(gebruikersnaam)
+            ?.toMedewerker()
+            ?: throw NotFoundException("Medewerker with gebruikersnaam '$gebruikersnaam' not found")
 }

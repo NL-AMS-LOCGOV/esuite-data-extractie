@@ -5,6 +5,10 @@ X-API-KEY: {{api-key}}
 > {%
     client.test("Request executed successfully", function () {
         client.assert(response.status === 200, "Response status is not 200");
+        client.assert(response.body.results.length === 100, "Response body results size is not 100")
+        client.assert(response.body.count === 1366, "Response body count is not 1366")
+        client.assert(!response.body.previousPage, "Response body previousPage is not false")
+        client.assert(response.body.nextPage, "Response body nextPage is not true")
     });
 %}
 
@@ -15,6 +19,7 @@ X-API-KEY: {{api-key}}
 > {%
     client.test("Request executed successfully", function () {
         client.assert(response.status === 200, "Response status is not 200");
+        client.assert(response.body.rechten.length === 3328, "Response body rechten size is not 3328")
     });
 %}
 

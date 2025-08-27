@@ -3,10 +3,9 @@ package net.atos.esuite.extract.api.resource
 import jakarta.validation.Valid
 import jakarta.ws.rs.*
 import jakarta.ws.rs.core.MediaType
-import jakarta.ws.rs.core.Response
-import jakarta.ws.rs.core.Response.ok
 import net.atos.esuite.extract.api.convert.dsr.DomeinConverter
 import net.atos.esuite.extract.api.convert.dsr.toDomeinObject
+import net.atos.esuite.extract.api.convert.shared.toPage
 import net.atos.esuite.extract.api.model.dsr.domein.Domein
 import net.atos.esuite.extract.api.model.dsr.domein.DomeinObjectResults
 import net.atos.esuite.extract.api.model.dsr.domein.DomeinResults
@@ -39,19 +38,15 @@ class Domeinen(
     )
     fun domeinList(
         @BeanParam @Valid bladerParameters: BladerParameters
-    ): Response {
-        val (domeinen, totaalAantalDomeinen) = domeinDefinitieRepository.listAll(
-            bladerParameters.page, bladerParameters.pageSize
-        )
-        return ok(
+    ) =
+        with(domeinDefinitieRepository.findAll().page(bladerParameters.toPage())) {
             DomeinResults(
-                domeinen.map { domeinConverter.toDomein(it) },
-                totaalAantalDomeinen,
-                bladerParameters.page,
-                bladerParameters.pageSize,
+                list().map { domeinConverter.toDomein(it) },
+                count(),
+                hasPreviousPage(),
+                hasNextPage(),
             )
-        ).build()
-    }
+        }
 
     @GET
     @Path("{naam}")
@@ -65,13 +60,10 @@ class Domeinen(
         responseCode = "404", description = "Not Found",
         content = [Content(schema = Schema(implementation = Fout::class))]
     )
-    fun domeinRead(@PathParam("naam") naam: String): Response {
-        return ok(
-            domeinDefinitieRepository.findByNaam(naam)
-                ?.let { domeinConverter.toDomein(it) }
-                ?: throw NotFoundException("Domein with naam '$naam' Not Found"))
-            .build()
-    }
+    fun domeinRead(@PathParam("naam") naam: String) =
+        domeinDefinitieRepository.findByNaam(naam)
+            ?.let { domeinConverter.toDomein(it) }
+            ?: throw NotFoundException("Domein with naam '$naam' not found")
 
     @GET
     @Path("{domein_naam}/objecten")
@@ -84,17 +76,8 @@ class Domeinen(
     fun domeinObjectList(
         @PathParam("domein_naam") domeinNaam: String,
         @BeanParam @Valid bladerParameters: BladerParameters
-    ): Response {
-        val (objecten, totaalAantalObjecten) = domeinObjectRepository.listByDomeinNaam(domeinNaam,
-            bladerParameters.page, bladerParameters.pageSize
-        )
-        return ok(
-            DomeinObjectResults(
-                objecten.map { it.toDomeinObject() },
-                totaalAantalObjecten,
-                bladerParameters.page,
-                bladerParameters.pageSize,
-            )
-        ).build()
-    }
+    ) =
+        with(domeinObjectRepository.listByDomeinNaam(domeinNaam).page(bladerParameters.toPage())) {
+            DomeinObjectResults(list().map { it.toDomeinObject() }, count(), hasPreviousPage(), hasNextPage())
+        }
 }

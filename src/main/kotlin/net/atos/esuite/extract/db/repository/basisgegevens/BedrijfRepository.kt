@@ -8,12 +8,12 @@ import net.atos.esuite.extract.db.entity.basisgegevens.BedrijfEntity
 class BedrijfRepository : PanacheRepository<BedrijfEntity> {
 
     fun listByKvkNummer(kvkNummer: String) =
-        find("kvknummer", kvkNummer).list()
+        find("kvknummer", kvkNummer)
 
     fun listByVestigingsnummer(vestigingsnummer: String) =
-        find("vestigingsnummer", vestigingsnummer).list()
+        find("vestigingsnummer", vestigingsnummer)
 
     fun listByKvkNummerAndVestigingsnummer(kvkNummer: String, vestigingsnummer: String) =
-        find("kvknummer = ?1 and vestigingsnummer = ?2", kvkNummer, vestigingsnummer).list()
+        find("kvknummer = ?1 and vestigingsnummer = ?2", kvkNummer, vestigingsnummer)
 }
 

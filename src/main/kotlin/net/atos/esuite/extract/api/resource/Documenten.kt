@@ -48,12 +48,13 @@ class Documenten(
         responseCode = "404", description = "Not Found",
         content = [Content(schema = Schema(implementation = Fout::class))]
     )
+    // ToDo: Dit werkt nog niet correct!
     fun documentInhoudRead(@PathParam("documentInhoudID") documentInhoudID: Long): Response {
         QuarkusTransaction.begin(BeginOptions().timeout(300)) // 5 minuten
         val documentInhoudEntity = documentInhoudRepository.findById(documentInhoudID)
-            ?: throw NotFoundException("Document inhoud with ID '$documentInhoudID' Not Found")
+            ?: throw NotFoundException("Document inhoud with ID '$documentInhoudID' not found")
         val inhoud = documentInhoudEntity.inhoud
-            ?: throw NotFoundException("Document inhoud with ID '$documentInhoudID' Is Empty")
+            ?: throw NotFoundException("Document inhoud with ID '$documentInhoudID' is empty")
         return ok(
             StreamingOutput { output: OutputStream ->
                 try {

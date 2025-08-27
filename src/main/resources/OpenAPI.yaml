@@ -110,24 +110,24 @@ components:
       required:
         - results
         - count
+        - previousPage
+        - nextPage
       properties:
         results:
           type: array
           items:
             $ref: "#/components/schemas/AfdelingOverzicht"
-          description: Items in de huidige pagina
+          description: Reslultaat op huidige pagina
         count:
           type: integer
-          format: int32
-          description: Totaal aantal items
+          format: int64
+          description: Totaal aantal
         previousPage:
-          type: integer
-          format: int32
-          description: Vorige pagina met items
+          type: boolean
+          description: Is er een vorige pagina
         nextPage:
-          type: integer
-          format: int32
-          description: Volgende pagina met items
+          type: boolean
+          description: Is er een volgende pagina
     ArchiveerGegevens:
       type: object
       properties:
@@ -681,24 +681,24 @@ components:
       required:
         - results
         - count
+        - previousPage
+        - nextPage
       properties:
         results:
           type: array
           items:
             $ref: "#/components/schemas/ContactOverzicht"
-          description: Items in de huidige pagina
+          description: Reslultaat op huidige pagina
         count:
           type: integer
-          format: int32
-          description: Totaal aantal items
+          format: int64
+          description: Totaal aantal
         previousPage:
-          type: integer
-          format: int32
-          description: Vorige pagina met items
+          type: boolean
+          description: Is er een vorige pagina
         nextPage:
-          type: integer
-          format: int32
-          description: Volgende pagina met items
+          type: boolean
+          description: Is er een volgende pagina
     ContactPrioriteit:
       type: object
       required:
@@ -1438,47 +1438,47 @@ components:
       required:
         - results
         - count
+        - previousPage
+        - nextPage
       properties:
         results:
           type: array
           items:
             $ref: "#/components/schemas/DomeinObject"
-          description: Items in de huidige pagina
+          description: Reslultaat op huidige pagina
         count:
           type: integer
-          format: int32
-          description: Totaal aantal items
+          format: int64
+          description: Totaal aantal
         previousPage:
-          type: integer
-          format: int32
-          description: Vorige pagina met items
+          type: boolean
+          description: Is er een vorige pagina
         nextPage:
-          type: integer
-          format: int32
-          description: Volgende pagina met items
+          type: boolean
+          description: Is er een volgende pagina
     DomeinResults:
       type: object
       required:
         - results
         - count
+        - previousPage
+        - nextPage
       properties:
         results:
           type: array
           items:
             $ref: "#/components/schemas/Domein"
-          description: Items in de huidige pagina
+          description: Reslultaat op huidige pagina
         count:
           type: integer
-          format: int32
-          description: Totaal aantal items
+          format: int64
+          description: Totaal aantal
         previousPage:
-          type: integer
-          format: int32
-          description: Vorige pagina met items
+          type: boolean
+          description: Is er een vorige pagina
         nextPage:
-          type: integer
-          format: int32
-          description: Volgende pagina met items
+          type: boolean
+          description: Is er een volgende pagina
     Fout:
       type: object
       required:
@@ -1639,24 +1639,24 @@ components:
       required:
         - results
         - count
+        - previousPage
+        - nextPage
       properties:
         results:
           type: array
           items:
             $ref: "#/components/schemas/GroepOverzicht"
-          description: Items in de huidige pagina
+          description: Reslultaat op huidige pagina
         count:
           type: integer
-          format: int32
-          description: Totaal aantal items
+          format: int64
+          description: Totaal aantal
         previousPage:
-          type: integer
-          format: int32
-          description: Vorige pagina met items
+          type: boolean
+          description: Is er een vorige pagina
         nextPage:
-          type: integer
-          format: int32
-          description: Volgende pagina met items
+          type: boolean
+          description: Is er een volgende pagina
     History:
       type: object
       properties:
@@ -1860,24 +1860,24 @@ components:
       required:
         - results
         - count
+        - previousPage
+        - nextPage
       properties:
         results:
           type: array
           items:
             $ref: "#/components/schemas/MedewerkerOverzicht"
-          description: Items in de huidige pagina
+          description: Reslultaat op huidige pagina
         count:
           type: integer
-          format: int32
-          description: Totaal aantal items
+          format: int64
+          description: Totaal aantal
         previousPage:
-          type: integer
-          format: int32
-          description: Vorige pagina met items
+          type: boolean
+          description: Is er een vorige pagina
         nextPage:
-          type: integer
-          format: int32
-          description: Volgende pagina met items
+          type: boolean
+          description: Is er een volgende pagina
     MemoDomeinObjectAttribuutWaarde:
       type: object
       required:
@@ -2580,47 +2580,47 @@ components:
       required:
         - results
         - count
+        - previousPage
+        - nextPage
       properties:
         results:
           type: array
           items:
             $ref: "#/components/schemas/ReferentietabelRecord"
-          description: Items in de huidige pagina
+          description: Reslultaat op huidige pagina
         count:
           type: integer
-          format: int32
-          description: Totaal aantal items
+          format: int64
+          description: Totaal aantal
         previousPage:
-          type: integer
-          format: int32
-          description: Vorige pagina met items
+          type: boolean
+          description: Is er een vorige pagina
         nextPage:
-          type: integer
-          format: int32
-          description: Volgende pagina met items
+          type: boolean
+          description: Is er een volgende pagina
     ReferentietabelResults:
       type: object
       required:
         - results
         - count
+        - previousPage
+        - nextPage
       properties:
         results:
           type: array
           items:
             $ref: "#/components/schemas/Referentietabel"
-          description: Items in de huidige pagina
+          description: Reslultaat op huidige pagina
         count:
           type: integer
-          format: int32
-          description: Totaal aantal items
+          format: int64
+          description: Totaal aantal
         previousPage:
-          type: integer
-          format: int32
-          description: Vorige pagina met items
+          type: boolean
+          description: Is er een vorige pagina
         nextPage:
-          type: integer
-          format: int32
-          description: Volgende pagina met items
+          type: boolean
+          description: Is er een volgende pagina
     Reisdocument:
       type: object
       required:
@@ -3091,21 +3091,16 @@ components:
       type: object
       required:
         - melding
-        - aantal
         - fouten
       properties:
         melding:
           type: string
           description: Foutmelding
-        aantal:
-          type: integer
-          format: int32
-          description: Foutmelding
         fouten:
           type: array
           items:
             $ref: "#/components/schemas/ValidatieFout"
-          description: Validatie fouten
+          description: Validatie fout(en)
     VervallenAanduiding:
       type: string
       enum:
@@ -3505,24 +3500,24 @@ components:
       required:
         - results
         - count
+        - previousPage
+        - nextPage
       properties:
         results:
           type: array
           items:
             $ref: "#/components/schemas/ZaakOverzicht"
-          description: Items in de huidige pagina
+          description: Reslultaat op huidige pagina
         count:
           type: integer
-          format: int32
-          description: Totaal aantal items
+          format: int64
+          description: Totaal aantal
         previousPage:
-          type: integer
-          format: int32
-          description: Vorige pagina met items
+          type: boolean
+          description: Is er een vorige pagina
         nextPage:
-          type: integer
-          format: int32
-          description: Volgende pagina met items
+          type: boolean
+          description: Is er een volgende pagina
     ZaakRelatietype:
       type: string
       enum:
@@ -3578,6 +3573,29 @@ components:
           type: string
           maxLength: 128
           description: Functionele identificatie van zaaktype
+    ZaaktypeResults:
+      type: object
+      required:
+        - results
+        - count
+        - previousPage
+        - nextPage
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/Zaaktype"
+          description: Reslultaat op huidige pagina
+        count:
+          type: integer
+          format: int64
+          description: Totaal aantal
+        previousPage:
+          type: boolean
+          description: Is er een vorige pagina
+        nextPage:
+          type: boolean
+          description: Is er een volgende pagina
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
@@ -4279,6 +4297,21 @@ paths:
     get:
       summary: Lijst van zaaktypen opvragen
       operationId: zaaktype_list
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            format: int32
+            description: Gewenste pagina; start bij 0
+            default: 0
+        - name: page_size
+          in: query
+          schema:
+            type: integer
+            format: int32
+            description: Maximum aantal items per pagina
+            default: 100
       responses:
         "401":
           description: Unauthorized
@@ -4293,9 +4326,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Zaaktype"
+                $ref: "#/components/schemas/ZaaktypeResults"
       tags:
         - Zaaktypen
   /zaken:

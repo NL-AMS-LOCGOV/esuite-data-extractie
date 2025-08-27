@@ -5,6 +5,10 @@ X-API-KEY: {{api-key}}
 > {%
     client.test("Request executed successfully", function () {
         client.assert(response.status === 200, "Response status is not 200");
+        client.assert(response.body.results.length === 64, "Response body results size is not 64")
+        client.assert(response.body.count === 64, "Response body count is not 64")
+        client.assert(!response.body.previousPage, "Response body previousPage is not false")
+        client.assert(!response.body.nextPage, "Response body nextPage is not false")
     });
 %}
 
@@ -15,5 +19,16 @@ X-API-KEY: {{api-key}}
 > {%
     client.test("Request executed successfully", function () {
         client.assert(response.status === 200, "Response status is not 200");
+    });
+%}
+
+###
+GET {{base-url}}/groepen/NIET-BESTAAND
+X-API-KEY: {{api-key}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 404, "Response status is not 404");
+        client.assert(response.body.melding === "Groep with naam 'NIET-BESTAAND' not found'", "Response body melding is not \"Groep with naam 'NIET-BESTAAND' not found'\"")
     });
 %}

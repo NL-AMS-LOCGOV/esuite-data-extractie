@@ -4,8 +4,7 @@ import jakarta.validation.Valid
 import jakarta.validation.constraints.NotNull
 import jakarta.ws.rs.*
 import jakarta.ws.rs.core.MediaType
-import jakarta.ws.rs.core.Response
-import jakarta.ws.rs.core.Response.ok
+import net.atos.esuite.extract.api.convert.shared.toPage
 import net.atos.esuite.extract.api.convert.zaak.ZaakConverter
 import net.atos.esuite.extract.api.model.shared.BladerParameters
 import net.atos.esuite.extract.api.model.shared.Fout
@@ -53,19 +52,15 @@ class Zaken(
         inclusiefOpen: String? = FALSE,
 
         @BeanParam @Valid bladerParameters: BladerParameters
-    ): Response {
-        val (zaken, totaalAantalZaken) = zaakRepository.listByZaaktypeFunctioneelId(
-            zaaktype, inclusiefOpen.toBoolean(), bladerParameters.page, bladerParameters.pageSize
-        )
-        return ok(
+    ) =
+        with(
+            zaakRepository.listByZaaktypeFunctioneelId(zaaktype, inclusiefOpen.toBoolean())
+                .page(bladerParameters.toPage())
+        ) {
             ZaakOverzichtResults(
-                zaken.map { zaakConverter.toZaakOverzicht(it) },
-                totaalAantalZaken,
-                bladerParameters.page,
-                bladerParameters.pageSize,
+                list().map { zaakConverter.toZaakOverzicht(it) }, count(), hasPreviousPage(), hasNextPage(),
             )
-        ).build()
-    }
+        }
 
     @GET
     @Path("{functionele_Identificatie}")
@@ -79,11 +74,8 @@ class Zaken(
         responseCode = "404", description = "Not Found",
         content = [Content(schema = Schema(implementation = Fout::class))]
     )
-    fun zaakRead(@PathParam("functionele_Identificatie") functioneleIdentificatie: String): Response {
-        return ok(
-            zaakRepository.findByFunctioneleIdentificatie(functioneleIdentificatie)
-                ?.let { zaakConverter.toZaak(it) }
-                ?: throw NotFoundException("Zaak with functionele identificatie '$functioneleIdentificatie' Not Found")
-        ).build()
-    }
+    fun zaakRead(@PathParam("functionele_Identificatie") functioneleIdentificatie: String) =
+        zaakRepository.findByFunctioneleIdentificatie(functioneleIdentificatie)
+            ?.let { zaakConverter.toZaak(it) }
+            ?: throw NotFoundException("Zaak with functionele identificatie '$functioneleIdentificatie' not found")
 }

@@ -3,9 +3,8 @@ package net.atos.esuite.extract.api.resource
 import jakarta.validation.Valid
 import jakarta.ws.rs.*
 import jakarta.ws.rs.core.MediaType
-import jakarta.ws.rs.core.Response
-import jakarta.ws.rs.core.Response.ok
 import net.atos.esuite.extract.api.convert.contact.ContactConverter
+import net.atos.esuite.extract.api.convert.shared.toPage
 import net.atos.esuite.extract.api.model.contact.Contact
 import net.atos.esuite.extract.api.model.contact.ContactOverzichtResults
 import net.atos.esuite.extract.api.model.shared.BladerParameters
@@ -35,18 +34,12 @@ class Contacten(
     )
     fun contactList(
         @BeanParam @Valid bladerParameters: BladerParameters
-    ): Response {
-        val (contacten, totaalAantalContacten) =
-            contactRepository.listAll(bladerParameters.page, bladerParameters.pageSize)
-        return ok(
+    ) =
+        with(contactRepository.findAll().page(bladerParameters.toPage())) {
             ContactOverzichtResults(
-                contacten.map { contactConverter.toContactOverzicht(it) },
-                totaalAantalContacten,
-                bladerParameters.page,
-                bladerParameters.pageSize,
+                list().map { contactConverter.toContactOverzicht(it) }, count(), hasPreviousPage(), hasNextPage(),
             )
-        ).build()
-    }
+        }
 
     @GET
     @Path("{functionele_Identificatie}")
@@ -60,11 +53,8 @@ class Contacten(
         responseCode = "404", description = "Not Found",
         content = [Content(schema = Schema(implementation = Fout::class))]
     )
-    fun contactRead(@PathParam("functionele_Identificatie") functioneleIdentificatie: String): Response {
-        return ok(
-            contactRepository.findByFunctioneleIdentificatie(functioneleIdentificatie)
-                ?.let { contactConverter.toContact(it) }
-                ?: throw NotFoundException("Contact with functionele identificatie '$functioneleIdentificatie' Not Found"))
-            .build()
-    }
+    fun contactRead(@PathParam("functionele_Identificatie") functioneleIdentificatie: String) =
+        contactRepository.findByFunctioneleIdentificatie(functioneleIdentificatie)
+            ?.let { contactConverter.toContact(it) }
+            ?: throw NotFoundException("Contact with functionele identificatie '$functioneleIdentificatie' not found")
 }

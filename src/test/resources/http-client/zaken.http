@@ -5,6 +5,10 @@ X-API-KEY: {{api-key}}
 > {%
     client.test("Request executed successfully", function () {
         client.assert(response.status === 200, "Response status is not 200");
+        client.assert(response.body.results.length === 100, "Response body results size is not 100")
+        client.assert(response.body.count === 9335, "Response body count is not 9335")
+        client.assert(!response.body.previousPage, "Response body previousPage is not false")
+        client.assert(response.body.nextPage, "Response body nextPage is not true")
     });
 %}
 
@@ -15,6 +19,10 @@ X-API-KEY: {{api-key}}
 > {%
     client.test("Request executed successfully", function () {
         client.assert(response.status === 200, "Response status is not 200");
+        client.assert(response.body.results.length === 100, "Response body results size is not 100")
+        client.assert(response.body.count === 9335, "Response body count is not 9335")
+        client.assert(!response.body.previousPage, "Response body previousPage is not false")
+        client.assert(response.body.nextPage, "Response body nextPage is not true")
     });
 %}
 
@@ -25,6 +33,10 @@ X-API-KEY: {{api-key}}
 > {%
     client.test("Request executed successfully", function () {
         client.assert(response.status === 200, "Response status is not 200");
+        client.assert(response.body.results.length === 100, "Response body results size is not 100")
+        client.assert(response.body.count === 9335, "Response body count is not 9335")
+        client.assert(!response.body.previousPage, "Response body previousPage is not false")
+        client.assert(response.body.nextPage, "Response body nextPage is not true")
     });
 %}
 
@@ -35,6 +47,8 @@ X-API-KEY: {{api-key}}
 > {%
     client.test("Request executed successfully", function () {
         client.assert(response.status === 400, "Response status is not 400");
+        client.assert(response.body.melding === "Validatie fout(en)", "Response body melding is not \"Validatie fout(en)\"")
+        client.assert(response.body.fouten.length === 1, "Response body fouten size is not 1")
     });
 %}
 
@@ -45,6 +59,10 @@ X-API-KEY: {{api-key}}
 > {%
     client.test("Request executed successfully", function () {
         client.assert(response.status === 200, "Response status is not 200");
+        client.assert(response.body.results.length === 100, "Response body results size is not 100")
+        client.assert(response.body.count === 9335, "Response body count is not 9335")
+        client.assert(response.body.previousPage, "Response body previousPage is not true")
+        client.assert(response.body.nextPage, "Response body nextPage is not true")
     });
 %}
 
@@ -55,6 +73,10 @@ X-API-KEY: {{api-key}}
 > {%
     client.test("Request executed successfully", function () {
         client.assert(response.status === 200, "Response status is not 200");
+        client.assert(response.body.results.length === 100, "Response body results size is not 100")
+        client.assert(response.body.count === 9335, "Response body count is not 9335")
+        client.assert(response.body.previousPage, "Response body previousPage is not true")
+        client.assert(response.body.nextPage, "Response body nextPage is not true")
     });
 %}
 
@@ -65,6 +87,10 @@ X-API-KEY: {{api-key}}
 > {%
     client.test("Request executed successfully", function () {
         client.assert(response.status === 200, "Response status is not 200");
+        client.assert(response.body.results.length === 0, "Response body results size is not 0")
+        client.assert(response.body.count === 9335, "Response body count is not 9335")
+        client.assert(response.body.previousPage, "Response body previousPage is not true")
+        client.assert(!response.body.nextPage, "Response body nextPage is not false")
     });
 %}
 
@@ -75,6 +101,8 @@ X-API-KEY: {{api-key}}
 > {%
     client.test("Request executed successfully", function () {
         client.assert(response.status === 400, "Response status is not 400");
+        client.assert(response.body.melding === "Validatie fout(en)", "Response body melding is not \"Validatie fout(en)\"")
+        client.assert(response.body.fouten.length === 2, "Response body fouten size is not 2")
     });
 %}
 
@@ -85,6 +113,8 @@ X-API-KEY: {{api-key}}
 > {%
     client.test("Request executed successfully", function () {
         client.assert(response.status === 400, "Response status is not 400");
+        client.assert(response.body.melding === "Validatie fout(en)", "Response body melding is not \"Validatie fout(en)\"")
+        client.assert(response.body.fouten.length === 2, "Response body fouten size is not 2")
     });
 %}
 
@@ -155,6 +185,17 @@ X-API-KEY: {{api-key}}
 > {%
     client.test("Request executed successfully", function () {
         client.assert(response.status === 200, "Response status is not 200");
+    });
+%}
+
+### Zaak die niet bestaat
+GET {{base-url}}/zaken/1718-2030
+X-API-KEY: {{api-key}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 404, "Response status is not 404");
+        client.assert(response.body.melding === "Zaak with functionele identificatie '1718-2030' not found", "Response body melding is not \"Zaak with functionele identificatie '1718-2030' not found\"")
     });
 %}
 
