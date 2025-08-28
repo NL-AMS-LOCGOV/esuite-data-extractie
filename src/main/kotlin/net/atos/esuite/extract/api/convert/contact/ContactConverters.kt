@@ -46,8 +46,7 @@ class ContactConverter(
             behandelaar = contactEntity.behandelaarId,
             historie = contactEntity.contactHistorie.map { it.toContactHistorie() }.ifEmpty { null },
             voorlopigeAntwoorden = contactEntity.voorlopigeAntwoorden.map { it.toVoorlopigAntwoord() }.ifEmpty { null },
-            gekoppeldeContacten = contactEntity.gekoppeldeContacten1.map { it.functioneelId }
-                .ifEmpty { null }, // ToDo klopt dit zo?
+            gekoppeldeContacten = contactEntity.gekoppeldeContacten1.map { it.functioneelId }.ifEmpty { null },
             organisatie = contactEntity.organisatie?.toOrganisatie(),
         )
 

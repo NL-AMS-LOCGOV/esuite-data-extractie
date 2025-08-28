@@ -102,3 +102,14 @@ X-API-KEY: {{api-key}}
         client.assert(response.body.melding === "Contact with functionele identificatie 'NIET-BESTAAND' not found", "Response body melding is not \"Contact with functionele identificatie 'NIET-BESTAAND' not found\"")
     });
 %}
+
+### Gekoppelde contacten
+GET {{base-url}}/contacten/51-2017
+X-API-KEY: {{api-key}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+        client.assert(response.body.gekoppeldeContacten.length === 6, "Response body gekoppeldeContacten size is not 6")
+    });
+%}
