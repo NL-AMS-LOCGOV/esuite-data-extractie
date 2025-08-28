@@ -1,7 +1,6 @@
 package net.atos.esuite.extract.api.resource
 
-import io.quarkus.narayana.jta.BeginOptions
-import io.quarkus.narayana.jta.QuarkusTransaction
+import jakarta.transaction.Transactional
 import jakarta.ws.rs.*
 import jakarta.ws.rs.core.HttpHeaders
 import jakarta.ws.rs.core.MediaType
@@ -18,20 +17,21 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponse
 import java.io.OutputStream
 import java.sql.Blob
 import java.util.zip.ZipInputStream
-
+import javax.sql.DataSource
 
 @Path("documenten")
 @APIResponse(responseCode = "401", description = "Unauthorized")
 @APIResponse(
     responseCode = "500", description = "Internal Server Error",
-    content = [Content(schema = Schema(implementation = Fout::class))]
+    content = [Content(mediaType = MediaType.APPLICATION_JSON, schema = Schema(implementation = Fout::class))]
 )
 class Documenten(
-    private val documentInhoudRepository: DocumentInhoudRepository
+    private val documentInhoudRepository: DocumentInhoudRepository,
+    private val dataSource: DataSource
+
 ) {
     @GET
     @Path("inhoud/{documentInhoudID}")
-    @Produces(MediaType.APPLICATION_OCTET_STREAM)
     @Operation(operationId = "document_inhoud_read", summary = "Inhoud van een document ophalen")
     @APIResponse(
         responseCode = "200", description = "OK", content = [
@@ -46,22 +46,24 @@ class Documenten(
     )
     @APIResponse(
         responseCode = "404", description = "Not Found",
-        content = [Content(schema = Schema(implementation = Fout::class))]
+        content = [Content(mediaType = MediaType.APPLICATION_JSON, schema = Schema(implementation = Fout::class))]
     )
-    // ToDo: Dit werkt nog niet correct!
+    @Transactional(Transactional.TxType.REQUIRED)
     fun documentInhoudRead(@PathParam("documentInhoudID") documentInhoudID: Long): Response {
-        QuarkusTransaction.begin(BeginOptions().timeout(300)) // 5 minuten
         val documentInhoudEntity = documentInhoudRepository.findById(documentInhoudID)
             ?: throw NotFoundException("Document inhoud with ID '$documentInhoudID' not found")
         val inhoud = documentInhoudEntity.inhoud
             ?: throw NotFoundException("Document inhoud with ID '$documentInhoudID' is empty")
+
         return ok(
             StreamingOutput { output: OutputStream ->
                 try {
-                    copyBlob(inhoud, documentInhoudEntity.compressed, output)
-                    QuarkusTransaction.commit()
-                } finally {
-                    QuarkusTransaction.rollback()
+                    dataSource.connection.use { connection ->
+                        connection.autoCommit = false
+                        copyBlob(inhoud, documentInhoudEntity.compressed, output)
+                    }
+                } catch (e: Exception) {
+                    throw WebApplicationException("Error occurred while processing Blob data", e)
                 }
             })
             .type(MediaType.APPLICATION_OCTET_STREAM)

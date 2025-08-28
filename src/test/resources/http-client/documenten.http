@@ -21,3 +21,16 @@ X-API-KEY: {{api-key}}
         client.assert(response.status === 200, "Response status is not 200");
     });
 %}
+
+### Niet bestaand Document
+GET {{base-url}}/documenten/inhoud/823746
+Content-Type: application/json
+Accept: application/octet-stream, application/json
+X-API-KEY: {{api-key}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 404, "Response status is not 404");
+        client.assert(response.body.melding === "Document inhoud with ID '823746' not found", "Response body melding is not \"Document inhoud with ID '823746' not found\"")
+    });
+%}
