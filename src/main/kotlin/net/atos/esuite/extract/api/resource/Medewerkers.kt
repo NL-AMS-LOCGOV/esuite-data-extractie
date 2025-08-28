@@ -9,6 +9,7 @@ import net.atos.esuite.extract.api.convert.shared.toPage
 import net.atos.esuite.extract.api.model.shared.BladerParameters
 import net.atos.esuite.extract.api.model.shared.Fout
 import net.atos.esuite.extract.api.model.shared.Results
+import net.atos.esuite.extract.api.model.shared.ValidatieFouten
 import net.atos.esuite.extract.db.repository.identity.MedewerkerRepository
 import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.media.Content
@@ -28,9 +29,11 @@ class Medewerkers(
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(operationId = "medewerker_list", summary = "Lijst van medewerker overzichten opvragen")
     @APIResponse(responseCode = "200", description = "OK")
-    fun medewerkerList(
-        @BeanParam @Valid bladerParameters: BladerParameters
-    ) =
+    @APIResponse(
+        responseCode = "400", description = "Bad Request",
+        content = [Content(schema = Schema(implementation = ValidatieFouten::class))]
+    )
+    fun medewerkerList(@BeanParam @Valid bladerParameters: BladerParameters) =
         with(medewerkerRepository.findAll().page(bladerParameters.toPage())) {
             Results(list().map { it.toMedewerkerOverzicht() }, count(), hasPreviousPage(), hasNextPage())
         }

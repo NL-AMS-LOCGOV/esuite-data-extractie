@@ -9,6 +9,7 @@ import net.atos.esuite.extract.api.convert.shared.toPage
 import net.atos.esuite.extract.api.model.shared.BladerParameters
 import net.atos.esuite.extract.api.model.shared.Fout
 import net.atos.esuite.extract.api.model.shared.Results
+import net.atos.esuite.extract.api.model.shared.ValidatieFouten
 import net.atos.esuite.extract.db.repository.dsr.ReferentietabelDefinitieRepository
 import net.atos.esuite.extract.db.repository.dsr.ReferentietabelRecordRepository
 import org.eclipse.microprofile.openapi.annotations.Operation
@@ -31,9 +32,11 @@ class Referentietabellen(
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(operationId = "referentietabel_list", summary = "Lijst van referentietabellen opvragen")
     @APIResponse(responseCode = "200", description = "OK")
-    fun referentietabelList(
-        @BeanParam @Valid bladerParameters: BladerParameters
-    ) =
+    @APIResponse(
+        responseCode = "400", description = "Bad Request",
+        content = [Content(schema = Schema(implementation = ValidatieFouten::class))]
+    )
+    fun referentietabelList(@BeanParam @Valid bladerParameters: BladerParameters) =
         with(referentietabelDefinitieRepository.findAll().page(bladerParameters.toPage())) {
             Results(list().map { referentietabelConverter.toReferentietabel(it) }, count(), hasPreviousPage(), hasNextPage())
         }
@@ -57,6 +60,10 @@ class Referentietabellen(
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(operationId = "referentietabel_record_list", summary = "Records van een referentietabel opvragen")
     @APIResponse(responseCode = "200", description = "OK")
+    @APIResponse(
+        responseCode = "400", description = "Bad Request",
+        content = [Content(schema = Schema(implementation = ValidatieFouten::class))]
+    )
     fun referentietabelRecordList(
         @PathParam("referentietabel_naam") referentietabelNaam: String,
         @BeanParam @Valid bladerParameters: BladerParameters

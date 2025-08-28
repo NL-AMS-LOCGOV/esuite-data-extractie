@@ -3705,6 +3705,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ResultsAfdelingOverzicht"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidatieFouten"
       tags:
         - Afdelingen
   /afdelingen/{naam}:
@@ -3864,6 +3870,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ResultsContactOverzicht"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidatieFouten"
       tags:
         - Contacten
   /contacten/{functionele_Identificatie}:
@@ -3969,6 +3981,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ResultsDomein"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidatieFouten"
       tags:
         - Domeinen
   /domeinen/{domein_naam}/objecten:
@@ -4010,6 +4028,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ResultsDomeinObject"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidatieFouten"
       tags:
         - Domeinen
   /domeinen/{naam}:
@@ -4079,6 +4103,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ResultsGroepOverzicht"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidatieFouten"
       tags:
         - Groepen
   /groepen/{naam}:
@@ -4148,6 +4178,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ResultsMedewerkerOverzicht"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidatieFouten"
       tags:
         - Medewerkers
   /medewerkers/{gebruikersnaam}:
@@ -4185,8 +4221,8 @@ paths:
         - Medewerkers
   /personen:
     get:
-      summary: Personen opvragen op basis van BSN
-      operationId: persoon_list
+      summary: Persoon opvragen op basis van BSN
+      operationId: persoon_read_bsn
       parameters:
         - name: bsn
           in: query
@@ -4210,15 +4246,19 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Persoon"
+                $ref: "#/components/schemas/Persoon"
         "400":
           description: Bad Request
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ValidatieFouten"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Fout"
       tags:
         - Personen
   /personen/{identifier}:
@@ -4289,6 +4329,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ResultsReferentietabel"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidatieFouten"
       tags:
         - Referentietabellen
   /referentietabellen/{naam}:
@@ -4363,6 +4409,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ResultsReferentietabelRecord"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidatieFouten"
       tags:
         - Referentietabellen
   /zaaktypen:
@@ -4399,6 +4451,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ResultsZaaktype"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidatieFouten"
       tags:
         - Zaaktypen
   /zaken:

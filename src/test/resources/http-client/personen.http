@@ -5,6 +5,17 @@ X-API-KEY: {{api-key}}
 > {%
     client.test("Request executed successfully", function () {
         client.assert(response.status === 200, "Response status is not 200");
+        client.assert(response.body.burgerServiceNummer === "220290258", "Response body burgerServiceNummer is not \"220290258\"")
+    });
+%}
+
+### Persoon met bsn welke niet wordt gevonden
+GET {{base-url}}/personen?bsn=644166800
+X-API-KEY: {{api-key}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 404, "Response status is not 404");
     });
 %}
 
@@ -51,5 +62,6 @@ X-API-KEY: {{api-key}}
 > {%
     client.test("Request executed successfully", function () {
         client.assert(response.status === 200, "Response status is not 200");
+        client.assert(response.body.burgerServiceNummer === "220290258", "Response body burgerServiceNummer is not \"220290258\"")
     });
 %}

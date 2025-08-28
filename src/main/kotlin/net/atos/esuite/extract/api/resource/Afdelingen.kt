@@ -9,6 +9,7 @@ import net.atos.esuite.extract.api.convert.shared.toPage
 import net.atos.esuite.extract.api.model.shared.BladerParameters
 import net.atos.esuite.extract.api.model.shared.Fout
 import net.atos.esuite.extract.api.model.shared.Results
+import net.atos.esuite.extract.api.model.shared.ValidatieFouten
 import net.atos.esuite.extract.db.repository.identity.AfdelingRepository
 import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.media.Content
@@ -28,6 +29,10 @@ class Afdelingen(
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(operationId = "afdeling_list", summary = "Lijst van afdeling overzichten opvragen")
     @APIResponse(responseCode = "200", description = "OK")
+    @APIResponse(
+        responseCode = "400", description = "Bad Request",
+        content = [Content(schema = Schema(implementation = ValidatieFouten::class))]
+    )
     fun afdelingList(@BeanParam @Valid bladerParameters: BladerParameters) =
         with(afdelingRepository.findAll().page(bladerParameters.toPage())) {
             Results(list().map { it.toAfdelingOverzicht() }, count(), hasPreviousPage(), hasNextPage())

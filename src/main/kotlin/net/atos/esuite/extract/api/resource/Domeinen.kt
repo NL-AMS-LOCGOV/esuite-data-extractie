@@ -9,6 +9,7 @@ import net.atos.esuite.extract.api.convert.shared.toPage
 import net.atos.esuite.extract.api.model.shared.BladerParameters
 import net.atos.esuite.extract.api.model.shared.Fout
 import net.atos.esuite.extract.api.model.shared.Results
+import net.atos.esuite.extract.api.model.shared.ValidatieFouten
 import net.atos.esuite.extract.db.repository.dsr.DomeinDefinitieRepository
 import net.atos.esuite.extract.db.repository.dsr.DomeinObjectRepository
 import org.eclipse.microprofile.openapi.annotations.Operation
@@ -31,9 +32,11 @@ class Domeinen(
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(operationId = "domein_list", summary = "Lijst van domeinen opvragen")
     @APIResponse(responseCode = "200", description = "OK")
-    fun domeinList(
-        @BeanParam @Valid bladerParameters: BladerParameters
-    ) =
+    @APIResponse(
+        responseCode = "400", description = "Bad Request",
+        content = [Content(schema = Schema(implementation = ValidatieFouten::class))]
+    )
+    fun domeinList(@BeanParam @Valid bladerParameters: BladerParameters) =
         with(domeinDefinitieRepository.findAll().page(bladerParameters.toPage())) {
             Results(list().map { domeinConverter.toDomein(it) }, count(), hasPreviousPage(), hasNextPage())
         }
@@ -57,6 +60,10 @@ class Domeinen(
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(operationId = "domein_object_list", summary = "Objecten van een domein opvragen")
     @APIResponse(responseCode = "200", description = "OK")
+    @APIResponse(
+        responseCode = "400", description = "Bad Request",
+        content = [Content(schema = Schema(implementation = ValidatieFouten::class))]
+    )
     fun domeinObjectList(
         @PathParam("domein_naam") domeinNaam: String,
         @BeanParam @Valid bladerParameters: BladerParameters

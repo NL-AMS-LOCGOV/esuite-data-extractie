@@ -9,6 +9,7 @@ import net.atos.esuite.extract.api.convert.shared.toPage
 import net.atos.esuite.extract.api.model.shared.BladerParameters
 import net.atos.esuite.extract.api.model.shared.Fout
 import net.atos.esuite.extract.api.model.shared.Results
+import net.atos.esuite.extract.api.model.shared.ValidatieFouten
 import net.atos.esuite.extract.db.repository.identity.GroepRepository
 import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.media.Content
@@ -28,9 +29,11 @@ class Groepen(
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(operationId = "groep_list", summary = "Lijst van groep overzichten opvragen")
     @APIResponse(responseCode = "200", description = "OK")
-    fun groepList(
-        @BeanParam @Valid bladerParameters: BladerParameters
-    ) =
+    @APIResponse(
+        responseCode = "400", description = "Bad Request",
+        content = [Content(schema = Schema(implementation = ValidatieFouten::class))]
+    )
+    fun groepList(@BeanParam @Valid bladerParameters: BladerParameters) =
         with(groepRepository.findAll().page(bladerParameters.toPage())) {
             Results(results = list().map { it.toGroepOverzicht() }, count(), hasPreviousPage(), hasNextPage())
         }
