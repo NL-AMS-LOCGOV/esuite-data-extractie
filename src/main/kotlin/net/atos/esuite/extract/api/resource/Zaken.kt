@@ -30,7 +30,10 @@ class Zaken(
 ) {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Operation(operationId = "zaak_list", summary = "Lijst van zaak overzichten opvragen")
+    @Operation(
+        operationId = "zaak_list", summary = "Lijst van zaak overzichten van afgeronde zaken opvragen. " +
+                "Indien parameter 'inclusiefOpen=true' wordt meegegeven dan bevat de lijst ook openstaande zaken."
+    )
     @APIResponse(responseCode = "200", description = "OK")
     @APIResponse(
         responseCode = "400", description = "Bad Request",

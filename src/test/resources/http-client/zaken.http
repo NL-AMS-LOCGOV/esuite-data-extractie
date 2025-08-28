@@ -5,10 +5,10 @@ X-API-KEY: {{api-key}}
 > {%
     client.test("Request executed successfully", function () {
         client.assert(response.status === 200, "Response status is not 200");
-        client.assert(response.body.results.length === 100, "Response body results size is not 100")
-        client.assert(response.body.count === 9335, "Response body count is not 9335")
+        client.assert(response.body.results.length === 83, "Response body results size is not 83")
+        client.assert(response.body.count === 83, "Response body count is not 83")
         client.assert(!response.body.previousPage, "Response body previousPage is not false")
-        client.assert(response.body.nextPage, "Response body nextPage is not true")
+        client.assert(!response.body.nextPage, "Response body nextPage is not false")
     });
 %}
 
@@ -33,10 +33,10 @@ X-API-KEY: {{api-key}}
 > {%
     client.test("Request executed successfully", function () {
         client.assert(response.status === 200, "Response status is not 200");
-        client.assert(response.body.results.length === 100, "Response body results size is not 100")
-        client.assert(response.body.count === 9335, "Response body count is not 9335")
+        client.assert(response.body.results.length === 83, "Response body results size is not 83")
+        client.assert(response.body.count === 83, "Response body count is not 83")
         client.assert(!response.body.previousPage, "Response body previousPage is not false")
-        client.assert(response.body.nextPage, "Response body nextPage is not true")
+        client.assert(!response.body.nextPage, "Response body nextPage is not false")
     });
 %}
 
@@ -53,7 +53,7 @@ X-API-KEY: {{api-key}}
 %}
 
 ###
-GET {{base-url}}/zaken?zaaktype=MigratieTest1&page=1
+GET {{base-url}}/zaken?zaaktype=MigratieTest1&page=1&inclusiefOpen=true
 X-API-KEY: {{api-key}}
 
 > {%
@@ -67,7 +67,7 @@ X-API-KEY: {{api-key}}
 %}
 
 ###
-GET {{base-url}}/zaken?zaaktype=MigratieTest1&page=2
+GET {{base-url}}/zaken?zaaktype=MigratieTest1&page=2&inclusiefOpen=true
 X-API-KEY: {{api-key}}
 
 > {%
@@ -81,7 +81,7 @@ X-API-KEY: {{api-key}}
 %}
 
 ###
-GET {{base-url}}/zaken?zaaktype=MigratieTest1&page=99
+GET {{base-url}}/zaken?zaaktype=MigratieTest1&page=99&inclusiefOpen=true
 X-API-KEY: {{api-key}}
 
 > {%

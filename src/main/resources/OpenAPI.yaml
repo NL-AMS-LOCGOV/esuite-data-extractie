@@ -4461,7 +4461,8 @@ paths:
         - Zaaktypen
   /zaken:
     get:
-      summary: Lijst van zaak overzichten opvragen
+      summary: Lijst van zaak overzichten van afgeronde zaken opvragen. Indien parameter
+        'inclusiefOpen=true' wordt meegegeven dan bevat de lijst ook openstaande zaken.
       operationId: zaak_list
       parameters:
         - name: inclusiefOpen
