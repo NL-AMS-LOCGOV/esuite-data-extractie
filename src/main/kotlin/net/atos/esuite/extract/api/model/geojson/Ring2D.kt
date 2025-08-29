@@ -12,9 +12,7 @@ import java.math.BigDecimal
     implementation = Point2D::class,
     minItems = 4)
 @JsonbTypeAdapter(Ring2DJsonbAdapter::class)
-class Ring2D (
-    val points: List<Point2D>
-) {
+class Ring2D(val points: List<Point2D>) {
     fun toCoordinates() = points.map { it.toCoordinates() }.toTypedArray()
 }
 

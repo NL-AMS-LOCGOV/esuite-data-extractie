@@ -12,9 +12,7 @@ import java.math.BigDecimal
     implementation = Ring2D::class,
 )
 @JsonbTypeAdapter(Polygon2DJsonbAdapter::class)
-class Polygon2D(
-    val rings: List<Ring2D>
-) {
+class Polygon2D(val rings: List<Ring2D>) {
     fun toCoordinates() = rings.map { it.toCoordinates() }.toTypedArray()
 }
 
