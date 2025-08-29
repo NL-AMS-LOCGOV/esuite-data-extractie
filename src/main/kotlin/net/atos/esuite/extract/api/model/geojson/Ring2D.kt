@@ -10,9 +10,20 @@ import java.math.BigDecimal
     description = "A connected sequence of four or more points creating a closed ring",
     type = SchemaType.ARRAY,
     implementation = Point2D::class,
-    minItems = 4)
+    minItems = 4
+)
 @JsonbTypeAdapter(Ring2DJsonbAdapter::class)
-class Ring2D(val points: List<Point2D>) {
+class Ring2D private constructor(val points: List<Point2D>) {
+
+    companion object {
+        fun create(coordinates: String): Ring2D? {
+            val points = coordinates.trim().split(COMMA_SEPARATOR_REGEX)
+                .map { Point2D.create(it) ?: return null }
+            if (points.size < 4) return null
+            return Ring2D(points)
+        }
+    }
+
     fun toCoordinates() = points.map { it.toCoordinates() }.toTypedArray()
 }
 

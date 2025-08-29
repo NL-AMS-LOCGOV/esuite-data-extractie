@@ -1,5 +1,11 @@
 package net.atos.esuite.extract.api.model.geojson
 
+val SPACE_SEPARATOR_REGEX = Regex("\\s+")
+
+val COMMA_SEPARATOR_REGEX = Regex("\\s*,\\s*")
+
+val NESTED_COMMA_SEPARATOR_REGEX = Regex("\\s*\\)\\s*,\\s*\\(\\s*")
+
 class WKT(value: String) {
 
     val geometryType: String

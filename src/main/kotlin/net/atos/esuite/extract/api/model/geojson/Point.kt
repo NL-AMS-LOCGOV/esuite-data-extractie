@@ -15,7 +15,7 @@ class Point(
 fun WKT.isPoint() = geometryType == "POINT"
 
 fun WKT.createPoint(): Point {
-    val point2d = Point2D.create(coordinates)
-    require(point2d != null) { "WKT contains invalid Point coordinates: $coordinates" }
-    return Point(point2d)
+    val point2D = Point2D.create(coordinates)
+    require(point2D != null) { "WKT contains invalid Point coordinates: $coordinates" }
+    return Point(point2D)
 }

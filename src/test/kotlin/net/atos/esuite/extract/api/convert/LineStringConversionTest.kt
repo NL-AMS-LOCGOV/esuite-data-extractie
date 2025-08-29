@@ -2,6 +2,7 @@ package net.atos.esuite.extract.api.convert
 
 import net.atos.esuite.extract.api.convert.zaak.convertToGeoJsonGeometry
 import net.atos.esuite.extract.api.model.geojson.LineString
+import net.atos.esuite.extract.api.model.geojson.SPACE_SEPARATOR_REGEX
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import java.math.BigDecimal
@@ -33,6 +34,7 @@ class LineStringConversionTest {
             "233655.10875 581537.88"
         )
 
+        assertThrows<IllegalArgumentException> { convertToGeoJsonGeometry("LINESTRING(2 1)") }
         assertThrows<IllegalArgumentException> { convertToGeoJsonGeometry("LINESTRING(2 1 1 2)") }
         assertThrows<IllegalArgumentException> { convertToGeoJsonGeometry("LINESTRING(2 ,1 2)") }
         assertThrows<IllegalArgumentException> { convertToGeoJsonGeometry("LINESTRING(2 1, 2)") }
@@ -40,6 +42,8 @@ class LineStringConversionTest {
         assertThrows<IllegalArgumentException> { convertToGeoJsonGeometry("LINESTRING(A B, C D)") }
         assertThrows<IllegalArgumentException> { convertToGeoJsonGeometry("LINESTRING(2 1 1 2") }
         assertThrows<IllegalArgumentException> { convertToGeoJsonGeometry("LINESTRING2 1 1 2)") }
+        assertThrows<IllegalArgumentException> { convertToGeoJsonGeometry("LINESTRING(2 1, , 1 2)") }
+        assertThrows<IllegalArgumentException> { convertToGeoJsonGeometry("LINESTRING(2 1,,1 2)") }
     }
 
     private fun test(wkt: String, vararg expectedCoordinates: String) {
@@ -47,10 +51,10 @@ class LineStringConversionTest {
         assert(geoJsonGeometry is LineString)
         val lineString = geoJsonGeometry as LineString
         assert(lineString.line2D.points.size == expectedCoordinates.size)
-        for ((index, point2d) in lineString.line2D.points.withIndex()) {
-            val (expectedLongitude, expectedLatitude) = expectedCoordinates[index].split(" ")
-            assert(point2d.longitude == BigDecimal(expectedLongitude))
-            assert(point2d.latitude == BigDecimal(expectedLatitude))
+        for ((index, point2D) in lineString.line2D.points.withIndex()) {
+            val (expectedLongitude, expectedLatitude) = expectedCoordinates[index].split(SPACE_SEPARATOR_REGEX)
+            assert(point2D.longitude == BigDecimal(expectedLongitude))
+            assert(point2D.latitude == BigDecimal(expectedLatitude))
         }
     }
 }

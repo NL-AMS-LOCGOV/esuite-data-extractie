@@ -7,4 +7,15 @@ import org.eclipse.microprofile.openapi.annotations.media.SchemaProperty
     description = "GeoJSON Polygon Geometry object",
     properties = [SchemaProperty(name = "type", defaultValue = "Polygon")]
 )
-class Polygon private constructor(val coordinates: Polygon2D) : Geometry(GeometryType.Polygon)
+class Polygon(
+    @field:Schema(name = "coordinates")
+    val polygon2D: Polygon2D
+) : Geometry(GeometryType.Polygon)
+
+fun WKT.isPolygon() = geometryType == "POLYGON"
+
+fun WKT.createPolygon(): Polygon {
+    val polygon2D = Polygon2D.create(coordinates)
+    require(polygon2D != null) { "WKT contains invalid Polygon coordinates: $coordinates" }
+    return Polygon(polygon2D)
+}

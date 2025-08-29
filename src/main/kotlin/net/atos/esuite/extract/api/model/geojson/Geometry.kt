@@ -9,7 +9,6 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema
     discriminatorMapping = [
         DiscriminatorMapping("Point", schema = Point::class),
         DiscriminatorMapping("LineString", schema = LineString::class),
-        DiscriminatorMapping("MultiLineString", schema = MultiLineString::class),
         DiscriminatorMapping("Polygon", schema = Polygon::class),
         DiscriminatorMapping("MultiPolygon", schema = MultiPolygon::class),
         DiscriminatorMapping("GeometryCollection", schema = GeometryCollection::class)
@@ -17,7 +16,6 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema
     oneOf = [
         Point::class,
         LineString::class,
-        MultiLineString::class,
         Polygon::class,
         MultiPolygon::class,
         GeometryCollection::class

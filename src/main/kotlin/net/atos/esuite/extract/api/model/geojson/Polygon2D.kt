@@ -12,7 +12,21 @@ import java.math.BigDecimal
     implementation = Ring2D::class,
 )
 @JsonbTypeAdapter(Polygon2DJsonbAdapter::class)
-class Polygon2D(val rings: List<Ring2D>) {
+class Polygon2D private constructor(val rings: List<Ring2D>) {
+
+    companion object {
+        fun create(coordinates: String): Polygon2D? {
+            with(coordinates.trim()) {
+                if (!startsWith("(") || !endsWith(")")) return null
+                return Polygon2D(
+                    removePrefix("(").removeSuffix(")")
+                        .split(NESTED_COMMA_SEPARATOR_REGEX)
+                        .map { Ring2D.create(it) ?: return null }
+                )
+            }
+        }
+    }
+
     fun toCoordinates() = rings.map { it.toCoordinates() }.toTypedArray()
 }
 

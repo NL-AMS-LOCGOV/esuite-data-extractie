@@ -18,13 +18,13 @@ data class Point2D private constructor(val longitude: BigDecimal, val latitude: 
     companion object {
         fun create(coordinates: String): Point2D? {
             if (coordinates.contains(',')) {
-                with(coordinates.split(',')) {
+                with(coordinates.trim().split(COMMA_SEPARATOR_REGEX)) {
                     if (size == 2) {
-                        return Point2D(get(1).trim().toBigDecimal(), get(0).trim().toBigDecimal())
+                        return Point2D(get(1).toBigDecimal(), get(0).toBigDecimal())
                     }
                 }
             } else {
-                with(coordinates.split(Regex("\\s+"))) {
+                with(coordinates.trim().split(SPACE_SEPARATOR_REGEX)) {
                     if (size == 2) {
                         return Point2D(get(0).toBigDecimal(), get(1).toBigDecimal())
                     }

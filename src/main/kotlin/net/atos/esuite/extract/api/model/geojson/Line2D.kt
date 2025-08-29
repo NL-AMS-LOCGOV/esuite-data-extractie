@@ -16,16 +16,12 @@ import java.math.BigDecimal
 class Line2D private constructor(val points: List<Point2D>) {
 
     companion object {
-        fun create(coordinates: String): Line2D? =
-            Line2D(
-                coordinates.split(',')
-                    .map { it.trim() }
-                    .filter { it.isNotEmpty() }
-                    .map { pointCoordinates ->
-                        val point2D = Point2D.create(pointCoordinates)
-                        if (point2D == null) return null
-                        return@map point2D
-                    })
+        fun create(coordinates: String): Line2D? {
+            val points = coordinates.trim().split(COMMA_SEPARATOR_REGEX)
+                .map { Point2D.create(it) ?: return null }
+            if (points.size < 2) return null
+            return Line2D(points)
+        }
     }
 
     fun toCoordinates() = points.map { it.toCoordinates() }.toTypedArray()
