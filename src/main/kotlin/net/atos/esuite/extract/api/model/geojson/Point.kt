@@ -2,19 +2,20 @@ package net.atos.esuite.extract.api.model.geojson
 
 import org.eclipse.microprofile.openapi.annotations.media.Schema
 import org.eclipse.microprofile.openapi.annotations.media.SchemaProperty
-import java.math.BigDecimal
-
-private val POINT = "POINT"
-
-fun isPoint(wkt: WKT) = wkt.value.startsWith(POINT)
 
 @Schema(
     description = "GeoJSON Point Geometry object",
     properties = [SchemaProperty(name = "type", defaultValue = "Point")]
 )
-class Point private constructor(val coordinates: Point2D) : Geometry(GeometryType.Point) {
-    
-    companion object : GeometryFactory {
-        override fun create(wkt: WKT) = Point(Point2D(BigDecimal("1.0"), BigDecimal("1.0")))
-    }
+class Point(
+    @field:Schema(name = "coordinates")
+    val point2D: Point2D
+) : Geometry(GeometryType.Point)
+
+fun WKT.isPoint() = geometryType == "POINT"
+
+fun WKT.createPoint(): Point {
+    val point2d = Point2D.create(coordinates)
+    require(point2d != null) { "WKT contains invalid Point coordinates: $coordinates" }
+    return Point(point2d)
 }

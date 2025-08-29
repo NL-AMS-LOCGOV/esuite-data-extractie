@@ -10,11 +10,24 @@ import java.math.BigDecimal
     description = "A connected sequence of two or more points",
     type = SchemaType.ARRAY,
     implementation = Point2D::class,
-    minItems = 2)
+    minItems = 2
+)
 @JsonbTypeAdapter(Line2DJsonbAdapter::class)
-class Line2D (
-    val points: List<Point2D>
-) {
+class Line2D private constructor(val points: List<Point2D>) {
+
+    companion object {
+        fun create(coordinates: String): Line2D? =
+            Line2D(
+                coordinates.split(',')
+                    .map { it.trim() }
+                    .filter { it.isNotEmpty() }
+                    .map { pointCoordinates ->
+                        val point2D = Point2D.create(pointCoordinates)
+                        if (point2D == null) return null
+                        return@map point2D
+                    })
+    }
+
     fun toCoordinates() = points.map { it.toCoordinates() }.toTypedArray()
 }
 

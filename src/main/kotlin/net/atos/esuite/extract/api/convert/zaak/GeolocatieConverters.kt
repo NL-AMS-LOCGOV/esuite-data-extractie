@@ -2,9 +2,14 @@ package net.atos.esuite.extract.api.convert.zaak
 
 import net.atos.esuite.extract.api.model.geojson.*
 
-fun convertToGeoJsonGeometry(wkt: WKT) =
-    when {
-        isPoint(wkt) -> Point.create(wkt)
-        isLineString(wkt) -> LineString.create(wkt)
-        else -> error("Unsupported geometry type: $wkt")
+fun convertToGeoJsonGeometry(wkt: String): Geometry? {
+    if (wkt.isBlank()) return null
+
+    return with(WKT(wkt)) {
+        when {
+            isPoint() -> createPoint()
+            isLineString() -> createLineString()
+            else -> error("Unsupported geometry type: $wkt")
+        }
     }
+}

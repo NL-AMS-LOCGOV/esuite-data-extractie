@@ -1,8 +1,6 @@
-package net.atos.esuite.extract.config
+package net.atos.esuite.extract.api.config
 
 import io.quarkus.test.junit.QuarkusTest
-import io.restassured.RestAssured.given
-import org.junit.jupiter.api.Test
 
 @QuarkusTest
 class ApiKeyFilterTest {

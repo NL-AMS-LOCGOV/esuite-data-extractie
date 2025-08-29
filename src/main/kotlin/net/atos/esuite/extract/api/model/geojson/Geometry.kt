@@ -27,11 +27,3 @@ sealed class Geometry(
     @field:Schema(description = "Geometry type")
     val type: GeometryType,
 )
-
-// Well-Known Text
-@JvmInline
-value class WKT(val value: String)
-
-interface GeometryFactory {
-    fun create(wkt: WKT): Geometry
-}

@@ -13,10 +13,27 @@ import java.math.BigDecimal
     minItems = 2, maxItems = 2
 )
 @JsonbTypeAdapter(Point2DJsonbAdapter::class)
-data class Point2D(
-    private val longitude: BigDecimal,
-    private val latitude: BigDecimal,
-) {
+data class Point2D private constructor(val longitude: BigDecimal, val latitude: BigDecimal) {
+
+    companion object {
+        fun create(coordinates: String): Point2D? {
+            if (coordinates.contains(',')) {
+                with(coordinates.split(',')) {
+                    if (size == 2) {
+                        return Point2D(get(1).trim().toBigDecimal(), get(0).trim().toBigDecimal())
+                    }
+                }
+            } else {
+                with(coordinates.split(Regex("\\s+"))) {
+                    if (size == 2) {
+                        return Point2D(get(0).toBigDecimal(), get(1).toBigDecimal())
+                    }
+                }
+            }
+            return null
+        }
+    }
+
     fun toCoordinates() = arrayOf(longitude, latitude)
 }
 

@@ -3376,7 +3376,7 @@ components:
           $ref: "#/components/schemas/ArchiveerGegevens"
         geolocatie:
           type: object
-          description: Locatie van zaak
+          description: Locatie van zaak. Coördinatenstelsel is RD_NEW (srid=28992)
           $ref: "#/components/schemas/Geometry"
         historie:
           type: array

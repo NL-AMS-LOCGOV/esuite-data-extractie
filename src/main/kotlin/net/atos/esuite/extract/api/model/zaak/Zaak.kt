@@ -88,7 +88,7 @@ class Zaak(
     @field:Schema(description = "Archiveer gegevens van zaak")
     val archiveerGegevens: ArchiveerGegevens?,
 
-    @field:Schema(description = "Locatie van zaak")
+    @field:Schema(description = "Locatie van zaak. Coördinatenstelsel is RD_NEW (srid=28992)")
     val geolocatie: Geometry?,
 
     @field:Schema(description = "Historie van zaak")

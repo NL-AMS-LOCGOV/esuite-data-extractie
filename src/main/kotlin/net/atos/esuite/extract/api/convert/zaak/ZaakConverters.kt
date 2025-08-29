@@ -9,7 +9,6 @@ import net.atos.esuite.extract.api.model.bag.BAGObject
 import net.atos.esuite.extract.api.model.besluit.Besluit
 import net.atos.esuite.extract.api.model.besluit.Besluitcategorie
 import net.atos.esuite.extract.api.model.besluit.Besluittype
-import net.atos.esuite.extract.api.model.geojson.WKT
 import net.atos.esuite.extract.api.model.zaak.*
 import net.atos.esuite.extract.db.entity.zakenmagazijn.*
 import net.atos.esuite.extract.db.repository.basisgegevens.SubjectRepository
@@ -43,7 +42,7 @@ class ZaakConverter(
             functioneleIdentificatie = zaakEntity.functioneelId,
             geautoriseerdeMedewerkers = zaakEntity.geautoriseerdeMedewerkers.ifEmpty { null },
             gekoppeldeZaken = zaakEntity.relatieZaken.map { it.toZaakZaakKoppeling() }.ifEmpty { null },
-            geolocatie = zaakEntity.geolocatie?.let { convertToGeoJsonGeometry(WKT(it)) },
+            geolocatie = zaakEntity.geolocatie?.let { convertToGeoJsonGeometry(it) },
             groep = zaakEntity.groepId,
             historie = zaakEntity.historie.map { it.toZaakHistorie() },
             geautoriseerdVoorMedewerkers = zaakEntity.autorisatie,
