@@ -1476,7 +1476,6 @@ components:
       oneOf:
         - $ref: "#/components/schemas/Point"
         - $ref: "#/components/schemas/LineString"
-        - $ref: "#/components/schemas/MultiLineString"
         - $ref: "#/components/schemas/Polygon"
         - $ref: "#/components/schemas/MultiPolygon"
         - $ref: "#/components/schemas/GeometryCollection"
@@ -1487,7 +1486,6 @@ components:
         mapping:
           Point: "#/components/schemas/Point"
           LineString: "#/components/schemas/LineString"
-          MultiLineString: "#/components/schemas/MultiLineString"
           Polygon: "#/components/schemas/Polygon"
           MultiPolygon: "#/components/schemas/MultiPolygon"
           GeometryCollection: "#/components/schemas/GeometryCollection"
@@ -1517,7 +1515,6 @@ components:
       enum:
         - Point
         - LineString
-        - MultiLineString
         - Polygon
         - MultiPolygon
         - GeometryCollection
@@ -1821,22 +1818,6 @@ components:
         indicatieVoorAlleDocumenttypes:
           type: boolean
           description: Indicatie of het metadata element gebruikt wordt bij alle documenttypes
-    MultiLineString:
-      type: object
-      required:
-        - type
-        - coordinates
-      description: GeoJSON MultiLineString Geometry object
-      properties:
-        type:
-          $ref: "#/components/schemas/GeometryType"
-          type: string
-          description: Geometry type
-          default: MultiLineString
-        coordinates:
-          type: array
-          items:
-            $ref: "#/components/schemas/Line2D"
     MultiPolygon:
       type: object
       required:
