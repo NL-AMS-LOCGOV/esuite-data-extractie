@@ -11,6 +11,7 @@ fun convertToGeoJsonGeometry(wkt: String): Geometry? {
             isLineString() -> createLineString()
             isPolygon() -> createPolygon()
             isMultiPolygon() -> createMultiPolygon()
+            isGeometryCollection() -> createGeometryCollection()
             else -> error("Unsupported geometry type: $geometryType")
         }
     }
