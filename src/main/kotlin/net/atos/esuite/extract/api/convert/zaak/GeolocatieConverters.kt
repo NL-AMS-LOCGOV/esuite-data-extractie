@@ -10,6 +10,7 @@ fun convertToGeoJsonGeometry(wkt: String): Geometry? {
             isPoint() -> createPoint()
             isLineString() -> createLineString()
             isPolygon() -> createPolygon()
+            isMultiPolygon() -> createMultiPolygon()
             else -> error("Unsupported geometry type: $geometryType")
         }
     }

@@ -15,16 +15,12 @@ import java.math.BigDecimal
 class Polygon2D private constructor(val rings: List<Ring2D>) {
 
     companion object {
-        fun create(coordinates: String): Polygon2D? {
-            with(coordinates.trim()) {
-                if (!startsWith("(") || !endsWith(")")) return null
-                return Polygon2D(
-                    removePrefix("(").removeSuffix(")")
-                        .split(NESTED_COMMA_SEPARATOR_REGEX)
-                        .map { Ring2D.create(it) ?: return null }
-                )
-            }
-        }
+        fun create(coordinates: String): Polygon2D? =
+            Polygon2D(
+                coordinates
+                    .split(PARENTHESIS_SURROUNDED_COMMA_SEPARATOR)
+                    .map { Ring2D.create(it) ?: return null }
+            )
     }
 
     fun toCoordinates() = rings.map { it.toCoordinates() }.toTypedArray()

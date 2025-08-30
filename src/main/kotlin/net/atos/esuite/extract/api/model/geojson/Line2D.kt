@@ -17,7 +17,7 @@ class Line2D private constructor(val points: List<Point2D>) {
 
     companion object {
         fun create(coordinates: String): Line2D? {
-            val points = coordinates.trim().split(COMMA_SEPARATOR_REGEX)
+            val points = coordinates.split(COMMA_SEPARATOR)
                 .map { Point2D.create(it) ?: return null }
             if (points.size < 2) return null
             return Line2D(points)

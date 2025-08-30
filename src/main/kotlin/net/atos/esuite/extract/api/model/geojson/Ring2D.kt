@@ -17,7 +17,7 @@ class Ring2D private constructor(val points: List<Point2D>) {
 
     companion object {
         fun create(coordinates: String): Ring2D? {
-            val points = coordinates.trim().split(COMMA_SEPARATOR_REGEX)
+            val points = coordinates.split(COMMA_SEPARATOR)
                 .map { Point2D.create(it) ?: return null }
             if (points.size < 4) return null
             return Ring2D(points)

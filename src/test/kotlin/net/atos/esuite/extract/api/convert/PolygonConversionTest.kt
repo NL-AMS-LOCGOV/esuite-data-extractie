@@ -2,7 +2,7 @@ package net.atos.esuite.extract.api.convert
 
 import net.atos.esuite.extract.api.convert.zaak.convertToGeoJsonGeometry
 import net.atos.esuite.extract.api.model.geojson.Polygon
-import net.atos.esuite.extract.api.model.geojson.SPACE_SEPARATOR_REGEX
+import net.atos.esuite.extract.api.model.geojson.SPACE_SEPARATOR
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import java.math.BigDecimal
@@ -31,6 +31,7 @@ class PolygonConversionTest {
         assertThrows<IllegalArgumentException> { convertToGeoJsonGeometry("POLYGON((1 1, 2 2, 3 3, 4 4)") }
         assertThrows<IllegalArgumentException> { convertToGeoJsonGeometry("POLYGON(1 1, 2 2, 3 3, 4 4))") }
         assertThrows<IllegalArgumentException> { convertToGeoJsonGeometry("POLYGON((1 1, 2 2, 3 3, 4 4), 5 5, 6 6, 7 7, 8 8)") }
+        assertThrows<IllegalArgumentException> { convertToGeoJsonGeometry("POLYGON(((1 1, 2 2, 3 3, 4 4)))") }
     }
 
     private fun test(wkt: String, vararg expectedCoordinates: List<String>) {
@@ -41,7 +42,7 @@ class PolygonConversionTest {
         for ((ringIndex, ring2d) in polygon.polygon2D.rings.withIndex()) {
             assert(ring2d.points.size == expectedCoordinates[ringIndex].size)
             for ((pointIndex, point2D) in ring2d.points.withIndex()) {
-                val (expectedLongitude, expectedLatitude) = expectedCoordinates[ringIndex][pointIndex].split(SPACE_SEPARATOR_REGEX)
+                val (expectedLongitude, expectedLatitude) = expectedCoordinates[ringIndex][pointIndex].split(SPACE_SEPARATOR)
                 assert(point2D.longitude == BigDecimal(expectedLongitude))
                 assert(point2D.latitude == BigDecimal(expectedLatitude))
             }

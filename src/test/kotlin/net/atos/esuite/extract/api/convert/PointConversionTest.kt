@@ -34,6 +34,13 @@ class PointConversionTest {
         assertThrows<IllegalArgumentException> { convertToGeoJsonGeometry("POINT(  1  2  3)") }
         assertThrows<IllegalArgumentException> { convertToGeoJsonGeometry("POINT(1,  2,  3)") }
         assertThrows<IllegalArgumentException> { convertToGeoJsonGeometry("POINT(  1  )") }
+        assertThrows<IllegalArgumentException> { convertToGeoJsonGeometry("POINT  1 3 )") }
+        assertThrows<IllegalArgumentException> { convertToGeoJsonGeometry("POINT  1, 3 )") }
+        assertThrows<IllegalArgumentException> { convertToGeoJsonGeometry("POINT(  1 3 ") }
+        assertThrows<IllegalArgumentException> { convertToGeoJsonGeometry("POINT(  1, 3 ") }
+        assertThrows<IllegalArgumentException> { convertToGeoJsonGeometry("POINT  1 1, 3 ") }
+        assertThrows<IllegalArgumentException> { convertToGeoJsonGeometry("POINT(  1 1 ,  2 2 ) 3 3 ") }
+        assertThrows<IllegalArgumentException> { convertToGeoJsonGeometry("POINT(  1 1 ),  2 2 )") }
     }
 
     private fun test(wkt: String, expectedLongitude: String, expectedLatitude: String) {

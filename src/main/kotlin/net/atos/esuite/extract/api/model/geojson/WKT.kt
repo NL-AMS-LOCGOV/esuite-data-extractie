@@ -1,10 +1,21 @@
 package net.atos.esuite.extract.api.model.geojson
 
-val SPACE_SEPARATOR_REGEX = Regex("\\s+")
+val SPACE_SEPARATOR = Regex("\\s+")
 
-val COMMA_SEPARATOR_REGEX = Regex("\\s*,\\s*")
+val COMMA_SEPARATOR = Regex("\\s*,\\s*")
 
-val NESTED_COMMA_SEPARATOR_REGEX = Regex("\\s*\\)\\s*,\\s*\\(\\s*")
+val LEFT_PARENTHESIS_AT_BEGIN = Regex("^\\s*\\(\\s*")
+
+val PARENTHESIS_SURROUNDED_COMMA_SEPARATOR = Regex("\\s*\\)\\s*,\\s*\\(\\s*")
+
+val RIGHT_PARENTHESIS_AT_END = Regex("\\s*\\)\\s*$")
+
+val DOUBLE_LEFT_PARENTHESIS_AT_BEGIN = Regex("^\\s*\\(\\s*\\(\\s*")
+
+val DOUBLE_PARENTHESIS_SURROUNDED_COMMA_SEPARATOR = Regex("\\s*\\)\\s*\\)\\s*,\\s*\\(\\s*\\(\\s*")
+
+val DOUBLE_RIGHT_PARENTHESIS_AT_END = Regex("\\s*\\)\\s*\\)\\s*$")
+
 
 class WKT(value: String) {
 
@@ -15,7 +26,7 @@ class WKT(value: String) {
     init {
         val start = value.indexOf('(')
         val end = value.lastIndexOf(')')
-        require(start > 0 && end > start) { "Invalid WKT: $value" }
+        require(start > 0 && end > start && value.substring(end + 1).isBlank()) { "Invalid WKT: $value" }
         geometryType = value.substring(0, start).trim()
         coordinates = value.substring(start + 1, end).trim()
     }
