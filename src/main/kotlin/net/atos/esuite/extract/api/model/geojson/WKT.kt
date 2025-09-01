@@ -16,6 +16,9 @@ val DOUBLE_PARENTHESIS_SURROUNDED_COMMA_SEPARATOR = Regex("\\s*\\)\\s*\\)\\s*,\\
 
 val DOUBLE_RIGHT_PARENTHESIS_AT_END = Regex("\\s*\\)\\s*\\)\\s*$")
 
+val GEOMETRY_TYPE_FIRST_LETTER_AT_BEGIN = Regex("^\\s*[A-Z]")
+
+val COMMA_GEOMETRY_TYPE_FIRST_LETTER_SEPARATOR = Regex("\\s*,\\s*[A-Z]")
 
 class WKT(value: String) {
 

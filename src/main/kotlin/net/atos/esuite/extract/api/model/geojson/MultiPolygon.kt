@@ -12,7 +12,9 @@ class MultiPolygon(
     val polygons: List<Polygon2D>
 ) : Geometry(GeometryType.MultiPolygon)
 
-fun WKT.isMultiPolygon() = geometryType == "MULTIPOLYGON"
+val MULTIPOLYGON = "MULTIPOLYGON"
+
+fun WKT.isMultiPolygon() = geometryType == MULTIPOLYGON
 
 fun WKT.createMultiPolygon(): MultiPolygon {
     val invalidWKTMessage = { "WKT contains invalid MultiPolygon coordinates: $coordinates" }
@@ -21,7 +23,7 @@ fun WKT.createMultiPolygon(): MultiPolygon {
         .replaceFirst(DOUBLE_LEFT_PARENTHESIS_AT_BEGIN, "")
         .replaceFirst(DOUBLE_RIGHT_PARENTHESIS_AT_END, "")
         .split(DOUBLE_PARENTHESIS_SURROUNDED_COMMA_SEPARATOR)
-        .map { Polygon2D.create(it) ?: throw IllegalArgumentException(invalidWKTMessage()) }
+        .map { Polygon2D.create(it) ?: error(invalidWKTMessage()) }
     require(polygons2D.isNotEmpty()) { invalidWKTMessage() }
     return MultiPolygon(polygons2D)
 }

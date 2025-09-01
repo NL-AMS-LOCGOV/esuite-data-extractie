@@ -12,7 +12,9 @@ class LineString(
     val line2D: Line2D
 ) : Geometry(GeometryType.LineString)
 
-fun WKT.isLineString() = geometryType == "LINESTRING"
+val LINESTRING = "LINESTRING"
+
+fun WKT.isLineString() = geometryType == LINESTRING
 
 fun WKT.createLineString(): LineString {
     val line2D = Line2D.create(coordinates)

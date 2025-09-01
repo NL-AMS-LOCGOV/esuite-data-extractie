@@ -12,7 +12,9 @@ class Point(
     val point2D: Point2D
 ) : Geometry(GeometryType.Point)
 
-fun WKT.isPoint() = geometryType == "POINT"
+val POINT = "POINT"
+
+fun WKT.isPoint() = geometryType == POINT
 
 fun WKT.createPoint(): Point {
     val point2D = Point2D.create(coordinates)

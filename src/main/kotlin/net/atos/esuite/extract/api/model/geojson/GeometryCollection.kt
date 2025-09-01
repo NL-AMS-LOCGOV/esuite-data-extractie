@@ -14,4 +14,19 @@ class GeometryCollection(
 
 fun WKT.isGeometryCollection() = geometryType == "GEOMETRYCOLLECTION"
 
-fun WKT.createGeometryCollection() = GeometryCollection(emptyList()) // ToDo: implement
+fun WKT.createGeometryCollection() =
+    GeometryCollection(
+        coordinates.replaceFirst(GEOMETRY_TYPE_FIRST_LETTER_AT_BEGIN, "")
+            .split(COMMA_GEOMETRY_TYPE_FIRST_LETTER_SEPARATOR)
+            .map { toGeometry(it) ?: error("WKT contains invalid GeometryCollection coordinates: $coordinates") }
+    )
+
+private fun toGeometry(wkt: String): Geometry? {
+    return when {
+        wkt.startsWith(POINT.substring(1)) -> WKT(wkt).createPoint()
+        wkt.startsWith(LINESTRING.substring(1)) -> WKT(wkt).createLineString()
+        wkt.startsWith(POLYGON.substring(1)) -> WKT(wkt).createPolygon()
+        wkt.startsWith(MULTIPOLYGON.substring(1)) -> WKT(wkt).createMultiPolygon()
+        else -> null
+    }
+}

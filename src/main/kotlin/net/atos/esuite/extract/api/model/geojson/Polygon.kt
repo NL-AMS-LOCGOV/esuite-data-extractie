@@ -12,7 +12,9 @@ class Polygon(
     val polygon2D: Polygon2D
 ) : Geometry(GeometryType.Polygon)
 
-fun WKT.isPolygon() = geometryType == "POLYGON"
+val POLYGON = "POLYGON"
+
+fun WKT.isPolygon() = geometryType == POLYGON
 
 fun WKT.createPolygon(): Polygon {
     val invalidWKTMessage = { "WKT contains invalid Polygon coordinates: $coordinates" }
