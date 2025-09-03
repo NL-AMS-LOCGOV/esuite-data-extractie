@@ -10,7 +10,6 @@ import net.atos.esuite.extract.api.model.besluit.Besluit
 import net.atos.esuite.extract.api.model.besluit.Besluitcategorie
 import net.atos.esuite.extract.api.model.besluit.Besluittype
 import net.atos.esuite.extract.api.model.zaak.*
-import net.atos.esuite.extract.api.model.zaaktype.ZaaktypeOverzicht
 import net.atos.esuite.extract.db.entity.zakenmagazijn.*
 import net.atos.esuite.extract.db.repository.basisgegevens.SubjectRepository
 import net.atos.esuite.extract.db.repository.zaak.*
@@ -129,13 +128,6 @@ class ZaakConverter(
             procestermijnInMaanden = besluitEntity.procestermijnInMaanden,
         )
 }
-
-fun ReferentieZaakTypeEntity.toZaaktypeOverzicht() = ZaaktypeOverzicht(
-    naam = naam,
-    functioneleIdentificatie = functioneelId,
-    omschrijving = omschrijving,
-    actief = actief,
-)
 
 private fun ReferentieZaakStatusEntity.toZaakstatus() = Zaakstatus(
     naam = naam,

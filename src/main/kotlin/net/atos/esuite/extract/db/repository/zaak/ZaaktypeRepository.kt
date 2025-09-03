@@ -8,4 +8,6 @@ const val ZAAKTYPE_ID_PREFIX = "ZTC2:"
 
 @ApplicationScoped
 class ZaaktypeRepository : PanacheRepository<ReferentieZaakTypeEntity> {
+
+    fun findByNaam(naam: String) = find("naam", naam).firstResult()
 }

@@ -14,6 +14,7 @@ class ReferentieResultaatEntity : AbstractReferentieEntity() {
     @Column(name = "id_resultaat")
     var identifier: Long = 0
 
+    // uitwisselingscode voor STUF
     @Column(name = "uitwisselingscode")
     lateinit var uitwisselingsCode: String
 }

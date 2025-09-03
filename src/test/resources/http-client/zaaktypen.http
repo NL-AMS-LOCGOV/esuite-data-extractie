@@ -1,13 +1,33 @@
 ###
-GET {{base-url}}/zaaktypen
+GET {{base-url}}/zaaktypen?page_size=300
 X-API-KEY: {{api-key}}
 
 > {%
     client.test("Request executed successfully", function () {
         client.assert(response.status === 200, "Response status is not 200");
-        client.assert(response.body.results.length === 100, "Response body results size is not 100")
+        client.assert(response.body.results.length === 258, "Response body results size is not 100")
         client.assert(response.body.count === 258, "Response body count is not 258")
         client.assert(!response.body.previousPage, "Response body previousPage is not false")
-        client.assert(response.body.nextPage, "Response body nextPage is not true")
+        client.assert(!response.body.nextPage, "Response body nextPage is not false")
+    });
+%}
+
+###
+GET {{base-url}}/zaaktypen/nieuwPDF
+X-API-KEY: {{api-key}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+%}
+
+###
+GET {{base-url}}/zaaktypen/Angular2
+X-API-KEY: {{api-key}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
     });
 %}

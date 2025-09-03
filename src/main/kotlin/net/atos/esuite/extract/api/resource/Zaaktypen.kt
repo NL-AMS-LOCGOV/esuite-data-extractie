@@ -1,12 +1,10 @@
 package net.atos.esuite.extract.api.resource
 
 import jakarta.validation.Valid
-import jakarta.ws.rs.BeanParam
-import jakarta.ws.rs.GET
-import jakarta.ws.rs.Path
-import jakarta.ws.rs.Produces
+import jakarta.ws.rs.*
 import jakarta.ws.rs.core.MediaType
 import net.atos.esuite.extract.api.convert.shared.toPage
+import net.atos.esuite.extract.api.convert.zaak.toZaaktype
 import net.atos.esuite.extract.api.convert.zaak.toZaaktypeOverzicht
 import net.atos.esuite.extract.api.model.shared.BladerParameters
 import net.atos.esuite.extract.api.model.shared.Fout
@@ -39,4 +37,18 @@ class Zaaktypen(
         with(zaaktypeRepository.findAll().page(bladerParameters.toPage())) {
             Results(list().map { it.toZaaktypeOverzicht() }, count(), hasPreviousPage(), hasNextPage())
         }
+
+    @GET
+    @Path("{naam}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Operation(operationId = "zaaktype_read", summary = "Een specifiek zaaktype opvragen op basis van naam")
+    @APIResponse(responseCode = "200", description = "OK")
+    @APIResponse(
+        responseCode = "404", description = "Not Found",
+        content = [Content(schema = Schema(implementation = Fout::class))]
+    )
+    fun zaaktypeRead(@PathParam("naam") naam: String) =
+        zaaktypeRepository.findByNaam(naam)
+            ?.toZaaktype()
+            ?: throw NotFoundException("Zaaktype with naam '$naam' not found")
 }

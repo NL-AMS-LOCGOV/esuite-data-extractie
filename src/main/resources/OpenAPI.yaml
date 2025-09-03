@@ -3626,6 +3626,8 @@ components:
           maxLength: 255
           description: Naam van status zoals deze getoond wordt in het publieke deel
             (burger en bedrijven loket) van de e=Suite
+    Zaaktype:
+      type: object
     ZaaktypeOverzicht:
       type: object
       required:
@@ -4438,6 +4440,39 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ValidatieFouten"
+      tags:
+        - Zaaktypen
+  /zaaktypen/{naam}:
+    get:
+      summary: Een specifiek zaaktype opvragen op basis van naam
+      operationId: zaaktype_read
+      parameters:
+        - name: naam
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Fout"
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Zaaktype"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Fout"
       tags:
         - Zaaktypen
   /zaken:
