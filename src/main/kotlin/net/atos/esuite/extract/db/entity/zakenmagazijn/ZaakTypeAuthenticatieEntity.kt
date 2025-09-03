@@ -12,7 +12,7 @@ class ZaakTypeAuthenticatieEntity {
 
     @ManyToOne
     @JoinColumn(name = "id_zaaktype", referencedColumnName = "id_zaaktype")
-    lateinit var zaakType: ReferentieZaakTypeEntity
+    lateinit var zaakType: ZaakTypeEntity
 
     @Column(name = "doelgroep", length = 20)
     @Enumerated(EnumType.STRING)

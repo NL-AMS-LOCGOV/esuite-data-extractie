@@ -4,7 +4,7 @@ import jakarta.persistence.*
 
 @Entity
 @Table(name = "ztc_taakdocumentgroep", schema = "zakenmagazijn")
-class ReferentieTaakDocumentGroepEntity {
+class TaakDocumentGroepEntity {
 
     @Id
     @Column(name = "id_taakdocumentgroep")
@@ -16,7 +16,7 @@ class ReferentieTaakDocumentGroepEntity {
 
     @ManyToOne
     @JoinColumn(name = "id_zaaktype")
-    lateinit var zaakType: ReferentieZaakTypeEntity
+    lateinit var zaakType: ZaakTypeEntity
 
     @ManyToMany
     @JoinTable(
@@ -24,5 +24,5 @@ class ReferentieTaakDocumentGroepEntity {
         joinColumns = [JoinColumn(name = "id_taakdocumentgroep", referencedColumnName = "id_taakdocumentgroep")],
         inverseJoinColumns = [JoinColumn(name = "id_taakdocument", referencedColumnName = "id_taakdocument")]
     )
-    lateinit var taakDocumenten: MutableSet<ReferentieTaakDocumentEntity>
+    lateinit var taakDocumenten: MutableSet<TaakDocumentEntity>
 }

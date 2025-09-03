@@ -7,10 +7,14 @@ import jakarta.persistence.Table
 import net.atos.esuite.extract.db.entity.shared.AbstractReferentieEntity
 
 @Entity
-@Table(name = "ztc_ref_documentstatus", schema = "zakenmagazijn")
-class ReferentieDocumentStatusEntity  : AbstractReferentieEntity() {
+@Table(name = "ztc_ref_resultaat", schema = "zakenmagazijn")
+class ResultaatEntity : AbstractReferentieEntity() {
 
     @Id
-    @Column(name = "id_documentstatus")
+    @Column(name = "id_resultaat")
     var identifier: Long = 0
+
+    // uitwisselingscode voor STUF
+    @Column(name = "uitwisselingscode")
+    lateinit var uitwisselingsCode: String
 }

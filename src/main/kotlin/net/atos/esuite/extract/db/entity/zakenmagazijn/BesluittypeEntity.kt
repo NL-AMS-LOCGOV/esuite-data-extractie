@@ -5,7 +5,7 @@ import net.atos.esuite.extract.db.entity.shared.AbstractReferentieEntity
 
 @Entity
 @Table(name = "ztc_ref_besluittype", schema = "zakenmagazijn")
-class ReferentieBesluittypeEntity : AbstractReferentieEntity() {
+class BesluittypeEntity : AbstractReferentieEntity() {
 
     @Id
     @Column(name = "id_besluittype")
@@ -13,7 +13,7 @@ class ReferentieBesluittypeEntity : AbstractReferentieEntity() {
 
     @ManyToOne
     @JoinColumn(name = "id_besluitcategorie")
-    lateinit var besluitcategorie: ReferentieBesluitcategorieEntity
+    lateinit var besluitcategorie: BesluitcategorieEntity
 
     // Reactietermijn in dagen
     @Column(name = "reactietermijn_in_dagen")

@@ -8,5 +8,5 @@ import jakarta.persistence.Table
 @Entity
 @Table(name = "gm_ref_nationaliteiten", schema = "basisgegevens")
 @AttributeOverride(name = "gbacode", column = Column(name = "gbacode", length = 10))
-class ReferentieNationaliteitEntity : AbstractGbacodeIdEntity() {
+class NationaliteitEntity : AbstractGbacodeIdEntity() {
 }

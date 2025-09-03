@@ -1,8 +1,8 @@
 package net.atos.esuite.extract.db.entity.contactenmagazijn
 
 import jakarta.persistence.*
-import net.atos.esuite.extract.db.entity.configuratiemagazijn.ReferentieKanaalEntity
-import net.atos.esuite.extract.db.entity.configuratiemagazijn.ReferentieOrganisatieEntity
+import net.atos.esuite.extract.db.entity.configuratiemagazijn.KanaalEntity
+import net.atos.esuite.extract.db.entity.configuratiemagazijn.OrganisatieEntity
 import org.hibernate.annotations.JdbcTypeCode
 import org.hibernate.type.SqlTypes
 import java.time.Instant
@@ -58,15 +58,15 @@ class ContactEntity {
 
     @ManyToOne
     @JoinColumn(name = "id_contactprioriteit")
-    var contactPrioriteit: ReferentieContactPrioriteitEntity? = null
+    var contactPrioriteit: ContactPrioriteitEntity? = null
 
     @ManyToOne
     @JoinColumn(name = "id_contactstatus")
-    var contactStatus: ReferentieContactStatusEntity? = null
+    var contactStatus: ContactStatusEntity? = null
 
     @ManyToOne
     @JoinColumn(name = "id_contacttype")
-    var contactType: ReferentieContactTypeEntity? = null
+    var contactType: ContactTypeEntity? = null
 
     @Column(name = "startdatumtijd")
     lateinit var startdatumtijd: Instant
@@ -79,7 +79,7 @@ class ContactEntity {
 
     @OneToOne
     @JoinColumn(name = "id_kanaal", referencedColumnName = "id_kanaal")
-    var kanaal: ReferentieKanaalEntity? = null
+    var kanaal: KanaalEntity? = null
 
     @Column(name = "label_kennisbankitem", length = 255)
     var kennisbankItemLabel: String? = null
@@ -119,5 +119,5 @@ class ContactEntity {
 
     @OneToOne
     @JoinColumn(name = "id_organisatie", referencedColumnName = "id_organisatie")
-    var organisatie: ReferentieOrganisatieEntity? = null
+    var organisatie: OrganisatieEntity? = null
 }

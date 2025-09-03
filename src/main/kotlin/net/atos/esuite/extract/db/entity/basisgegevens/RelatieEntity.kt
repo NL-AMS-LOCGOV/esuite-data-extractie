@@ -25,7 +25,7 @@ class RelatieEntity {
 
     @ManyToOne
     @JoinColumn(name = "id_landsluitingverbintenis", referencedColumnName = "gbacode")
-    var landSluitingVerbintenis: ReferentieLandEntity? = null
+    var landSluitingVerbintenis: LandEntity? = null
 
     @Column(name = "datumontbindingverbintenis")
     var datumOntbindingVerbintenis: LocalDate? = null
@@ -46,5 +46,5 @@ class RelatieEntity {
 
     @ManyToOne
     @JoinColumn(name = "id_landontbindingverbintenis", referencedColumnName = "gbacode")
-    var landOntbindingVerbintenis: ReferentieLandEntity? = null
+    var landOntbindingVerbintenis: LandEntity? = null
 }

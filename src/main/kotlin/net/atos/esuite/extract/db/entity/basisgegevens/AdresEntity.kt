@@ -45,5 +45,5 @@ class   AdresEntity {
 
     @ManyToOne
     @JoinColumn(name = "id_land", referencedColumnName = "gbacode")
-    lateinit var land: ReferentieLandEntity
+    lateinit var land: LandEntity
 }

@@ -128,15 +128,15 @@ class PersoonEntity: SubjectEntity() {
 
     @ManyToOne
     @JoinColumn(name = "id_geboorteland", referencedColumnName = "gbacode")
-    var geboorteland: ReferentieLandEntity? = null
+    var geboorteland: LandEntity? = null
 
     @ManyToOne
     @JoinColumn(name = "id_overlijdenland", referencedColumnName = "gbacode")
-    var overlijdensland: ReferentieLandEntity? = null
+    var overlijdensland: LandEntity? = null
 
     @ManyToOne
     @JoinColumn(name = "id_burgerlijkestaat", referencedColumnName = "gbacode")
-    lateinit var burgerlijkestaat: ReferentieBurgerlijkeStaatEntity
+    lateinit var burgerlijkestaat: BurgerlijkeStaatEntity
 
     @OneToMany(mappedBy = "persoon")
     lateinit var  adressen: MutableSet<PersoonAdresEntity>

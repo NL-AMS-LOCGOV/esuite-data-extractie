@@ -160,7 +160,7 @@ private fun toNietIngezeteneAanduiding(indicatieNietIngezetene: String?) =
         else -> error("Invalid NietIngezeteneAanduiding: $indicatieNietIngezetene")
     }
 
-private fun ReferentieLandEntity.toLand() =
+private fun LandEntity.toLand() =
     Land(
         naam = naam,
         omschrijving = omschrijving,
@@ -168,7 +168,7 @@ private fun ReferentieLandEntity.toLand() =
         gbaCode = gbacode,
     )
 
-private fun ReferentieBurgerlijkeStaatEntity.toBurgerlijkeSTaat() =
+private fun BurgerlijkeStaatEntity.toBurgerlijkeSTaat() =
     BurgerlijkeStaat(
         naam = naam,
         omschrijving = omschrijving,
@@ -295,7 +295,7 @@ private fun toVestigingsstatus(status: String?) =
         else -> error("Invalid vestigingsstatus: $status")
     }
 
-private fun ReferentieHoofdactiviteitEntity.toHoofdactiviteit() =
+private fun HoofdactiviteitEntity.toHoofdactiviteit() =
     Hoofdactiviteit(
         naam = naam,
         omschrijving = omschrijving,
@@ -303,7 +303,7 @@ private fun ReferentieHoofdactiviteitEntity.toHoofdactiviteit() =
         code = code,
     )
 
-private fun ReferentieNevenactiviteitEntity.toNevenactiviteit() =
+private fun NevenactiviteitEntity.toNevenactiviteit() =
     Nevenactiviteit(
         naam = naam,
         omschrijving = omschrijving,
@@ -321,7 +321,7 @@ private fun ContactpersoonEntity.toContactpersoon() =
         functie = functie,
     )
 
-private fun ReferentieRechtsvormEntity.toRechtsvorm() =
+private fun RechtsvormEntity.toRechtsvorm() =
     Rechtsvorm(
         naam = naam,
         omschrijving = omschrijving,

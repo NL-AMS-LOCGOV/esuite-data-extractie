@@ -12,11 +12,11 @@ class ZaakTypeDocumentTypeEntity {
 
     @ManyToOne
     @JoinColumn(name = "id_zaaktype", referencedColumnName = "id_zaaktype")
-    lateinit var zaakType: ReferentieZaakTypeEntity
+    lateinit var zaakType: ZaakTypeEntity
 
     @ManyToOne
     @JoinColumn(name = "id_documenttype", referencedColumnName = "id_documenttype")
-    lateinit var documentType: ReferentieDocumentTypeEntity
+    lateinit var documentType: DocumentTypeEntity
 
     // DSP code
     @Column(name = "dspcode", length = 255)

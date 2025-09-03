@@ -12,15 +12,15 @@ class ZaakTypeZaakResultaatEntity {
 
     @ManyToOne
     @JoinColumn(name = "id_zaaktype", referencedColumnName = "id_zaaktype")
-    lateinit var zaakType: ReferentieZaakTypeEntity
+    lateinit var zaakType: ZaakTypeEntity
 
     @ManyToOne
     @JoinColumn(name = "id_resultaat", referencedColumnName = "id_resultaat")
-    lateinit var resultaat: ReferentieResultaatEntity
+    lateinit var resultaat: ResultaatEntity
 
     @ManyToOne
     @JoinColumn(name = "id_selectielijstitem")
-    lateinit var selectielijstitem: ReferentieSelectielijstitemEntity
+    lateinit var selectielijstitem: SelectielijstitemEntity
 
     // Waardering (B of V)
     @Column(name = "waardering", length = 20)

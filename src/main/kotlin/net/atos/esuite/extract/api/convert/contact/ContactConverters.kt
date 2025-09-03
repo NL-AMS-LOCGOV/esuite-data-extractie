@@ -6,7 +6,7 @@ import net.atos.esuite.extract.api.convert.shared.toKanaal
 import net.atos.esuite.extract.api.convert.shared.toZonedDateTime
 import net.atos.esuite.extract.api.model.bag.BAGObject
 import net.atos.esuite.extract.api.model.contact.*
-import net.atos.esuite.extract.db.entity.configuratiemagazijn.ReferentieOrganisatieEntity
+import net.atos.esuite.extract.db.entity.configuratiemagazijn.OrganisatieEntity
 import net.atos.esuite.extract.db.entity.contactenmagazijn.*
 import net.atos.esuite.extract.db.entity.contactenmagazijn.ContactStatusType
 import net.atos.esuite.extract.db.repository.basisgegevens.SubjectRepository
@@ -74,7 +74,7 @@ private fun VoorlopigAntwoordEntity.toVoorlopigAntwoord() =
         medewerker = medewerkerId,
     )
 
-private fun ReferentieOrganisatieEntity.toOrganisatie() =
+private fun OrganisatieEntity.toOrganisatie() =
     Organisatie(
         naam = naam,
         omschrijving = omschrijving,
@@ -86,7 +86,7 @@ private fun ContactBAGObjectEntity.toBAGObject() =
         bagObjectId = bagObjectId,
     )
 
-private fun ReferentieContactPrioriteitEntity.toContactPrioriteit() =
+private fun ContactPrioriteitEntity.toContactPrioriteit() =
     ContactPrioriteit(
         naam = naam,
         omschrijving = omschrijving,
@@ -94,7 +94,7 @@ private fun ReferentieContactPrioriteitEntity.toContactPrioriteit() =
         actief = actief,
     )
 
-private fun ReferentieContactStatusEntity.toContactStatus() =
+private fun ContactStatusEntity.toContactStatus() =
     ContactStatus(
         naam = naam,
         omschrijving = omschrijving,
@@ -107,7 +107,7 @@ private fun ReferentieContactStatusEntity.toContactStatus() =
         }
     )
 
-private fun ReferentieContactTypeEntity.toContactType() =
+private fun ContactTypeEntity.toContactType() =
     Contacttype(
         naam = naam,
         omschrijving = omschrijving,

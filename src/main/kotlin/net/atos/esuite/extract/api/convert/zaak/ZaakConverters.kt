@@ -129,7 +129,7 @@ class ZaakConverter(
         )
 }
 
-private fun ReferentieZaakStatusEntity.toZaakstatus() = Zaakstatus(
+private fun ZaakStatusEntity.toZaakstatus() = Zaakstatus(
     naam = naam,
     omschrijving = omschrijving,
     actief = actief,
@@ -137,20 +137,20 @@ private fun ReferentieZaakStatusEntity.toZaakstatus() = Zaakstatus(
     externeNaam = externeNaam,
 )
 
-private fun ReferentieResultaatEntity.toResultaat() = Resultaat(
+private fun ResultaatEntity.toResultaat() = Resultaat(
     naam = naam,
     omschrijving = omschrijving,
     actief = actief,
     uitwisselingscode = uitwisselingsCode,
 )
 
-private fun ReferentieBesluitcategorieEntity.toBesluitcategory() = Besluitcategorie(
+private fun BesluitcategorieEntity.toBesluitcategory() = Besluitcategorie(
     naam = naam,
     omschrijving = omschrijving,
     actief = actief,
 )
 
-private fun ReferentieBesluittypeEntity.toBesluittype() = Besluittype(
+private fun BesluittypeEntity.toBesluittype() = Besluittype(
     naam = naam,
     omschrijving = omschrijving,
     actief = actief,

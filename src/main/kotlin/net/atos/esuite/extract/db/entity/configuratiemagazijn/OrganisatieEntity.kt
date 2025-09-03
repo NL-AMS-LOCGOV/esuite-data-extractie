@@ -1,4 +1,4 @@
-package net.atos.esuite.extract.db.entity.zakenmagazijn
+package net.atos.esuite.extract.db.entity.configuratiemagazijn
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
@@ -7,10 +7,10 @@ import jakarta.persistence.Table
 import net.atos.esuite.extract.db.entity.shared.AbstractReferentieEntity
 
 @Entity
-@Table(name = "ztc_ref_categorie", schema = "zakenmagazijn")
-class ReferentieCategorieEntity : AbstractReferentieEntity() {
+@Table(name = "conf_ref_organisatie", schema = "configuratiemagazijn")
+class OrganisatieEntity : AbstractReferentieEntity() {
 
     @Id
-    @Column(name = "id_categorie")
+    @Column(name = "id_organisatie")
     var identifier: Long = 0
 }

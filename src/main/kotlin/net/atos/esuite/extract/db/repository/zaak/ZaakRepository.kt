@@ -17,7 +17,7 @@ class ZaakRepository : PanacheRepository<ZaakEntity> {
             SELECT zaak FROM ZaakEntity zaak 
             WHERE zaak.zaaktypeId = (
                 SELECT CONCAT('$ZAAKTYPE_ID_PREFIX', zaaktype.identifier) 
-                FROM ReferentieZaakTypeEntity zaaktype 
+                FROM ZaakTypeEntity zaaktype 
                 WHERE zaaktype.functioneelId = ?1)
             """
         else
@@ -25,7 +25,7 @@ class ZaakRepository : PanacheRepository<ZaakEntity> {
             SELECT zaak FROM ZaakEntity zaak 
             WHERE zaak.zaaktypeId = (
                 SELECT CONCAT('$ZAAKTYPE_ID_PREFIX', zaaktype.identifier) 
-                FROM ReferentieZaakTypeEntity zaaktype 
+                FROM ZaakTypeEntity zaaktype 
                 WHERE zaaktype.functioneelId = ?1) 
                 AND zaak.einddatum IS NOT NULL
             """

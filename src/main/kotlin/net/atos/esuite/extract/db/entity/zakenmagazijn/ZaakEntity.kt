@@ -1,8 +1,8 @@
 package net.atos.esuite.extract.db.entity.zakenmagazijn
 
 import jakarta.persistence.*
-import net.atos.esuite.extract.db.entity.configuratiemagazijn.ReferentieKanaalEntity
-import net.atos.esuite.extract.db.entity.configuratiemagazijn.ReferentieOrganisatieEntity
+import net.atos.esuite.extract.db.entity.configuratiemagazijn.KanaalEntity
+import net.atos.esuite.extract.db.entity.configuratiemagazijn.OrganisatieEntity
 import net.atos.esuite.extract.db.entity.zakenmagazijn.dataelement.AbstractDataElementEntity
 import java.time.Instant
 import java.time.LocalDate
@@ -29,7 +29,7 @@ class ZaakEntity {
 
     @OneToOne
     @JoinColumn(name = "id_kanaal", referencedColumnName = "id_kanaal")
-    lateinit var kanaal: ReferentieKanaalEntity
+    lateinit var kanaal: KanaalEntity
 
     // Afdeling waar zaak in behandeling is
     @Column(name = "id_afdeling", length = 128)
@@ -155,7 +155,7 @@ class ZaakEntity {
 
     @OneToOne
     @JoinColumn(name = "id_organisatie", referencedColumnName = "id_organisatie")
-    var organisatie: ReferentieOrganisatieEntity? = null
+    var organisatie: OrganisatieEntity? = null
 
     @ElementCollection()
     @CollectionTable(

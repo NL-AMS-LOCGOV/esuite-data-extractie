@@ -4,7 +4,7 @@ import jakarta.persistence.*
 
 @Entity
 @Table(name = "ztc_ref_zaakstartparameter", schema = "zakenmagazijn")
-class ReferentieZaakStartParameterEntity {
+class ZaakStartParameterEntity {
 
     @Id
     @Column(name = "id_zaakstartparameter")
@@ -12,7 +12,7 @@ class ReferentieZaakStartParameterEntity {
 
     @ManyToOne
     @JoinColumn(name = "id_zaaktype")
-    lateinit var zaakType: ReferentieZaakTypeEntity
+    lateinit var zaakType: ZaakTypeEntity
 
     @Column(name = "naam", length = 255)
     lateinit var naam: String

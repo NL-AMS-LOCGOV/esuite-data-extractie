@@ -5,8 +5,8 @@ import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
 
-@Table(name = "gm_ref_reisdocumenten", schema = "basisgegevens")
 @Entity
-@AttributeOverride(name = "gbacode", column = Column(name = "gbacode", length = 2))
-class ReferentieReisdocumentEntity : AbstractGbacodeIdEntity() {
+@Table(name = "gm_ref_landen", schema = "basisgegevens")
+@AttributeOverride(name = "gbacode", column = Column(name = "gbacode", length = 10))
+class LandEntity : AbstractGbacodeIdEntity() {
 }

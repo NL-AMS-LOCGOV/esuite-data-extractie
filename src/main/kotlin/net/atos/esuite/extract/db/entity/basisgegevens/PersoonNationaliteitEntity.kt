@@ -23,5 +23,5 @@ class PersoonNationaliteitEntity {
 
     @ManyToOne
     @JoinColumn(name = "id_nationaliteit", referencedColumnName = "gbacode")
-    lateinit var nationaliteit: ReferentieNationaliteitEntity
+    lateinit var nationaliteit: NationaliteitEntity
 }

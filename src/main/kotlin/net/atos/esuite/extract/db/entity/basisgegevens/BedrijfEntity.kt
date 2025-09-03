@@ -113,12 +113,12 @@ class BedrijfEntity : SubjectEntity() {
     // sleutel van de hoofdactiviteit
     @ManyToOne
     @JoinColumn(name = "id_hoofdactiviteit", referencedColumnName = "id_hoofdactiviteit")
-    var hoofdactiviteit: ReferentieHoofdactiviteitEntity? = null
+    var hoofdactiviteit: HoofdactiviteitEntity? = null
 
     // Rechtsvorm
     @ManyToOne
     @JoinColumn(name = "id_rechtsvorm", referencedColumnName = "id_rechtsvorm")
-    var rechtsvorm: ReferentieRechtsvormEntity? = null
+    var rechtsvorm: RechtsvormEntity? = null
 
     @OneToMany(mappedBy = "bedrijf")
     lateinit var adressen: MutableSet<BedrijfAdresEntity>
@@ -129,7 +129,7 @@ class BedrijfEntity : SubjectEntity() {
         joinColumns = [JoinColumn(name = "id_bedrijf")],
         inverseJoinColumns = [JoinColumn(name = "id_nevenactiviteit")]
     )
-    lateinit var nevenactiviteiten: MutableSet<ReferentieNevenactiviteitEntity>
+    lateinit var nevenactiviteiten: MutableSet<NevenactiviteitEntity>
 
     @OneToMany(mappedBy = "bedrijf")
     lateinit var contactpersonen: MutableSet<ContactpersoonEntity>

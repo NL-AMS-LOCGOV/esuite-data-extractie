@@ -8,7 +8,7 @@ import net.atos.esuite.extract.db.entity.shared.AbstractReferentieEntity
 
 @Entity
 @Table(name = "gm_ref_nevenactiviteit", schema = "basisgegevens")
-class ReferentieNevenactiviteitEntity : AbstractReferentieEntity() {
+class NevenactiviteitEntity : AbstractReferentieEntity() {
 
     @Id
     @Column(name = "id_nevenactiviteit")

@@ -42,5 +42,5 @@ class PersoonReisdocumentEntity {
 
     @ManyToOne
     @JoinColumn(name = "id_reisdocument", referencedColumnName = "gbacode")
-    lateinit var reisdocument: ReferentieReisdocumentEntity
+    lateinit var reisdocument: ReisdocumentEntity
 }

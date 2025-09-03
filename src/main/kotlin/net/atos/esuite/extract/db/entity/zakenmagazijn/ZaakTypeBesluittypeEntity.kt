@@ -12,15 +12,15 @@ class ZaakTypeBesluittypeEntity {
 
     @ManyToOne
     @JoinColumn(name = "id_zaaktype", referencedColumnName = "id_zaaktype")
-    lateinit var zaakType: ReferentieZaakTypeEntity
+    lateinit var zaakType: ZaakTypeEntity
 
     @ManyToOne
     @JoinColumn(name = "id_besluittype", referencedColumnName = "id_besluittype")
-    lateinit var besluittype: ReferentieBesluittypeEntity
+    lateinit var besluittype: BesluittypeEntity
 
     @ManyToOne
     @JoinColumn(name = "id_documenttype", referencedColumnName = "id_documenttype")
-    var documentType: ReferentieDocumentTypeEntity? = null
+    var documentType: DocumentTypeEntity? = null
 
     // Procestermijn in maanden
     @Column(name = "procestermijn_in_maanden")

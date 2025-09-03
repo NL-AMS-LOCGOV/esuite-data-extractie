@@ -12,9 +12,9 @@ class ZaakTypeTagEntity {
 
     @ManyToOne
     @JoinColumn(name = "id_zaaktype", referencedColumnName = "id_zaaktype")
-    lateinit var zaakType: ReferentieZaakTypeEntity
+    lateinit var zaakType: ZaakTypeEntity
 
     @ManyToOne
     @JoinColumn(name = "id_tag", referencedColumnName = "id_document_tag")
-    lateinit var tag: ReferentieTagEntity
+    lateinit var tag: TagEntity
 }

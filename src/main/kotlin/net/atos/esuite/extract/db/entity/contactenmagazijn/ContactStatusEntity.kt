@@ -6,7 +6,7 @@ import net.atos.esuite.extract.db.entity.shared.AbstractReferentieEntity
 
 @Entity
 @Table(name = "con_ref_contactstatus", schema = "contactenmagazijn")
-class ReferentieContactStatusEntity: AbstractReferentieEntity() {
+class ContactStatusEntity : AbstractReferentieEntity() {
 
     @Id
     @Column(name = "id_contactstatus")

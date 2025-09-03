@@ -2,14 +2,14 @@ package net.atos.esuite.extract.api.convert.zaak
 
 import net.atos.esuite.extract.api.model.zaaktype.Zaaktype
 import net.atos.esuite.extract.api.model.zaaktype.ZaaktypeOverzicht
-import net.atos.esuite.extract.db.entity.zakenmagazijn.ReferentieZaakTypeEntity
+import net.atos.esuite.extract.db.entity.zakenmagazijn.ZaakTypeEntity
 
 
-fun ReferentieZaakTypeEntity.toZaaktypeOverzicht() = ZaaktypeOverzicht(
+fun ZaakTypeEntity.toZaaktypeOverzicht() = ZaaktypeOverzicht(
     naam = naam,
     functioneleIdentificatie = functioneelId,
     omschrijving = omschrijving,
     actief = actief,
 )
 
-fun ReferentieZaakTypeEntity.toZaaktype() = Zaaktype()
+fun ZaakTypeEntity.toZaaktype() = Zaaktype()

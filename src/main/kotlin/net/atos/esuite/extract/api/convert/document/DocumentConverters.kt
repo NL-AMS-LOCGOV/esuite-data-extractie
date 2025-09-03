@@ -107,21 +107,21 @@ class DocumentConverter(
         bestandsId.substringAfter(BESTANDS_ID_PREFIX).toLong()
 }
 
-private fun ReferentieDocumentVormEntity.toDocumentVorm() =
+private fun DocumentVormEntity.toDocumentVorm() =
     DocumentVorm(
         naam = naam,
         omschrijving = omschrijving,
         actief = actief,
     )
 
-private fun ReferentieDocumentStatusEntity.toDocumentStatus() =
+private fun DocumentStatusEntity.toDocumentStatus() =
     DocumentStatus(
         naam = naam,
         omschrijving = omschrijving,
         actief = actief,
     )
 
-private fun ReferentieDocumentTypeEntity.toDocumenttype() =
+private fun DocumentTypeEntity.toDocumenttype() =
     Documenttype(
         naam = naam,
         omschrijving = omschrijving,
@@ -148,7 +148,7 @@ private fun DocumentVersieEntity.toDocumentversie(documentInhoudEntity: Document
         ondertekeningen = ondertekeningen.map { it.toDocumentOndertekening() }.ifEmpty { null },
     )
 
-private fun ReferentieMetadataelementEntity.toMetadataelement() =
+private fun MetadataelementEntity.toMetadataelement() =
     MetadataElement(
         naam = naam,
         omschrijving = omschrijving,
@@ -174,7 +174,7 @@ private fun DocumentPublicatieEntity.toDocumentPublicatie() =
         publicatiedatum = publicatiedatum,
     )
 
-private fun ReferentieTaalEntity.toTaal() =
+private fun TaalEntity.toTaal() =
     Taal(
         naam = naam,
         omschrijving = omschrijving,

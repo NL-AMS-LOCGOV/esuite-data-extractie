@@ -16,6 +16,6 @@ class ZaakTypeDocumentTypeTitelEntity {
 
     @ManyToOne
     @JoinColumn(name = "id_documenttitel", referencedColumnName = "id_documenttitel")
-    lateinit var documentTitel: ReferentieDocumentTitelEntity
+    lateinit var documentTitel: DocumentTitelEntity
 
 }

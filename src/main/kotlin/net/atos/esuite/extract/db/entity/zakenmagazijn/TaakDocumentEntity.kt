@@ -5,7 +5,7 @@ import net.atos.esuite.extract.db.entity.shared.AbstractReferentieEntity
 
 @Entity
 @Table(name = "ztc_ref_taakdocument", schema = "zakenmagazijn")
-class ReferentieTaakDocumentEntity : AbstractReferentieEntity() {
+class TaakDocumentEntity : AbstractReferentieEntity() {
 
     @Id
     @Column(name = "id_taakdocument")
@@ -22,8 +22,8 @@ class ReferentieTaakDocumentEntity : AbstractReferentieEntity() {
 
     @ManyToOne
     @JoinColumn(name = "id_documenttype")
-    var documentType: ReferentieDocumentTypeEntity? = null
+    var documentType: DocumentTypeEntity? = null
 
     @ManyToMany(mappedBy = "taakDocumenten", fetch = FetchType.LAZY)
-    lateinit var taakDocumentGroepen: MutableSet<ReferentieTaakDocumentGroepEntity>
+    lateinit var taakDocumentGroepen: MutableSet<TaakDocumentGroepEntity>
 }

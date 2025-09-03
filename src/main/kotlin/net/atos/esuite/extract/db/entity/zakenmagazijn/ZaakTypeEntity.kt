@@ -6,7 +6,7 @@ import java.time.Instant
 
 @Entity
 @Table(name = "ztc_ref_zaaktype", schema = "zakenmagazijn")
-class ReferentieZaakTypeEntity : AbstractReferentieEntity(){
+class ZaakTypeEntity : AbstractReferentieEntity() {
 
     @Id
     @Column(name = "id_zaaktype")
@@ -17,7 +17,7 @@ class ReferentieZaakTypeEntity : AbstractReferentieEntity(){
 
     @ManyToOne
     @JoinColumn(name = "id_handelinginitiator", referencedColumnName = "id_handelinginitiator")
-    lateinit var handelingInitiator: ReferentieHandelingInitiatorEntity
+    lateinit var handelingInitiator: HandelingInitiatorEntity
 
     @Column(name = "intern_extern", length = 20)
     @Enumerated(EnumType.STRING)
@@ -25,7 +25,7 @@ class ReferentieZaakTypeEntity : AbstractReferentieEntity(){
 
     @ManyToOne
     @JoinColumn(name = "id_categorie", referencedColumnName = "id_categorie")
-    lateinit var categorie: ReferentieCategorieEntity
+    lateinit var categorie: CategorieEntity
 
     @Column(name = "id_initiele_afdeling", length = 255)
     var idInitieleAfdeling: String? = null
@@ -35,7 +35,7 @@ class ReferentieZaakTypeEntity : AbstractReferentieEntity(){
 
     @ManyToOne
     @JoinColumn(name = "id_iv3categorie", referencedColumnName = "id_iv3categorie")
-    lateinit var iv3categorie: ReferentieIv3CategorieEntity
+    lateinit var iv3categorie: Iv3CategorieEntity
 
     // Aanduiding intake'
     @Column(name = "ind_intake")
@@ -79,7 +79,7 @@ class ReferentieZaakTypeEntity : AbstractReferentieEntity(){
 
     @ManyToOne
     @JoinColumn(name = "id_initielestatus", referencedColumnName = "id_zaakstatus")
-    var initieleStatus: ReferentieZaakStatusEntity? = null
+    var initieleStatus: ZaakStatusEntity? = null
 
     // Archivering Reviewperiode in weken
     @Column(name = "archivering_reviewperiode_in_weken")
@@ -123,7 +123,7 @@ class ReferentieZaakTypeEntity : AbstractReferentieEntity(){
         joinColumns = [JoinColumn(name = "id_zaaktype")],
         inverseJoinColumns = [JoinColumn(name = "id_zaakstatus")]
     )
-    lateinit var zaakStatussen: MutableSet<ReferentieZaakStatusEntity>
+    lateinit var zaakStatussen: MutableSet<ZaakStatusEntity>
 
     @ManyToMany
     @JoinTable(
@@ -131,7 +131,7 @@ class ReferentieZaakTypeEntity : AbstractReferentieEntity(){
         joinColumns = [JoinColumn(name = "id_zaaktype")],
         inverseJoinColumns = [JoinColumn(name = "id_gekoppeldzaaktype")]
     )
-    lateinit var gekoppeldeZaaktypes: MutableSet<ReferentieZaakTypeEntity>
+    lateinit var gekoppeldeZaaktypes: MutableSet<ZaakTypeEntity>
 
     @OneToMany(mappedBy = "zaakType")
     lateinit var zaakTypeAuthenticaties: MutableSet<ZaakTypeAuthenticatieEntity>
@@ -156,14 +156,14 @@ class ReferentieZaakTypeEntity : AbstractReferentieEntity(){
     var startenProces: Boolean = true
 
     @OneToMany(mappedBy = "zaakType")
-    lateinit var taakDocumentGroepen: MutableSet<ReferentieTaakDocumentGroepEntity>
+    lateinit var taakDocumentGroepen: MutableSet<TaakDocumentGroepEntity>
 
     // De naam voor het samenvatting document
     @Column(name = "samenvatting_documentnaam", length = 255)
     lateinit var samenvattingDocumentNaam: String
 
     @OneToMany(mappedBy = "zaakType")
-    lateinit var zaakStartParameters: MutableSet<ReferentieZaakStartParameterEntity>
+    lateinit var zaakStartParameters: MutableSet<ZaakStartParameterEntity>
 
     @Column(name = "productaanvraagtype", length = 255)
     var productaanvraagtype: String? = null
