@@ -10,6 +10,7 @@ import net.atos.esuite.extract.api.model.besluit.Besluit
 import net.atos.esuite.extract.api.model.besluit.Besluitcategorie
 import net.atos.esuite.extract.api.model.besluit.Besluittype
 import net.atos.esuite.extract.api.model.zaak.*
+import net.atos.esuite.extract.api.model.zaaktype.ZaaktypeOverzicht
 import net.atos.esuite.extract.db.entity.zakenmagazijn.*
 import net.atos.esuite.extract.db.repository.basisgegevens.SubjectRepository
 import net.atos.esuite.extract.db.repository.zaak.*
@@ -66,7 +67,7 @@ class ZaakConverter(
             taken = zaakEntity.taken.map { it.toTaak() }.ifEmpty { null },
             wijzigDatumTijd = zaakEntity.wijzigdatum?.toZonedDateTime(),
             zaakdata = zaakEntity.zaakdataElementen.map { it.toDataElement() }.ifEmpty { null },
-            zaaktype = toZaaktype(zaakEntity.zaaktypeId),
+            zaaktype = toZaaktypeOverzicht(zaakEntity.zaaktypeId),
             initiator = zaakEntity.initiatorId?.let {
                 subjectRepository.findById(it)
                     ?.toSubject()
@@ -82,9 +83,9 @@ class ZaakConverter(
             zaakEntity.einddatum == null,
         )
 
-    private fun toZaaktype(zaaktypeId: String) =
+    private fun toZaaktypeOverzicht(zaaktypeId: String) =
         zaaktypeRepository.findById(zaaktypeId.substringAfter(ZAAKTYPE_ID_PREFIX).toLong())
-            ?.toZaaktype()
+            ?.toZaaktypeOverzicht()
             ?: error("Zaaktype with id $zaaktypeId not found")
 
     private fun toResultaat(resultaatId: String) =
@@ -129,7 +130,7 @@ class ZaakConverter(
         )
 }
 
-fun ReferentieZaakTypeEntity.toZaaktype() = Zaaktype(
+fun ReferentieZaakTypeEntity.toZaaktypeOverzicht() = ZaaktypeOverzicht(
     naam = naam,
     functioneleIdentificatie = functioneelId,
     omschrijving = omschrijving,

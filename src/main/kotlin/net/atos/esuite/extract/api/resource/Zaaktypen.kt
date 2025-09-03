@@ -7,7 +7,7 @@ import jakarta.ws.rs.Path
 import jakarta.ws.rs.Produces
 import jakarta.ws.rs.core.MediaType
 import net.atos.esuite.extract.api.convert.shared.toPage
-import net.atos.esuite.extract.api.convert.zaak.toZaaktype
+import net.atos.esuite.extract.api.convert.zaak.toZaaktypeOverzicht
 import net.atos.esuite.extract.api.model.shared.BladerParameters
 import net.atos.esuite.extract.api.model.shared.Fout
 import net.atos.esuite.extract.api.model.shared.Results
@@ -37,6 +37,6 @@ class Zaaktypen(
     )
     fun zaaktypeList(@BeanParam @Valid bladerParameters: BladerParameters) =
         with(zaaktypeRepository.findAll().page(bladerParameters.toPage())) {
-            Results(list().map { it.toZaaktype() }, count(), hasPreviousPage(), hasNextPage())
+            Results(list().map { it.toZaaktypeOverzicht() }, count(), hasPreviousPage(), hasNextPage())
         }
 }

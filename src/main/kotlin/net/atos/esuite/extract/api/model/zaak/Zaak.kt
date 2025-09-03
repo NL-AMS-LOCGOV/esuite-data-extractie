@@ -7,6 +7,7 @@ import net.atos.esuite.extract.api.model.document.Document
 import net.atos.esuite.extract.api.model.geojson.Geometry
 import net.atos.esuite.extract.api.model.shared.Kanaal
 import net.atos.esuite.extract.api.model.zaakdata.DataElement
+import net.atos.esuite.extract.api.model.zaaktype.ZaaktypeOverzicht
 import org.eclipse.microprofile.openapi.annotations.media.Schema
 import java.time.LocalDate
 import java.time.ZonedDateTime
@@ -29,7 +30,7 @@ class Zaak(
     val redenStart: String?,
 
     @field:Schema(description = "Zaaktype")
-    val zaaktype: Zaaktype,
+    val zaaktype: ZaaktypeOverzicht,
 
     @field:Schema(description = "Is zaak vertrouwelijk", required = true)
     val vertrouwelijk: Boolean,

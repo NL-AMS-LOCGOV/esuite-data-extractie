@@ -2799,7 +2799,7 @@ components:
         nextPage:
           type: boolean
           description: Is er een volgende pagina
-    ResultsZaaktype:
+    ResultsZaaktypeOverzicht:
       type: object
       required:
         - results
@@ -2810,7 +2810,7 @@ components:
         results:
           type: array
           items:
-            $ref: "#/components/schemas/Zaaktype"
+            $ref: "#/components/schemas/ZaaktypeOverzicht"
           description: Reslultaten op huidige pagina
         count:
           type: integer
@@ -3270,7 +3270,7 @@ components:
           type: string
           description: Reden voor starten van zaak
         zaaktype:
-          $ref: "#/components/schemas/Zaaktype"
+          $ref: "#/components/schemas/ZaaktypeOverzicht"
           type: object
           description: Zaaktype
         vertrouwelijk:
@@ -3626,7 +3626,7 @@ components:
           maxLength: 255
           description: Naam van status zoals deze getoond wordt in het publieke deel
             (burger en bedrijven loket) van de e=Suite
-    Zaaktype:
+    ZaaktypeOverzicht:
       type: object
       required:
         - functioneleIdentificatie
@@ -3648,7 +3648,7 @@ info:
     email: andy.verberne@atos.net
     name: Andy Verberne
   title: e-Suite data extractie API
-  version: 0.8.0
+  version: 0.10.0
 security:
   - ApiKeyAuth: [ ]
 paths:
@@ -4431,7 +4431,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResultsZaaktype"
+                $ref: "#/components/schemas/ResultsZaaktypeOverzicht"
         "400":
           description: Bad Request
           content:
