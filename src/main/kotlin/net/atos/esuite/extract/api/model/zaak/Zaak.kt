@@ -6,6 +6,7 @@ import net.atos.esuite.extract.api.model.besluit.Besluit
 import net.atos.esuite.extract.api.model.document.Document
 import net.atos.esuite.extract.api.model.geojson.Geometry
 import net.atos.esuite.extract.api.model.shared.Kanaal
+import net.atos.esuite.extract.api.model.taak.Taak
 import net.atos.esuite.extract.api.model.zaakdata.DataElement
 import net.atos.esuite.extract.api.model.zaaktype.ZaaktypeOverzicht
 import org.eclipse.microprofile.openapi.annotations.media.Schema

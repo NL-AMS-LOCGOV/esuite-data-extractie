@@ -1,6 +1,6 @@
 package net.atos.esuite.extract.db.entity.zakenmagazijn
 
-enum class DocumentVersturen {
+enum class DocumentVersturenEnum {
     /**
      * Document moet niet verstuurd worden
      */

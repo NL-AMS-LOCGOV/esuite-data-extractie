@@ -1,4 +1,4 @@
-package net.atos.esuite.extract.api.model.zaak
+package net.atos.esuite.extract.api.model.taak
 
 import net.atos.esuite.extract.api.model.shared.History
 import org.eclipse.microprofile.openapi.annotations.media.Schema

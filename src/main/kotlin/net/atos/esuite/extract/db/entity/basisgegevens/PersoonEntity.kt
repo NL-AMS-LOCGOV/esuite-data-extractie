@@ -98,11 +98,11 @@ class PersoonEntity: SubjectEntity() {
 
     @Column(name = "ind_onvolledige_gebdatum")
     @Enumerated(EnumType.STRING)
-    var indicatieOnvolledigeGeboortedatum: OnvolledigeDatumIndicatieType? = null
+    var indicatieOnvolledigeGeboortedatum: OnvolledigeDatumIndicatieTypeEnum? = null
 
     @Column(name = "ind_onvolledige_overldatum")
     @Enumerated(EnumType.STRING)
-    var indicatieOnvolledigeOverlijdensdatum: OnvolledigeDatumIndicatieType? = null
+    var indicatieOnvolledigeOverlijdensdatum: OnvolledigeDatumIndicatieTypeEnum? = null
 
     @Column(name = "ind_beperking_verstrekking")
     var indicatieBeperkingVerstrekking = false

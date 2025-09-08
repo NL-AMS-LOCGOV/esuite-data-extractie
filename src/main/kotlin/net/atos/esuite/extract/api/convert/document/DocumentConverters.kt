@@ -5,9 +5,6 @@ import net.atos.esuite.extract.api.convert.shared.toZonedDateTime
 import net.atos.esuite.extract.api.convert.zaak.toTaak
 import net.atos.esuite.extract.api.model.document.*
 import net.atos.esuite.extract.db.entity.zakenmagazijn.*
-import net.atos.esuite.extract.db.entity.zakenmagazijn.DocumentPublicatieniveau
-import net.atos.esuite.extract.db.entity.zakenmagazijn.DocumentRichting
-import net.atos.esuite.extract.db.entity.zakenmagazijn.DocumentVersturen
 import net.atos.esuite.extract.db.repository.document.*
 import net.atos.esuite.extract.db.repository.zaak.ZAAKTYPE_ID_PREFIX
 
@@ -33,22 +30,22 @@ class DocumentConverter(
             creatieDatumTijd = documentEntity.creatiedatum.toZonedDateTime(),
             wijzigDatumTijd = documentEntity.wijzigdatum?.toZonedDateTime(),
             publicatieniveau = when (documentEntity.publicatieniveau) {
-                DocumentPublicatieniveau.EXTERN -> net.atos.esuite.extract.api.model.document.DocumentPublicatieniveau.extern
-                DocumentPublicatieniveau.INTERN -> net.atos.esuite.extract.api.model.document.DocumentPublicatieniveau.intern
-                DocumentPublicatieniveau.VERTROUWELIJK -> net.atos.esuite.extract.api.model.document.DocumentPublicatieniveau.vertrouwelijk
+                DocumentPublicatieniveauEnum.EXTERN -> net.atos.esuite.extract.api.model.document.DocumentPublicatieniveau.extern
+                DocumentPublicatieniveauEnum.INTERN -> net.atos.esuite.extract.api.model.document.DocumentPublicatieniveau.intern
+                DocumentPublicatieniveauEnum.VERTROUWELIJK -> net.atos.esuite.extract.api.model.document.DocumentPublicatieniveau.vertrouwelijk
             },
             documentVersturen = when (documentEntity.documentVersturen) {
-                DocumentVersturen.IS_VERSTUURD -> net.atos.esuite.extract.api.model.document.DocumentVersturen.is_verstuurd
-                DocumentVersturen.MOET_NIET_VERSTUURD_WORDEN -> net.atos.esuite.extract.api.model.document.DocumentVersturen.moet_niet_verstuurd_worden
+                DocumentVersturenEnum.IS_VERSTUURD -> net.atos.esuite.extract.api.model.document.DocumentVersturen.is_verstuurd
+                DocumentVersturenEnum.MOET_NIET_VERSTUURD_WORDEN -> net.atos.esuite.extract.api.model.document.DocumentVersturen.moet_niet_verstuurd_worden
             },
             documentVersturenDatum = documentEntity.documentVersturenDatum,
             aanvraagDocument = documentEntity.indAanvraag,
-            ontvangstDatum = if (documentEntity.documentrichting == DocumentRichting.INKOMEND) documentEntity.ontvangstverzendcreatiedatum else null,
-            verzendDatum = if (documentEntity.documentrichting == DocumentRichting.UITGAAND) documentEntity.ontvangstverzendcreatiedatum else null,
+            ontvangstDatum = if (documentEntity.documentrichting == DocumentRichtingEnum.INKOMEND) documentEntity.ontvangstverzendcreatiedatum else null,
+            verzendDatum = if (documentEntity.documentrichting == DocumentRichtingEnum.UITGAAND) documentEntity.ontvangstverzendcreatiedatum else null,
             documentrichting = when (documentEntity.documentrichting) {
-                DocumentRichting.INKOMEND -> net.atos.esuite.extract.api.model.document.DocumentRichting.inkomend
-                DocumentRichting.UITGAAND -> net.atos.esuite.extract.api.model.document.DocumentRichting.uitgaand
-                DocumentRichting.INTERN -> net.atos.esuite.extract.api.model.document.DocumentRichting.intern
+                DocumentRichtingEnum.INKOMEND -> net.atos.esuite.extract.api.model.document.DocumentRichting.inkomend
+                DocumentRichtingEnum.UITGAAND -> net.atos.esuite.extract.api.model.document.DocumentRichting.uitgaand
+                DocumentRichtingEnum.INTERN -> net.atos.esuite.extract.api.model.document.DocumentRichting.intern
             },
             locatie = documentEntity.locatie,
             beschrijving = documentEntity.beschrijving,
@@ -121,16 +118,16 @@ private fun DocumentStatusEntity.toDocumentStatus() =
         actief = actief,
     )
 
-private fun DocumentTypeEntity.toDocumenttype() =
+fun DocumentTypeEntity.toDocumenttype() =
     Documenttype(
         naam = naam,
         omschrijving = omschrijving,
         actief = actief,
         documentcategorie = documentcategorie,
         publicatieniveau = when (publicatieniveau) {
-            DocumentPublicatieniveau.EXTERN -> net.atos.esuite.extract.api.model.document.DocumentPublicatieniveau.extern
-            DocumentPublicatieniveau.INTERN -> net.atos.esuite.extract.api.model.document.DocumentPublicatieniveau.intern
-            DocumentPublicatieniveau.VERTROUWELIJK -> net.atos.esuite.extract.api.model.document.DocumentPublicatieniveau.vertrouwelijk
+            DocumentPublicatieniveauEnum.EXTERN -> DocumentPublicatieniveau.extern
+            DocumentPublicatieniveauEnum.INTERN -> DocumentPublicatieniveau.intern
+            DocumentPublicatieniveauEnum.VERTROUWELIJK -> DocumentPublicatieniveau.vertrouwelijk
         }
     )
 

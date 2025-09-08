@@ -8,7 +8,6 @@ import net.atos.esuite.extract.api.model.bag.BAGObject
 import net.atos.esuite.extract.api.model.contact.*
 import net.atos.esuite.extract.db.entity.configuratiemagazijn.OrganisatieEntity
 import net.atos.esuite.extract.db.entity.contactenmagazijn.*
-import net.atos.esuite.extract.db.entity.contactenmagazijn.ContactStatusType
 import net.atos.esuite.extract.db.repository.basisgegevens.SubjectRepository
 
 @ApplicationScoped
@@ -100,9 +99,9 @@ private fun ContactStatusEntity.toContactStatus() =
         omschrijving = omschrijving,
         actief = actief,
         type = when (type) {
-            ContactStatusType.NIEUW -> net.atos.esuite.extract.api.model.contact.ContactStatusType.nieuw
-            ContactStatusType.IN_BEHANDELING -> net.atos.esuite.extract.api.model.contact.ContactStatusType.in_behandeling
-            ContactStatusType.AFGEHANDELD -> net.atos.esuite.extract.api.model.contact.ContactStatusType.afgehandeld
+            ContactStatusTypeEnum.NIEUW -> net.atos.esuite.extract.api.model.contact.ContactStatusType.nieuw
+            ContactStatusTypeEnum.IN_BEHANDELING -> net.atos.esuite.extract.api.model.contact.ContactStatusType.in_behandeling
+            ContactStatusTypeEnum.AFGEHANDELD -> net.atos.esuite.extract.api.model.contact.ContactStatusType.afgehandeld
             null -> null
         }
     )

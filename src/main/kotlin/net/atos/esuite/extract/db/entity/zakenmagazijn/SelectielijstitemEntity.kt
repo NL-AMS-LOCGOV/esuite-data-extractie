@@ -34,7 +34,7 @@ class SelectielijstitemEntity : AbstractReferentieEntity() {
     @Column(name = "bewaartermijn_in_maanden")
     var bewaartermijnInMaanden: Int? = null
 
-    // Aanduiding bewaartermijn in lijsten (M of J)
+    // Aanduiding bewaartermijn in lijsten (MAANDEN of JAREN)
     @Column(name = "toonbare_bewaartermijn_eenheid", length = 20)
     var toonbareBewaartermijnEenheid: String? = null
 }

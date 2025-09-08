@@ -45,12 +45,12 @@ class DocumentEntity {
     // Publicatieniveau (Extern, Intern, Vertrouwelijk)
     @Column(name = "publicatieniveau", length = 16)
     @Enumerated(EnumType.STRING)
-    lateinit var publicatieniveau: DocumentPublicatieniveau
+    lateinit var publicatieniveau: DocumentPublicatieniveauEnum
 
-    // DocumentVersturen (MOET_NIET_VERSTUURD_WORDEN, MOET_VERSTUURD_WORDEN, IS_VERSTUURD)
+    // DocumentVersturenEnum (MOET_NIET_VERSTUURD_WORDEN, MOET_VERSTUURD_WORDEN, IS_VERSTUURD)
     @Column(name = "documentversturen", length = 32)
     @Enumerated(EnumType.STRING)
-    lateinit var documentVersturen: DocumentVersturen
+    lateinit var documentVersturen: DocumentVersturenEnum
 
     // Datum van versturen document via mail
     @Column(name = "documentversturendatum")
@@ -65,7 +65,7 @@ class DocumentEntity {
 
     @Column(name = "documentrichting", length = 8)
     @Enumerated(EnumType.STRING)
-    lateinit var documentrichting: DocumentRichting
+    lateinit var documentrichting: DocumentRichtingEnum
 
     // Locatie van het document
     @Column(name = "locatie", length = 128)

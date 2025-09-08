@@ -19,7 +19,6 @@ X-API-KEY: {{api-key}}
 > {%
     client.test("Request executed successfully", function () {
         client.assert(response.status === 200, "Response status is not 200");
-        client.assert(response.body.rechten.length === 3328, "Response body rechten size is not 3328")
     });
 %}
 

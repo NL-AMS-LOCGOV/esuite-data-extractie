@@ -15,5 +15,5 @@ class Iv3CategorieEntity : AbstractReferentieEntity() {
     var identifier: Long = 0
 
     @Column(name = "externe_code", length = 64)
-    private var externeCode: String? = null
+    var externeCode: String? = null
 }

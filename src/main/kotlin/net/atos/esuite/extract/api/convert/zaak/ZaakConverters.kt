@@ -42,7 +42,7 @@ class ZaakConverter(
             functioneleIdentificatie = zaakEntity.functioneelId,
             geautoriseerdeMedewerkers = zaakEntity.geautoriseerdeMedewerkers.ifEmpty { null },
             gekoppeldeZaken = zaakEntity.relatieZaken.map { it.toZaakZaakKoppeling() }.ifEmpty { null },
-            geolocatie = zaakEntity.geolocatie?.let { convertToGeoJsonGeometry(it) },
+            geolocatie = zaakEntity.geolocatie?.let { it.convertToGeoJsonGeometry() },
             groep = zaakEntity.groepId,
             historie = zaakEntity.historie.map { it.toZaakHistorie() },
             geautoriseerdVoorMedewerkers = zaakEntity.autorisatie,
@@ -129,7 +129,7 @@ class ZaakConverter(
         )
 }
 
-private fun ZaakStatusEntity.toZaakstatus() = Zaakstatus(
+fun ZaakStatusEntity.toZaakstatus() = Zaakstatus(
     naam = naam,
     omschrijving = omschrijving,
     actief = actief,
@@ -137,7 +137,7 @@ private fun ZaakStatusEntity.toZaakstatus() = Zaakstatus(
     externeNaam = externeNaam,
 )
 
-private fun ResultaatEntity.toResultaat() = Resultaat(
+fun ResultaatEntity.toResultaat() = Resultaat(
     naam = naam,
     omschrijving = omschrijving,
     actief = actief,
@@ -150,7 +150,7 @@ private fun BesluitcategorieEntity.toBesluitcategory() = Besluitcategorie(
     actief = actief,
 )
 
-private fun BesluittypeEntity.toBesluittype() = Besluittype(
+fun BesluittypeEntity.toBesluittype() = Besluittype(
     naam = naam,
     omschrijving = omschrijving,
     actief = actief,
@@ -180,12 +180,7 @@ private fun BetaalgegevensEntity.toBetaalgegevens() = Betaalgegevens(
 private fun ArchiveergegevensEntity.toArchiveergegevens() = ArchiveerGegevens(
     reviewTermijnEinddatum = reviewtermijnEinde,
     bewaartermijnEinddatum = bewaartermijnEinde,
-    bewaartermijnWaardering = when (bewaartermijnWaardering) {
-        "B" -> BewaartermijnWaardering.bewaar
-        "V" -> BewaartermijnWaardering.vernietig
-        null -> null
-        else -> error("Invalid BewaartermijnWaardering: $bewaartermijnWaardering")
-    },
+    bewaartermijnWaardering = bewaartermijnWaardering?.toBewaartermijnWaardering(),
     overbrengenOp = overbrengenOp,
     overbrengenNaar = overbrengenNaar,
     overbrengenDoor = overbrengenDoor,
@@ -240,4 +235,11 @@ private fun ZaakZaakEntity.toZaakZaakKoppeling() = ZaakZaakKoppeling(
         else -> error("Invalid relatietypeId: $relatietypeId")
     }
 )
+
+fun String.toBewaartermijnWaardering() =
+    when (this) {
+        "B" -> BewaartermijnWaardering.bewaar
+        "V" -> BewaartermijnWaardering.vernietig
+        else -> error("Invalid BewaartermijnWaardering: $this")
+    }
 

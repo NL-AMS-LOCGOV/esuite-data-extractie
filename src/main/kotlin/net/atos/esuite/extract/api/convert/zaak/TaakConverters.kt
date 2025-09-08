@@ -1,10 +1,10 @@
 package net.atos.esuite.extract.api.convert.zaak
 
 import net.atos.esuite.extract.api.convert.shared.toZonedDateTime
-import net.atos.esuite.extract.api.model.zaak.Taak
-import net.atos.esuite.extract.api.model.zaak.TaakHistorie
-import net.atos.esuite.extract.api.model.zaak.TaakHistorieTypeWijziging
-import net.atos.esuite.extract.api.model.zaak.Taaktype
+import net.atos.esuite.extract.api.model.taak.Taak
+import net.atos.esuite.extract.api.model.taak.TaakHistorie
+import net.atos.esuite.extract.api.model.taak.TaakHistorieTypeWijziging
+import net.atos.esuite.extract.api.model.taak.Taaktype
 import net.atos.esuite.extract.db.entity.zakenmagazijn.TaakEntity
 import net.atos.esuite.extract.db.entity.zakenmagazijn.TaakHistorieEntity
 

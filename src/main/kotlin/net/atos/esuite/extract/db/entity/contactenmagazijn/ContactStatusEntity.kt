@@ -14,6 +14,6 @@ class ContactStatusEntity : AbstractReferentieEntity() {
 
     @Column(name = "status_type")
     @Enumerated(EnumType.STRING)
-    var type: ContactStatusType? = null
+    var type: ContactStatusTypeEnum? = null
 
 }

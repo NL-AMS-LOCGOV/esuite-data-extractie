@@ -28,7 +28,7 @@ class ZaakTypeZaakResultaatEntity {
 
     // Bewaartermijn in maanden
     @Column(name = "bewaartermijn_in_maanden")
-    var bewaarTermijnInMaanden: Int? = null
+    var bewaartermijnInMaanden: Int? = null
 
     // Getoonde bewaartermijn (M of J)
     @Column(name = "toonbare_bewaartermijn_eenheid", length = 20)

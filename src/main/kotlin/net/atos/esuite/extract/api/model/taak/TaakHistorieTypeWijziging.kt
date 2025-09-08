@@ -1,4 +1,4 @@
-package net.atos.esuite.extract.api.model.zaak
+package net.atos.esuite.extract.api.model.taak
 
 enum class TaakHistorieTypeWijziging {
 

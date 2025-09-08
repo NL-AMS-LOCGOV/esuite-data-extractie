@@ -16,7 +16,7 @@ class ZaakTypeAuthenticatieEntity {
 
     @Column(name = "doelgroep", length = 20)
     @Enumerated(EnumType.STRING)
-    lateinit var doelgroep: ZaakTypeDoelgroep
+    lateinit var doelgroep: ZaakTypeDoelgroepEnum
 
     // One of: 'NONE', 'DIG1', 'DIG2', 'DIG3', 'DIG4', 'EHE1', 'EHE2', 'EHE3', 'EHE4', 'EHE5'
     @Column(name = "authenticatieniveau", length = 4)

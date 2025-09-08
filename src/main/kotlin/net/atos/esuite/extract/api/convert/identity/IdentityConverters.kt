@@ -2,10 +2,7 @@ package net.atos.esuite.extract.api.convert.identity
 
 import net.atos.esuite.extract.api.convert.shared.toZonedDateTime
 import net.atos.esuite.extract.api.model.identity.*
-import net.atos.esuite.extract.db.entity.identity.FunctieEntity
-import net.atos.esuite.extract.db.entity.identity.MedewerkerEntity
-import net.atos.esuite.extract.db.entity.identity.RechtEntity
-import net.atos.esuite.extract.db.entity.identity.RolEntity
+import net.atos.esuite.extract.db.entity.identity.*
 
 fun MedewerkerEntity.toMedewerkerOverzicht() = MedewerkerOverzicht(
     gebruikersnaam = gebruikersnaam,
@@ -63,3 +60,31 @@ private fun RechtEntity.toRecht() = Recht(
     type = RechtType.valueOf(type.lowercase()),
 )
 
+
+fun GroepEntity.toGroepOverzicht() = GroepOverzicht(
+    naam = naam,
+)
+
+fun GroepEntity.toGroep() = Groep(
+    naam = naam,
+    code = code,
+    omschrijving = omschrijving,
+    groepshoofd = groepshoofd?.gebruikersnaam,
+    emailadres = email,
+    actief = actief,
+    medewerkers = medewerkers.map { it.gebruikersnaam }.toSet(),
+)
+
+fun AfdelingEntity.toAfdelingOverzicht() = AfdelingOverzicht(
+    naam = naam,
+)
+
+fun AfdelingEntity.toAfdeling() = Afdeling(
+    naam = naam,
+    code = code,
+    omschrijving = omschrijving,
+    afdelingshoofd = afdelingshoofd?.gebruikersnaam,
+    emailadres = email,
+    actief = actief,
+    medewerkers = medewerkers.map { it.gebruikersnaam }.toSet(),
+)

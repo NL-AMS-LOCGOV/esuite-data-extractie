@@ -1,5 +1,5 @@
 package net.atos.esuite.extract.db.entity.zakenmagazijn
 
-enum class InternExtern {
-    INTERN, EXTERN
+enum class ZaakTypeDoelgroepEnum {
+    BURGER, BEDRIJF
 }

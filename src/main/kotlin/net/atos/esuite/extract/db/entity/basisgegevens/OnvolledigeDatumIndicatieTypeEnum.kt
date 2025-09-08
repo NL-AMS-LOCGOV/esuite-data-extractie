@@ -1,6 +1,6 @@
 package net.atos.esuite.extract.db.entity.basisgegevens
 
-enum class OnvolledigeDatumIndicatieType {
+enum class OnvolledigeDatumIndicatieTypeEnum {
 
     /** jaar, maand en dag onbekend  */
     J,

@@ -209,6 +209,25 @@ components:
           type: string
           description: Type overbrengen
           $ref: "#/components/schemas/OverbrengenType"
+    AuthenticatieDoelgroep:
+      type: string
+      enum:
+        - burger
+        - bedrijf
+    AuthenticatieNiveau:
+      type: string
+      enum:
+        - none
+        - digid_1
+        - digid_2
+        - digid_3
+        - digid_4
+        - eherkenning_1
+        - eherkenning_2
+        - eherkenning_3
+        - eherkenning_4
+        - eherkenning_5
+        - eherkenning_6
     BAGObject:
       type: object
       required:
@@ -465,6 +484,11 @@ components:
         - niet_geslaagd
         - in_behandeling
         - geannuleerd
+    BewaartermijnEenheid:
+      type: string
+      enum:
+        - maanden
+        - jaren
     BewaartermijnWaardering:
       type: string
       enum:
@@ -520,6 +544,10 @@ components:
           examples:
             - 2022-03-10T12:15:50-04:00
           description: Calendar waarde data element
+    Categorie:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/Referentie"
     ComplexDataElement:
       type: object
       allOf:
@@ -944,7 +972,7 @@ components:
         documenttype:
           $ref: "#/components/schemas/Documenttype"
           type: object
-          description: type document
+          description: Type document
         documentStatus:
           $ref: "#/components/schemas/DocumentStatus"
           type: object
@@ -1159,6 +1187,14 @@ components:
         - intern
         - uitgaand
     DocumentStatus:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/Referentie"
+    DocumentTag:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/Referentie"
+    DocumentTitel:
       type: object
       allOf:
         - $ref: "#/components/schemas/Referentie"
@@ -1576,6 +1612,10 @@ components:
           uniqueItems: true
           maxLength: 128
           description: Naam van groep
+    HandelingInitiator:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/Referentie"
     History:
       type: object
       properties:
@@ -1609,6 +1649,19 @@ components:
           type: string
           maxLength: 7
           description: Code
+    InternExtern:
+      type: string
+      enum:
+        - intern
+        - extern
+    Iv3Categorie:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/Referentie"
+      properties:
+        externeCode:
+          type: string
+          maxLength: 64
     Kanaal:
       type: object
       allOf:
@@ -2862,6 +2915,35 @@ components:
           items:
             type: string
           description: Lijst van geselecteerde documenten
+    Selectielijstitem:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/Referentie"
+      properties:
+        jaar:
+          type: integer
+          format: int32
+          description: Versie (jaar) van selectielijst item
+        domein:
+          type: string
+          maxLength: 255
+          description: Naam van domein
+        subdomein:
+          type: string
+          maxLength: 255
+          description: Naam van subdomein
+        bewaartermijnWaardering:
+          type: string
+          description: Waardering van de bewaartermijn
+          $ref: "#/components/schemas/BewaartermijnWaardering"
+        bewaartermijn:
+          type: integer
+          format: int32
+          description: Bewaartermijn. Voor eenheid zie bewaartermijnEenheid
+        bewaartermijnEenheid:
+          type: string
+          description: Bewaartermijn eenheid
+          $ref: "#/components/schemas/BewaartermijnEenheid"
     SoortVerbintenis:
       type: string
       enum:
@@ -3120,6 +3202,41 @@ components:
           type: string
           maxLength: 4
           description: Authenticatieniveau benodigd voor externen
+    TaakDocument:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/Referentie"
+      properties:
+        documentNaam:
+          type: string
+          maxLength: 255
+          description: Document naam
+        documentTemplate:
+          type: string
+          maxLength: 255
+          description: Document template
+        templateGroep:
+          type: string
+          maxLength: 255
+          description: Template groep
+        documenttype:
+          type: object
+          description: Type document
+          $ref: "#/components/schemas/Documenttype"
+    TaakDocumentGroep:
+      type: object
+      required:
+        - naam
+      properties:
+        naam:
+          type: string
+          maxLength: 255
+          description: Naam
+        taakDocumenten:
+          type: array
+          items:
+            $ref: "#/components/schemas/TaakDocument"
+          description: Taak documenten
     TaakHistorie:
       type: object
       required:
@@ -3590,6 +3707,20 @@ components:
         - gerelateerde_zaak
         - voorafgaande_zaak
         - vervolgzaak
+    ZaakStartParameter:
+      type: object
+      required:
+        - naam
+        - type
+      properties:
+        naam:
+          type: string
+          maxLength: 255
+          description: Naam
+        type:
+          type: string
+          maxLength: 255
+          description: Type
     ZaakZaakKoppeling:
       type: object
       required:
@@ -3628,6 +3759,242 @@ components:
             (burger en bedrijven loket) van de e=Suite
     Zaaktype:
       type: object
+      required:
+        - functioneleIdentificatie
+        - handelingInitiator
+        - internExtern
+        - categorie
+        - iv3categorie
+        - intake
+        - beginGeldigheidDatum
+        - doorlooptijdAanpassenToegestaan
+        - aantalDagenVoorStreefdatumVoorEersteSignalering
+        - aantalDagenVoorStreefdatumVoorTweedeSignalering
+        - aantalDagenVoorFataledatumVoorEersteSignalering
+        - aantalDagenVoorFataledatumVoorTweedeSignalering
+        - startenProces
+        - vertrouwelijk
+        - geautoriseerdVoorMedewerkers
+        - notificatiesVersturen
+        - samenvattingDocumentNaam
+      allOf:
+        - $ref: "#/components/schemas/Referentie"
+      properties:
+        functioneleIdentificatie:
+          type: string
+          maxLength: 128
+          description: Functionele identificatie
+        handelingInitiator:
+          $ref: "#/components/schemas/HandelingInitiator"
+          type: object
+          description: Actie die uitgevoerd wordt om zaak of proces te starten
+        internExtern:
+          $ref: "#/components/schemas/InternExtern"
+          type: string
+          description: Is zaak voor intern of extern gebruik
+        categorie:
+          $ref: "#/components/schemas/Categorie"
+          type: object
+          description: Categorie waarin zaak valt
+        iv3categorie:
+          $ref: "#/components/schemas/Iv3Categorie"
+          type: object
+          description: Informatie voor Derden Categorie waarin zaak valt
+        afdeling:
+          type: string
+          maxLength: 255
+          description: Naam van afdeling waaraan nieuwe zaak wordt toegekend
+        groep:
+          type: string
+          maxLength: 255
+          description: Naam van groep waaraan nieuwe zaak wordt toegekend
+        intake:
+          type: boolean
+          description: Is zaak een intake
+        beginGeldigheidDatum:
+          type: string
+          format: date
+          examples:
+            - 2022-03-10
+          description: Datum begin geldigheid
+        eindeGeldigheidDatum:
+          type: string
+          format: date
+          examples:
+            - 2022-03-10
+          description: Datum einde geldigheid
+        doorlooptijdGewenst:
+          type: integer
+          format: int32
+          description: Gewenste doorlooptijd in dagen
+        doorlooptijdVereist:
+          type: integer
+          format: int32
+          description: Maximale doorlooptijd in dagen
+        doorlooptijdAanpassenToegestaan:
+          type: boolean
+          description: Is aanpassen van doorlooptijd van zaak toegestaan
+        aantalDagenVoorStreefdatumVoorEersteSignalering:
+          type: integer
+          format: int32
+          description: Aantal dagen voorafgaand aan de streefdatum waarop de 1ste
+            signalering plaats vindt
+        aantalDagenVoorStreefdatumVoorTweedeSignalering:
+          type: integer
+          format: int32
+          description: Aantal dagen voorafgaand aan de streefdatum waarop de 2de signalering
+            plaats vindt
+        aantalDagenVoorFataledatumVoorEersteSignalering:
+          type: integer
+          format: int32
+          description: Aantal dagen voorafgaand aan de fataledatum waarop de 1ste
+            signalering plaats vindt
+        aantalDagenVoorFataledatumVoorTweedeSignalering:
+          type: integer
+          format: int32
+          description: Aantal dagen voorafgaand aan de fataledatum waarop de 2de signalering
+            plaats vindt
+        status:
+          type: object
+          description: Initiele status van nieuwe zaak
+          $ref: "#/components/schemas/Zaakstatus"
+        archiveringReviewPeriode:
+          type: integer
+          format: int32
+          description: Archivering reviewperiode in weken
+        startenProces:
+          type: boolean
+          description: Moet proces gestart worden bij aanmaken van nieuwe zaak
+        proces:
+          type: string
+          maxLength: 128
+          description: Functionele identificatie van proces dat wordt gestart
+        startformulier:
+          type: string
+          maxLength: 128
+          description: Functionele identificatie van zaak startformulier
+        startformulierVersie:
+          type: integer
+          format: int64
+          description: Versie nummer van zaak startformulier
+        vertrouwelijk:
+          type: boolean
+          description: Is zaak vertrouwelijk
+        authenticaties:
+          type: array
+          items:
+            $ref: "#/components/schemas/ZaaktypeAuthenticatie"
+          description: Mogelijke authenticatie methoden bij aanmaken nieuwe zaak
+        geautoriseerdVoorMedewerkers:
+          type: boolean
+          description: Betreft dit een zaak met specifieke medewerker autorisatie
+        geautoriseerdeMedewerkers:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+          description: Gebruikersnamen van medewerkers welke zijn geautoriseerd voor
+            zaak
+        notificatiesVersturen:
+          type: boolean
+          description: Moet er notificaties worden verstuurd voor de zaak
+        statussen:
+          type: array
+          items:
+            $ref: "#/components/schemas/Zaakstatus"
+          description: Mogelijke statussen van zaak
+        resultaten:
+          type: array
+          items:
+            $ref: "#/components/schemas/ZaaktypeResultaat"
+          description: Mogelijke resultaten van zaak
+        besluiten:
+          type: array
+          items:
+            $ref: "#/components/schemas/ZaaktypeBesluittype"
+          description: Mogelijke besluiten bij zaak
+        documenttypen:
+          type: array
+          items:
+            $ref: "#/components/schemas/ZaaktypeDocumenttype"
+          description: Mogelijke documenttypen van documenten bij zaak
+        documentTags:
+          type: array
+          items:
+            $ref: "#/components/schemas/DocumentTag"
+          description: Tags welke gezet kunnen worden op documenten bij zaak
+        gekoppeldeZaaktypen:
+          type: array
+          items:
+            $ref: "#/components/schemas/ZaaktypeOverzicht"
+          description: Zaaktypen waarvan zaken gekoppeld kunnen worden aan zaak
+        taakDocumentGroepen:
+          type: array
+          items:
+            $ref: "#/components/schemas/TaakDocumentGroep"
+          description: Taakdocument groepen
+        samenvattingDocumentNaam:
+          type: string
+          maxLength: 255
+          description: Naam voor het samenvatting document
+        zaakStartParameters:
+          type: array
+          items:
+            $ref: "#/components/schemas/ZaakStartParameter"
+          description: Zaak start parameters
+        productaanvraagtype:
+          type: string
+          maxLength: 255
+          description: Productaanvraagtype
+    ZaaktypeAuthenticatie:
+      type: object
+      required:
+        - doelgroep
+        - niveau
+      properties:
+        doelgroep:
+          $ref: "#/components/schemas/AuthenticatieDoelgroep"
+          type: string
+          description: Doelgroep van authenticatie
+        niveau:
+          $ref: "#/components/schemas/AuthenticatieNiveau"
+          type: string
+          description: Niveau van authenticatie
+    ZaaktypeBesluittype:
+      type: object
+      required:
+        - besluittype
+      properties:
+        besluittype:
+          $ref: "#/components/schemas/Besluittype"
+          type: object
+          description: Type besluit
+        documenttype:
+          type: object
+          description: Documenttype van document met besluit
+          $ref: "#/components/schemas/Documenttype"
+        procestermijn:
+          type: integer
+          format: int32
+          description: Procestermijn in maanden
+    ZaaktypeDocumenttype:
+      type: object
+      required:
+        - documenttype
+      properties:
+        documenttype:
+          $ref: "#/components/schemas/Documenttype"
+          type: object
+          description: Type document
+        dspcode:
+          type: string
+          maxLength: 255
+          description: DSP code
+        titels:
+          type: array
+          items:
+            $ref: "#/components/schemas/DocumentTitel"
+          description: Mogelijke voorgedefinieerde document titels
     ZaaktypeOverzicht:
       type: object
       required:
@@ -3638,7 +4005,33 @@ components:
         functioneleIdentificatie:
           type: string
           maxLength: 128
-          description: Functionele identificatie van zaaktype
+          description: Functionele identificatie
+    ZaaktypeResultaat:
+      type: object
+      required:
+        - resultaat
+        - selectielijstitem
+      properties:
+        resultaat:
+          $ref: "#/components/schemas/Resultaat"
+          type: object
+          description: Resultaat van zaak
+        selectielijstitem:
+          $ref: "#/components/schemas/Selectielijstitem"
+          type: object
+          description: Selectielijst item
+        bewaartermijnWaardering:
+          type: string
+          description: Waardering van de bewaartermijn
+          $ref: "#/components/schemas/BewaartermijnWaardering"
+        bewaartermijn:
+          type: integer
+          format: int32
+          description: Bewaartermijn. Voor eenheid zie bewaartermijnEenheid
+        bewaartermijnEenheid:
+          type: string
+          description: Bewaartermijn eenheid
+          $ref: "#/components/schemas/BewaartermijnEenheid"
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

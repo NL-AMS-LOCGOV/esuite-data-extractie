@@ -21,7 +21,7 @@ class ZaakTypeEntity : AbstractReferentieEntity() {
 
     @Column(name = "intern_extern", length = 20)
     @Enumerated(EnumType.STRING)
-    lateinit var internExtern: InternExtern
+    lateinit var internExtern: InternExternEnum
 
     @ManyToOne
     @JoinColumn(name = "id_categorie", referencedColumnName = "id_categorie")

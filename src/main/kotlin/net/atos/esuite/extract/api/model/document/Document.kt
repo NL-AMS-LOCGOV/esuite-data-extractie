@@ -1,6 +1,6 @@
 package net.atos.esuite.extract.api.model.document
 
-import net.atos.esuite.extract.api.model.zaak.Taak
+import net.atos.esuite.extract.api.model.taak.Taak
 import org.eclipse.microprofile.openapi.annotations.media.Schema
 import java.time.LocalDate
 import java.time.ZonedDateTime
@@ -12,7 +12,7 @@ class Document(
     @field:Schema(description = "Vorm van document")
     val documentVorm: DocumentVorm?,
 
-    @field:Schema(description = "type document")
+    @field:Schema(description = "Type document")
     val documenttype: Documenttype,
 
     @field:Schema(description = "Status van document")

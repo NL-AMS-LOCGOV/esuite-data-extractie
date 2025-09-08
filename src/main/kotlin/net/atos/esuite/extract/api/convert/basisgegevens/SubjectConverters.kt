@@ -25,12 +25,12 @@ fun PersoonEntity.toPersoon() =
         voorletters = voorletters,
         geslachtsNaam = geslachtsNaam,
         voorvoegsel = voorvoegsel,
-        geslacht = toGeslacht(geslachtsAanduiding),
+        geslacht = geslachtsAanduiding?.toGeslacht(),
         aanhefAanschrijving = aanhefAanschrijving,
         adelijkeTitel = titelAdelijk,
         preAcademischeTitel = titelPreAcademisch,
         postAcademischeTitel = titelPostAcademisch,
-        naamgebruik = toNaamgebruik(aanduidingNaamGebruik),
+        naamgebruik = aanduidingNaamGebruik?.toNaamgebruik(),
         geslachtsNaamPartner = geslachtsNaamPartner,
         voorvoegselPartner = voorvoegselPartner,
         geboortedatum = geboortedatum,
@@ -38,15 +38,15 @@ fun PersoonEntity.toPersoon() =
         overlijdensdatum = overlijdensdatum,
         overlijdensplaats = overlijdensplaats,
         aNummer = aNummer,
-        opschortingsReden = toOpschortingsReden(redenOpschorting),
+        opschortingsReden = redenOpschorting?.toOpschortingsReden(),
         opschortingsDatum = datumOpschorting,
         geblokkeerd = indicatieGeblokkeerd,
         curateleRegister = indicatieCurateleRegister,
         inOnderzoek = indicatieInOnderzoek,
-        geboortedatumVolledig = toOnvolledigeDatumType(indicatieOnvolledigeGeboortedatum),
-        overlijdensdatumVolledig = toOnvolledigeDatumType(indicatieOnvolledigeOverlijdensdatum),
+        geboortedatumVolledig = indicatieOnvolledigeGeboortedatum?.toOnvolledigeDatumType(),
+        overlijdensdatumVolledig = indicatieOnvolledigeOverlijdensdatum?.toOnvolledigeDatumType(),
         beperkingVerstrekking = indicatieBeperkingVerstrekking,
-        nietIngezeteneAanduiding = toNietIngezeteneAanduiding(indicatieNietIngezetene),
+        nietIngezeteneAanduiding = indicatieNietIngezetene?.toNietIngezeteneAanduiding(),
         handmatigToegevoegd = indicatieHandmatigToegevoegd,
         afnemerIndicatie = indicatieAfnemer,
         anpIdentificatie = anpIdentificatie,
@@ -86,7 +86,7 @@ fun BedrijfEntity.toBedrijf() =
         inSurceance = indSurseance,
         failliet = indFaillisement,
         rsinummer = rsinummer,
-        vestigingsstatus = toVestigingsstatus(statusVestiging),
+        vestigingsstatus = statusVestiging?.toVestigingsstatus(),
         ingangsdatum = ingangsdatum,
         mutatiedatum = mutatiedatum,
         vestigingstype = when (indHoofdVestiging) {
@@ -111,53 +111,48 @@ private fun NotitieEntity.toNotitie() =
         inhoud = inhoud,
     )
 
-private fun toGeslacht(geslacht: String?) =
-    when (geslacht) {
+private fun String.toGeslacht() =
+    when (this) {
         "O" -> Geslacht.onbekend
         "M" -> Geslacht.man
         "V" -> Geslacht.vrouw
-        null -> null
-        else -> error("Invalid Geslacht: $geslacht")
+        else -> error("Invalid Geslacht: $this")
     }
 
-private fun toNaamgebruik(aanduidingNaamGebruik: String?) =
-    when (aanduidingNaamGebruik) {
+private fun String.toNaamgebruik() =
+    when (this) {
         "E" -> Naamgebruik.eigen_geslachtsnaam
         "N" -> Naamgebruik.geslachtsnaam_partner_na_eigen_geslachtsnaam
         "P" -> Naamgebruik.geslachtsnaam_partner
         "V" -> Naamgebruik.geslachtsnaam_partner_voor_eigen_geslachtsnaam
-        null -> null
-        else -> error("Invalid Naamgebruik: $aanduidingNaamGebruik")
+        else -> error("Invalid Naamgebruik: $this")
     }
 
-private fun toOpschortingsReden(redenOpschorting: String?) =
-    when (redenOpschorting) {
+private fun String.toOpschortingsReden() =
+    when (this) {
         "." -> OpschortingsReden.standaard_waarde
         "O" -> OpschortingsReden.overlijden
         "E" -> OpschortingsReden.emigratie
         "M" -> OpschortingsReden.ministerieel_besluit
         "R" -> OpschortingsReden.pl_aangelegd_in_rni
         "F" -> OpschortingsReden.fout
-        null -> null
-        else -> error("Invalid OpschortingsReden: $redenOpschorting")
+        else -> error("Invalid OpschortingsReden: $this")
     }
 
-private fun toOnvolledigeDatumType(indicatieOnvolledigeGeboortedatum: OnvolledigeDatumIndicatieType?) =
-    when (indicatieOnvolledigeGeboortedatum) {
-        OnvolledigeDatumIndicatieType.J -> OnvolledigeDatumType.jaar_en_maand_en_dag_onbekend
-        OnvolledigeDatumIndicatieType.M -> OnvolledigeDatumType.maand_en_dag_onbekend
-        OnvolledigeDatumIndicatieType.D -> OnvolledigeDatumType.dag_onbekend
-        OnvolledigeDatumIndicatieType.V -> OnvolledigeDatumType.volledig
-        null -> null
+private fun OnvolledigeDatumIndicatieTypeEnum.toOnvolledigeDatumType() =
+    when (this) {
+        OnvolledigeDatumIndicatieTypeEnum.J -> OnvolledigeDatumType.jaar_en_maand_en_dag_onbekend
+        OnvolledigeDatumIndicatieTypeEnum.M -> OnvolledigeDatumType.maand_en_dag_onbekend
+        OnvolledigeDatumIndicatieTypeEnum.D -> OnvolledigeDatumType.dag_onbekend
+        OnvolledigeDatumIndicatieTypeEnum.V -> OnvolledigeDatumType.volledig
     }
 
-private fun toNietIngezeteneAanduiding(indicatieNietIngezetene: String?) =
-    when (indicatieNietIngezetene) {
+private fun String.toNietIngezeteneAanduiding() =
+    when (this) {
         "I" -> NietIngezeteneAanduiding.ingezetene
         "N" -> NietIngezeteneAanduiding.niet_ingezetene
         "A" -> NietIngezeteneAanduiding.ander_natuurlijk_persoon
-        null -> null
-        else -> error("Invalid NietIngezeteneAanduiding: $indicatieNietIngezetene")
+        else -> error("Invalid NietIngezeteneAanduiding: $this")
     }
 
 private fun LandEntity.toLand() =
@@ -179,7 +174,7 @@ private fun BurgerlijkeStaatEntity.toBurgerlijkeSTaat() =
 
 private fun AbstractSubjectAdresEntity.toAdres() =
     Adres(
-        type = toAdresType(adresType),
+        type = adresType.toAdresType(),
         straatnaam = adres.straatnaam,
         postcode = adres.postcode,
         plaatsnaam = adres.plaatsnaam,
@@ -194,14 +189,14 @@ private fun AbstractSubjectAdresEntity.toAdres() =
         land = adres.land.toLand(),
     )
 
-private fun toAdresType(adresType: String) =
-    when (adresType) {
+private fun String.toAdresType() =
+    when (this) {
         "C" -> AdresType.correspondentie_adres
         "I" -> AdresType.inschrijf_adres_persoon
         "V" -> AdresType.verblijf_adres_persoon
         "P" -> AdresType.post_adres_bedrijf
         "S" -> AdresType.vestigings_adres_bedrijf
-        else -> error("Invalid AdresType: $adresType")
+        else -> error("Invalid AdresType: $this")
     }
 
 private fun PersoonNationaliteitEntity.toNationaliteit() =
@@ -222,7 +217,7 @@ private fun PersoonReisdocumentEntity.toReisdocument() =
         gbaCode = reisdocument.gbacode,
         indicatieOnttrekking = indicatieOnttrekking,
         autoriteitOntrekking = autoriteitOntrekking,
-        indicatieVervallen = toVervallenAanduiding(indicatieVervallen),
+        indicatieVervallen = indicatieVervallen?.toVervallenAanduiding(),
         autoriteitVervallen = autoriteitVervallen,
         einddatumGeldigheid = einddatumGeldigheid,
         reisdocumentnummer = reisdocumentnummer,
@@ -232,37 +227,36 @@ private fun PersoonReisdocumentEntity.toReisdocument() =
 
 private fun RelatieEntity.toRelatie() =
     Relatie(
-        type = toRelatieType(relatieType),
-        soortVerbintenis = toSoortVerbintenis(soortVerbintenis),
+        type = relatieType.toRelatieType(),
+        soortVerbintenis = soortVerbintenis?.toSoortVerbintenis(),
         datumSluitingVerbintenis = datumSluitingVerbintenis,
         plaatsSluitingVerbintenis = plaatsSluitingVerbintenis,
         landSluitingVerbintenis = landSluitingVerbintenis?.toLand(),
         datumOntbindingVerbintenis = datumOntbindingVerbintenis,
-        redenOntbindingVerbintenis = toRedenOntbindingVerbintenis(redenOntbindingVerbintenis),
+        redenOntbindingVerbintenis = redenOntbindingVerbintenis?.toRedenOntbindingVerbintenis(),
         plaatsOntbindingVerbintenis = plaatsOntbindingVerbintenis,
         landOntbindingVerbintenis = landOntbindingVerbintenis?.toLand(),
         identifierPersoon = persoon.identifier,
     )
 
 
-private fun toRelatieType(relatieType: String) =
-    when (relatieType) {
+private fun String.toRelatieType() =
+    when (this) {
         "O" -> RelatieType.is_ouder_van
         "K" -> RelatieType.is_kind_van
         "P" -> RelatieType.is_partner_van
-        else -> error("Invalid RelatieType: $relatieType")
+        else -> error("Invalid RelatieType: $this")
     }
 
-private fun toSoortVerbintenis(soortVerbintenis: String?) =
-    when (soortVerbintenis) {
+private fun String.toSoortVerbintenis() =
+    when (this) {
         "H" -> SoortVerbintenis.huwelijk
         "P" -> SoortVerbintenis.partnerschap
-        null -> null
-        else -> error("Invalid SoortVerbintenis: $soortVerbintenis")
+        else -> error("Invalid SoortVerbintenis: $this")
     }
 
-private fun toRedenOntbindingVerbintenis(redenOntbindingVerbintenis: String?) =
-    when (redenOntbindingVerbintenis) {
+private fun String.toRedenOntbindingVerbintenis() =
+    when (this) {
         "." -> RedenOntbindingVerbintenis.onbekend
         "A" -> RedenOntbindingVerbintenis.vermissing_en_ander_huwelijk
         "N" -> RedenOntbindingVerbintenis.nietig_verklaring
@@ -270,20 +264,18 @@ private fun toRedenOntbindingVerbintenis(redenOntbindingVerbintenis: String?) =
         "R" -> RedenOntbindingVerbintenis.rechtsvermoeden_van_overlijden
         "S" -> RedenOntbindingVerbintenis.scheiding
         "V" -> RedenOntbindingVerbintenis.naar_vreemd_recht_anders_beeindigd
-        null -> null
-        else -> error("Invalid RedenOntbindingVerbintenis: $redenOntbindingVerbintenis")
+        else -> error("Invalid RedenOntbindingVerbintenis: $this")
     }
 
-private fun toVervallenAanduiding(indicatieVervallen: String?) =
-    when (indicatieVervallen) {
+private fun String.toVervallenAanduiding() =
+    when (this) {
         "I" -> VervallenAanduiding.ingetrokken
         "V" -> VervallenAanduiding.van_rechtswege_vervallen
-        null -> null
-        else -> error("Invalid VervallenAanduiding: $indicatieVervallen")
+        else -> error("Invalid VervallenAanduiding: $this")
     }
 
-private fun toVestigingsstatus(status: String?) =
-    when (status) {
+private fun String.toVestigingsstatus() =
+    when (this) {
         "A" -> Vestigingsstatus.nieuw_in_handelsregister
         "B" -> Vestigingsstatus.nieuw_voor_profielhouder
         "C" -> Vestigingsstatus.vestiging_is_gewijzigd
@@ -291,8 +283,7 @@ private fun toVestigingsstatus(status: String?) =
         "E" -> Vestigingsstatus.opgeheven
         "F" -> Vestigingsstatus.opgeheven_ongedaan_gemaakt
         "H" -> Vestigingsstatus.opgeheven_ergens_anders_opnieuw
-        null -> null
-        else -> error("Invalid vestigingsstatus: $status")
+        else -> error("Invalid vestigingsstatus: $this")
     }
 
 private fun HoofdactiviteitEntity.toHoofdactiviteit() =
@@ -314,7 +305,7 @@ private fun NevenactiviteitEntity.toNevenactiviteit() =
 private fun ContactpersoonEntity.toContactpersoon() =
     Contactpersoon(
         naam = naam,
-        geslacht = toGeslacht(geslacht),
+        geslacht = geslacht?.toGeslacht(),
         emailadres = emailadres,
         telefoonnummer = telefoon,
         faxnummer = telefax,

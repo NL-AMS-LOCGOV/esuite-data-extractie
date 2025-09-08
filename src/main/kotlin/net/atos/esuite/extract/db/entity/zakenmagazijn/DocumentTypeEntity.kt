@@ -19,5 +19,5 @@ class DocumentTypeEntity : AbstractReferentieEntity() {
     // Default publicatieniveau
     @Column(name = "publicatieniveau")
     @Enumerated(EnumType.STRING)
-    lateinit var publicatieniveau: DocumentPublicatieniveau
+    lateinit var publicatieniveau: DocumentPublicatieniveauEnum
 }
