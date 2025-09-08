@@ -8,7 +8,9 @@ class BooleanReferentietabelRecordAttribuut(
     @field:Schema(description = "Boolean waarde", required = true)
     val waarde: Boolean,
 
-    ) : ReferentietabelRecordAttribuut(ReferentietabelRecordAttribuutType.boolean)
+    naam: String,
+    omschrijving: String?,
+) : ReferentietabelRecordAttribuut(ReferentietabelRecordAttribuutType.boolean, naam, omschrijving)
 
 
 

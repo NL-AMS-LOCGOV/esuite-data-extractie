@@ -9,7 +9,9 @@ class DatumReferentietabelRecordAttribuut(
     @field:Schema(description = "Datum waarde", implementation = LocalDate::class)
     val waarde: LocalDate,
 
-    ) : ReferentietabelRecordAttribuut(ReferentietabelRecordAttribuutType.datum)
+    naam: String,
+    omschrijving: String?,
+) : ReferentietabelRecordAttribuut(ReferentietabelRecordAttribuutType.datum, naam, omschrijving)
 
 
 

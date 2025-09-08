@@ -8,7 +8,9 @@ class NummerReferentietabelRecordAttribuut(
     @field:Schema(description = "Integer waarde", required = true)
     val waarde: Long,
 
-    ) : ReferentietabelRecordAttribuut(ReferentietabelRecordAttribuutType.nummer)
+    naam: String,
+    omschrijving: String?,
+) : ReferentietabelRecordAttribuut(ReferentietabelRecordAttribuutType.nummer, naam, omschrijving)
 
 
 

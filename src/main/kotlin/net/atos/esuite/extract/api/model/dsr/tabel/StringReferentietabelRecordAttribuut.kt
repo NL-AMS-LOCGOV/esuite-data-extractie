@@ -8,7 +8,9 @@ class StringReferentietabelRecordAttribuut(
     @field:Schema(description = "String waarde")
     val waarde: String,
 
-    ) : ReferentietabelRecordAttribuut(ReferentietabelRecordAttribuutType.string)
+    naam: String,
+    omschrijving: String?,
+) : ReferentietabelRecordAttribuut(ReferentietabelRecordAttribuutType.string, naam, omschrijving)
 
 
 

@@ -8,7 +8,9 @@ class GeoReferentietabelRecordAttribuut(
     @field:Schema(description = "Well-known text geografische informatie")
     val waarde: String,
 
-    ) : ReferentietabelRecordAttribuut(ReferentietabelRecordAttribuutType.geo)
+    naam: String,
+    omschrijving: String?,
+) : ReferentietabelRecordAttribuut(ReferentietabelRecordAttribuutType.geo, naam, omschrijving)
 
 
 

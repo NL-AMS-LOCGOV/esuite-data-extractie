@@ -30,11 +30,11 @@ abstract class ReferentietabelRecordAttribuut(
 
     @field:Schema(description = "Type attribuut")
     val type: ReferentietabelRecordAttribuutType,
-) {
-    @Schema(description = "Naam van attribuut", maxLength = 128 )
-    var naam: String = ""
 
-    @Schema(description = "Omschrijving van attribuut")
-    var omschrijving: String? = null
-}
+    @field:Schema(description = "Naam van attribuut", maxLength = 128)
+    val naam: String,
+
+    @field:Schema(description = "Omschrijving van attribuut")
+    val omschrijving: String?
+)
 

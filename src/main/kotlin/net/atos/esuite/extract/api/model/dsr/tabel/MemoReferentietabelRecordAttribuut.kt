@@ -8,7 +8,9 @@ class MemoReferentietabelRecordAttribuut(
     @field:Schema(description = "Text waarde")
     val waarde: String,
 
-    ) : ReferentietabelRecordAttribuut(ReferentietabelRecordAttribuutType.memo)
+    naam: String,
+    omschrijving: String?,
+) : ReferentietabelRecordAttribuut(ReferentietabelRecordAttribuutType.memo, naam, omschrijving)
 
 
 

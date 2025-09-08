@@ -9,7 +9,9 @@ class DatumTijdReferentietabelRecordAttribuut(
     @field:Schema(description = "Datum/Tijd waarde", implementation = ZonedDateTime::class)
     val waarde: ZonedDateTime,
 
-    ) : ReferentietabelRecordAttribuut(ReferentietabelRecordAttribuutType.datum_tijd)
+    naam: String,
+    omschrijving: String?,
+) : ReferentietabelRecordAttribuut(ReferentietabelRecordAttribuutType.datum_tijd, naam, omschrijving)
 
 
 

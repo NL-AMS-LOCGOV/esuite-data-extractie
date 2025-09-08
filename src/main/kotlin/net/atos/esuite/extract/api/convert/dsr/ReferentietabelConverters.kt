@@ -33,17 +33,54 @@ fun ReferentietabelRecordEntity.toReferentietabelRecord() =
     )
 
 private fun AbstractReferentietabelRecordExtraAttribuutEntity.toReferentietabelRecordAttribuut() =
-    when(this) {
-        is BooleanReferentietabelRecordExtraAttribuutEntity -> BooleanReferentietabelRecordAttribuut(waarde)
-        is DatumReferentietabelRecordExtraAttribuutEntity -> DatumReferentietabelRecordAttribuut(waarde.toLocalDate())
-        is DatumTijdReferentietabelRecordExtraAttribuutEntity -> DatumTijdReferentietabelRecordAttribuut(waarde.toZonedDateTime())
-        is DecimaalReferentietabelRecordExtraAttribuutEntity -> DecimaalReferentietabelRecordAttribuut(waarde)
-        is GeoInformatieReferentietabelRecordExtraAttribuutEntity -> GeoReferentietabelRecordAttribuut(waarde)
-        is MemoReferentietabelRecordExtraAttribuutEntity -> MemoReferentietabelRecordAttribuut(waarde)
-        is NummerReferentietabelRecordExtraAttribuutEntity -> NummerReferentietabelRecordAttribuut(waarde)
-        is StringReferentietabelRecordExtraAttribuutEntity -> StringReferentietabelRecordAttribuut(waarde)
+    when (this) {
+        is BooleanReferentietabelRecordExtraAttribuutEntity -> BooleanReferentietabelRecordAttribuut(
+            waarde,
+            referentietabelAttribuutDefinitie.naam,
+            referentietabelAttribuutDefinitie.omschrijving
+        )
+
+        is DatumReferentietabelRecordExtraAttribuutEntity -> DatumReferentietabelRecordAttribuut(
+            waarde.toLocalDate(),
+            referentietabelAttribuutDefinitie.naam,
+            referentietabelAttribuutDefinitie.omschrijving
+        )
+
+        is DatumTijdReferentietabelRecordExtraAttribuutEntity -> DatumTijdReferentietabelRecordAttribuut(
+            waarde.toZonedDateTime(),
+            referentietabelAttribuutDefinitie.naam,
+            referentietabelAttribuutDefinitie.omschrijving
+        )
+
+        is DecimaalReferentietabelRecordExtraAttribuutEntity -> DecimaalReferentietabelRecordAttribuut(
+            waarde,
+            referentietabelAttribuutDefinitie.naam,
+            referentietabelAttribuutDefinitie.omschrijving
+        )
+
+        is GeoInformatieReferentietabelRecordExtraAttribuutEntity -> GeoReferentietabelRecordAttribuut(
+            waarde,
+            referentietabelAttribuutDefinitie.naam,
+            referentietabelAttribuutDefinitie.omschrijving
+        )
+
+        is MemoReferentietabelRecordExtraAttribuutEntity -> MemoReferentietabelRecordAttribuut(
+            waarde,
+            referentietabelAttribuutDefinitie.naam,
+            referentietabelAttribuutDefinitie.omschrijving
+        )
+
+        is NummerReferentietabelRecordExtraAttribuutEntity -> NummerReferentietabelRecordAttribuut(
+            waarde,
+            referentietabelAttribuutDefinitie.naam,
+            referentietabelAttribuutDefinitie.omschrijving
+        )
+
+        is StringReferentietabelRecordExtraAttribuutEntity -> StringReferentietabelRecordAttribuut(
+            waarde,
+            referentietabelAttribuutDefinitie.naam,
+            referentietabelAttribuutDefinitie.omschrijving
+        )
+
         else -> error("Unsupported ReferentietabelRecordExtraAttribuutEntity type: ${this.javaClass.name}")
-    }.apply {
-        naam = referentietabelAttribuutDefinitie.naam
-        omschrijving = referentietabelAttribuutDefinitie.omschrijving
     }

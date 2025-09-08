@@ -9,7 +9,9 @@ class DecimaalReferentietabelRecordAttribuut(
     @field:Schema(description = "Decimaal waarde")
     val waarde: BigDecimal,
 
-    ) : ReferentietabelRecordAttribuut(ReferentietabelRecordAttribuutType.decimaal)
+    naam: String,
+    omschrijving: String?,
+) : ReferentietabelRecordAttribuut(ReferentietabelRecordAttribuutType.decimaal, naam, omschrijving)
 
 
 
