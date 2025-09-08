@@ -199,6 +199,16 @@ X-API-KEY: {{api-key}}
     });
 %}
 
+### Zaak is gemigreerd
+POST {{base-url}}/zaken/1718-2030/migrated
+X-API-KEY: {{api-key}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 204, "Response status is not 204");
+    });
+%}
+
 ### GCP2
 GET {{base-url}}/zaken/180-2025
 X-API-KEY: {{api-key}}

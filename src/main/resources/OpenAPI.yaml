@@ -4043,7 +4043,7 @@ info:
     email: andy.verberne@atos.net
     name: Andy Verberne
   title: e-Suite data extractie API
-  version: 0.10.0
+  version: 0.11.0
 security:
   - ApiKeyAuth: [ ]
 paths:
@@ -4955,5 +4955,33 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Fout"
+      tags:
+        - Zaken
+  /zaken/{functionele_Identificatie}/migrated:
+    post:
+      parameters:
+        - name: functionele_Identificatie
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Fout"
+        "204":
+          description: No Content
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Fout"
+      summary: Zaak Migrated
       tags:
         - Zaken

@@ -4,6 +4,7 @@ import jakarta.validation.Valid
 import jakarta.validation.constraints.NotNull
 import jakarta.ws.rs.*
 import jakarta.ws.rs.core.MediaType
+import jakarta.ws.rs.core.Response
 import net.atos.esuite.extract.api.convert.shared.toPage
 import net.atos.esuite.extract.api.convert.zaak.ZaakConverter
 import net.atos.esuite.extract.api.model.shared.BladerParameters
@@ -72,4 +73,17 @@ class Zaken(
         zaakRepository.findByFunctioneleIdentificatie(functioneleIdentificatie)
             ?.let { zaakConverter.toZaak(it) }
             ?: throw NotFoundException("Zaak with functionele identificatie '$functioneleIdentificatie' not found")
+
+    @POST
+    @Path("{functionele_Identificatie}/migrated")
+    @Produces(MediaType.APPLICATION_JSON)
+    @APIResponse(responseCode = "204", description = "No Content")
+    @APIResponse(
+        responseCode = "404", description = "Not Found",
+        content = [Content(schema = Schema(implementation = Fout::class))]
+    )
+    fun zaakMigrated(@PathParam("functionele_Identificatie") functioneleIdentificatie: String): Response {
+        println("zaakMigrated called with functioneleIdentificatie: $functioneleIdentificatie")
+        return Response.noContent().build()
+    }
 }
