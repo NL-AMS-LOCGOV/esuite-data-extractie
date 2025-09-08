@@ -9,4 +9,6 @@ class ComplexDataElement(
     @field:Schema(description = "Complexe waarde data element")
     val waarde: String?,
 
-    ) : DataElement(type)
+    naam: String,
+    omschrijving: String?
+) : DataElement(type, naam, omschrijving)

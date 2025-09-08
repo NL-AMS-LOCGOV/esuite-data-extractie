@@ -8,4 +8,6 @@ class StringsDataElement(
     @field:Schema(description = "Lijst van string waarden")
     val waarden: List<String>,
 
-    ) : DataElement(DataElementType.strings)
+    naam: String,
+    omschrijving: String?
+) : DataElement(DataElementType.strings, naam, omschrijving)

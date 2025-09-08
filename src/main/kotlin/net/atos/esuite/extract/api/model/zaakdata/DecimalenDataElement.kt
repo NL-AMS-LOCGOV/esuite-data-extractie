@@ -9,4 +9,6 @@ class DecimalenDataElement(
     @field:Schema(description = "Lijst van decimalen")
     val waarden: Set<BigDecimal>?,
 
-    ) : DataElement(DataElementType.decimalen)
+    naam: String,
+    omschrijving: String?
+) : DataElement(DataElementType.decimalen, naam, omschrijving)

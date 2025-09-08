@@ -8,4 +8,6 @@ class OptiesDataElement(
     @field:Schema(description = "Lijst van opties")
     val waarden: List<String>,
 
-    ) : DataElement(DataElementType.opties)
+    naam: String,
+    omschrijving: String?
+) : DataElement(DataElementType.opties, naam, omschrijving)

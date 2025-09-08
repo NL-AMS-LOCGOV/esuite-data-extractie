@@ -8,4 +8,6 @@ class BooleanDataElement(
     @field:Schema(description = "Boolean waarde data element")
     val waarde: Boolean?,
 
-    ) : DataElement(DataElementType.boolean)
+    naam: String,
+    omschrijving: String?
+) : DataElement(DataElementType.boolean, naam, omschrijving)

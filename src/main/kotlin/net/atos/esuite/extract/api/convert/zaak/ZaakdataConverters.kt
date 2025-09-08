@@ -7,29 +7,26 @@ import net.atos.esuite.extract.db.entity.zakenmagazijn.dataelement.NummerFormatt
 
 fun AbstractDataElementEntity.toDataElement(): DataElement =
     when (this) {
-        is AanvullijstDataElementEntity -> AanvullijstDataElement(records.map { it.toAanvullijstRecord() })
-        is AdresgegevensDataElementEntity -> ComplexDataElement(adresgegevens, complexeWaarde)
-        is AfstandDataElementEntity -> ComplexDataElement(afstand, complexeWaarde)
-        is BooleanDataElementEntity -> BooleanDataElement(waarde)
-        is CalendarDataElementEntity -> CalendarDataElement(calendar, waarde?.toZonedDateTime())
-        is DatumMetTijdStipDataElementEntity -> CalendarDataElement(datummettijdstip, waarde?.toZonedDateTime())
-        is DecimaalDataElementEntity -> this.toDecimaalDataElement()
-        is DecimalenDataElementEntity -> DecimalenDataElement(waarde)
-        is DocumentDataElementEntity -> DocumentDataElement(documentEntities.map { it.bestandsNaam })
-        is GeneriekeAfspraakItemDataElementEntity -> ComplexDataElement(generieke_afspraak, complexeWaarde)
-        is GeoInformatieDataElementEntity -> ComplexDataElement(geo_informatie, complexeWaarde)
-        is OptieDataElementEntity -> ComplexDataElement(optie, complexeWaarde)
-        is OptiesDataElementEntity -> OptiesDataElement(gemarshalldeOptieWaarde)
-        is ReferentietabelRecordItemDataElementEntity -> ComplexDataElement(referentietabel_record, complexeWaarde)
-        is SelectDocumentElementEntity -> SelectDocumentDataElement(gemarshalldeOptieWaarde)
-        is StringDataElementEntity -> StringDataElement(waarde)
-        is StringsDataElementEntity -> StringsDataElement(waarde)
-        is ToestemmingDigitaleNotificatiesDataElementEntity -> ComplexDataElement(digitale_notificaties, complexeWaarde)
-        is ZaakBesluitItemDataElementEntity -> ComplexDataElement(zaak_besluit, complexeWaarde)
+        is AanvullijstDataElementEntity -> AanvullijstDataElement(records.map { it.toAanvullijstRecord() }, sleutel, omschrijving)
+        is AdresgegevensDataElementEntity -> ComplexDataElement(adresgegevens, complexeWaarde, sleutel, omschrijving)
+        is AfstandDataElementEntity -> ComplexDataElement(afstand, complexeWaarde, sleutel, omschrijving)
+        is BooleanDataElementEntity -> BooleanDataElement(waarde, sleutel, omschrijving)
+        is CalendarDataElementEntity -> CalendarDataElement(calendar, waarde?.toZonedDateTime(), sleutel, omschrijving)
+        is DatumMetTijdStipDataElementEntity -> CalendarDataElement(datummettijdstip, waarde?.toZonedDateTime(), sleutel, omschrijving)
+        is DecimaalDataElementEntity -> this.toDecimaalDataElement(sleutel, omschrijving)
+        is DecimalenDataElementEntity -> DecimalenDataElement(waarde, sleutel, omschrijving)
+        is DocumentDataElementEntity -> DocumentDataElement(documentEntities.map { it.bestandsNaam }, sleutel, omschrijving)
+        is GeneriekeAfspraakItemDataElementEntity -> ComplexDataElement(generieke_afspraak, complexeWaarde, sleutel, omschrijving)
+        is GeoInformatieDataElementEntity -> ComplexDataElement(geo_informatie, complexeWaarde, sleutel, omschrijving)
+        is OptieDataElementEntity -> ComplexDataElement(optie, complexeWaarde, sleutel, omschrijving)
+        is OptiesDataElementEntity -> OptiesDataElement(gemarshalldeOptieWaarde, sleutel, omschrijving)
+        is ReferentietabelRecordItemDataElementEntity -> ComplexDataElement(referentietabel_record, complexeWaarde, sleutel, omschrijving)
+        is SelectDocumentElementEntity -> SelectDocumentDataElement(gemarshalldeOptieWaarde, sleutel, omschrijving)
+        is StringDataElementEntity -> StringDataElement(waarde, sleutel, omschrijving)
+        is StringsDataElementEntity -> StringsDataElement(waarde, sleutel, omschrijving)
+        is ToestemmingDigitaleNotificatiesDataElementEntity -> ComplexDataElement(digitale_notificaties, complexeWaarde, sleutel, omschrijving)
+        is ZaakBesluitItemDataElementEntity -> ComplexDataElement(zaak_besluit, complexeWaarde, sleutel, omschrijving)
         else -> error("Unsupported DataElementEntity type: ${this.javaClass.name}")
-    }.apply {
-        naam = sleutel
-        omschrijving = this@toDataElement.omschrijving
     }
 
 private fun AanvullijstRecordEntity.toAanvullijstRecord() =
@@ -39,7 +36,7 @@ private fun AanvullijstRecordEntity.toAanvullijstRecord() =
         itemWaarde = itemWaarde,
     )
 
-private fun DecimaalDataElementEntity.toDecimaalDataElement() =
+private fun DecimaalDataElementEntity.toDecimaalDataElement(naam: String, omschrijving: String?) =
     DecimaalDataElement(
         waarde = waarde,
         formattering = when (formattering) {
@@ -48,5 +45,7 @@ private fun DecimaalDataElementEntity.toDecimaalDataElement() =
             NummerFormattering.TWEE_DECIMALEN_GEFORMATTEERD -> net.atos.esuite.extract.api.model.zaakdata.NummerFormattering.twee_decimalen_geformatteerd
             NummerFormattering.MAXIMAAL_DECIMALEN_GEFORMATTEERD -> net.atos.esuite.extract.api.model.zaakdata.NummerFormattering.maximaal_decimalen_geformatteerd
             null -> null
-        }
+        },
+        naam = naam,
+        omschrijving = omschrijving,
     )

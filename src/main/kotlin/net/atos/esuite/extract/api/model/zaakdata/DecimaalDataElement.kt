@@ -12,4 +12,6 @@ class DecimaalDataElement(
     @field:Schema(description = "Manier waarop nummer geformatteerd moet worden")
     val formattering: NummerFormattering?,
 
-    ) : DataElement(DataElementType.decimaal)
+    naam: String,
+    omschrijving: String?
+) : DataElement(DataElementType.decimaal, naam, omschrijving)

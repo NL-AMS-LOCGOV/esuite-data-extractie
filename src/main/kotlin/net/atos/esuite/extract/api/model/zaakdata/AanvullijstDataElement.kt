@@ -8,4 +8,6 @@ class AanvullijstDataElement(
     @field:Schema(description = "Aanvullijst records")
     val waarden: List<AanvullijstRecord>,
 
-    ) : DataElement(DataElementType.aanvullijst)
+    naam: String,
+    omschrijving: String?
+) : DataElement(DataElementType.aanvullijst, naam, omschrijving)

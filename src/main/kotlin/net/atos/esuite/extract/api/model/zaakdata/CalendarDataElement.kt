@@ -10,4 +10,6 @@ class CalendarDataElement(
     @field:Schema(description = "Calendar waarde data element", implementation = ZonedDateTime::class)
     val waarde: ZonedDateTime?,
 
-    ) : DataElement(type)
+    naam: String,
+    omschrijving: String?
+) : DataElement(type, naam, omschrijving)

@@ -8,4 +8,6 @@ class SelectDocumentDataElement(
     @field:Schema(description = "Lijst van geselecteerde documenten")
     val waarden: List<String>,
 
-    ) : DataElement(DataElementType.select_documents)
+    naam: String,
+    omschrijving: String?
+) : DataElement(DataElementType.select_documents, naam, omschrijving)

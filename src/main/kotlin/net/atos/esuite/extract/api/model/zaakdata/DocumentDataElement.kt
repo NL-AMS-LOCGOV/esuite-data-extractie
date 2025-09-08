@@ -8,4 +8,6 @@ class DocumentDataElement(
     @field:Schema(description = "Lijst van zaak document bestandsnamen")
     val waarden: List<String>,
 
-    ) : DataElement(DataElementType.zaak_documenten)
+    naam: String,
+    omschrijving: String?
+) : DataElement(DataElementType.zaak_documenten, naam, omschrijving)

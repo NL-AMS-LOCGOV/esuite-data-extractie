@@ -42,11 +42,11 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema
 )
 abstract class DataElement(
     @field:Schema(description = "Type data element")
-    val type: DataElementType
-) {
-    @Schema(description = "Naam van data element", maxLength = 255)
-    var naam: String = ""
+    val type: DataElementType,
 
-    @Schema(description = "Omschrijving of verklarende waarde voor data element")
-    var omschrijving: String? = null
-}
+    @field:Schema(description = "Naam van data element", maxLength = 255)
+    val naam: String,
+
+    @field:Schema(description = "Omschrijving of verklarende waarde voor data element")
+    val omschrijving: String?
+)
