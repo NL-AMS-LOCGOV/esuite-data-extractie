@@ -34,7 +34,7 @@ abstract class DomeinObjectAttribuutWaarde(
 
     @field:Schema(description = "Type attribuut waarde")
     val type: DomeinObjectAttribuutWaardeType,
-) {
-    @Schema(description = "Positie van deze waarde tussen andere waarden voor attribuut", required = true)
-    var volgnummer: Int = 0
-}
+
+    @field:Schema(description = "Positie van deze waarde tussen andere waarden voor attribuut", required = true)
+    val volgnummer: Int,
+)

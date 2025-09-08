@@ -8,4 +8,5 @@ class NummerDomeinObjectAttribuutWaarde(
     @field:Schema(description = "Integer waarde", required = true)
     val waarde: Long,
 
-    ) : DomeinObjectAttribuutWaarde(DomeinObjectAttribuutWaardeType.nummer)
+    volgnummer: Int,
+) : DomeinObjectAttribuutWaarde(DomeinObjectAttribuutWaardeType.nummer, volgnummer)

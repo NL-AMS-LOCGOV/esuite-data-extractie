@@ -8,4 +8,5 @@ class StringDomeinObjectAttribuutWaarde(
     @field:Schema(description = "String waarde")
     val waarde: String,
 
-    ) : DomeinObjectAttribuutWaarde(DomeinObjectAttribuutWaardeType.string)
+    volgnummer: Int,
+) : DomeinObjectAttribuutWaarde(DomeinObjectAttribuutWaardeType.string, volgnummer)

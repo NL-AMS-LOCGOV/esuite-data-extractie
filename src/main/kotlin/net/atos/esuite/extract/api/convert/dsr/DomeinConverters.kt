@@ -44,21 +44,20 @@ private fun AttribuutEntity.toDomeinObjectAttribuut() =
 
 private fun AbstractAttribuutWaardeEntity.toDomeinObjectAttribuutWaarde() =
     when (this) {
-        is BooleanAttribuutWaardeEntity -> BooleanDomeinObjectAttribuutWaarde(waarde)
-        is DatumAttribuutWaardeEntity -> DatumDomeinObjectAttribuutWaarde(waarde.toLocalDate())
-        is DatumTijdAttribuutWaardeEntity -> DatumTijdDomeinObjectAttribuutWaarde(waarde.toZonedDateTime())
-        is DecimaalAttribuutWaardeEntity -> DecimaalDomeinObjectAttribuutWaarde(waarde)
-        is GeoInformatieAttribuutWaardeEntity -> GeoDomeinObjectAttribuutWaarde(waarde)
-        is MemoAttribuutWaardeEntity -> MemoDomeinObjectAttribuutWaarde(waarde)
-        is NummerAttribuutWaardeEntity -> NummerDomeinObjectAttribuutWaarde(waarde.longValueExact())
-        is StringAttribuutWaardeEntity -> StringDomeinObjectAttribuutWaarde(waarde)
-        is DomeinObjectAttribuutWaardeEntity -> DomeinObjectDomeinObjectAttribuutWaarde(identifier)
+        is BooleanAttribuutWaardeEntity -> BooleanDomeinObjectAttribuutWaarde(waarde, this.volgnummer)
+        is DatumAttribuutWaardeEntity -> DatumDomeinObjectAttribuutWaarde(waarde.toLocalDate(), this.volgnummer)
+        is DatumTijdAttribuutWaardeEntity -> DatumTijdDomeinObjectAttribuutWaarde(waarde.toZonedDateTime(), this.volgnummer)
+        is DecimaalAttribuutWaardeEntity -> DecimaalDomeinObjectAttribuutWaarde(waarde, this.volgnummer)
+        is GeoInformatieAttribuutWaardeEntity -> GeoDomeinObjectAttribuutWaarde(waarde, this.volgnummer)
+        is MemoAttribuutWaardeEntity -> MemoDomeinObjectAttribuutWaarde(waarde, this.volgnummer)
+        is NummerAttribuutWaardeEntity -> NummerDomeinObjectAttribuutWaarde(waarde.longValueExact(), this.volgnummer)
+        is StringAttribuutWaardeEntity -> StringDomeinObjectAttribuutWaarde(waarde, this.volgnummer)
+        is DomeinObjectAttribuutWaardeEntity -> DomeinObjectDomeinObjectAttribuutWaarde(identifier, this.volgnummer)
         is ReferentietabelRecordAttribuutWaardeEntity -> ReferentietabelRecordDomeinObjectAttribuutWaarde(
-            referentietabelRecord.toReferentietabelRecord()
+            referentietabelRecord.toReferentietabelRecord(), this.volgnummer
         )
+
         else -> error("Unsupported AttribuutWaardeEntity type: ${this.javaClass.name}")
-    }.apply {
-        volgnummer = this@toDomeinObjectAttribuutWaarde.volgnummer
     }
 
 private fun DomeinObjectKoppelingEntity.toDomeinObjectKoppeling() =

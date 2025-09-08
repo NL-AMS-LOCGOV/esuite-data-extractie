@@ -9,4 +9,5 @@ class DatumDomeinObjectAttribuutWaarde(
     @field:Schema(description = "Datum waarde", implementation = LocalDate::class)
     val waarde: LocalDate,
 
-    ) : DomeinObjectAttribuutWaarde(DomeinObjectAttribuutWaardeType.datum)
+    volgnummer: Int,
+) : DomeinObjectAttribuutWaarde(DomeinObjectAttribuutWaardeType.datum, volgnummer)

@@ -9,4 +9,5 @@ class ReferentietabelRecordDomeinObjectAttribuutWaarde(
     @field:Schema(description = "Referentietabel record")
     val waarde: ReferentietabelRecord,
 
-    ) : DomeinObjectAttribuutWaarde(DomeinObjectAttribuutWaardeType.referentietabel_record)
+    volgnummer: Int,
+) : DomeinObjectAttribuutWaarde(DomeinObjectAttribuutWaardeType.referentietabel_record, volgnummer)

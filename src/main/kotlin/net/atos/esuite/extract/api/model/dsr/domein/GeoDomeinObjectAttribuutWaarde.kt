@@ -8,4 +8,5 @@ class GeoDomeinObjectAttribuutWaarde(
     @field:Schema(description = "Well-known text geografische informatie")
     val waarde: String,
 
-    ) : DomeinObjectAttribuutWaarde(DomeinObjectAttribuutWaardeType.geo)
+    volgnummer: Int,
+) : DomeinObjectAttribuutWaarde(DomeinObjectAttribuutWaardeType.geo, volgnummer)

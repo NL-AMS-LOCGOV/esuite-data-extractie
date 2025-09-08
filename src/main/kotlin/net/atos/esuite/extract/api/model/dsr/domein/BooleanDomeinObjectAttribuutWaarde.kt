@@ -8,4 +8,5 @@ class BooleanDomeinObjectAttribuutWaarde(
     @field:Schema(description = "Boolean waarde", required = true)
     val waarde: Boolean,
 
-    ) : DomeinObjectAttribuutWaarde(DomeinObjectAttribuutWaardeType.boolean)
+    volgnummer: Int,
+) : DomeinObjectAttribuutWaarde(DomeinObjectAttribuutWaardeType.boolean, volgnummer)

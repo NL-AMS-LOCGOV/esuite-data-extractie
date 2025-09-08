@@ -9,4 +9,5 @@ class DatumTijdDomeinObjectAttribuutWaarde(
     @field:Schema(description = "Datum/Tijd waarde", implementation = ZonedDateTime::class)
     val waarde: ZonedDateTime,
 
-    ) : DomeinObjectAttribuutWaarde(DomeinObjectAttribuutWaardeType.datum_tijd)
+    volgnummer: Int,
+) : DomeinObjectAttribuutWaarde(DomeinObjectAttribuutWaardeType.datum_tijd, volgnummer)

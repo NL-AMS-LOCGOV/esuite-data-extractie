@@ -9,4 +9,5 @@ class DecimaalDomeinObjectAttribuutWaarde(
     @field:Schema(description = "Decimaal waarde")
     val waarde: BigDecimal,
 
-    ) : DomeinObjectAttribuutWaarde(DomeinObjectAttribuutWaardeType.decimaal)
+    volgnummer: Int,
+) : DomeinObjectAttribuutWaarde(DomeinObjectAttribuutWaardeType.decimaal, volgnummer)

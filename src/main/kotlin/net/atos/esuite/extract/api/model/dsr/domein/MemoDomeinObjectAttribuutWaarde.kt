@@ -8,4 +8,5 @@ class MemoDomeinObjectAttribuutWaarde(
     @field:Schema(description = "Text waarde")
     val waarde: String,
 
-    ) : DomeinObjectAttribuutWaarde(DomeinObjectAttribuutWaardeType.memo)
+    volgnummer: Int,
+) : DomeinObjectAttribuutWaarde(DomeinObjectAttribuutWaardeType.memo, volgnummer)
