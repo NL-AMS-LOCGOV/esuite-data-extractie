@@ -155,4 +155,7 @@ class Zaak(
 
     @field:Schema(description = "Functionele identificatie van contacten gerelateerd aan zaak")
     val contacten: List<String>?,
+
+    @field:Schema(description = "Is zaak gemigreerd", required = true)
+    val gemigreerd: Boolean = false,
 )

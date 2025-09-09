@@ -4,19 +4,21 @@ import jakarta.validation.Valid
 import jakarta.validation.constraints.NotNull
 import jakarta.ws.rs.*
 import jakarta.ws.rs.core.MediaType
-import jakarta.ws.rs.core.Response
 import net.atos.esuite.extract.api.convert.shared.toPage
 import net.atos.esuite.extract.api.convert.zaak.ZaakConverter
 import net.atos.esuite.extract.api.model.shared.BladerParameters
 import net.atos.esuite.extract.api.model.shared.Fout
 import net.atos.esuite.extract.api.model.shared.Results
 import net.atos.esuite.extract.api.model.shared.ValidatieFouten
+import net.atos.esuite.extract.api.model.zaak.ZaakOverzicht
+import net.atos.esuite.extract.api.model.zaak.ZaakPatch
 import net.atos.esuite.extract.api.validation.FALSE
 import net.atos.esuite.extract.api.validation.ValidBoolean
 import net.atos.esuite.extract.db.repository.zaak.ZaakRepository
 import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.media.Content
 import org.eclipse.microprofile.openapi.annotations.media.Schema
+import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse
 
 @Path("zaken")
@@ -74,16 +76,23 @@ class Zaken(
             ?.let { zaakConverter.toZaak(it) }
             ?: throw NotFoundException("Zaak with functionele identificatie '$functioneleIdentificatie' not found")
 
-    @POST
-    @Path("{functionele_Identificatie}/migrated")
+    @PATCH
+    @Path("{functionele_Identificatie}")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
+    @Operation(operationId = "zaak_patch", summary = "Voor een specifieke zaak aangeven of deze is gemigreerd")
     @APIResponse(responseCode = "204", description = "No Content")
     @APIResponse(
         responseCode = "404", description = "Not Found",
         content = [Content(schema = Schema(implementation = Fout::class))]
     )
-    fun zaakMigrated(@PathParam("functionele_Identificatie") functioneleIdentificatie: String): Response {
-        println("zaakMigrated called with functioneleIdentificatie: $functioneleIdentificatie")
-        return Response.noContent().build()
+    fun zaakPatch(
+        @PathParam("functionele_Identificatie") functioneleIdentificatie: String,
+        @RequestBody(required = true) @Valid @NotNull zaakPatch: ZaakPatch
+    ): ZaakOverzicht {
+        println("zaakPatch called with functioneleIdentificatie '$functioneleIdentificatie' and migrated: ${zaakPatch.gemigreerd}")
+        return zaakRepository.findByFunctioneleIdentificatie(functioneleIdentificatie)
+            ?.let { zaakConverter.toZaakOverzicht(it) }
+            ?: throw NotFoundException("Zaak with functionele identificatie '$functioneleIdentificatie' not found")
     }
 }

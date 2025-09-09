@@ -10,6 +10,6 @@ class BooleanValidator : ConstraintValidator<ValidBoolean, String> {
 
     private val BOOLEAN_PATTERN = Regex("^(${TRUE}|${FALSE})$")
 
-    override fun isValid(bsn: String?, context: ConstraintValidatorContext?) =
-        bsn?.matches(BOOLEAN_PATTERN) ?: true
+    override fun isValid(boolean: String?, context: ConstraintValidatorContext?) =
+        boolean?.matches(BOOLEAN_PATTERN) ?: true
 }

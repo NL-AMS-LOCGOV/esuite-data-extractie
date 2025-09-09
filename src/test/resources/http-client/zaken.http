@@ -199,13 +199,110 @@ X-API-KEY: {{api-key}}
     });
 %}
 
-### Zaak is gemigreerd
-POST {{base-url}}/zaken/1718-2030/migrated
+### Zaak gemigreerd
+PATCH {{base-url}}/zaken/12-2023
 X-API-KEY: {{api-key}}
+Content-Type: application/json
+
+{
+  "gemigreerd": true
+}
 
 > {%
     client.test("Request executed successfully", function () {
-        client.assert(response.status === 204, "Response status is not 204");
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+%}
+
+### Zaak niet gemigreerd
+PATCH {{base-url}}/zaken/12-2023
+X-API-KEY: {{api-key}}
+Content-Type: application/json
+
+{
+  "gemigreerd": false
+}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+%}
+
+### Zaak migratie zonder body
+PATCH {{base-url}}/zaken/12-2023
+X-API-KEY: {{api-key}}
+Content-Type: application/json
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 400, "Response status is not 400");
+        client.assert(response.body.melding === "Validatie fout(en)", "Response body melding is not \"Validatie fout(en)\"")
+        client.assert(response.body.fouten.length === 1, "Response body fouten size is not 1")
+    });
+%}
+
+### Zaak migratie met lege body
+PATCH {{base-url}}/zaken/12-2023
+X-API-KEY: {{api-key}}
+Content-Type: application/json
+
+{
+}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 400, "Response status is not 400");
+        client.assert(response.body.melding === "Validatie fout(en)", "Response body melding is not \"Validatie fout(en)\"")
+        client.assert(response.body.fouten.length === 1, "Response body fouten size is not 1")
+    });
+%}
+
+### Zaak migratie met invalide content
+PATCH {{base-url}}/zaken/12-2023
+X-API-KEY: {{api-key}}
+Content-Type: application/json
+
+{
+  "gemigreerd": xxx
+}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 400, "Response status is not 400");
+        client.assert(response.body.melding === "Error parsing body: Unexpected char 120 at (line no=2, column no=17, offset=18)", "Response body melding is not \"Error parsing body: Unexpected char 120 at (line no=2, column no=17, offset=18)\"")
+    });
+%}
+
+### Zaak migratie met invalide content
+PATCH {{base-url}}/zaken/12-2023
+X-API-KEY: {{api-key}}
+Content-Type: application/json
+
+{
+  "gemigreerd": "xxx"
+}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 400, "Response status is not 400");
+        client.assert(response.body.melding === "Validatie fout(en)", "Response body melding is not \"Validatie fout(en)\"")
+        client.assert(response.body.fouten.length === 1, "Response body fouten size is not 1")
+    });
+%}
+
+### Gemigreerde zaak not found
+PATCH {{base-url}}/zaken/1718-2030
+X-API-KEY: {{api-key}}
+Content-Type: application/json
+
+{
+  "gemigreerd": true
+}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 404, "Response status is not 404");
     });
 %}
 

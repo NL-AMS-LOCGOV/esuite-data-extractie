@@ -8,4 +8,7 @@ class ZaakOverzicht(
 
     @field:Schema(description = "Is zaak open (nog niet beëindigd)", required = true)
     val open: Boolean,
+
+    @field:Schema(description = "Is zaak gemigreerd", required = true)
+    val gemigreerd: Boolean = false,
 )
