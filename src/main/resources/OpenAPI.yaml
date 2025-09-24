@@ -4059,7 +4059,7 @@ info:
     email: andy.verberne@atos.net
     name: Andy Verberne
   title: e-Suite data extractie API
-  version: 0.11.0
+  version: 0.12.0
 security:
   - ApiKeyAuth: [ ]
 paths:
@@ -4115,6 +4115,8 @@ paths:
           required: true
           schema:
             type: string
+            maxLength: 128
+            description: Naam van afdeling
       responses:
         "401":
           description: Unauthorized
@@ -4205,6 +4207,7 @@ paths:
           schema:
             type: integer
             format: int64
+            description: Interne identifier van bedrijf
       responses:
         "401":
           description: Unauthorized
@@ -4280,6 +4283,8 @@ paths:
           required: true
           schema:
             type: string
+            maxLength: 128
+            description: Functionele identificatie van contact
       responses:
         "401":
           description: Unauthorized
@@ -4314,6 +4319,7 @@ paths:
           schema:
             type: integer
             format: int64
+            description: Interne identifier van document inhoud
       responses:
         "401":
           description: Unauthorized
@@ -4391,6 +4397,8 @@ paths:
           required: true
           schema:
             type: string
+            maxLength: 255
+            description: Naam van domein
         - name: page
           in: query
           schema:
@@ -4438,6 +4446,8 @@ paths:
           required: true
           schema:
             type: string
+            maxLength: 255
+            description: Naam van domein
       responses:
         "401":
           description: Unauthorized
@@ -4513,6 +4523,8 @@ paths:
           required: true
           schema:
             type: string
+            maxLength: 128
+            description: Naam van groep
       responses:
         "401":
           description: Unauthorized
@@ -4588,6 +4600,8 @@ paths:
           required: true
           schema:
             type: string
+            maxLength: 128
+            description: Gebruikersnaam van medewerker
       responses:
         "401":
           description: Unauthorized
@@ -4664,6 +4678,7 @@ paths:
           schema:
             type: integer
             format: int64
+            description: Interne identifier van persoon
       responses:
         "401":
           description: Unauthorized
@@ -4739,6 +4754,8 @@ paths:
           required: true
           schema:
             type: string
+            maxLength: 255
+            description: Naam van referentietabel
       responses:
         "401":
           description: Unauthorized
@@ -4772,6 +4789,8 @@ paths:
           required: true
           schema:
             type: string
+            maxLength: 255
+            description: Naam van referentietabel
         - name: page
           in: query
           schema:
@@ -4851,16 +4870,18 @@ paths:
                 $ref: "#/components/schemas/ValidatieFouten"
       tags:
         - Zaaktypen
-  /zaaktypen/{naam}:
+  /zaaktypen/{functioneleIdentificatie}:
     get:
-      summary: Een specifiek zaaktype opvragen op basis van naam
+      summary: Een specifiek zaaktype opvragen op basis van functionele identificatie
       operationId: zaaktype_read
       parameters:
-        - name: naam
+        - name: functioneleIdentificatie
           in: path
           required: true
           schema:
             type: string
+            maxLength: 128
+            description: Functionele identificatie
       responses:
         "401":
           description: Unauthorized
@@ -4950,6 +4971,8 @@ paths:
           required: true
           schema:
             type: string
+            maxLength: 128
+            description: Functionele identificatie van zaak
       responses:
         "401":
           description: Unauthorized
@@ -4982,6 +5005,8 @@ paths:
           required: true
           schema:
             type: string
+            maxLength: 128
+            description: Functionele identificatie van zaak
       requestBody:
         required: true
         content:

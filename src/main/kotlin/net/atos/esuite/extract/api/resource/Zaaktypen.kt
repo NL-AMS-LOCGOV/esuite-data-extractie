@@ -15,6 +15,7 @@ import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.media.Content
 import org.eclipse.microprofile.openapi.annotations.media.Schema
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse
+import org.hibernate.validator.constraints.Length
 
 @Path("zaaktypen")
 @APIResponse(responseCode = "401", description = "Unauthorized")
@@ -39,16 +40,21 @@ class Zaaktypen(
         }
 
     @GET
-    @Path("{naam}")
+    @Path("{functioneleIdentificatie}")
     @Produces(MediaType.APPLICATION_JSON)
-    @Operation(operationId = "zaaktype_read", summary = "Een specifiek zaaktype opvragen op basis van naam")
+    @Operation(operationId = "zaaktype_read", summary = "Een specifiek zaaktype opvragen op basis van functionele identificatie")
     @APIResponse(responseCode = "200", description = "OK")
     @APIResponse(
         responseCode = "404", description = "Not Found",
         content = [Content(schema = Schema(implementation = Fout::class))]
     )
-    fun zaaktypeRead(@PathParam("naam") naam: String) =
-        zaaktypeRepository.findByNaam(naam)
+    fun zaaktypeRead(
+        @PathParam("functioneleIdentificatie")
+        @Schema(description = "Functionele identificatie", maxLength = 128)
+        @Length(max = 128, message = "Functionele identificatie mag niet langer zijn dan 128 tekens")
+        functioneleIdentificatie: String
+    ) =
+        zaaktypeRepository.findByFunctioneleIdentificatie(functioneleIdentificatie)
             ?.toZaaktype()
-            ?: throw NotFoundException("Zaaktype with naam '$naam' not found")
+            ?: throw NotFoundException("Zaaktype with functionele identificatie '$functioneleIdentificatie' not found")
 }

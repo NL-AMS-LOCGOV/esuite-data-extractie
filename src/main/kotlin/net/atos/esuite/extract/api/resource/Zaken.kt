@@ -20,6 +20,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Content
 import org.eclipse.microprofile.openapi.annotations.media.Schema
 import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse
+import org.hibernate.validator.constraints.Length
 
 @Path("zaken")
 @APIResponse(responseCode = "401", description = "Unauthorized")
@@ -71,7 +72,12 @@ class Zaken(
         responseCode = "404", description = "Not Found",
         content = [Content(schema = Schema(implementation = Fout::class))]
     )
-    fun zaakRead(@PathParam("functionele_Identificatie") functioneleIdentificatie: String) =
+    fun zaakRead(
+        @PathParam("functionele_Identificatie")
+        @Schema(description = "Functionele identificatie van zaak", maxLength = 128)
+        @Length(max = 128, message = "Functionele identificatie mag niet langer zijn dan 128 tekens")
+        functioneleIdentificatie: String
+    ) =
         zaakRepository.findByFunctioneleIdentificatie(functioneleIdentificatie)
             ?.let { zaakConverter.toZaak(it) }
             ?: throw NotFoundException("Zaak with functionele identificatie '$functioneleIdentificatie' not found")
@@ -87,7 +93,11 @@ class Zaken(
         content = [Content(schema = Schema(implementation = Fout::class))]
     )
     fun zaakPatch(
-        @PathParam("functionele_Identificatie") functioneleIdentificatie: String,
+        @PathParam("functionele_Identificatie")
+        @Schema(description = "Functionele identificatie van zaak", maxLength = 128)
+        @Length(max = 128, message = "Functionele identificatie mag niet langer zijn dan 128 tekens")
+        functioneleIdentificatie: String,
+        
         @RequestBody(required = true) @Valid @NotNull zaakPatch: ZaakPatch
     ): ZaakOverzicht {
         println("zaakPatch called with functioneleIdentificatie '$functioneleIdentificatie' and migrated: ${zaakPatch.gemigreerd}")

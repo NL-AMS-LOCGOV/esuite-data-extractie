@@ -16,6 +16,7 @@ import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.media.Content
 import org.eclipse.microprofile.openapi.annotations.media.Schema
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse
+import org.hibernate.validator.constraints.Length
 
 @Path("domeinen")
 @APIResponse(responseCode = "401", description = "Unauthorized")
@@ -50,7 +51,12 @@ class Domeinen(
         responseCode = "404", description = "Not Found",
         content = [Content(schema = Schema(implementation = Fout::class))]
     )
-    fun domeinRead(@PathParam("naam") naam: String) =
+    fun domeinRead(
+        @PathParam("naam")
+        @Schema(description = "Naam van domein", maxLength = 255)
+        @Length(max = 255, message = "Naam mag niet langer zijn dan 255 tekens")
+        naam: String
+    ) =
         domeinDefinitieRepository.findByNaam(naam)
             ?.let { domeinConverter.toDomein(it) }
             ?: throw NotFoundException("Domein with naam '$naam' not found")
@@ -65,8 +71,14 @@ class Domeinen(
         content = [Content(schema = Schema(implementation = ValidatieFouten::class))]
     )
     fun domeinObjectList(
-        @PathParam("domein_naam") domeinNaam: String,
-        @BeanParam @Valid bladerParameters: BladerParameters
+        @PathParam("domein_naam")
+        @Schema(description = "Naam van domein", maxLength = 255)
+        @Length(max = 255, message = "Naam mag niet langer zijn dan 255 tekens")
+        domeinNaam: String,
+
+        @BeanParam
+        @Valid
+        bladerParameters: BladerParameters
     ) =
         with(domeinObjectRepository.listByDomeinNaam(domeinNaam).page(bladerParameters.toPage())) {
             Results(list().map { it.toDomeinObject() }, count(), hasPreviousPage(), hasNextPage())

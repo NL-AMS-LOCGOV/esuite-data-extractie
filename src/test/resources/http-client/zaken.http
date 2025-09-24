@@ -306,6 +306,16 @@ Content-Type: application/json
     });
 %}
 
+### Te lange functionele identificatie zaak.
+GET {{base-url}}/zaken/1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890
+X-API-KEY: {{api-key}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 400, "Response status is not 400");
+    });
+%}
+
 ### GCP2
 GET {{base-url}}/zaken/180-2025
 X-API-KEY: {{api-key}}

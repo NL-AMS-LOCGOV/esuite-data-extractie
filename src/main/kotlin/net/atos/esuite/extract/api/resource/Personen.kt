@@ -7,6 +7,7 @@ import net.atos.esuite.extract.api.convert.basisgegevens.toPersoon
 import net.atos.esuite.extract.api.model.shared.Fout
 import net.atos.esuite.extract.api.model.shared.ValidatieFouten
 import net.atos.esuite.extract.api.validation.ValidBSN
+import net.atos.esuite.extract.api.validation.ValidNonNegativeInteger
 import net.atos.esuite.extract.db.repository.basisgegevens.PersoonRepository
 import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.media.Content
@@ -55,8 +56,13 @@ class Personen(
         responseCode = "404", description = "Not Found",
         content = [Content(schema = Schema(implementation = Fout::class))]
     )
-    fun persoonRead(@PathParam("identifier") identifier: Long) =
-        persoonRepository.findById(identifier)
+    fun persoonRead(
+        @PathParam("identifier")
+        @Schema(description = "Interne identifier van persoon", implementation = Long::class)
+        @ValidNonNegativeInteger
+        identifier: String
+    ) =
+        persoonRepository.findById(identifier.toLong())
             ?.toPersoon()
             ?: throw NotFoundException("Persoon with identifier '$identifier' not found")
 }

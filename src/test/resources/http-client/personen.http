@@ -65,3 +65,14 @@ X-API-KEY: {{api-key}}
         client.assert(response.body.burgerServiceNummer === "220290258", "Response body burgerServiceNummer is not \"220290258\"")
     });
 %}
+
+### Persoon met ongeldige identifier
+GET {{base-url}}/personen/xxx
+X-API-KEY: {{api-key}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 400, "Response status is not 400");
+        client.assert(response.body.fouten[0].message === "Invalide niet negatieve integer", "Response body.fouten[0].message is not \"Invalide niet negatieve integer\"")
+    });
+%}

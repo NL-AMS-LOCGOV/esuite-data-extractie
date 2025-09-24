@@ -16,6 +16,7 @@ import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.media.Content
 import org.eclipse.microprofile.openapi.annotations.media.Schema
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse
+import org.hibernate.validator.constraints.Length
 
 @Path("referentietabellen")
 @APIResponse(responseCode = "401", description = "Unauthorized")
@@ -36,7 +37,11 @@ class Referentietabellen(
         responseCode = "400", description = "Bad Request",
         content = [Content(schema = Schema(implementation = ValidatieFouten::class))]
     )
-    fun referentietabelList(@BeanParam @Valid bladerParameters: BladerParameters) =
+    fun referentietabelList(
+        @BeanParam
+        @Valid
+        bladerParameters: BladerParameters
+    ) =
         with(referentietabelDefinitieRepository.findAll().page(bladerParameters.toPage())) {
             Results(list().map { referentietabelConverter.toReferentietabel(it) }, count(), hasPreviousPage(), hasNextPage())
         }
@@ -50,7 +55,12 @@ class Referentietabellen(
         responseCode = "404", description = "Not Found",
         content = [Content(schema = Schema(implementation = Fout::class))]
     )
-    fun referentietabelRead(@PathParam("naam") naam: String) =
+    fun referentietabelRead(
+        @PathParam("naam")
+        @Schema(description = "Naam van referentietabel", maxLength = 255)
+        @Length(max = 255, message = "Naam mag niet langer zijn dan 255 tekens")
+        naam: String
+    ) =
         referentietabelDefinitieRepository.findByNaam(naam)
             ?.let { referentietabelConverter.toReferentietabel(it) }
             ?: throw NotFoundException("Referentietabel with naam '$naam' not found")
@@ -65,8 +75,14 @@ class Referentietabellen(
         content = [Content(schema = Schema(implementation = ValidatieFouten::class))]
     )
     fun referentietabelRecordList(
-        @PathParam("referentietabel_naam") referentietabelNaam: String,
-        @BeanParam @Valid bladerParameters: BladerParameters
+        @PathParam("referentietabel_naam")
+        @Schema(description = "Naam van referentietabel", maxLength = 255)
+        @Length(max = 255, message = "Naam mag niet langer zijn dan 255 tekens")
+        referentietabelNaam: String,
+
+        @BeanParam
+        @Valid
+        bladerParameters: BladerParameters
     ) =
         with(referentietabelRecordRepository.listByReferentietabelNaam(referentietabelNaam).page(bladerParameters.toPage())) {
             Results(list().map { it.toReferentietabelRecord() }, count(), hasPreviousPage(), hasNextPage())

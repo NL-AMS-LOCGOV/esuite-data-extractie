@@ -10,6 +10,7 @@ import net.atos.esuite.extract.api.model.shared.Fout
 import net.atos.esuite.extract.api.model.shared.Results
 import net.atos.esuite.extract.api.model.shared.ValidatieFouten
 import net.atos.esuite.extract.api.validation.ValidKVKNummer
+import net.atos.esuite.extract.api.validation.ValidNonNegativeInteger
 import net.atos.esuite.extract.api.validation.ValidVestigingsnummer
 import net.atos.esuite.extract.db.repository.basisgegevens.BedrijfRepository
 import org.eclipse.microprofile.openapi.annotations.Operation
@@ -76,8 +77,13 @@ class Bedrijven(
         responseCode = "404", description = "Not Found",
         content = [Content(schema = Schema(implementation = Fout::class))]
     )
-    fun bedrijfRead(@PathParam("identifier") identifier: Long) =
-        bedrijfRepository.findById(identifier)
+    fun bedrijfRead(
+        @PathParam("identifier")
+        @Schema(description = "Interne identifier van bedrijf", implementation = Long::class)
+        @ValidNonNegativeInteger
+        identifier: String
+    ) =
+        bedrijfRepository.findById(identifier.toLong())
             ?.toBedrijf()
             ?: throw NotFoundException("Bedrijf with identifier '$identifier' not found")
 }

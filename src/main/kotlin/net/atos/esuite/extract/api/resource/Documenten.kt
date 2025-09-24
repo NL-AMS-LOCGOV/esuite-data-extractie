@@ -8,6 +8,7 @@ import jakarta.ws.rs.core.Response
 import jakarta.ws.rs.core.Response.ok
 import jakarta.ws.rs.core.StreamingOutput
 import net.atos.esuite.extract.api.model.shared.Fout
+import net.atos.esuite.extract.api.validation.ValidNonNegativeInteger
 import net.atos.esuite.extract.db.repository.document.DocumentInhoudRepository
 import org.apache.commons.io.IOUtils
 import org.eclipse.microprofile.openapi.annotations.Operation
@@ -49,8 +50,13 @@ class Documenten(
         content = [Content(mediaType = MediaType.APPLICATION_JSON, schema = Schema(implementation = Fout::class))]
     )
     @Transactional(Transactional.TxType.REQUIRED)
-    fun documentInhoudRead(@PathParam("documentInhoudID") documentInhoudID: Long): Response {
-        val documentInhoudEntity = documentInhoudRepository.findById(documentInhoudID)
+    fun documentInhoudRead(
+        @PathParam("documentInhoudID")
+        @Schema(description = "Interne identifier van document inhoud", implementation = Long::class)
+        @ValidNonNegativeInteger
+        documentInhoudID: String
+    ): Response {
+        val documentInhoudEntity = documentInhoudRepository.findById(documentInhoudID.toLong())
             ?: throw NotFoundException("Document inhoud with ID '$documentInhoudID' not found")
         val inhoud = documentInhoudEntity.inhoud
             ?: throw NotFoundException("Document inhoud with ID '$documentInhoudID' is empty")

@@ -15,6 +15,7 @@ import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.media.Content
 import org.eclipse.microprofile.openapi.annotations.media.Schema
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse
+import org.hibernate.validator.constraints.Length
 
 @Path("afdelingen")
 @APIResponse(responseCode = "401", description = "Unauthorized")
@@ -47,7 +48,12 @@ class Afdelingen(
         responseCode = "404", description = "Not Found",
         content = [Content(schema = Schema(implementation = Fout::class))]
     )
-    fun afdelingRead(@PathParam("naam") naam: String) =
+    fun afdelingRead(
+        @PathParam("naam")
+        @Schema(description = "Naam van afdeling", maxLength = 128)
+        @Length(max = 128, message = "Naam mag niet langer zijn dan 128 tekens")
+        naam: String
+    ) =
         afdelingRepository.findByNaam(naam)
             ?.toAfdeling()
             ?: throw NotFoundException("Afdeling with naam '$naam' not found")
