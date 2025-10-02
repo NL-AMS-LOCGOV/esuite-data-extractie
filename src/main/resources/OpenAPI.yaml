@@ -1708,7 +1708,6 @@ components:
         - gebruikersnaam
         - volledigeNaam
         - actief
-        - locked
         - geslacht
         - afdelingen
         - groepen
@@ -1749,9 +1748,6 @@ components:
           examples:
             - 2022-03-10
           description: Datum uitdiensttreding
-        locked:
-          type: boolean
-          description: Is medewerker locked
         externeNaam:
           type: string
           maxLength: 128
@@ -1764,12 +1760,6 @@ components:
           $ref: "#/components/schemas/GeslachtMedewerker"
           type: string
           description: Geslacht medewerker
-        laatsteLoginDatumTijd:
-          type: string
-          format: date-time
-          examples:
-            - 2022-03-10T12:15:50-04:00
-          description: Laatste logon datum/tijd van medewerker
         opmerkingen:
           type: string
           description: Opmerkingen
@@ -4059,7 +4049,7 @@ info:
     email: andy.verberne@atos.net
     name: Andy Verberne
   title: e-Suite data extractie API
-  version: 0.12.0
+  version: 0.13.0
 security:
   - ApiKeyAuth: [ ]
 paths:
