@@ -1,7 +1,6 @@
 package net.atos.esuite.extract.db.entity.identity
 
 import jakarta.persistence.*
-import java.time.Instant
 import java.time.LocalDate
 
 @Entity
@@ -32,10 +31,6 @@ class MedewerkerEntity {
     @Column(name = "email", length = 64)
     var email: String? = null
 
-    // Aanduiding wachtwoord wijzigen
-    @Column(name = "wijzigenwachtwoord")
-    var wijzigenwachtwoord = false
-
     // Telefoonnummer
     @Column(name = "telefoon", length = 20)
     var telefoon: String? = null
@@ -47,26 +42,9 @@ class MedewerkerEntity {
     @Column(name = "opmerkingen")
     var opmerkingen: String? = null
 
-    @Column(name = "login_pogingen")
-    var loginPogingen: Long = 0
-
     // Aanduiding gebruiker actief
     @Column(name = "actief")
     var actief = false
-
-    // Aanduiding gebruiker afgesloten
-    @Column(name = "afgesloten")
-    var afgesloten = false
-
-    @Column(name = "newpasswordrequired")
-    var newPasswordRequired = false
-
-    // Laatste logon datum/tijd van de gebruiker
-    @Column(name = "laatstelogontijd")
-    var laatsteLogonTijd: Instant? = null
-
-    @Column(name = "laatstewachtwoordwijziging")
-    var laatsteWachtwoordWijziging: Instant? = null
 
     // Datum indiensttreding
     @Column(name = "indiensttredingdatum")

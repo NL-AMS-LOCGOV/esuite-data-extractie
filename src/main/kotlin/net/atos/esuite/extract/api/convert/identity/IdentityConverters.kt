@@ -1,6 +1,5 @@
 package net.atos.esuite.extract.api.convert.identity
 
-import net.atos.esuite.extract.api.convert.shared.toZonedDateTime
 import net.atos.esuite.extract.api.model.identity.*
 import net.atos.esuite.extract.db.entity.identity.*
 
@@ -17,7 +16,6 @@ fun MedewerkerEntity.toMedewerker() = Medewerker(
     actief = actief,
     indiensttredingDatum = indiensttredingDatum,
     uitdiensttredingDatum = uitdiensttredingDatum,
-    locked = afgesloten,
     externeNaam = externeNaam,
     functie = functie?.toFunctie(),
     geslacht = when (geslacht) {
@@ -25,7 +23,6 @@ fun MedewerkerEntity.toMedewerker() = Medewerker(
         "V" -> GeslachtMedewerker.vrouw
         else -> error("Invalid geslacht: $geslacht")
     },
-    laatsteLoginDatumTijd = laatsteLogonTijd?.toZonedDateTime(),
     opmerkingen = opmerkingen,
     primaireAfdeling = primaireAfdeling?.naam,
     afdelingen = afdelingen.map { it.naam }.toSet(),

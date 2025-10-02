@@ -2,7 +2,6 @@ package net.atos.esuite.extract.api.model.identity
 
 import org.eclipse.microprofile.openapi.annotations.media.Schema
 import java.time.LocalDate
-import java.time.ZonedDateTime
 
 class Medewerker(
 
@@ -27,9 +26,6 @@ class Medewerker(
     @field:Schema(description = "Datum uitdiensttreding", implementation = LocalDate::class)
     val uitdiensttredingDatum: LocalDate?,
 
-    @field:Schema(description = "Is medewerker locked", required = true)
-    val locked: Boolean,
-
     @field:Schema(description = "Externe naam van medewerker", maxLength = 128)
     val externeNaam: String?,
 
@@ -38,9 +34,6 @@ class Medewerker(
 
     @field:Schema(description = "Geslacht medewerker")
     val geslacht: GeslachtMedewerker,
-
-    @field:Schema(description = "Laatste logon datum/tijd van medewerker", implementation = ZonedDateTime::class)
-    val laatsteLoginDatumTijd: ZonedDateTime?,
 
     @field:Schema(description = "Opmerkingen")
     val opmerkingen: String?,
