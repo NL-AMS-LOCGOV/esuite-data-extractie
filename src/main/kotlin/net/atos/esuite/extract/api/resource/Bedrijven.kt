@@ -12,7 +12,7 @@ import net.atos.esuite.extract.api.model.shared.ValidatieFouten
 import net.atos.esuite.extract.api.validation.ValidKVKNummer
 import net.atos.esuite.extract.api.validation.ValidNonNegativeInteger
 import net.atos.esuite.extract.api.validation.ValidVestigingsnummer
-import net.atos.esuite.extract.db.repository.basisgegevens.BedrijfRepository
+import net.atos.esuite.extract.db.basisgegevens.repository.BedrijfRepository
 import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.media.Content
 import org.eclipse.microprofile.openapi.annotations.media.Schema

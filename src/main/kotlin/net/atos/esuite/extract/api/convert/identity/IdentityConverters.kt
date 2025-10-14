@@ -1,7 +1,7 @@
 package net.atos.esuite.extract.api.convert.identity
 
 import net.atos.esuite.extract.api.model.identity.*
-import net.atos.esuite.extract.db.entity.identity.*
+import net.atos.esuite.extract.db.identity.entity.*
 
 fun MedewerkerEntity.toMedewerkerOverzicht() = MedewerkerOverzicht(
     gebruikersnaam = gebruikersnaam,

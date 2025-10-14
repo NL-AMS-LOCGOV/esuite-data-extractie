@@ -7,7 +7,7 @@ import net.atos.esuite.extract.api.model.document.DocumentTitel
 import net.atos.esuite.extract.api.model.taak.TaakDocument
 import net.atos.esuite.extract.api.model.taak.TaakDocumentGroep
 import net.atos.esuite.extract.api.model.zaaktype.*
-import net.atos.esuite.extract.db.entity.zakenmagazijn.*
+import net.atos.esuite.extract.db.zakenmagazijn.entity.*
 
 
 fun ZaakTypeEntity.toZaaktypeOverzicht() = ZaaktypeOverzicht(

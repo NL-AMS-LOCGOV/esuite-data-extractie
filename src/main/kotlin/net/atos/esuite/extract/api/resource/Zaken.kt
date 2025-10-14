@@ -14,7 +14,7 @@ import net.atos.esuite.extract.api.model.zaak.ZaakOverzicht
 import net.atos.esuite.extract.api.model.zaak.ZaakPatch
 import net.atos.esuite.extract.api.validation.FALSE
 import net.atos.esuite.extract.api.validation.ValidBoolean
-import net.atos.esuite.extract.db.repository.zaak.ZaakRepository
+import net.atos.esuite.extract.db.zakenmagazijn.repository.ZaakRepository
 import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.media.Content
 import org.eclipse.microprofile.openapi.annotations.media.Schema

@@ -10,8 +10,8 @@ import net.atos.esuite.extract.api.model.shared.BladerParameters
 import net.atos.esuite.extract.api.model.shared.Fout
 import net.atos.esuite.extract.api.model.shared.Results
 import net.atos.esuite.extract.api.model.shared.ValidatieFouten
-import net.atos.esuite.extract.db.repository.dsr.DomeinDefinitieRepository
-import net.atos.esuite.extract.db.repository.dsr.DomeinObjectRepository
+import net.atos.esuite.extract.db.dsr.repository.DomeinDefinitieRepository
+import net.atos.esuite.extract.db.dsr.repository.DomeinObjectRepository
 import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.media.Content
 import org.eclipse.microprofile.openapi.annotations.media.Schema

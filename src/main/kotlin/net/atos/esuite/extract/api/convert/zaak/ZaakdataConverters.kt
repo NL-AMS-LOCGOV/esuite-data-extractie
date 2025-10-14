@@ -2,8 +2,8 @@ package net.atos.esuite.extract.api.convert.zaak
 
 import net.atos.esuite.extract.api.model.zaakdata.*
 import net.atos.esuite.extract.api.model.zaakdata.DataElementType.*
-import net.atos.esuite.extract.db.entity.zakenmagazijn.dataelement.*
-import net.atos.esuite.extract.db.entity.zakenmagazijn.dataelement.NummerFormattering
+import net.atos.esuite.extract.db.zakenmagazijn.entity.dataelement.*
+import net.atos.esuite.extract.db.zakenmagazijn.entity.dataelement.NummerFormattering
 
 fun AbstractDataElementEntity.toDataElement(): DataElement =
     when (this) {

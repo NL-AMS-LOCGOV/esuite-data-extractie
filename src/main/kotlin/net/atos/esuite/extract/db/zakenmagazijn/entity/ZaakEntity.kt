@@ -1,0 +1,185 @@
+package net.atos.esuite.extract.db.zakenmagazijn.entity
+
+import jakarta.persistence.*
+import net.atos.esuite.extract.db.configuratiemagazijn.entity.KanaalEntity
+import net.atos.esuite.extract.db.configuratiemagazijn.entity.OrganisatieEntity
+import net.atos.esuite.extract.db.zakenmagazijn.entity.dataelement.AbstractDataElementEntity
+import java.time.Instant
+import java.time.LocalDate
+
+
+@Entity
+@Table(name = "zkn_zaak", schema = "zakenmagazijn")
+class ZaakEntity {
+
+    @Id
+    @Column(name = "id_zaak")
+    var identifier: Long = 0
+
+    // ID-nummer tabel ZTC Zaaktype
+    @Column(name = "id_zaaktype", length = 64)
+    lateinit var zaaktypeId: String
+
+    @Column(name = "id_functioneel", unique = true, length = 128)
+    lateinit var functioneelId: String
+
+    // Externe zaakidentificatie
+    @Column(name = "id_functioneel_extern", unique = true, length = 40)
+    lateinit var externFunctioneelId: String
+
+    @OneToOne
+    @JoinColumn(name = "id_kanaal", referencedColumnName = "id_kanaal")
+    lateinit var kanaal: KanaalEntity
+
+    // Afdeling waar zaak in behandeling is
+    @Column(name = "id_afdeling", length = 128)
+    var afdelingId: String? = null
+
+    // Groep waar zaak in behandeling is
+    @Column(name = "id_groep", length = 128)
+    var groepId: String? = null
+
+    // Gebruiker waar zaak in behandeling is
+    @Column(name = "id_behandelaar", length = 64)
+    var behandelaarId: String? = null
+
+    @Column(name = "id_initiator")
+    var initiatorId: Long? = null
+
+    // Medewerker die de zaak heeft aangemaakt
+    @Column(name = "id_aangemaaktdoor", length = 64)
+    lateinit var aangemaaktDoorId: String
+
+    @Column(name = "id_zaakstatus", length = 255)
+    lateinit var statusId: String
+
+    @Column(name = "id_zaakresultaat", length = 255)
+    var resultaatId: String? = null
+
+    // Datum waarop de behandeling van deze zaak is / wordt gestart
+    @Column(name = "startdatum")
+    var startdatum: LocalDate? = null
+
+    // Streefdatum van de zaak
+    @Column(name = "streefdatum")
+    lateinit var streefdatum: LocalDate
+
+    // Fataledatum van de zaak
+    @Column(name = "fataledatum")
+    var fataledatum: LocalDate? = null
+
+    // Einddatum van de zaak
+    @Column(name = "einddatum")
+    var einddatum: LocalDate? = null
+
+    // Tijdstip waarop de zaak is geinsert.
+    @Column(name = "creatiedatumtijd")
+    lateinit var creatiedatum: Instant
+
+    // Tijdstip waarop de laatste zaakhistory is geinsert.
+    @Column(name = "wijzigdatumtijd")
+    var wijzigdatum: Instant? = null
+
+    // Begindatum van een nu lopende opschorttermijn
+    @Column(name = "opschorttermijn_startdatum")
+    var opschorttermijnStartdatum: LocalDate? = null
+
+    // Einddatum van een nu lopende opschorttermijn
+    @Column(name = "opschorttermijn_einddatum")
+    var opschorttermijnEinddatum: LocalDate? = null
+
+    // Algemene omschrijving van de zaak
+    @Column(name = "omschrijving", length = Int.MAX_VALUE)
+    lateinit var omschrijving: String
+
+    // Reden van het starten van de zaak
+    @Column(name = "redenstartzaak", length = Int.MAX_VALUE)
+    var redenStartZaak: String? = null
+
+    // Indicator die aangeeft dat de zaak beëindigd en weer heropend is (wat betekent dat het bijbehorende proces niet meer bestaat)
+    @Column(name = "ind_heropend")
+    var indicatieHeropend = false
+
+    // Aanduiding vertrouwelijke zaak
+    @Column(name = "ind_vertrouwelijk")
+    var indicatieVertrouwelijk = false
+
+    // Aanduiding dat het een intake betreft
+    @Column(name = "ind_intake")
+    var indicatieIntake = false
+
+    // Indicatie of de zaak in vernietiging is
+    @Column(name = "ind_in_vernietiging")
+    var inVernietiging = false
+
+    // Indicatie of de zaak in vernietiging is
+    @Column(name = "notificeerbaar")
+    var notificeerbaar = false
+
+    @OneToMany(mappedBy = "zaak")
+    lateinit var taken: MutableSet<TaakEntity>
+
+    @OneToMany(mappedBy = "zaak")
+    lateinit var betrokkenen: MutableSet<ZaakBetrokkeneEntity>
+
+    @OneToMany(mappedBy = "zaak")
+    @OrderBy(value = "identifier")
+    lateinit var notities: MutableSet<ZaakNotitieEntity>
+
+    @OneToMany(mappedBy = "zaak")
+    lateinit var gekoppeldeBAGObjecten: MutableSet<ZaakBAGObjectEntity>
+
+    // Alle zaakrelaties waarin de huidige zaak de volgende zaak is
+    @OneToMany(mappedBy = "gekoppeldeZaak")
+    lateinit var relatieZaken: MutableSet<ZaakZaakEntity>
+
+    @Embedded
+    var archiveergegevens: ArchiveergegevensEntity? = null
+
+    @Embedded
+    var betaalgegevens: BetaalgegevensEntity? = null
+
+    @OneToMany(mappedBy = "zaak")
+    @OrderBy("identifier DESC")
+    lateinit var historie: MutableSet<ZaakHistorieEntity>
+
+    @OneToMany(mappedBy = "zaak")
+    lateinit var documenten: MutableSet<DocumentEntity>
+
+    @OneToMany(mappedBy = "zaak")
+    lateinit var zaakdataElementen: MutableSet<AbstractDataElementEntity>
+
+    // Locatie van de zaak gedefinieerd als een valide WKT representatie string
+    @Column(name = "geolocatie", length = Int.MAX_VALUE)
+    var geolocatie: String? = null
+
+    @OneToOne
+    @JoinColumn(name = "id_organisatie", referencedColumnName = "id_organisatie")
+    var organisatie: OrganisatieEntity? = null
+
+    @ElementCollection()
+    @CollectionTable(
+        name = "zkn_zaak_geautoriseerde_medewerker", schema = "zakenmagazijn",
+        joinColumns = [JoinColumn(name = "id_zaak")]
+    )
+    @Column(name = "medewerker")
+    lateinit var geautoriseerdeMedewerkers: Set<String>
+
+    // Of autorisatie op dit element aan of uit staat
+    @Column(name = "autorisatie")
+    var autorisatie = false
+
+    // Is voor de zaak een proces gestart
+    @Column(name = "proces_gestart")
+    var procesGestart = true
+
+    // Datum tijd waarop de zaak gemigreerd is van ZTC1 naar ZTC2
+    @Column(name = "ztc1_migratiedatumtijd")
+    var ztc1Migratiedatumtijd : Instant? = null
+
+    @OneToMany(mappedBy = "zaak")
+    lateinit var besluiten: MutableSet<BesluitEntity>
+
+    @OneToMany(mappedBy = "zaak")
+    lateinit var contacten: MutableSet<ZaakContactEntity>
+}

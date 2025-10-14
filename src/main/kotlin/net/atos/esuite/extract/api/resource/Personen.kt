@@ -8,7 +8,7 @@ import net.atos.esuite.extract.api.model.shared.Fout
 import net.atos.esuite.extract.api.model.shared.ValidatieFouten
 import net.atos.esuite.extract.api.validation.ValidBSN
 import net.atos.esuite.extract.api.validation.ValidNonNegativeInteger
-import net.atos.esuite.extract.db.repository.basisgegevens.PersoonRepository
+import net.atos.esuite.extract.db.basisgegevens.repository.PersoonRepository
 import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.media.Content
 import org.eclipse.microprofile.openapi.annotations.media.Schema

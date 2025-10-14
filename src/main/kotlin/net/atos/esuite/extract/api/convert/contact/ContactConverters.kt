@@ -6,9 +6,9 @@ import net.atos.esuite.extract.api.convert.shared.toKanaal
 import net.atos.esuite.extract.api.convert.shared.toZonedDateTime
 import net.atos.esuite.extract.api.model.bag.BAGObject
 import net.atos.esuite.extract.api.model.contact.*
-import net.atos.esuite.extract.db.entity.configuratiemagazijn.OrganisatieEntity
-import net.atos.esuite.extract.db.entity.contactenmagazijn.*
-import net.atos.esuite.extract.db.repository.basisgegevens.SubjectRepository
+import net.atos.esuite.extract.db.basisgegevens.repository.SubjectRepository
+import net.atos.esuite.extract.db.configuratiemagazijn.entity.OrganisatieEntity
+import net.atos.esuite.extract.db.contactenmagazijn.entity.*
 
 @ApplicationScoped
 class ContactConverter(

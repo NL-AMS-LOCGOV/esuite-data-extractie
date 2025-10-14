@@ -4,9 +4,9 @@ import jakarta.enterprise.context.ApplicationScoped
 import net.atos.esuite.extract.api.convert.shared.toLocalDate
 import net.atos.esuite.extract.api.convert.shared.toZonedDateTime
 import net.atos.esuite.extract.api.model.dsr.domein.*
-import net.atos.esuite.extract.db.entity.dsr.definitie.DomeinDefinitieEntity
-import net.atos.esuite.extract.db.entity.dsr.domein.*
-import net.atos.esuite.extract.db.repository.dsr.DomeinObjectRepository
+import net.atos.esuite.extract.db.dsr.entity.definitie.DomeinDefinitieEntity
+import net.atos.esuite.extract.db.dsr.entity.domein.*
+import net.atos.esuite.extract.db.dsr.repository.DomeinObjectRepository
 
 @ApplicationScoped
 class DomeinConverter(

@@ -4,9 +4,9 @@ import jakarta.enterprise.context.ApplicationScoped
 import net.atos.esuite.extract.api.convert.shared.toLocalDate
 import net.atos.esuite.extract.api.convert.shared.toZonedDateTime
 import net.atos.esuite.extract.api.model.dsr.tabel.*
-import net.atos.esuite.extract.db.entity.dsr.definitie.ReferentietabelDefinitieEntity
-import net.atos.esuite.extract.db.entity.dsr.tabel.*
-import net.atos.esuite.extract.db.repository.dsr.ReferentietabelRecordRepository
+import net.atos.esuite.extract.db.dsr.entity.definitie.ReferentietabelDefinitieEntity
+import net.atos.esuite.extract.db.dsr.entity.tabel.*
+import net.atos.esuite.extract.db.dsr.repository.ReferentietabelRecordRepository
 
 @ApplicationScoped
 class ReferentietabelConverter(

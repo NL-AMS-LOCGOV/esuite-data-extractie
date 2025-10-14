@@ -9,7 +9,7 @@ import jakarta.ws.rs.core.Response.ok
 import jakarta.ws.rs.core.StreamingOutput
 import net.atos.esuite.extract.api.model.shared.Fout
 import net.atos.esuite.extract.api.validation.ValidNonNegativeInteger
-import net.atos.esuite.extract.db.repository.document.DocumentInhoudRepository
+import net.atos.esuite.extract.db.zakenmagazijn.repository.DocumentInhoudRepository
 import org.apache.commons.io.IOUtils
 import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.media.Content

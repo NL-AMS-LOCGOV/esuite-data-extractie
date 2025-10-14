@@ -5,8 +5,8 @@ import net.atos.esuite.extract.api.model.taak.Taak
 import net.atos.esuite.extract.api.model.taak.TaakHistorie
 import net.atos.esuite.extract.api.model.taak.TaakHistorieTypeWijziging
 import net.atos.esuite.extract.api.model.taak.Taaktype
-import net.atos.esuite.extract.db.entity.zakenmagazijn.TaakEntity
-import net.atos.esuite.extract.db.entity.zakenmagazijn.TaakHistorieEntity
+import net.atos.esuite.extract.db.zakenmagazijn.entity.TaakEntity
+import net.atos.esuite.extract.db.zakenmagazijn.entity.TaakHistorieEntity
 
 fun TaakEntity.toTaak() = Taak(
     afdeling = afdelingId,

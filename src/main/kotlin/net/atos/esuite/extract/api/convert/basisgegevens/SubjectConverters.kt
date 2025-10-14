@@ -1,7 +1,7 @@
 package net.atos.esuite.extract.api.convert.basisgegevens
 
 import net.atos.esuite.extract.api.model.basisgegevens.*
-import net.atos.esuite.extract.db.entity.basisgegevens.*
+import net.atos.esuite.extract.db.basisgegevens.entity.*
 
 fun SubjectEntity.toSubject() =
     when (this) {
