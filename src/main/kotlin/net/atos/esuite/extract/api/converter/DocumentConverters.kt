@@ -1,4 +1,4 @@
-package net.atos.esuite.extract.api.convert
+package net.atos.esuite.extract.api.converter
 
 import jakarta.enterprise.context.ApplicationScoped
 import net.atos.esuite.extract.api.model.document.*

@@ -1,4 +1,4 @@
-package net.atos.esuite.extract.api.convert
+package net.atos.esuite.extract.api.converter
 
 import net.atos.esuite.extract.api.model.subject.*
 import net.atos.esuite.extract.db.basisgegevens.entity.*

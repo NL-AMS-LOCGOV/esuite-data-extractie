@@ -1,7 +1,6 @@
-package net.atos.esuite.extract.api.convert.zaak
+package net.atos.esuite.extract.api.converter
 
 import jakarta.enterprise.context.ApplicationScoped
-import net.atos.esuite.extract.api.convert.*
 import net.atos.esuite.extract.api.model.bag.BAGObject
 import net.atos.esuite.extract.api.model.besluit.Besluit
 import net.atos.esuite.extract.api.model.besluit.Besluitcategorie
@@ -39,7 +38,7 @@ class ZaakConverter(
             functioneleIdentificatie = zaakEntity.functioneelId,
             geautoriseerdeMedewerkers = zaakEntity.geautoriseerdeMedewerkers.ifEmpty { null },
             gekoppeldeZaken = zaakEntity.relatieZaken.map { it.toZaakZaakKoppeling() }.ifEmpty { null },
-            geolocatie = zaakEntity.geolocatie?.let { it.convertToGeoJsonGeometry() },
+            geolocatie = zaakEntity.geolocatie?.convertToGeoJsonGeometry(),
             groep = zaakEntity.groepId,
             historie = zaakEntity.historie.map { it.toZaakHistorie() },
             geautoriseerdVoorMedewerkers = zaakEntity.autorisatie,

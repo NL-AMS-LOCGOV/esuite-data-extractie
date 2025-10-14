@@ -3,8 +3,8 @@ package net.atos.esuite.extract.api.resource
 import jakarta.validation.Valid
 import jakarta.ws.rs.*
 import jakarta.ws.rs.core.MediaType
-import net.atos.esuite.extract.api.convert.ContactConverter
-import net.atos.esuite.extract.api.convert.toPage
+import net.atos.esuite.extract.api.converter.ContactConverter
+import net.atos.esuite.extract.api.converter.toPage
 import net.atos.esuite.extract.api.model.shared.BladerParameters
 import net.atos.esuite.extract.api.model.shared.Fout
 import net.atos.esuite.extract.api.model.shared.Results

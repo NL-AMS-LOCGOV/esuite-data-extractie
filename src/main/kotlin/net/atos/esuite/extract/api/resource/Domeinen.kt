@@ -3,9 +3,9 @@ package net.atos.esuite.extract.api.resource
 import jakarta.validation.Valid
 import jakarta.ws.rs.*
 import jakarta.ws.rs.core.MediaType
-import net.atos.esuite.extract.api.convert.DomeinConverter
-import net.atos.esuite.extract.api.convert.toDomeinObject
-import net.atos.esuite.extract.api.convert.toPage
+import net.atos.esuite.extract.api.converter.DomeinConverter
+import net.atos.esuite.extract.api.converter.toDomeinObject
+import net.atos.esuite.extract.api.converter.toPage
 import net.atos.esuite.extract.api.model.shared.BladerParameters
 import net.atos.esuite.extract.api.model.shared.Fout
 import net.atos.esuite.extract.api.model.shared.Results

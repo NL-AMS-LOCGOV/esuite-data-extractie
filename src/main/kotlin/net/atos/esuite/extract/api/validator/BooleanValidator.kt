@@ -1,4 +1,4 @@
-package net.atos.esuite.extract.api.validation
+package net.atos.esuite.extract.api.validator
 
 import jakarta.validation.ConstraintValidator
 import jakarta.validation.ConstraintValidatorContext

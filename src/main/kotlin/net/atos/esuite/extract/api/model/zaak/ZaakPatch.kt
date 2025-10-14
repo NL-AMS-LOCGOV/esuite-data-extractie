@@ -1,7 +1,7 @@
 package net.atos.esuite.extract.api.model.zaak
 
 import jakarta.validation.constraints.NotNull
-import net.atos.esuite.extract.api.validation.ValidBoolean
+import net.atos.esuite.extract.api.validator.ValidBoolean
 import org.eclipse.microprofile.openapi.annotations.media.Schema
 
 class ZaakPatch {

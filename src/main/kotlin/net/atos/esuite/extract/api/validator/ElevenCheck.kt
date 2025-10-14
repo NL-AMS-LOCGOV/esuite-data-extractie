@@ -1,4 +1,4 @@
-package net.atos.esuite.extract.api.validation
+package net.atos.esuite.extract.api.validator
 
 /**
  * Checks if the input string is a number that conforms to the eleven-check.

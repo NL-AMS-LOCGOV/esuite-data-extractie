@@ -1,9 +1,5 @@
-package net.atos.esuite.extract.api.convert
+package net.atos.esuite.extract.api.converter
 
-import net.atos.esuite.extract.api.convert.zaak.toBesluittype
-import net.atos.esuite.extract.api.convert.zaak.toBewaartermijnWaardering
-import net.atos.esuite.extract.api.convert.zaak.toResultaat
-import net.atos.esuite.extract.api.convert.zaak.toZaakstatus
 import net.atos.esuite.extract.api.model.document.DocumentTag
 import net.atos.esuite.extract.api.model.document.DocumentTitel
 import net.atos.esuite.extract.api.model.taak.TaakDocument

@@ -1,7 +1,7 @@
 package net.atos.esuite.extract.api.model.shared
 
 import jakarta.ws.rs.QueryParam
-import net.atos.esuite.extract.api.validation.ValidNonNegativeInteger
+import net.atos.esuite.extract.api.validator.ValidNonNegativeInteger
 import org.eclipse.microprofile.openapi.annotations.media.Schema
 
 

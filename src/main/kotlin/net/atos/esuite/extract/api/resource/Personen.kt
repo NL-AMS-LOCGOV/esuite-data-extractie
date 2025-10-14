@@ -3,11 +3,11 @@ package net.atos.esuite.extract.api.resource
 import jakarta.validation.constraints.NotNull
 import jakarta.ws.rs.*
 import jakarta.ws.rs.core.MediaType
-import net.atos.esuite.extract.api.convert.toPersoon
+import net.atos.esuite.extract.api.converter.toPersoon
 import net.atos.esuite.extract.api.model.shared.Fout
 import net.atos.esuite.extract.api.model.shared.ValidatieFouten
-import net.atos.esuite.extract.api.validation.ValidBSN
-import net.atos.esuite.extract.api.validation.ValidNonNegativeInteger
+import net.atos.esuite.extract.api.validator.ValidBSN
+import net.atos.esuite.extract.api.validator.ValidNonNegativeInteger
 import net.atos.esuite.extract.db.basisgegevens.repository.PersoonRepository
 import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.media.Content

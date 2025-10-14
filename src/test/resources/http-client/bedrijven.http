@@ -88,12 +88,12 @@ X-API-KEY: {{api-key}}
 %}
 
 ### Niet bestaand bedrijf op identifier
-GET {{base-url}}/bedrijven/854559928347
+GET {{base-url}}/bedrijven/85455992
 X-API-KEY: {{api-key}}
 
 > {%
     client.test("Request executed successfully", function () {
         client.assert(response.status === 404, "Response status is not 404");
-        client.assert(response.body.melding === "Bedrijf with identifier '854559928347' not found", "Response body melding is not \"Bedrijf with identifier '854559928347' not found\"")
+        client.assert(response.body.melding === "Bedrijf with identifier '85455992' not found", "Response body melding is not \"Bedrijf with identifier '85455992' not found\"")
     });
 %}

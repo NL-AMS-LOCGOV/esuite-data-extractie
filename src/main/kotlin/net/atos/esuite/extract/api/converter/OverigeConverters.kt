@@ -1,4 +1,4 @@
-package net.atos.esuite.extract.api.convert
+package net.atos.esuite.extract.api.converter
 
 import io.quarkus.panache.common.Page
 import net.atos.esuite.extract.api.model.shared.BladerParameters
