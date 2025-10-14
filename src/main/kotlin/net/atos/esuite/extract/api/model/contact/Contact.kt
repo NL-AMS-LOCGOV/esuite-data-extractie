@@ -1,8 +1,8 @@
 package net.atos.esuite.extract.api.model.contact
 
 import net.atos.esuite.extract.api.model.bag.BAGObject
-import net.atos.esuite.extract.api.model.basisgegevens.Subject
 import net.atos.esuite.extract.api.model.shared.Kanaal
+import net.atos.esuite.extract.api.model.subject.Subject
 import org.eclipse.microprofile.openapi.annotations.media.Schema
 import java.time.ZonedDateTime
 

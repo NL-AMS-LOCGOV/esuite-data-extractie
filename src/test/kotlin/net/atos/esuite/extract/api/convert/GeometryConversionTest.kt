@@ -1,6 +1,5 @@
 package net.atos.esuite.extract.api.convert
 
-import net.atos.esuite.extract.api.convert.zaak.convertToGeoJsonGeometry
 import net.atos.esuite.extract.api.model.geojson.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows

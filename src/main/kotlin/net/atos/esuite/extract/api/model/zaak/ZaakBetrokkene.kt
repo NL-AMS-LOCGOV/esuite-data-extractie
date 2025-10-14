@@ -1,6 +1,6 @@
 package net.atos.esuite.extract.api.model.zaak
 
-import net.atos.esuite.extract.api.model.basisgegevens.Subject
+import net.atos.esuite.extract.api.model.subject.Subject
 import org.eclipse.microprofile.openapi.annotations.media.Schema
 import java.time.LocalDate
 

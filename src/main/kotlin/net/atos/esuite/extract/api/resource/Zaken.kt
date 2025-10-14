@@ -4,7 +4,7 @@ import jakarta.validation.Valid
 import jakarta.validation.constraints.NotNull
 import jakarta.ws.rs.*
 import jakarta.ws.rs.core.MediaType
-import net.atos.esuite.extract.api.convert.shared.toPage
+import net.atos.esuite.extract.api.convert.toPage
 import net.atos.esuite.extract.api.convert.zaak.ZaakConverter
 import net.atos.esuite.extract.api.model.shared.BladerParameters
 import net.atos.esuite.extract.api.model.shared.Fout

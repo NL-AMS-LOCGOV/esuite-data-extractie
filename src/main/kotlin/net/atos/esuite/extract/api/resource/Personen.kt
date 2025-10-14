@@ -3,7 +3,7 @@ package net.atos.esuite.extract.api.resource
 import jakarta.validation.constraints.NotNull
 import jakarta.ws.rs.*
 import jakarta.ws.rs.core.MediaType
-import net.atos.esuite.extract.api.convert.basisgegevens.toPersoon
+import net.atos.esuite.extract.api.convert.toPersoon
 import net.atos.esuite.extract.api.model.shared.Fout
 import net.atos.esuite.extract.api.model.shared.ValidatieFouten
 import net.atos.esuite.extract.api.validation.ValidBSN

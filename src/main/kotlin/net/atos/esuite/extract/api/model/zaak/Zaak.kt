@@ -1,11 +1,11 @@
 package net.atos.esuite.extract.api.model.zaak
 
 import net.atos.esuite.extract.api.model.bag.BAGObject
-import net.atos.esuite.extract.api.model.basisgegevens.Subject
 import net.atos.esuite.extract.api.model.besluit.Besluit
 import net.atos.esuite.extract.api.model.document.Document
 import net.atos.esuite.extract.api.model.geojson.Geometry
 import net.atos.esuite.extract.api.model.shared.Kanaal
+import net.atos.esuite.extract.api.model.subject.Subject
 import net.atos.esuite.extract.api.model.taak.Taak
 import net.atos.esuite.extract.api.model.zaakdata.DataElement
 import net.atos.esuite.extract.api.model.zaaktype.ZaaktypeOverzicht

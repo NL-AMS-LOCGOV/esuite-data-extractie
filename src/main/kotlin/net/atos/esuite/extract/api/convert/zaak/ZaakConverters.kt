@@ -1,10 +1,7 @@
 package net.atos.esuite.extract.api.convert.zaak
 
 import jakarta.enterprise.context.ApplicationScoped
-import net.atos.esuite.extract.api.convert.basisgegevens.toSubject
-import net.atos.esuite.extract.api.convert.document.DocumentConverter
-import net.atos.esuite.extract.api.convert.shared.toKanaal
-import net.atos.esuite.extract.api.convert.shared.toZonedDateTime
+import net.atos.esuite.extract.api.convert.*
 import net.atos.esuite.extract.api.model.bag.BAGObject
 import net.atos.esuite.extract.api.model.besluit.Besluit
 import net.atos.esuite.extract.api.model.besluit.Besluitcategorie
