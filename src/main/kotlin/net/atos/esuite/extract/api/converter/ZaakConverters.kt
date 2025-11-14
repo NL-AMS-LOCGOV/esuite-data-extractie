@@ -131,6 +131,8 @@ fun ZaakStatusEntity.toZaakstatus() = Zaakstatus(
     actief = actief,
     uitwisselingscode = uitwisselingsCode,
     externeNaam = externeNaam,
+    start = indicatieStartstatus,
+    eind = indicatieEindstatus,
 )
 
 fun ResultaatEntity.toResultaat() = Resultaat(

@@ -8,7 +8,7 @@ class Zaakstatus(
     naam: String,
     omschrijving: String?,
     actief: Boolean,
-    
+
     @field:Schema(
         description = "Code welke gebruikt wordt voor het uitwisselen van zaak informatie naar externe systemen zoals bijvoorbeeld via StUF-ZKN-DMS",
         maxLength = 255
@@ -20,6 +20,12 @@ class Zaakstatus(
         maxLength = 255
     )
     val externeNaam: String?,
+
+    @field:Schema(description = "Geeft aan of status gebruikt kan worden bij starten van zaak.", required = true)
+    val start: Boolean,
+
+    @field:Schema(description = "Geeft aan of status gebruikt kan worden bij beeindigen van zaak.", required = true)
+    val eind: Boolean,
 
     ) : Referentie(
     naam = naam,

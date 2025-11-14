@@ -3750,6 +3750,8 @@ components:
       type: object
       required:
         - uitwisselingscode
+        - start
+        - eind
       allOf:
         - $ref: "#/components/schemas/Referentie"
       properties:
@@ -3763,6 +3765,13 @@ components:
           maxLength: 255
           description: Naam van status zoals deze getoond wordt in het publieke deel
             (burger en bedrijven loket) van de e=Suite
+        start:
+          type: boolean
+          description: Geeft aan of status gebruikt kan worden bij starten van zaak.
+        eind:
+          type: boolean
+          description: Geeft aan of status gebruikt kan worden bij beeindigen van
+            zaak.
     Zaaktype:
       type: object
       required:
