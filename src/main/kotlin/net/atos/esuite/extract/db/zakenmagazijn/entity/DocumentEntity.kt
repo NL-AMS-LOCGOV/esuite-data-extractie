@@ -50,7 +50,7 @@ class DocumentEntity {
     // DocumentVersturenEnum (MOET_NIET_VERSTUURD_WORDEN, MOET_VERSTUURD_WORDEN, IS_VERSTUURD)
     @Column(name = "documentversturen", length = 32)
     @Enumerated(EnumType.STRING)
-    lateinit var documentVersturen: DocumentVersturenEnum
+    var documentVersturen: DocumentVersturenEnum? = null
 
     // Datum van versturen document via mail
     @Column(name = "documentversturendatum")

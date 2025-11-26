@@ -34,6 +34,7 @@ class DocumentConverter(
             documentVersturen = when (documentEntity.documentVersturen) {
                 DocumentVersturenEnum.IS_VERSTUURD -> DocumentVersturen.is_verstuurd
                 DocumentVersturenEnum.MOET_NIET_VERSTUURD_WORDEN -> DocumentVersturen.moet_niet_verstuurd_worden
+                null -> null
             },
             documentVersturenDatum = documentEntity.documentVersturenDatum,
             aanvraagDocument = documentEntity.indAanvraag,

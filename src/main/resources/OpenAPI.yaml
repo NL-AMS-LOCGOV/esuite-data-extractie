@@ -952,7 +952,6 @@ components:
         - titel
         - creatieDatumTijd
         - publicatieniveau
-        - documentVersturen
         - aanvraagDocument
         - documentrichting
         - documentversies
@@ -1002,9 +1001,9 @@ components:
           type: string
           description: Document publicatieniveau
         documentVersturen:
-          $ref: "#/components/schemas/DocumentVersturen"
           type: string
           description: Document verstuur gegevens
+          $ref: "#/components/schemas/DocumentVersturen"
         documentVersturenDatum:
           type: string
           format: date
@@ -4058,7 +4057,7 @@ info:
     email: andy.verberne@atos.net
     name: Andy Verberne
   title: e-Suite data extractie API
-  version: 0.14.0
+  version: 0.15.0
 security:
   - ApiKeyAuth: [ ]
 paths:

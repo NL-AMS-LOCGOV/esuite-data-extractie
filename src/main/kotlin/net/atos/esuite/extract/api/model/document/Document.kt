@@ -37,7 +37,7 @@ class Document(
     val publicatieniveau: DocumentPublicatieniveau,
 
     @field:Schema(description = "Document verstuur gegevens")
-    val documentVersturen: DocumentVersturen,
+    val documentVersturen: DocumentVersturen?,
 
     @field:Schema(description = "Datum van versturen document via mail", implementation = LocalDate::class)
     val documentVersturenDatum: LocalDate?,
