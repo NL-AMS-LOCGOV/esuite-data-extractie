@@ -199,10 +199,10 @@ class GeometryConversionTest {
 
 private fun testPoint(geometry: Geometry, expectedCoordinates: String) {
     assert(geometry is Point)
-    val (longitude, lattitude) = (geometry as Point).point2D
+    val point = geometry as Point
     val (expectedLongitude, expectedLatitude) = expectedCoordinates.split(SPACE_SEPARATOR)
-    assert(longitude == BigDecimal(expectedLongitude))
-    assert(lattitude == BigDecimal(expectedLatitude))
+    assert(point.point2D.longitude == BigDecimal(expectedLongitude))
+    assert(point.point2D.latitude == BigDecimal(expectedLatitude))
 }
 
 private fun testLineString(geometry: Geometry, vararg expectedCoordinates: String) {

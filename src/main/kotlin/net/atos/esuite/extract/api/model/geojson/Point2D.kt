@@ -13,7 +13,7 @@ import java.math.BigDecimal
     minItems = 2, maxItems = 2
 )
 @JsonbTypeAdapter(Point2DJsonbAdapter::class)
-data class Point2D private constructor(val longitude: BigDecimal, val latitude: BigDecimal) {
+class Point2D private constructor(val longitude: BigDecimal, val latitude: BigDecimal) {
 
     companion object {
         fun create(coordinates: String): Point2D? {
@@ -32,7 +32,7 @@ data class Point2D private constructor(val longitude: BigDecimal, val latitude: 
                     }
                 }
                 return null
-            } catch (e: NumberFormatException) {
+            } catch (_: NumberFormatException) {
                 return null
             }
         }

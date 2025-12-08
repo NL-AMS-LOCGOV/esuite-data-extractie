@@ -1,12 +1,11 @@
 plugins {
-    kotlin("jvm") version "2.0.21"
-    kotlin("plugin.allopen") version "2.0.21"
+    kotlin("jvm") version "2.2.21"
+    kotlin("plugin.allopen") version "2.2.21"
     id("io.quarkus")
 }
 
 repositories {
     mavenCentral()
-    mavenLocal()
 }
 
 val quarkusPlatformGroupId: String by project

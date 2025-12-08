@@ -1,6 +1,9 @@
 package net.atos.esuite.extract.db.zakenmagazijn.entity
 
-import jakarta.persistence.*
+import jakarta.persistence.Column
+import jakarta.persistence.Embeddable
+import jakarta.persistence.EnumType
+import jakarta.persistence.Enumerated
 import java.math.BigDecimal
 import java.time.LocalDate
 
@@ -35,6 +38,5 @@ class BetaalgegevensEntity {
 
     // Transactiedatum van de betaling (Ogone)
     @Column(name = "betaling_transactiedatum")
-    @Temporal(TemporalType.DATE)
     var transactieDatum: LocalDate? = null
 }
