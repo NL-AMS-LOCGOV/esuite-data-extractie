@@ -18,7 +18,10 @@ class Documenttype(
     @field:Schema(description = "Mogelijke documentstatussen")
     val documentstatussen: Set<Documentstatus>,
 
-) : Referentie(
+    @field:Schema(description = "Mogelijke metadata elementen")
+    val metadataElementen: Set<MetadataElement>?,
+
+    ) : Referentie(
     naam = naam,
     omschrijving = omschrijving,
     actief = actief,

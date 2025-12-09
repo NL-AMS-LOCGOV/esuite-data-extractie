@@ -85,7 +85,7 @@ class DocumentConverter(
 
     private fun toMetadataElement(metadataelementId: String) =
         metadataelementRepository.findById(metadataelementId.substringAfter(ZAAKTYPE_ID_PREFIX).toLong())
-            ?.toMetadataelement()
+            ?.toMetadataElement()
             ?: error("Metadata element id not found: $metadataelementId")
 
     private fun toDocumentMetadata(documentMetadataEntity: DocumentMetadataEntity) =
@@ -132,7 +132,8 @@ fun DocumentTypeEntity.toDocumenttype() =
             DocumentPublicatieniveauEnum.INTERN -> DocumentPublicatieniveau.intern
             DocumentPublicatieniveauEnum.VERTROUWELIJK -> DocumentPublicatieniveau.vertrouwelijk
         },
-        documentstatussen = documentStatussen.map { it.toDocumentstatus() }.toSet()
+        documentstatussen = documentStatussen.map { it.toDocumentstatus() }.toSet(),
+        metadataElementen = documentMetadataelementen.map { it.toMetadataElement() }.toSet().ifEmpty { null },
     )
 
 private fun DocumentVersieEntity.toDocumentversie(documentInhoudEntity: DocumentInhoudEntity) =
@@ -149,7 +150,7 @@ private fun DocumentVersieEntity.toDocumentversie(documentInhoudEntity: Document
         ondertekeningen = ondertekeningen.map { it.toDocumentOndertekening() }.ifEmpty { null },
     )
 
-private fun MetadataelementEntity.toMetadataelement() =
+private fun MetadataelementEntity.toMetadataElement() =
     MetadataElement(
         naam = naam,
         omschrijving = omschrijving,

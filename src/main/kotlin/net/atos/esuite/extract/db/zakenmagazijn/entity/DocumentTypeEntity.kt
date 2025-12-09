@@ -29,12 +29,11 @@ class DocumentTypeEntity : AbstractReferentieEntity() {
     )
     lateinit var documentStatussen: MutableSet<DocumentStatusEntity>
 
-//    @ManyToMany(cascade = [CascadeType.MERGE, CascadeType.PERSIST], fetch = FetchType.LAZY)
-//    @JoinTable(
-//        name = "ztc_documenttype_metadataelement",
-//        joinColumns = [JoinColumn(name = "id_documenttype")],
-//        inverseJoinColumns = [JoinColumn(name = "id_metadataelement")]
-//    )
-//    private var documentMetadataelementen: MutableSet<ReferentieMetadataelementEntity?>? = null
-
+    @ManyToMany
+    @JoinTable(
+        name = "ztc_documenttype_metadataelement", schema = "zakenmagazijn",
+        joinColumns = [JoinColumn(name = "id_documenttype")],
+        inverseJoinColumns = [JoinColumn(name = "id_metadataelement")]
+    )
+    lateinit var documentMetadataelementen: MutableSet<MetadataelementEntity>
 }

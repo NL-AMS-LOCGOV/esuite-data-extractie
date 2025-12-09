@@ -1248,6 +1248,12 @@ components:
           items:
             $ref: "#/components/schemas/Documentstatus"
           description: Mogelijke documentstatussen
+        metadataElementen:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: "#/components/schemas/MetadataElement"
+          description: Mogelijke metadata elementen
     Documentversie:
       type: object
       required:
@@ -4124,7 +4130,7 @@ info:
     email: andy.verberne@atos.net
     name: Andy Verberne
   title: e-Suite data extractie API
-  version: 0.16.0
+  version: 0.17.0
 security:
   - ApiKeyAuth: [ ]
 paths:
