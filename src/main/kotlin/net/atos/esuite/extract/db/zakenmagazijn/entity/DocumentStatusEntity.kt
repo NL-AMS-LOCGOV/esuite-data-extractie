@@ -4,11 +4,11 @@ import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
 import jakarta.persistence.Table
-import net.atos.esuite.extract.db.shared.AbstractReferentieEntity
+import net.atos.esuite.extract.db.shared.AbstractReferentieSysteemsettingEntity
 
 @Entity
 @Table(name = "ztc_ref_documentstatus", schema = "zakenmagazijn")
-class DocumentStatusEntity : AbstractReferentieEntity() {
+class DocumentStatusEntity : AbstractReferentieSysteemsettingEntity() {
 
     @Id
     @Column(name = "id_documentstatus")

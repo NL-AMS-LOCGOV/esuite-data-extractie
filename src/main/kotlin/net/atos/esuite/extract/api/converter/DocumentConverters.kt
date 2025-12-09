@@ -109,11 +109,16 @@ private fun DocumentVormEntity.toDocumentVorm() =
         actief = actief,
     )
 
-private fun DocumentStatusEntity.toDocumentStatus() =
+fun DocumentStatusEntity.toDocumentStatus() =
     DocumentStatus(
         naam = naam,
         omschrijving = omschrijving,
         actief = actief,
+        type = when {
+            systeemsetting && naam == "Nieuw" -> DocumentStatusType.nieuw
+            systeemsetting && naam == "Definitief" -> DocumentStatusType.definitief
+            else -> null
+        }
     )
 
 fun DocumentTypeEntity.toDocumenttype() =

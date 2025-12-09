@@ -1189,6 +1189,17 @@ components:
       type: object
       allOf:
         - $ref: "#/components/schemas/Referentie"
+      properties:
+        type:
+          type: string
+          description: Document status bepaald dat het document een nieuw of definitief
+            document is
+          $ref: "#/components/schemas/DocumentStatusType"
+    DocumentStatusType:
+      type: string
+      enum:
+        - nieuw
+        - definitief
     DocumentTag:
       type: object
       allOf:
@@ -2654,6 +2665,29 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/ContactOverzicht"
+          description: Reslultaten op huidige pagina
+        count:
+          type: integer
+          format: int64
+          description: Totaal aantal
+        previousPage:
+          type: boolean
+          description: Is er een vorige pagina
+        nextPage:
+          type: boolean
+          description: Is er een volgende pagina
+    ResultsDocumentStatus:
+      type: object
+      required:
+        - results
+        - count
+        - previousPage
+        - nextPage
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/DocumentStatus"
           description: Reslultaten op huidige pagina
         count:
           type: integer
@@ -4346,6 +4380,48 @@ paths:
                 $ref: "#/components/schemas/Fout"
       tags:
         - Documenten
+  /documentstatussen:
+    get:
+      summary: Lijst van document statussen opvragen
+      operationId: documentstatus_list
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            format: int32
+            description: Gewenste pagina; start bij 0
+            default: 0
+        - name: page_size
+          in: query
+          schema:
+            type: integer
+            format: int32
+            description: Maximum aantal items per pagina
+            default: 100
+      responses:
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Fout"
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResultsDocumentStatus"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidatieFouten"
+      tags:
+        - Document Statussen
   /domeinen:
     get:
       summary: Lijst van domeinen opvragen
