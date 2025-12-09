@@ -5,6 +5,10 @@ import net.atos.esuite.extract.api.model.document.*
 import net.atos.esuite.extract.db.zakenmagazijn.entity.*
 import net.atos.esuite.extract.db.zakenmagazijn.repository.*
 
+private const val DOCUMENTSTATUS_NIEUW = "Nieuw"
+
+private const val DOCUMENTSTATUS_DEFINITIEF = "Definitief"
+
 @ApplicationScoped
 class DocumentConverter(
     private val documentTypeRepository: DocumentTypeRepository,
@@ -115,8 +119,8 @@ fun DocumentStatusEntity.toDocumentstatus() =
         omschrijving = omschrijving,
         actief = actief,
         type = when {
-            systeemsetting && naam == "Nieuw" -> DocumentstatusType.nieuw
-            systeemsetting && naam == "Definitief" -> DocumentstatusType.definitief
+            systeemsetting && naam == DOCUMENTSTATUS_NIEUW -> DocumentstatusType.nieuw
+            systeemsetting && naam == DOCUMENTSTATUS_DEFINITIEF -> DocumentstatusType.definitief
             else -> null
         }
     )

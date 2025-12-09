@@ -2666,6 +2666,29 @@ components:
         nextPage:
           type: boolean
           description: Is er een volgende pagina
+    ResultsBesluittype:
+      type: object
+      required:
+        - results
+        - count
+        - previousPage
+        - nextPage
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/Besluittype"
+          description: Reslultaten op huidige pagina
+        count:
+          type: integer
+          format: int64
+          description: Totaal aantal
+        previousPage:
+          type: boolean
+          description: Is er een vorige pagina
+        nextPage:
+          type: boolean
+          description: Is er een volgende pagina
     ResultsContactOverzicht:
       type: object
       required:
@@ -2896,6 +2919,29 @@ components:
         nextPage:
           type: boolean
           description: Is er een volgende pagina
+    ResultsResultaat:
+      type: object
+      required:
+        - results
+        - count
+        - previousPage
+        - nextPage
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/Resultaat"
+          description: Reslultaten op huidige pagina
+        count:
+          type: integer
+          format: int64
+          description: Totaal aantal
+        previousPage:
+          type: boolean
+          description: Is er een vorige pagina
+        nextPage:
+          type: boolean
+          description: Is er een volgende pagina
     ResultsZaakOverzicht:
       type: object
       required:
@@ -2908,6 +2954,29 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/ZaakOverzicht"
+          description: Reslultaten op huidige pagina
+        count:
+          type: integer
+          format: int64
+          description: Totaal aantal
+        previousPage:
+          type: boolean
+          description: Is er een vorige pagina
+        nextPage:
+          type: boolean
+          description: Is er een volgende pagina
+    ResultsZaakstatus:
+      type: object
+      required:
+        - results
+        - count
+        - previousPage
+        - nextPage
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/Zaakstatus"
           description: Reslultaten op huidige pagina
         count:
           type: integer
@@ -4130,7 +4199,7 @@ info:
     email: andy.verberne@atos.net
     name: Andy Verberne
   title: e-Suite data extractie API
-  version: 0.17.0
+  version: 0.18.0
 security:
   - ApiKeyAuth: [ ]
 paths:
@@ -4302,6 +4371,48 @@ paths:
                 $ref: "#/components/schemas/Fout"
       tags:
         - Bedrijven
+  /besluittypen:
+    get:
+      summary: Lijst van besluittypen opvragen
+      operationId: besluittype_list
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            format: int32
+            description: Gewenste pagina; start bij 0
+            default: 0
+        - name: page_size
+          in: query
+          schema:
+            type: integer
+            format: int32
+            description: Maximum aantal items per pagina
+            default: 100
+      responses:
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Fout"
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResultsBesluittype"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidatieFouten"
+      tags:
+        - Besluittypen
   /contacten:
     get:
       summary: Lijst van contact overzichten opvragen
@@ -5025,6 +5136,90 @@ paths:
                 $ref: "#/components/schemas/ValidatieFouten"
       tags:
         - Referentietabellen
+  /resultaten:
+    get:
+      summary: Lijst van resultaten opvragen
+      operationId: resultaat_list
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            format: int32
+            description: Gewenste pagina; start bij 0
+            default: 0
+        - name: page_size
+          in: query
+          schema:
+            type: integer
+            format: int32
+            description: Maximum aantal items per pagina
+            default: 100
+      responses:
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Fout"
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResultsResultaat"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidatieFouten"
+      tags:
+        - Resultaten
+  /zaakstatussen:
+    get:
+      summary: Lijst van zaakstatussen opvragen
+      operationId: zaakstatussen_list
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            format: int32
+            description: Gewenste pagina; start bij 0
+            default: 0
+        - name: page_size
+          in: query
+          schema:
+            type: integer
+            format: int32
+            description: Maximum aantal items per pagina
+            default: 100
+      responses:
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Fout"
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResultsZaakstatus"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidatieFouten"
+      tags:
+        - Zaakstatussen
   /zaaktypen:
     get:
       summary: Lijst van zaaktypen opvragen

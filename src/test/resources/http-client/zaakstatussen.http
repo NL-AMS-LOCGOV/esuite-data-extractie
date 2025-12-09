@@ -1,0 +1,11 @@
+###
+GET {{base-url}}/zaakstatussen
+X-API-KEY: {{api-key}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+        client.assert(response.body.count > 0, "Response body count is 0")
+        client.assert(response.body.results.length > 0, "Response body results size is 0")
+    });
+%}
