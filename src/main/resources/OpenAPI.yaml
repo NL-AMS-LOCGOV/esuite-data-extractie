@@ -1680,12 +1680,7 @@ components:
       type: array
       minItems: 2
       items:
-        type: array
-        maxItems: 2
-        minItems: 2
-        items:
-          type: number
-        description: "Position as [longitude, latitude]"
+        $ref: "#/components/schemas/Point2D"
       description: A connected sequence of two or more points
     LineString:
       type: object
@@ -2207,17 +2202,7 @@ components:
     Polygon2D:
       type: array
       items:
-        type: array
-        minItems: 4
-        items:
-          type: array
-          maxItems: 2
-          minItems: 2
-          items:
-            type: number
-          description: "Position as [longitude, latitude]"
-        description: A connected sequence of four or more points creating a closed
-          ring
+        $ref: "#/components/schemas/Ring2D"
       description: The first ring is the outer boundary. Any subsequent rings represent
         holes (interior boundaries)
     Recht:
@@ -2749,6 +2734,29 @@ components:
         nextPage:
           type: boolean
           description: Is er een volgende pagina
+    ResultsKanaal:
+      type: object
+      required:
+        - results
+        - count
+        - previousPage
+        - nextPage
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/Kanaal"
+          description: Reslultaten op huidige pagina
+        count:
+          type: integer
+          format: int64
+          description: Totaal aantal
+        previousPage:
+          type: boolean
+          description: Is er een vorige pagina
+        nextPage:
+          type: boolean
+          description: Is er een volgende pagina
     ResultsMedewerkerOverzicht:
       type: object
       required:
@@ -2868,12 +2876,7 @@ components:
       type: array
       minItems: 4
       items:
-        type: array
-        maxItems: 2
-        minItems: 2
-        items:
-          type: number
-        description: "Position as [longitude, latitude]"
+        $ref: "#/components/schemas/Point2D"
       description: A connected sequence of four or more points creating a closed ring
     Rol:
       type: object
@@ -4057,7 +4060,7 @@ info:
     email: andy.verberne@atos.net
     name: Andy Verberne
   title: e-Suite data extractie API
-  version: 0.15.0
+  version: 0.16.0
 security:
   - ApiKeyAuth: [ ]
 paths:
@@ -4546,6 +4549,48 @@ paths:
                 $ref: "#/components/schemas/Fout"
       tags:
         - Groepen
+  /kanalen:
+    get:
+      summary: Lijst van communicatie kanalen opvragen
+      operationId: kanaal_list
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            format: int32
+            description: Gewenste pagina; start bij 0
+            default: 0
+        - name: page_size
+          in: query
+          schema:
+            type: integer
+            format: int32
+            description: Maximum aantal items per pagina
+            default: 100
+      responses:
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Fout"
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResultsKanaal"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidatieFouten"
+      tags:
+        - Kanalen
   /medewerkers:
     get:
       summary: Lijst van medewerker overzichten opvragen

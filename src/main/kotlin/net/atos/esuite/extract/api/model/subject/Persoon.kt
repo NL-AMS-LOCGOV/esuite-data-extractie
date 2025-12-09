@@ -67,8 +67,8 @@ class Persoon(
     @field:Schema(description = "Overlijdensplaats", maxLength = 255)
     val overlijdensplaats: String?,
 
-    @field:Schema(description = "Gemeentelijk A-nummer", maxLength = 10)
-    val aNummer: String?,
+    @field:Schema(name = "aNummer", description = "Gemeentelijk A-nummer", maxLength = 10)
+    val anummer: String?,
 
     @field:Schema(description = "Reden opschorting bijhouding adresgegevens")
     val opschortingsReden: OpschortingsReden?,
