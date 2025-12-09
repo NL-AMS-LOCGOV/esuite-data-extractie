@@ -16,7 +16,7 @@ class Document(
     val documenttype: Documenttype,
 
     @field:Schema(description = "Status van document")
-    val documentStatus: DocumentStatus,
+    val documentstatus: Documentstatus,
 
     @field:Schema(description = "Titel van document", maxLength = 255)
     val titel: String,

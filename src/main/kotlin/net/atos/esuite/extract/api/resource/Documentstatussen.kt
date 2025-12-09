@@ -6,7 +6,7 @@ import jakarta.ws.rs.GET
 import jakarta.ws.rs.Path
 import jakarta.ws.rs.Produces
 import jakarta.ws.rs.core.MediaType
-import net.atos.esuite.extract.api.converter.toDocumentStatus
+import net.atos.esuite.extract.api.converter.toDocumentstatus
 import net.atos.esuite.extract.api.converter.toPage
 import net.atos.esuite.extract.api.model.shared.BladerParameters
 import net.atos.esuite.extract.api.model.shared.Fout
@@ -24,11 +24,11 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponse
     responseCode = "500", description = "Internal Server Error",
     content = [Content(schema = Schema(implementation = Fout::class))]
 )
-class DocumentStatussen(private val documentStatusRepository: DocumentStatusRepository) {
+class Documentstatussen(private val documentStatusRepository: DocumentStatusRepository) {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Operation(operationId = "documentstatus_list", summary = "Lijst van document statussen opvragen")
+    @Operation(operationId = "documentstatus_list", summary = "Lijst van documentstatussen opvragen")
     @APIResponse(responseCode = "200", description = "OK")
     @APIResponse(
         responseCode = "400", description = "Bad Request",
@@ -36,6 +36,6 @@ class DocumentStatussen(private val documentStatusRepository: DocumentStatusRepo
     )
     fun documentstatusList(@BeanParam @Valid bladerParameters: BladerParameters) =
         with(documentStatusRepository.findAll().page(bladerParameters.toPage())) {
-            Results(list().map { it.toDocumentStatus() }, count(), hasPreviousPage(), hasNextPage())
+            Results(list().map { it.toDocumentstatus() }, count(), hasPreviousPage(), hasNextPage())
         }
 }

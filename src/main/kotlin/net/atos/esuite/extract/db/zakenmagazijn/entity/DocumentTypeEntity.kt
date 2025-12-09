@@ -20,4 +20,21 @@ class DocumentTypeEntity : AbstractReferentieEntity() {
     @Column(name = "publicatieniveau")
     @Enumerated(EnumType.STRING)
     lateinit var publicatieniveau: DocumentPublicatieniveauEnum
+
+    @ManyToMany
+    @JoinTable(
+        name = "ztc_documenttype_documentstatus", schema = "zakenmagazijn",
+        joinColumns = [JoinColumn(name = "id_documenttype")],
+        inverseJoinColumns = [JoinColumn(name = "id_documentstatus")]
+    )
+    lateinit var documentStatussen: MutableSet<DocumentStatusEntity>
+
+//    @ManyToMany(cascade = [CascadeType.MERGE, CascadeType.PERSIST], fetch = FetchType.LAZY)
+//    @JoinTable(
+//        name = "ztc_documenttype_metadataelement",
+//        joinColumns = [JoinColumn(name = "id_documenttype")],
+//        inverseJoinColumns = [JoinColumn(name = "id_metadataelement")]
+//    )
+//    private var documentMetadataelementen: MutableSet<ReferentieMetadataelementEntity?>? = null
+
 }

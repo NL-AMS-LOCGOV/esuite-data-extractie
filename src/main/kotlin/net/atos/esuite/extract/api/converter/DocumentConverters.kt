@@ -20,7 +20,7 @@ class DocumentConverter(
         Document(
             functioneleIdentificatie = documentEntity.idFunctioneel,
             documentVorm = documentEntity.documentvormId?.let { toDocumentVorm(it) },
-            documentStatus = toDocumentStatus(documentEntity.documentstatusId),
+            documentstatus = toDocumentstatus(documentEntity.documentstatusId),
             documenttype = toDocumenttype(documentEntity.documenttypeId),
             titel = documentEntity.titel,
             kenmerk = documentEntity.kenmerk,
@@ -73,10 +73,10 @@ class DocumentConverter(
             ?.toDocumentVorm()
             ?: error("Document vorm id not found: $documentVormId")
 
-    private fun toDocumentStatus(documentStatusID: String) =
-        documentStatusRepository.findById(documentStatusID.substringAfter(ZAAKTYPE_ID_PREFIX).toLong())
-            ?.toDocumentStatus()
-            ?: error("Document status id not found: $documentStatusID")
+    private fun toDocumentstatus(documentstatusID: String) =
+        documentStatusRepository.findById(documentstatusID.substringAfter(ZAAKTYPE_ID_PREFIX).toLong())
+            ?.toDocumentstatus()
+            ?: error("Documentstatus id not found: $documentstatusID")
 
     private fun toTaal(taalId: String) =
         taalRepository.findById(taalId.substringAfter(ZAAKTYPE_ID_PREFIX).toLong())
@@ -109,14 +109,14 @@ private fun DocumentVormEntity.toDocumentVorm() =
         actief = actief,
     )
 
-fun DocumentStatusEntity.toDocumentStatus() =
-    DocumentStatus(
+fun DocumentStatusEntity.toDocumentstatus() =
+    Documentstatus(
         naam = naam,
         omschrijving = omschrijving,
         actief = actief,
         type = when {
-            systeemsetting && naam == "Nieuw" -> DocumentStatusType.nieuw
-            systeemsetting && naam == "Definitief" -> DocumentStatusType.definitief
+            systeemsetting && naam == "Nieuw" -> DocumentstatusType.nieuw
+            systeemsetting && naam == "Definitief" -> DocumentstatusType.definitief
             else -> null
         }
     )
@@ -131,7 +131,8 @@ fun DocumentTypeEntity.toDocumenttype() =
             DocumentPublicatieniveauEnum.EXTERN -> DocumentPublicatieniveau.extern
             DocumentPublicatieniveauEnum.INTERN -> DocumentPublicatieniveau.intern
             DocumentPublicatieniveauEnum.VERTROUWELIJK -> DocumentPublicatieniveau.vertrouwelijk
-        }
+        },
+        documentstatussen = documentStatussen.map { it.toDocumentstatus() }.toSet()
     )
 
 private fun DocumentVersieEntity.toDocumentversie(documentInhoudEntity: DocumentInhoudEntity) =

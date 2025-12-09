@@ -13,7 +13,10 @@ class Documenttype(
     val documentcategorie: String?,
 
     @field:Schema(description = "Default publicatieniveau")
-    val publicatieniveau: DocumentPublicatieniveau
+    val publicatieniveau: DocumentPublicatieniveau,
+
+    @field:Schema(description = "Mogelijke documentstatussen")
+    val documentstatussen: Set<Documentstatus>,
 
 ) : Referentie(
     naam = naam,

@@ -948,7 +948,7 @@ components:
       required:
         - functioneleIdentificatie
         - documenttype
-        - documentStatus
+        - documentstatus
         - titel
         - creatieDatumTijd
         - publicatieniveau
@@ -972,8 +972,8 @@ components:
           $ref: "#/components/schemas/Documenttype"
           type: object
           description: Type document
-        documentStatus:
-          $ref: "#/components/schemas/DocumentStatus"
+        documentstatus:
+          $ref: "#/components/schemas/Documentstatus"
           type: object
           description: Status van document
         titel:
@@ -1185,21 +1185,6 @@ components:
         - inkomend
         - intern
         - uitgaand
-    DocumentStatus:
-      type: object
-      allOf:
-        - $ref: "#/components/schemas/Referentie"
-      properties:
-        type:
-          type: string
-          description: Document status bepaald dat het document een nieuw of definitief
-            document is
-          $ref: "#/components/schemas/DocumentStatusType"
-    DocumentStatusType:
-      type: string
-      enum:
-        - nieuw
-        - definitief
     DocumentTag:
       type: object
       allOf:
@@ -1226,10 +1211,26 @@ components:
           type: string
           maxLength: 64
           description: Type wijziging
+    Documentstatus:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/Referentie"
+      properties:
+        type:
+          type: string
+          description: Deze documentstatus bepaald dat het document een nieuw of definitief
+            document is
+          $ref: "#/components/schemas/DocumentstatusType"
+    DocumentstatusType:
+      type: string
+      enum:
+        - nieuw
+        - definitief
     Documenttype:
       type: object
       required:
         - publicatieniveau
+        - documentstatussen
       allOf:
         - $ref: "#/components/schemas/Referentie"
       properties:
@@ -1241,6 +1242,12 @@ components:
           $ref: "#/components/schemas/DocumentPublicatieniveau"
           type: string
           description: Default publicatieniveau
+        documentstatussen:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: "#/components/schemas/Documentstatus"
+          description: Mogelijke documentstatussen
     Documentversie:
       type: object
       required:
@@ -2676,7 +2683,7 @@ components:
         nextPage:
           type: boolean
           description: Is er een volgende pagina
-    ResultsDocumentStatus:
+    ResultsDocumentstatus:
       type: object
       required:
         - results
@@ -2687,7 +2694,7 @@ components:
         results:
           type: array
           items:
-            $ref: "#/components/schemas/DocumentStatus"
+            $ref: "#/components/schemas/Documentstatus"
           description: Reslultaten op huidige pagina
         count:
           type: integer
@@ -4405,7 +4412,7 @@ paths:
         - Documenten
   /documentstatussen:
     get:
-      summary: Lijst van document statussen opvragen
+      summary: Lijst van documentstatussen opvragen
       operationId: documentstatus_list
       parameters:
         - name: page
@@ -4436,7 +4443,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResultsDocumentStatus"
+                $ref: "#/components/schemas/ResultsDocumentstatus"
         "400":
           description: Bad Request
           content:
@@ -4444,7 +4451,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ValidatieFouten"
       tags:
-        - Document Statussen
+        - Documentstatussen
   /documenttypen:
     get:
       summary: Lijst van documenttypen opvragen

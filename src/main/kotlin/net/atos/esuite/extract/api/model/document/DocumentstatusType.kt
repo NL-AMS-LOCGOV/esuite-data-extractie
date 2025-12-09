@@ -1,5 +1,5 @@
 package net.atos.esuite.extract.api.model.document
 
-enum class DocumentStatusType {
+enum class DocumentstatusType {
     nieuw, definitief,
 }
