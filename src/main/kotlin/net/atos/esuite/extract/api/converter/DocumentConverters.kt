@@ -58,6 +58,7 @@ class DocumentConverter(
             taak = documentEntity.taak?.toTaak(),
             historie = documentEntity.historie.map { it.toDocumentHistorie() },
             publicaties = documentEntity.publicaties.map { it.toDocumentPublicatie() }.ifEmpty { null },
+            pdfaDocumentInhoudID = documentEntity.pdfaId?.let { toDocumentInhoudId(it) },
             pdfaDocumentversie = documentEntity.pdfaDocumentVersieEntity?.let {
                 it.toDocumentversie(toDocumentInhoudEntity(it.bestandsId))
             },

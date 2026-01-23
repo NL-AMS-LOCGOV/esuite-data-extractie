@@ -81,6 +81,9 @@ class Document(
     @field:Schema(description = "Document publicaties")
     val publicaties: List<DocumentPublicatie>?,
 
+    @field:Schema(description = "ID van document inhoud van PDFA versie van document")
+    val pdfaDocumentInhoudID: Long?,
+
     @field:Schema(description = "Document versie van PDFA versie van document")
     val pdfaDocumentversie: Documentversie?,
 

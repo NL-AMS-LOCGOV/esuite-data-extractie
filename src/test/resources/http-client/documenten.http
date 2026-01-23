@@ -22,6 +22,18 @@ X-API-KEY: {{api-key}}
     });
 %}
 
+### PDFA document
+GET {{base-url}}/documenten/inhoud/52068
+Content-Type: application/json
+Accept: application/octet-stream, application/json
+X-API-KEY: {{api-key}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+%}
+
 ### Niet bestaand Document
 GET {{base-url}}/documenten/inhoud/823746
 Content-Type: application/json

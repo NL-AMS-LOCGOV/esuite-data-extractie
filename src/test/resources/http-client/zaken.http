@@ -148,6 +148,16 @@ X-API-KEY: {{api-key}}
     });
 %}
 
+### Zaak met document met pdfa
+GET {{base-url}}/zaken/104-2026
+X-API-KEY: {{api-key}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+%}
+
 ### Zaak met archiveerGegevens.overgebrachteGegevens
 GET {{base-url}}/zaken/3783-2016
 X-API-KEY: {{api-key}}

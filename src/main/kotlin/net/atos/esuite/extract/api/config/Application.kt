@@ -4,7 +4,6 @@ import jakarta.ws.rs.core.Application
 import org.eclipse.microprofile.openapi.annotations.OpenAPIDefinition
 import org.eclipse.microprofile.openapi.annotations.enums.SecuritySchemeIn
 import org.eclipse.microprofile.openapi.annotations.enums.SecuritySchemeType
-import org.eclipse.microprofile.openapi.annotations.info.Contact
 import org.eclipse.microprofile.openapi.annotations.info.Info
 import org.eclipse.microprofile.openapi.annotations.security.SecurityRequirement
 import org.eclipse.microprofile.openapi.annotations.security.SecurityScheme
@@ -13,7 +12,7 @@ import org.eclipse.microprofile.openapi.annotations.security.SecurityScheme
 @OpenAPIDefinition(
     info = Info(
         title = "e-Suite Data Extractie Tool (DET)",
-        version = "1.0.0",
+        version = "1.1.0",
     ),
     security = [
         SecurityRequirement(
