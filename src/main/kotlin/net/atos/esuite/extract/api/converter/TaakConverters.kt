@@ -19,8 +19,8 @@ fun TaakEntity.toTaak() = Taak(
     procesTaak = procesTaakId,
     indicatieExternToegankelijk = indicatieExternToegankelijk,
     afgehandeldDoor = afgehandeldDoor,
-    taaktype = Taaktype.valueOf(taakType.lowercase()),
-    taaktypeOrigineel = Taaktype.valueOf(taakTypeOrigineel.lowercase()),
+    taaktype = taakType.toTaaktype(),
+    taaktypeOrigineel = taakTypeOrigineel.toTaaktype(),
     opschorttermijnStartdatum = opschorttermijnStartdatum,
     opschorttermijnEinddatum = opschorttermijnEinddatum,
     historie = historie.map { it.toTaakHistorie() },
@@ -39,3 +39,12 @@ private fun TaakHistorieEntity.toTaakHistorie() = TaakHistorie(
     toelichting = toelichting,
     typeWijziging = TaakHistorieTypeWijziging.valueOf(typeWijziging.lowercase()),
 )
+
+private fun String.toTaaktype() =
+    when (this.lowercase()) {
+        "standaard" -> Taaktype.standaard
+        "iburgerzaken" -> Taaktype.iburgerzaken
+        "extern" -> Taaktype.extern
+        "extern ketenpartner" -> Taaktype.extern_ketenpartner
+        else -> error("Invalid Taaktype: $this")
+    }
