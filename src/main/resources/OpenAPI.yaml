@@ -4195,11 +4195,8 @@ components:
       name: X-API-KEY
       in: header
 info:
-  contact:
-    email: andy.verberne@atos.net
-    name: Andy Verberne
-  title: e-Suite data extractie API
-  version: 0.18.0
+  title: e-Suite Data Extractie Tool (DET)
+  version: 1.0.0
 security:
   - ApiKeyAuth: [ ]
 paths:

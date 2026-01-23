@@ -9,6 +9,8 @@ import jakarta.ws.rs.core.Response
 import jakarta.ws.rs.ext.Provider
 import org.eclipse.microprofile.config.inject.ConfigProperty
 
+const val API_KEY_HEADER = "X-API-KEY"
+
 @Provider
 @Priority(Priorities.AUTHENTICATION)
 @ApplicationScoped
@@ -29,7 +31,7 @@ class ApiKeyFilter : ContainerRequestFilter {
             return
         }
 
-        val providedApiKey = requestContext.headers.getFirst("X-API-KEY")
+        val providedApiKey = requestContext.headers.getFirst(API_KEY_HEADER)
 
         if (providedApiKey == null || providedApiKey != apiKey) {
             requestContext.abortWith(
