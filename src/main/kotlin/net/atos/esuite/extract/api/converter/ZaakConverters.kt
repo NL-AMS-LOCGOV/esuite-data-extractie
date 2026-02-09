@@ -70,12 +70,15 @@ class ZaakConverter(
             },
             notificeerbaar = zaakEntity.notificeerbaar,
             open = zaakEntity.einddatum == null,
+            gemigreerd = zaakEntity.podiumdMigratieTijdstip != null,
+            podiumdMigratieTijdstip = zaakEntity.podiumdMigratieTijdstip,
         )
 
     fun toZaakOverzicht(zaakEntity: ZaakEntity) =
         ZaakOverzicht(
             functioneleIdentificatie = zaakEntity.functioneelId,
             zaakEntity.einddatum == null,
+            gemigreerd = zaakEntity.podiumdMigratieTijdstip != null,
         )
 
     private fun toZaaktypeOverzicht(zaaktypeId: String) =

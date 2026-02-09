@@ -156,6 +156,9 @@ class Zaak(
     @field:Schema(description = "Functionele identificatie van contacten gerelateerd aan zaak")
     val contacten: List<String>?,
 
-    @field:Schema(description = "Is zaak gemigreerd", required = true)
+    @field:Schema(description = "Is zaak gemigreerd naar PodiumD", required = true)
     val gemigreerd: Boolean = false,
+
+    @field:Schema(description = "Tijdstip waarop zaak gemigreerd is naar PodiumD", implementation = ZonedDateTime::class)
+    val podiumdMigratieTijdstip: ZonedDateTime?,
 )

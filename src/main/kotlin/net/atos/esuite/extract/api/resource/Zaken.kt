@@ -100,8 +100,7 @@ class Zaken(
         
         @RequestBody(required = true) @Valid @NotNull zaakPatch: ZaakPatch
     ): ZaakOverzicht {
-        println("zaakPatch called with functioneleIdentificatie '$functioneleIdentificatie' and migrated: ${zaakPatch.gemigreerd}")
-        return zaakRepository.findByFunctioneleIdentificatie(functioneleIdentificatie)
+        return zaakRepository.setZaakGemigreerd(functioneleIdentificatie, zaakPatch.gemigreerd.toBoolean())
             ?.let { zaakConverter.toZaakOverzicht(it) }
             ?: throw NotFoundException("Zaak with functionele identificatie '$functioneleIdentificatie' not found")
     }

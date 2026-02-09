@@ -3,7 +3,9 @@ package net.atos.esuite.extract.db.zakenmagazijn.repository
 import io.quarkus.hibernate.orm.panache.kotlin.PanacheQuery
 import io.quarkus.hibernate.orm.panache.kotlin.PanacheRepository
 import jakarta.enterprise.context.ApplicationScoped
+import jakarta.transaction.Transactional
 import net.atos.esuite.extract.db.zakenmagazijn.entity.ZaakEntity
+import java.time.ZonedDateTime
 
 @ApplicationScoped
 class ZaakRepository : PanacheRepository<ZaakEntity> {
@@ -32,4 +34,11 @@ class ZaakRepository : PanacheRepository<ZaakEntity> {
 
         return find(query, zaaktypeFunctioneelId)
     }
+
+    @Transactional
+    fun setZaakGemigreerd(functioneleIdentificatie: String, gemigreerd: Boolean) =
+        findByFunctioneleIdentificatie(functioneleIdentificatie)?.let { zaak ->
+            zaak.podiumdMigratieTijdstip = if (gemigreerd) ZonedDateTime.now() else null
+            zaak
+        }
 }

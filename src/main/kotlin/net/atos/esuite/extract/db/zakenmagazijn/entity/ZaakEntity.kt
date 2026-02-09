@@ -6,6 +6,7 @@ import net.atos.esuite.extract.db.configuratiemagazijn.entity.OrganisatieEntity
 import net.atos.esuite.extract.db.zakenmagazijn.entity.dataelement.AbstractDataElementEntity
 import java.time.Instant
 import java.time.LocalDate
+import java.time.ZonedDateTime
 
 
 @Entity
@@ -182,4 +183,7 @@ class ZaakEntity {
 
     @OneToMany(mappedBy = "zaak")
     lateinit var contacten: MutableSet<ZaakContactEntity>
+
+    @Column(name = "podiumd_migratie_tijdstip")
+    var podiumdMigratieTijdstip: ZonedDateTime? = null
 }
