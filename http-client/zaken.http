@@ -221,6 +221,7 @@ Content-Type: application/json
 > {%
     client.test("Request executed successfully", function () {
         client.assert(response.status === 200, "Response status is not 200");
+        client.assert(response.body.gemigreerd == true, "Response body gemigreerd is not true")
     });
 %}
 
@@ -232,6 +233,17 @@ Content-Type: application/json
 {
   "gemigreerd": false
 }
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+        client.assert(response.body.gemigreerd == false, "Response body gemigreerd is not false")
+    });
+%}
+
+### Wel of niet gemigreerde zaak
+GET {{base-url}}/zaken/12-2023
+X-API-KEY: {{api-key}}
 
 > {%
     client.test("Request executed successfully", function () {
