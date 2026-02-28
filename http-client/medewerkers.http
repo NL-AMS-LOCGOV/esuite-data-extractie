@@ -1,6 +1,7 @@
 ###
 GET {{base-url}}/medewerkers
 X-API-KEY: {{api-key}}
+Proxy-Authorization: Bearer {{jwt-iap}}
 
 > {%
     client.test("Request executed successfully", function () {
@@ -15,6 +16,7 @@ X-API-KEY: {{api-key}}
 ###
 GET {{base-url}}/medewerkers/andy
 X-API-KEY: {{api-key}}
+Proxy-Authorization: Bearer {{jwt-iap}}
 
 > {%
     client.test("Request executed successfully", function () {
@@ -25,6 +27,7 @@ X-API-KEY: {{api-key}}
 ###
 GET {{base-url}}/medewerkers/niek
 X-API-KEY: {{api-key}}
+Proxy-Authorization: Bearer {{jwt-iap}}
 
 > {%
     client.test("Request executed successfully", function () {

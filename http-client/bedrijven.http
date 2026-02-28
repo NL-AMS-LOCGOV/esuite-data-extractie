@@ -1,6 +1,7 @@
 ### Bedrijven met KvK nummer.
 GET {{base-url}}/bedrijven?kvk_nummer=11111111
 X-API-KEY: {{api-key}}
+Proxy-Authorization: Bearer {{jwt-iap}}
 
 > {%
     client.test("Request executed successfully", function () {
@@ -15,6 +16,7 @@ X-API-KEY: {{api-key}}
 ### Bedrijven met vestigingsnummer.
 GET {{base-url}}/bedrijven?vestigingsnummer=777761616112
 X-API-KEY: {{api-key}}
+Proxy-Authorization: Bearer {{jwt-iap}}
 
 > {%
     client.test("Request executed successfully", function () {
@@ -29,6 +31,7 @@ X-API-KEY: {{api-key}}
 ### Bedrijf met KvK nummer en vestigingsnummer.
 GET {{base-url}}/bedrijven?kvk_nummer=11111111&vestigingsnummer=777761616112
 X-API-KEY: {{api-key}}
+Proxy-Authorization: Bearer {{jwt-iap}}
 
 > {%
     client.test("Request executed successfully", function () {
@@ -43,6 +46,7 @@ X-API-KEY: {{api-key}}
 ### Bedrijf met KvK nummer en vestigingsnummer bestaat niet
 GET {{base-url}}/bedrijven?kvk_nummer=11111111&vestigingsnummer=777761616343
 X-API-KEY: {{api-key}}
+Proxy-Authorization: Bearer {{jwt-iap}}
 
 > {%
     client.test("Request executed successfully", function () {
@@ -57,6 +61,7 @@ X-API-KEY: {{api-key}}
 ### Bedrijven zonder KvK nummer en vestigingsnummer
 GET {{base-url}}/bedrijven
 X-API-KEY: {{api-key}}
+Proxy-Authorization: Bearer {{jwt-iap}}
 
 > {%
     client.test("Request executed successfully", function () {
@@ -68,6 +73,7 @@ X-API-KEY: {{api-key}}
 ### Bedrijf met invalide KvK nummer en vestigingsnummer.
 GET {{base-url}}/bedrijven?kvk_nummer=11111111x&vestigingsnummer=777761616112x
 X-API-KEY: {{api-key}}
+Proxy-Authorization: Bearer {{jwt-iap}}
 
 > {%
     client.test("Request executed successfully", function () {
@@ -80,6 +86,7 @@ X-API-KEY: {{api-key}}
 ### Bedrijf op identifier
 GET {{base-url}}/bedrijven/854559
 X-API-KEY: {{api-key}}
+Proxy-Authorization: Bearer {{jwt-iap}}
 
 > {%
     client.test("Request executed successfully", function () {
@@ -90,6 +97,7 @@ X-API-KEY: {{api-key}}
 ### Niet bestaand bedrijf op identifier
 GET {{base-url}}/bedrijven/85455992
 X-API-KEY: {{api-key}}
+Proxy-Authorization: Bearer {{jwt-iap}}
 
 > {%
     client.test("Request executed successfully", function () {

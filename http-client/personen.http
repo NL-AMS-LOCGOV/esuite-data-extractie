@@ -1,6 +1,7 @@
 ### Persoon met bsn.
 GET {{base-url}}/personen?bsn=220290258
 X-API-KEY: {{api-key}}
+Proxy-Authorization: Bearer {{jwt-iap}}
 
 > {%
     client.test("Request executed successfully", function () {
@@ -12,6 +13,7 @@ X-API-KEY: {{api-key}}
 ### Persoon met bsn welke niet wordt gevonden
 GET {{base-url}}/personen?bsn=644166800
 X-API-KEY: {{api-key}}
+Proxy-Authorization: Bearer {{jwt-iap}}
 
 > {%
     client.test("Request executed successfully", function () {
@@ -22,6 +24,7 @@ X-API-KEY: {{api-key}}
 ### Persoon met ongeldig bsn.
 GET {{base-url}}/personen?bsn=987654321
 X-API-KEY: {{api-key}}
+Proxy-Authorization: Bearer {{jwt-iap}}
 
 > {%
     client.test("Request executed successfully", function () {
@@ -34,6 +37,7 @@ X-API-KEY: {{api-key}}
 ### Persoon met ongeldig bsn.
 GET {{base-url}}/personen?bsn=220290258xx
 X-API-KEY: {{api-key}}
+Proxy-Authorization: Bearer {{jwt-iap}}
 
 > {%
     client.test("Request executed successfully", function () {
@@ -46,6 +50,7 @@ X-API-KEY: {{api-key}}
 ### Persoon met zonder bsn.
 GET {{base-url}}/personen
 X-API-KEY: {{api-key}}
+Proxy-Authorization: Bearer {{jwt-iap}}
 
 > {%
     client.test("Request executed successfully", function () {
@@ -58,6 +63,7 @@ X-API-KEY: {{api-key}}
 ### Persoon op identifier
 GET {{base-url}}/personen/4115
 X-API-KEY: {{api-key}}
+Proxy-Authorization: Bearer {{jwt-iap}}
 
 > {%
     client.test("Request executed successfully", function () {
@@ -69,6 +75,7 @@ X-API-KEY: {{api-key}}
 ### Persoon met ongeldige identifier
 GET {{base-url}}/personen/xxx
 X-API-KEY: {{api-key}}
+Proxy-Authorization: Bearer {{jwt-iap}}
 
 > {%
     client.test("Request executed successfully", function () {

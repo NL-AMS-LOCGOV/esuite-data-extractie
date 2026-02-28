@@ -1,6 +1,7 @@
 ###
 GET {{base-url}}/documenttypen
 X-API-KEY: {{api-key}}
+Proxy-Authorization: Bearer {{jwt-iap}}
 
 > {%
     client.test("Request executed successfully", function () {

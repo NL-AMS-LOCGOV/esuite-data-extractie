@@ -3,6 +3,7 @@ GET {{base-url}}/documenten/inhoud/50229
 Content-Type: application/json
 Accept: application/octet-stream, application/json
 X-API-KEY: {{api-key}}
+Proxy-Authorization: Bearer {{jwt-iap}}
 
 > {%
     client.test("Request executed successfully", function () {
@@ -15,6 +16,7 @@ GET {{base-url}}/documenten/inhoud/50931
 Content-Type: application/json
 Accept: application/octet-stream, application/json
 X-API-KEY: {{api-key}}
+Proxy-Authorization: Bearer {{jwt-iap}}
 
 > {%
     client.test("Request executed successfully", function () {
@@ -27,6 +29,7 @@ GET {{base-url}}/documenten/inhoud/52068
 Content-Type: application/json
 Accept: application/octet-stream, application/json
 X-API-KEY: {{api-key}}
+Proxy-Authorization: Bearer {{jwt-iap}}
 
 > {%
     client.test("Request executed successfully", function () {
@@ -39,6 +42,7 @@ GET {{base-url}}/documenten/inhoud/823746
 Content-Type: application/json
 Accept: application/octet-stream, application/json
 X-API-KEY: {{api-key}}
+Proxy-Authorization: Bearer {{jwt-iap}}
 
 > {%
     client.test("Request executed successfully", function () {

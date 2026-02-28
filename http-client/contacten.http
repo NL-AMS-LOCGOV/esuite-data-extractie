@@ -1,6 +1,7 @@
 ###
 GET {{base-url}}/contacten
 X-API-KEY: {{api-key}}
+Proxy-Authorization: Bearer {{jwt-iap}}
 
 > {%
     client.test("Request executed successfully", function () {
@@ -14,6 +15,7 @@ X-API-KEY: {{api-key}}
 ###
 GET {{base-url}}/contacten?page=0&page_size=20
 X-API-KEY: {{api-key}}
+Proxy-Authorization: Bearer {{jwt-iap}}
 
 > {%
     client.test("Request executed successfully", function () {
@@ -27,6 +29,7 @@ X-API-KEY: {{api-key}}
 ###
 GET {{base-url}}/contacten?page=1&page_size=20
 X-API-KEY: {{api-key}}
+Proxy-Authorization: Bearer {{jwt-iap}}
 
 > {%
     client.test("Request executed successfully", function () {
@@ -40,6 +43,7 @@ X-API-KEY: {{api-key}}
 ###
 GET {{base-url}}/contacten?page=0&page_size=1000
 X-API-KEY: {{api-key}}
+Proxy-Authorization: Bearer {{jwt-iap}}
 
 > {%
     client.test("Request executed successfully", function () {
@@ -53,6 +57,7 @@ X-API-KEY: {{api-key}}
 ###
 GET {{base-url}}/contacten?page=1&page_size=1000
 X-API-KEY: {{api-key}}
+Proxy-Authorization: Bearer {{jwt-iap}}
 
 > {%
     client.test("Request executed successfully", function () {
@@ -66,6 +71,7 @@ X-API-KEY: {{api-key}}
 ###
 GET {{base-url}}/contacten?page=2&page_size=1000
 X-API-KEY: {{api-key}}
+Proxy-Authorization: Bearer {{jwt-iap}}
 
 > {%
     client.test("Request executed successfully", function () {
@@ -78,6 +84,7 @@ X-API-KEY: {{api-key}}
 ###
 GET {{base-url}}/contacten/467-2024
 X-API-KEY: {{api-key}}
+Proxy-Authorization: Bearer {{jwt-iap}}
 
 > {%
     client.test("Request executed successfully", function () {
@@ -88,6 +95,7 @@ X-API-KEY: {{api-key}}
 ###
 GET {{base-url}}/contacten/NIET-BESTAAND
 X-API-KEY: {{api-key}}
+Proxy-Authorization: Bearer {{jwt-iap}}
 
 > {%
     client.test("Request executed successfully", function () {
@@ -99,6 +107,7 @@ X-API-KEY: {{api-key}}
 ### Gekoppelde contacten
 GET {{base-url}}/contacten/51-2017
 X-API-KEY: {{api-key}}
+Proxy-Authorization: Bearer {{jwt-iap}}
 
 > {%
     client.test("Request executed successfully", function () {

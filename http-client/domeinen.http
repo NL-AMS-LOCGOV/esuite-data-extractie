@@ -1,6 +1,7 @@
 ###
 GET {{base-url}}/domeinen
 X-API-KEY: {{api-key}}
+Proxy-Authorization: Bearer {{jwt-iap}}
 
 > {%
     client.test("Request executed successfully", function () {
@@ -15,6 +16,7 @@ X-API-KEY: {{api-key}}
 ###
 GET {{base-url}}/domeinen/Cucumber
 X-API-KEY: {{api-key}}
+Proxy-Authorization: Bearer {{jwt-iap}}
 
 > {%
     client.test("Request executed successfully", function () {
@@ -26,6 +28,7 @@ X-API-KEY: {{api-key}}
 ###
 GET {{base-url}}/domeinen/Cucumber/objecten
 X-API-KEY: {{api-key}}
+Proxy-Authorization: Bearer {{jwt-iap}}
 
 > {%
     client.test("Request executed successfully", function () {
@@ -40,6 +43,7 @@ X-API-KEY: {{api-key}}
 ###
 GET {{base-url}}/domeinen/Marcs_Domain/objecten
 X-API-KEY: {{api-key}}
+Proxy-Authorization: Bearer {{jwt-iap}}
 
 > {%
     client.test("Request executed successfully", function () {
@@ -57,6 +61,7 @@ X-API-KEY: {{api-key}}
 
 #GET {{base-url}}/domeinen/HVV%20Adressen
 #X-API-KEY: {{api-key}}
+Proxy-Authorization: Bearer {{jwt-iap}}
 #
 #> {%
 #    client.test("Request executed successfully", function () {
@@ -67,6 +72,7 @@ X-API-KEY: {{api-key}}
 ####
 #GET {{base-url}}/domeinen/HVV%20Adressen/objecten
 #X-API-KEY: {{api-key}}
+Proxy-Authorization: Bearer {{jwt-iap}}
 #
 #> {%
 #    client.test("Request executed successfully", function () {
