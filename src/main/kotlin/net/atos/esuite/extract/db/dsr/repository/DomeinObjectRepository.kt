@@ -1,10 +1,10 @@
 package net.atos.esuite.extract.db.dsr.repository
 
 import io.quarkus.hibernate.orm.panache.kotlin.PanacheRepository
-import jakarta.enterprise.context.ApplicationScoped
+import jakarta.inject.Singleton
 import net.atos.esuite.extract.db.dsr.entity.domein.DomeinObjectEntity
 
-@ApplicationScoped
+@Singleton
 class DomeinObjectRepository : PanacheRepository<DomeinObjectEntity> {
 
     fun countByDomeinDefinitieId(domeinDefinitieId: Long): Long {

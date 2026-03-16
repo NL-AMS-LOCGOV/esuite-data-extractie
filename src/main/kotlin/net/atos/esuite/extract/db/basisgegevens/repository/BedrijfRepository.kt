@@ -1,10 +1,10 @@
 package net.atos.esuite.extract.db.basisgegevens.repository
 
 import io.quarkus.hibernate.orm.panache.kotlin.PanacheRepository
-import jakarta.enterprise.context.ApplicationScoped
+import jakarta.inject.Singleton
 import net.atos.esuite.extract.db.basisgegevens.entity.BedrijfEntity
 
-@ApplicationScoped
+@Singleton
 class BedrijfRepository : PanacheRepository<BedrijfEntity> {
 
     fun listByKvkNummer(kvkNummer: String) =

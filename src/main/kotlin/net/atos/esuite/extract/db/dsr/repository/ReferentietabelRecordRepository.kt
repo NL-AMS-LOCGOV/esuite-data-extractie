@@ -1,10 +1,10 @@
 package net.atos.esuite.extract.db.dsr.repository
 
 import io.quarkus.hibernate.orm.panache.kotlin.PanacheRepository
-import jakarta.enterprise.context.ApplicationScoped
+import jakarta.inject.Singleton
 import net.atos.esuite.extract.db.dsr.entity.tabel.ReferentietabelRecordEntity
 
-@ApplicationScoped
+@Singleton
 class ReferentietabelRecordRepository : PanacheRepository<ReferentietabelRecordEntity> {
 
     fun countByReferentietabelDefinitieId(referentietabelDefinitieId: Long): Long {

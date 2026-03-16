@@ -1,6 +1,6 @@
 package net.atos.esuite.extract.api.converter
 
-import jakarta.enterprise.context.ApplicationScoped
+import jakarta.inject.Singleton
 import net.atos.esuite.extract.api.model.document.*
 import net.atos.esuite.extract.db.zakenmagazijn.entity.*
 import net.atos.esuite.extract.db.zakenmagazijn.repository.*
@@ -9,7 +9,7 @@ private const val DOCUMENTSTATUS_NIEUW = "Nieuw"
 
 private const val DOCUMENTSTATUS_DEFINITIEF = "Definitief"
 
-@ApplicationScoped
+@Singleton
 class DocumentConverter(
     private val documentTypeRepository: DocumentTypeRepository,
     private val documentStatusRepository: DocumentStatusRepository,

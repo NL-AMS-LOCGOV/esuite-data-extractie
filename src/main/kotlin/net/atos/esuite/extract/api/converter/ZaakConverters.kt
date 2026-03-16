@@ -1,6 +1,6 @@
 package net.atos.esuite.extract.api.converter
 
-import jakarta.enterprise.context.ApplicationScoped
+import jakarta.inject.Singleton
 import net.atos.esuite.extract.api.model.bag.BAGObject
 import net.atos.esuite.extract.api.model.besluit.Besluit
 import net.atos.esuite.extract.api.model.besluit.Besluitcategorie
@@ -10,7 +10,7 @@ import net.atos.esuite.extract.db.basisgegevens.repository.SubjectRepository
 import net.atos.esuite.extract.db.zakenmagazijn.entity.*
 import net.atos.esuite.extract.db.zakenmagazijn.repository.*
 
-@ApplicationScoped
+@Singleton
 class ZaakConverter(
     private val zaakStatusRepository: ZaakStatusRepository,
     private val resultaatRepository: ResultaatRepository,

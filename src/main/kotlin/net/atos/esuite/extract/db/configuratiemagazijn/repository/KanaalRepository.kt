@@ -1,9 +1,9 @@
 package net.atos.esuite.extract.db.configuratiemagazijn.repository
 
 import io.quarkus.hibernate.orm.panache.kotlin.PanacheRepository
-import jakarta.enterprise.context.ApplicationScoped
+import jakarta.inject.Singleton
 import net.atos.esuite.extract.db.configuratiemagazijn.entity.KanaalEntity
 
-@ApplicationScoped
+@Singleton
 class KanaalRepository : PanacheRepository<KanaalEntity> {
 }

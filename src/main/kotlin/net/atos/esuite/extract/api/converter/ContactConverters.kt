@@ -1,13 +1,13 @@
 package net.atos.esuite.extract.api.converter
 
-import jakarta.enterprise.context.ApplicationScoped
+import jakarta.inject.Singleton
 import net.atos.esuite.extract.api.model.bag.BAGObject
 import net.atos.esuite.extract.api.model.contact.*
 import net.atos.esuite.extract.db.basisgegevens.repository.SubjectRepository
 import net.atos.esuite.extract.db.configuratiemagazijn.entity.OrganisatieEntity
 import net.atos.esuite.extract.db.contactenmagazijn.entity.*
 
-@ApplicationScoped
+@Singleton
 class ContactConverter(
     private val subjectRepository: SubjectRepository,
 ) {

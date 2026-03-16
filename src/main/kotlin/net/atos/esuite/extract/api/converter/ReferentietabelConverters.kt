@@ -1,12 +1,12 @@
 package net.atos.esuite.extract.api.converter
 
-import jakarta.enterprise.context.ApplicationScoped
+import jakarta.inject.Singleton
 import net.atos.esuite.extract.api.model.dsr.tabel.*
 import net.atos.esuite.extract.db.dsr.entity.definitie.ReferentietabelDefinitieEntity
 import net.atos.esuite.extract.db.dsr.entity.tabel.*
 import net.atos.esuite.extract.db.dsr.repository.ReferentietabelRecordRepository
 
-@ApplicationScoped
+@Singleton
 class ReferentietabelConverter(
     private val referentietabelRecordRepository: ReferentietabelRecordRepository,
 ) {

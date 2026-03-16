@@ -1,7 +1,7 @@
 package net.atos.esuite.extract.api.config
 
 import jakarta.annotation.Priority
-import jakarta.enterprise.context.ApplicationScoped
+import jakarta.inject.Singleton
 import jakarta.ws.rs.Priorities
 import jakarta.ws.rs.container.ContainerRequestContext
 import jakarta.ws.rs.container.ContainerRequestFilter
@@ -13,7 +13,7 @@ const val API_KEY_HEADER = "X-API-KEY"
 
 @Provider
 @Priority(Priorities.AUTHENTICATION)
-@ApplicationScoped
+@Singleton
 class ApiKeyFilter : ContainerRequestFilter {
 
     @ConfigProperty(name = "api.key")

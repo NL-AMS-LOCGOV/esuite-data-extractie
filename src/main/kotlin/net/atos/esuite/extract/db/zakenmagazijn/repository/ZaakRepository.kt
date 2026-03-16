@@ -2,12 +2,12 @@ package net.atos.esuite.extract.db.zakenmagazijn.repository
 
 import io.quarkus.hibernate.orm.panache.kotlin.PanacheQuery
 import io.quarkus.hibernate.orm.panache.kotlin.PanacheRepository
-import jakarta.enterprise.context.ApplicationScoped
+import jakarta.inject.Singleton
 import jakarta.transaction.Transactional
 import net.atos.esuite.extract.db.zakenmagazijn.entity.ZaakEntity
 import java.time.ZonedDateTime
 
-@ApplicationScoped
+@Singleton
 class ZaakRepository : PanacheRepository<ZaakEntity> {
 
     fun findByFunctioneleIdentificatie(functioneleIdentificatie: String) =
