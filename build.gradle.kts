@@ -1,9 +1,8 @@
 plugins {
-    kotlin("jvm") version "2.2.21"
-    kotlin("plugin.allopen") version "2.2.21"
+    kotlin("jvm") version "2.3.20"
+    kotlin("plugin.allopen") version "2.3.20"
     id("io.quarkus")
 }
-
 repositories {
     mavenCentral()
 }
