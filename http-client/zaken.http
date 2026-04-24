@@ -193,6 +193,28 @@ Proxy-Authorization: Bearer {{jwt-iap}}
     });
 %}
 
+### Zaak met domein objecten
+GET {{base-url}}/zaken/972-2015
+X-API-KEY: {{api-key}}
+Proxy-Authorization: Bearer {{jwt-iap}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+%}
+
+### Zaak met domein objecten met historie
+GET {{base-url}}/zaken/980-2023
+X-API-KEY: {{api-key}}
+Proxy-Authorization: Bearer {{jwt-iap}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+%}
+
 ### Zaak met persoon met bsn als initiator en 2 personen en bedrijf als betrokkenen waarvan persoon notitie heeft
 GET {{base-url}}/zaken/337-2023
 X-API-KEY: {{api-key}}

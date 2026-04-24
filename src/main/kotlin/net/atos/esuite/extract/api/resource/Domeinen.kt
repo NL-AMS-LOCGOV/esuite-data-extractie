@@ -56,8 +56,7 @@ class Domeinen(
         @Schema(description = "Naam van domein", maxLength = 255)
         @Length(max = 255, message = "Naam mag niet langer zijn dan 255 tekens")
         naam: String
-    ) =
-        domeinDefinitieRepository.findByNaam(naam)
+    ) = domeinDefinitieRepository.findByNaam(naam)
             ?.let { domeinConverter.toDomein(it) }
             ?: throw NotFoundException("Domein with naam '$naam' not found")
 
@@ -79,8 +78,7 @@ class Domeinen(
         @BeanParam
         @Valid
         bladerParameters: BladerParameters
-    ) =
-        with(domeinObjectRepository.listByDomeinNaam(domeinNaam).page(bladerParameters.toPage())) {
+    ) = with(domeinObjectRepository.listByDomeinNaam(domeinNaam).page(bladerParameters.toPage())) {
             Results(list().map { it.toDomeinObject() }, count(), hasPreviousPage(), hasNextPage())
         }
 }

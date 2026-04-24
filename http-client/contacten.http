@@ -92,6 +92,17 @@ Proxy-Authorization: Bearer {{jwt-iap}}
     });
 %}
 
+### Contact met gekoppelde domeinobjecten
+GET {{base-url}}/contacten/27882-2022
+X-API-KEY: {{api-key}}
+Proxy-Authorization: Bearer {{jwt-iap}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+%}
+
 ###
 GET {{base-url}}/contacten/NIET-BESTAAND
 X-API-KEY: {{api-key}}

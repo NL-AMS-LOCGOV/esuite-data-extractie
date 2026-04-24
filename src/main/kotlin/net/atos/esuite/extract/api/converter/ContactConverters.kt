@@ -6,10 +6,12 @@ import net.atos.esuite.extract.api.model.contact.*
 import net.atos.esuite.extract.db.basisgegevens.repository.SubjectRepository
 import net.atos.esuite.extract.db.configuratiemagazijn.entity.OrganisatieEntity
 import net.atos.esuite.extract.db.contactenmagazijn.entity.*
+import net.atos.esuite.extract.db.dsr.repository.DomeinObjectRepository
 
 @Singleton
 class ContactConverter(
     private val subjectRepository: SubjectRepository,
+    private val dDomeinObjectRepository: DomeinObjectRepository,
 ) {
     fun toContact(contactEntity: ContactEntity) =
         Contact(
@@ -44,6 +46,7 @@ class ContactConverter(
             voorlopigeAntwoorden = contactEntity.voorlopigeAntwoorden.map { it.toVoorlopigAntwoord() }.ifEmpty { null },
             gekoppeldeContacten = contactEntity.gekoppeldeContacten1.map { it.functioneelId }.ifEmpty { null },
             organisatie = contactEntity.organisatie?.toOrganisatie(),
+            domeinObjecten = dDomeinObjectRepository.findByGekoppeldContact(contactEntity.functioneelId).map { it.toDomeinObject() }.ifEmpty { null },
         )
 
     fun toContactOverzicht(contactEntity: ContactEntity) =

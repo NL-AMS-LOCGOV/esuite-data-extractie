@@ -12,7 +12,7 @@ import org.eclipse.microprofile.openapi.annotations.security.SecurityScheme
 @OpenAPIDefinition(
     info = Info(
         title = "e-Suite Data Extractie Tool (DET)",
-        version = "1.2.0",
+        version = "1.3.0",
     ),
     security = [
         SecurityRequirement(

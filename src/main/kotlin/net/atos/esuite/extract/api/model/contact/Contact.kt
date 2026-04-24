@@ -1,6 +1,7 @@
 package net.atos.esuite.extract.api.model.contact
 
 import net.atos.esuite.extract.api.model.bag.BAGObject
+import net.atos.esuite.extract.api.model.dsr.domein.DomeinObject
 import net.atos.esuite.extract.api.model.shared.Kanaal
 import net.atos.esuite.extract.api.model.subject.Subject
 import org.eclipse.microprofile.openapi.annotations.media.Schema
@@ -87,4 +88,7 @@ class Contact (
 
     @field:Schema(description = "Organisatie behorende bij contact")
     val organisatie: Organisatie?,
+
+    @field:Schema(description = "Domein Objecten gerelateerd aan contact")
+    val domeinObjecten: List<DomeinObject>?,
 )

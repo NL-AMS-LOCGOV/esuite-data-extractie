@@ -3,6 +3,7 @@ package net.atos.esuite.extract.api.model.zaak
 import net.atos.esuite.extract.api.model.bag.BAGObject
 import net.atos.esuite.extract.api.model.besluit.Besluit
 import net.atos.esuite.extract.api.model.document.Document
+import net.atos.esuite.extract.api.model.dsr.domein.DomeinObject
 import net.atos.esuite.extract.api.model.geojson.Geometry
 import net.atos.esuite.extract.api.model.shared.Kanaal
 import net.atos.esuite.extract.api.model.subject.Subject
@@ -138,7 +139,7 @@ class Zaak(
     @field:Schema(description = "Taken gerelateerd aan zaak")
     val taken: List<Taak>?,
 
-    @field:Schema(description = "Betrokkenem gerelateerd aan zaak")
+    @field:Schema(description = "Betrokkenen gerelateerd aan zaak")
     val betrokkenen: List<ZaakBetrokkene>?,
 
     @field:Schema(description = "BAG Objecten gerelateerd aan zaak")
@@ -155,6 +156,9 @@ class Zaak(
 
     @field:Schema(description = "Functionele identificatie van contacten gerelateerd aan zaak")
     val contacten: List<String>?,
+
+    @field:Schema(description = "Domein Objecten gerelateerd aan zaak")
+    val domeinObjecten: List<DomeinObject>?,
 
     @field:Schema(description = "Is zaak gemigreerd naar PodiumD", required = true)
     val gemigreerd: Boolean = false,

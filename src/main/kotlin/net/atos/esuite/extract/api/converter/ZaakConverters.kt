@@ -7,6 +7,7 @@ import net.atos.esuite.extract.api.model.besluit.Besluitcategorie
 import net.atos.esuite.extract.api.model.besluit.Besluittype
 import net.atos.esuite.extract.api.model.zaak.*
 import net.atos.esuite.extract.db.basisgegevens.repository.SubjectRepository
+import net.atos.esuite.extract.db.dsr.repository.DomeinObjectRepository
 import net.atos.esuite.extract.db.zakenmagazijn.entity.*
 import net.atos.esuite.extract.db.zakenmagazijn.repository.*
 
@@ -18,6 +19,7 @@ class ZaakConverter(
     private val documentConverter: DocumentConverter,
     private val besluittypeRepository: BesluittypeRepository,
     private val subjectRepository: SubjectRepository,
+    private val dDomeinObjectRepository: DomeinObjectRepository,
 ) {
     fun toZaak(zaakEntity: ZaakEntity) =
         Zaak(
@@ -72,6 +74,7 @@ class ZaakConverter(
             open = zaakEntity.einddatum == null,
             gemigreerd = zaakEntity.podiumdMigratieTijdstip != null,
             podiumdMigratieTijdstip = zaakEntity.podiumdMigratieTijdstip,
+            domeinObjecten = dDomeinObjectRepository.findByGekoppeldeZaak(zaakEntity.functioneelId).map { it.toDomeinObject() }.ifEmpty { null },
         )
 
     fun toZaakOverzicht(zaakEntity: ZaakEntity) =
