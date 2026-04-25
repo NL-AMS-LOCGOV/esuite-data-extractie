@@ -17,14 +17,14 @@ class Zaakstatus(
 
     @field:Schema(
         description = "Naam van status zoals deze getoond wordt in het publieke deel (burger en bedrijven loket) van de e=Suite",
-        maxLength = 255
+        maxLength = 255, required = false
     )
     val externeNaam: String?,
 
-    @field:Schema(description = "Geeft aan of status gebruikt kan worden bij starten van zaak.", required = true)
+    @field:Schema(description = "Geeft aan of status gebruikt kan worden bij starten van zaak.")
     val start: Boolean,
 
-    @field:Schema(description = "Geeft aan of status gebruikt kan worden bij beeindigen van zaak.", required = true)
+    @field:Schema(description = "Geeft aan of status gebruikt kan worden bij beeindigen van zaak.")
     val eind: Boolean,
 
     ) : Referentie(

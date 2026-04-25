@@ -10,10 +10,10 @@ class Nationaliteit(
     omschrijving: String?,
     actief: Boolean,
 
-    @field:Schema(description = "Reden verkrijging nationaliteit", maxLength = 255)
+    @field:Schema(description = "Reden verkrijging nationaliteit", maxLength = 255, required = false)
     val redenVerkrijging: String?,
 
-    @field:Schema(description = "Datum verkrijging nationaliteit", implementation = LocalDate::class)
+    @field:Schema(description = "Datum verkrijging nationaliteit", implementation = LocalDate::class, required = false)
     val datumVerkrijging: LocalDate?,
 
     @field:Schema(description = "GBA code", maxLength = 10)

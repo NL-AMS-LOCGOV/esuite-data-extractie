@@ -5,7 +5,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema
 @Schema(allOf = [ReferentietabelRecordAttribuut::class])
 class BooleanReferentietabelRecordAttribuut(
 
-    @field:Schema(description = "Boolean waarde", required = true)
+    @field:Schema(description = "Boolean waarde")
     val waarde: Boolean,
 
     naam: String,

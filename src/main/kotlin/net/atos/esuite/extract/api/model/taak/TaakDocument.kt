@@ -10,16 +10,16 @@ class TaakDocument(
     omschrijving: String?,
     actief: Boolean,
 
-    @field:Schema(description = "Document naam", maxLength = 255)
+    @field:Schema(description = "Document naam", maxLength = 255, required = false)
     val documentNaam: String?,
 
-    @field:Schema(description = "Document template", maxLength = 255)
+    @field:Schema(description = "Document template", maxLength = 255, required = false)
     val documentTemplate: String?,
 
-    @field:Schema(description = "Template groep", maxLength = 255)
+    @field:Schema(description = "Template groep", maxLength = 255, required = false)
     val templateGroep: String?,
 
-    @field:Schema(description = "Type document")
+    @field:Schema(description = "Type document", required = false)
     val documenttype: Documenttype?,
 
     ) : Referentie(

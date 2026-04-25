@@ -9,7 +9,7 @@ class Iv3Categorie(
     omschrijving: String?,
     actief: Boolean,
 
-    @field:Schema(maxLength = 64)
+    @field:Schema(maxLength = 64, required = false)
     val externeCode: String?,
 
     ) : Referentie(

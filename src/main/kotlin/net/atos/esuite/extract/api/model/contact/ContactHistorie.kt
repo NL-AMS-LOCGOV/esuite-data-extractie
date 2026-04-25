@@ -12,7 +12,7 @@ class ContactHistorie(
     nieuweWaarde: String?,
     toelichting: String?,
 
-    @field:Schema(description = "Type wijziging")
+    @field:Schema(description = "Type wijziging", required = false)
     val typeWijziging: ContactHistorieTypeWijziging?,
 
     ) : History(

@@ -10,6 +10,6 @@ class Rol(
     @field:Schema(description = "Omschrijving van rol")
     val omschrijving: String,
 
-    @field:Schema(description = "Is rol actief", required = true)
+    @field:Schema(description = "Is rol actief")
     val actief: Boolean,
 )

@@ -10,6 +10,6 @@ class Functie(
     @field:Schema(description = "Omschrijving van functie")
     val omschrijving: String,
 
-    @field:Schema(description = "Is functie actief", required = true)
+    @field:Schema(description = "Is functie actief")
     val actief: Boolean,
 )

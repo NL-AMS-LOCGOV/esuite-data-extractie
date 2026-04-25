@@ -14,10 +14,10 @@ class ReferentietabelRecord(
     @field:Schema(description = "Datum vanaf wanneer record geldig is ", implementation = LocalDate::class)
     val ingangsdatumGeldigheid: LocalDate,
 
-    @field:Schema(description = "Datum waarna record niet meer geldig is", implementation = LocalDate::class)
+    @field:Schema(description = "Datum waarna record niet meer geldig is", implementation = LocalDate::class, required = false)
     val einddatumGeldigheid: LocalDate?,
 
-    @field:Schema(description = "Categorie van record", maxLength = 64)
+    @field:Schema(description = "Categorie van record", maxLength = 64, required = false)
     val categorie: String?,
 
     @field:Schema(description = "Attributen in record")

@@ -5,7 +5,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema
 @Schema(allOf = [DataElement::class])
 class BooleanDataElement(
 
-    @field:Schema(description = "Boolean waarde data element")
+    @field:Schema(description = "Boolean waarde data element", required = false)
     val waarde: Boolean?,
 
     naam: String,

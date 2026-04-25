@@ -5,7 +5,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema
 @Schema(allOf = [DomeinObjectAttribuutWaarde::class])
 class BooleanDomeinObjectAttribuutWaarde(
 
-    @field:Schema(description = "Boolean waarde", required = true)
+    @field:Schema(description = "Boolean waarde")
     val waarde: Boolean,
 
     volgnummer: Int,

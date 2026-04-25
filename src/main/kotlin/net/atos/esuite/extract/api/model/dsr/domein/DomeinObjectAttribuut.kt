@@ -7,7 +7,7 @@ class DomeinObjectAttribuut (
     @field:Schema(description = "Naam van domein object attribuut", maxLength = 128)
     val naam: String,
 
-    @field:Schema(description = "Omschrijving van domein object attribuut")
+    @field:Schema(description = "Omschrijving van domein object attribuut", required = false)
     val omschrijving: String?,
 
     @field:Schema(description = "Waarden van domein object attribuut")

@@ -9,7 +9,7 @@ class Referentietabel(
     omschrijving: String?,
     actief: Boolean,
 
-    @field:Schema(description = "Is referentie tabel een master/detail referentie tabel", required = true)
+    @field:Schema(description = "Is referentie tabel een master/detail referentie tabel")
     val masterDetail: Boolean,
 
     @field:Schema(description = "Aantal records in tabel")

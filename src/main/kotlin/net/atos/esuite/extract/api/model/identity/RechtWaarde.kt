@@ -4,13 +4,13 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema
 
 class RechtWaarde(waarde: String) {
 
-    @field:Schema(description = "Type recht waarde")
+    @field:Schema(description = "Type recht waarde", required = false)
     val type: RechtWaardeType? = parseRechtWaardeType(waarde)
 
-    @field:Schema(description = "Naam van object waarop 'type' van toepassing is", maxLength = 255)
+    @field:Schema(description = "Naam van object waarop 'type' van toepassing is", maxLength = 255, required = false)
     val objectNaam: String? = if (type != null) parseObjectNaam(waarde) else null
 
-    @field:Schema(description = "Waarde van recht indien 'type'of 'objectNaam' niet bepaald kunnen worden", maxLength = 255)
+    @field:Schema(description = "Waarde van recht indien 'type'of 'objectNaam' niet bepaald kunnen worden", maxLength = 255, required = false)
     val waarde: String? = if (type == null || objectNaam == null) waarde else null
 
     private fun parseRechtWaardeType(waarde: String) =

@@ -9,7 +9,7 @@ class Nevenactiviteit(
     omschrijving: String?,
     actief: Boolean,
 
-    @field:Schema(description = "Code", maxLength = 7)
+    @field:Schema(description = "Code", maxLength = 7, required = false)
     val code: String?,
 ) : Referentie(
     naam = naam,

@@ -5,7 +5,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema
 @Schema(allOf = [DomeinObjectAttribuutWaarde::class])
 class DomeinObjectDomeinObjectAttribuutWaarde(
 
-    @field:Schema(description = "Identificatie van ander domein object binnen hetzelfde domein", required = true)
+    @field:Schema(description = "Identificatie van ander domein object binnen hetzelfde domein")
     val waarde: Long,
 
     volgnummer: Int,

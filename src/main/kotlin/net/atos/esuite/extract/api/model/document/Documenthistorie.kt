@@ -12,7 +12,7 @@ class Documenthistorie(
     nieuweWaarde: String?,
     toelichting: String?,
 
-    @field:Schema(description = "Type wijziging", maxLength = 64)
+    @field:Schema(description = "Type wijziging", maxLength = 64, required = false)
     val typeWijziging: String?,
 
     ) : History(

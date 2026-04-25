@@ -9,9 +9,9 @@ class ZaaktypeBesluittype(
     @field:Schema(description = "Type besluit")
     val besluittype: Besluittype,
 
-    @field:Schema(description = "Documenttype van document met besluit")
+    @field:Schema(description = "Documenttype van document met besluit", required = false)
     val documenttype: Documenttype?,
 
-    @field:Schema(description = "Procestermijn in maanden")
+    @field:Schema(description = "Procestermijn in maanden", required = false)
     val procestermijn: Int?,
 )

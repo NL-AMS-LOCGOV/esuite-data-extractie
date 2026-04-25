@@ -9,9 +9,8 @@ import net.atos.esuite.extract.api.model.shared.BladerParameters
 import net.atos.esuite.extract.api.model.shared.Fout
 import net.atos.esuite.extract.api.model.shared.Results
 import net.atos.esuite.extract.api.model.shared.ValidatieFouten
-import net.atos.esuite.extract.api.validator.ValidKVKNummer
+import net.atos.esuite.extract.api.model.subject.BedrijfListParameters
 import net.atos.esuite.extract.api.validator.ValidNonNegativeInteger
-import net.atos.esuite.extract.api.validator.ValidVestigingsnummer
 import net.atos.esuite.extract.db.basisgegevens.repository.BedrijfRepository
 import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.media.Content
@@ -39,28 +38,19 @@ class Bedrijven(
         content = [Content(schema = Schema(implementation = ValidatieFouten::class))]
     )
     fun bedrijfList(
-        @Schema(description = "KvK nummer", minLength = 8, maxLength = 8)
-        @QueryParam("kvk_nummer")
-        @ValidKVKNummer
-        kvkNummer: String?,
-
-        @Schema(description = "vestigingsnummer", minLength = 12, maxLength = 12)
-        @QueryParam("vestigingsnummer")
-        @ValidVestigingsnummer
-        vestigingsnummer: String?,
-
+        @BeanParam @Valid listParameters: BedrijfListParameters,
         @BeanParam @Valid bladerParameters: BladerParameters
     ) =
         with(
             when {
-                !kvkNummer.isNullOrBlank() && !vestigingsnummer.isNullOrBlank() ->
-                    bedrijfRepository.listByKvkNummerAndVestigingsnummer(kvkNummer, vestigingsnummer)
+                !listParameters.kvkNummer.isNullOrBlank() && !listParameters.vestigingsnummer.isNullOrBlank() ->
+                    bedrijfRepository.listByKvkNummerAndVestigingsnummer(listParameters.kvkNummer!!, listParameters.vestigingsnummer!!)
 
-                !kvkNummer.isNullOrBlank() ->
-                    bedrijfRepository.listByKvkNummer(kvkNummer)
+                !listParameters.kvkNummer.isNullOrBlank() ->
+                    bedrijfRepository.listByKvkNummer(listParameters.kvkNummer!!)
 
-                !vestigingsnummer.isNullOrBlank() ->
-                    bedrijfRepository.listByVestigingsnummer(vestigingsnummer)
+                !listParameters.vestigingsnummer.isNullOrBlank() ->
+                    bedrijfRepository.listByVestigingsnummer(listParameters.vestigingsnummer!!)
 
                 else -> throw BadRequestException("Either KvK nummer or vestigingsnummer must be provided")
             }.page(bladerParameters.toPage())

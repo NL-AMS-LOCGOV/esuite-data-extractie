@@ -13,28 +13,28 @@ class Reisdocument(
     @field:Schema(description = "GBA landcode", maxLength = 2)
     val gbaCode: String,
 
-    @field:Schema(description = "Indicatie onttrekking aan verkeer", required = true)
+    @field:Schema(description = "Indicatie onttrekking aan verkeer")
     val indicatieOnttrekking: Boolean,
 
-    @field:Schema(description = "Naam autoriteit die document heeft onttrokken", maxLength = 255)
+    @field:Schema(description = "Naam autoriteit die document heeft onttrokken", maxLength = 255, required = false)
     val autoriteitOntrekking: String?,
 
-    @field:Schema(description = "Indicatie onttrekking aan verkeer")
+    @field:Schema(description = "Indicatie onttrekking aan verkeer", required = false)
     val indicatieVervallen: VervallenAanduiding?,
 
-    @field:Schema(description = "Naam autoriteit die document heeft onttrokken", maxLength = 255)
+    @field:Schema(description = "Naam autoriteit die document heeft onttrokken", maxLength = 255, required = false)
     val autoriteitVervallen: String?,
 
-    @field:Schema(description = "Einddatum geldigheid", implementation = LocalDate::class)
+    @field:Schema(description = "Einddatum geldigheid", implementation = LocalDate::class, required = false)
     val einddatumGeldigheid: LocalDate?,
 
-    @field:Schema(description = "Reisdocument nummer", maxLength = 10)
+    @field:Schema(description = "Reisdocument nummer", maxLength = 10, required = false)
     val reisdocumentnummer: String?,
 
-    @field:Schema(description = "Uitgifte datum", implementation = LocalDate::class)
+    @field:Schema(description = "Uitgifte datum", implementation = LocalDate::class, required = false)
     val uitgiftedatum: LocalDate?,
 
-    @field:Schema(description = "Naam autoriteit die document heeft onttrokken", maxLength = 128)
+    @field:Schema(description = "Naam autoriteit die document heeft onttrokken", maxLength = 128, required = false)
     val autoriteitUitgifte: String?,
 
     ) : Referentie(

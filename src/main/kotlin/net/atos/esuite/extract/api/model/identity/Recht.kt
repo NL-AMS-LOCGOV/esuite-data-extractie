@@ -7,7 +7,7 @@ class Recht(
     @field:Schema(description = "Naam van recht", maxLength = 255, uniqueItems = true)
     val naam: String,
 
-    @field:Schema(description = "Is recht actief", required = true)
+    @field:Schema(description = "Is recht actief")
     val actief: Boolean,
 
     @field:Schema(description = "Categorie waartoe recht behoort", maxLength = 255)
@@ -19,6 +19,6 @@ class Recht(
     @field:Schema(description = "Type object waarop operatie van toepassing is")
     val type: RechtType,
 
-    @field:Schema(description = "Waarde van het recht indien flexibel recht")
+    @field:Schema(description = "Waarde van het recht indien flexibel recht", required = false)
     val waarde: RechtWaarde?,
 )

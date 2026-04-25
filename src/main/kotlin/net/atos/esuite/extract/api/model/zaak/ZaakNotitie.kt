@@ -10,6 +10,6 @@ class ZaakNotitie(
     @field:Schema(description = "Datum en tijd waarop notitie is toegevoegd", implementation = ZonedDateTime::class)
     val datumTijd: ZonedDateTime,
 
-    @field:Schema(description = "Inhoud van notitie")
+    @field:Schema(description = "Inhoud van notitie", required = false)
     val notitie: String?
 )

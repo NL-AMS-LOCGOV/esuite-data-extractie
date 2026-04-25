@@ -7,6 +7,6 @@ class TaakDocumentGroep(
     @field:Schema(description = "Naam", maxLength = 255)
     val naam: String,
 
-    @field:Schema(description = "Taak documenten")
+    @field:Schema(description = "Taak documenten", required = false)
     val taakDocumenten: List<TaakDocument>?,
 )

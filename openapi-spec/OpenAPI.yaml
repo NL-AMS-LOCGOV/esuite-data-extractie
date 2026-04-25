@@ -17,6 +17,7 @@ components:
     AanvullijstRecord:
       type: object
       required:
+        - recordNummer
         - itemIdentificatie
       properties:
         recordNummer:
@@ -177,7 +178,7 @@ components:
           description: Naam medewerker die zaak op overbrengen zet
         overgebrachteGegevens:
           type: object
-          description: ""
+          description: Overgebrachte gegevens
           $ref: "#/components/schemas/OvergebrachteGegevens"
         beperkingOpenbaarheid:
           type: boolean
@@ -347,6 +348,7 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/Contactpersoon"
+          description: Contactpersonen
     Besluit:
       type: object
       required:
@@ -1317,6 +1319,8 @@ components:
           description: Indicatie of de Blob gecomprimeerd is opgeslagen
     Domein:
       type: object
+      required:
+        - aantalObjecten
       allOf:
         - $ref: "#/components/schemas/Referentie"
       properties:
@@ -2409,6 +2413,7 @@ components:
       type: object
       required:
         - masterDetail
+        - aantalRecords
       allOf:
         - $ref: "#/components/schemas/Referentie"
       properties:
@@ -2566,6 +2571,7 @@ components:
       type: object
       required:
         - type
+        - identifierPersoon
       properties:
         type:
           $ref: "#/components/schemas/RelatieType"
@@ -3132,6 +3138,7 @@ components:
     Subject:
       type: object
       required:
+        - identifier
         - subjecttype
         - handmatigToegevoegd
       oneOf:

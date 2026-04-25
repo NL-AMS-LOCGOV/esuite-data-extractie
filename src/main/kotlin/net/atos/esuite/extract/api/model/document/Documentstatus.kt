@@ -9,7 +9,7 @@ class Documentstatus(
     omschrijving: String?,
     actief: Boolean,
 
-    @field:Schema(description = "Deze documentstatus bepaald dat het document een nieuw of definitief document is")
+    @field:Schema(description = "Deze documentstatus bepaald dat het document een nieuw of definitief document is", required = false)
     val type: DocumentstatusType?
 
 ) : Referentie(

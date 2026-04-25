@@ -10,22 +10,22 @@ class Selectielijstitem(
     omschrijving: String?,
     actief: Boolean,
 
-    @field:Schema(description = "Versie (jaar) van selectielijst item")
+    @field:Schema(description = "Versie (jaar) van selectielijst item", required = false)
     val jaar: Int?,
 
-    @field:Schema(description = "Naam van domein", maxLength = 255)
+    @field:Schema(description = "Naam van domein", maxLength = 255, required = false)
     val domein: String?,
 
-    @field:Schema(description = "Naam van subdomein", maxLength = 255)
+    @field:Schema(description = "Naam van subdomein", maxLength = 255, required = false)
     val subdomein: String?,
 
-    @field:Schema(description = "Waardering van de bewaartermijn")
+    @field:Schema(description = "Waardering van de bewaartermijn", required = false)
     val bewaartermijnWaardering: BewaartermijnWaardering?,
 
-    @field:Schema(description = "Bewaartermijn. Voor eenheid zie bewaartermijnEenheid")
+    @field:Schema(description = "Bewaartermijn. Voor eenheid zie bewaartermijnEenheid", required = false)
     val bewaartermijn: Int?,
 
-    @field:Schema(description = "Bewaartermijn eenheid")
+    @field:Schema(description = "Bewaartermijn eenheid", required = false)
     val bewaartermijnEenheid: BewaartermijnEenheid?,
 
     ) : Referentie(

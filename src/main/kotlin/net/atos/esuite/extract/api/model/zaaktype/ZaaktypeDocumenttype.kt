@@ -9,9 +9,9 @@ class ZaaktypeDocumenttype(
     @field:Schema(description = "Type document")
     val documenttype: Documenttype,
 
-    @field:Schema(description = "DSP code", maxLength = 255)
+    @field:Schema(description = "DSP code", maxLength = 255, required = false)
     val dspcode: String?,
 
-    @field:Schema(description = "Mogelijke voorgedefinieerde document titels")
+    @field:Schema(description = "Mogelijke voorgedefinieerde document titels", required = false)
     val titels: List<DocumentTitel>?,
 )

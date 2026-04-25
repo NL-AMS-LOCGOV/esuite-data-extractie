@@ -12,12 +12,12 @@ class ZaaktypeResultaat(
     @field:Schema(description = "Selectielijst item")
     val selectielijstitem: Selectielijstitem,
 
-    @field:Schema(description = "Waardering van de bewaartermijn")
+    @field:Schema(description = "Waardering van de bewaartermijn", required = false)
     val bewaartermijnWaardering: BewaartermijnWaardering?,
 
-    @field:Schema(description = "Bewaartermijn. Voor eenheid zie bewaartermijnEenheid")
+    @field:Schema(description = "Bewaartermijn. Voor eenheid zie bewaartermijnEenheid", required = false)
     val bewaartermijn: Int?,
 
-    @field:Schema(description = "Bewaartermijn eenheid")
+    @field:Schema(description = "Bewaartermijn eenheid", required = false)
     val bewaartermijnEenheid: BewaartermijnEenheid?,
 )

@@ -7,7 +7,7 @@ import java.time.ZonedDateTime
 class CalendarDataElement(
     type: DataElementType,
 
-    @field:Schema(description = "Calendar waarde data element", implementation = ZonedDateTime::class)
+    @field:Schema(description = "Calendar waarde data element", implementation = ZonedDateTime::class, required = false)
     val waarde: ZonedDateTime?,
 
     naam: String,

@@ -5,16 +5,16 @@ import java.time.LocalDate
 
 class SubjectNotitie(
 
-    @field:Schema(description = "Datum vanaf wanneer notitie geldig is", implementation = LocalDate::class)
+    @field:Schema(description = "Datum vanaf wanneer notitie geldig is", implementation = LocalDate::class, required = false)
     val ingangsdatumGeldigheid: LocalDate?,
 
-    @field:Schema(description = "Afdeling", maxLength = 128)
+    @field:Schema(description = "Afdeling", maxLength = 128, required = false)
     val afdeling: String?,
 
-    @field:Schema(description = "Groep", maxLength = 128)
+    @field:Schema(description = "Groep", maxLength = 128, required = false)
     val groep: String?,
 
-    @field:Schema(description = "Datum tot wanneer notitie geldig is", implementation = LocalDate::class)
+    @field:Schema(description = "Datum tot wanneer notitie geldig is", implementation = LocalDate::class, required = false)
     val einddatumGeldigheid: LocalDate?,
 
     @field:Schema(description = "Datum waarop notitie is aangemaakt", implementation = LocalDate::class)

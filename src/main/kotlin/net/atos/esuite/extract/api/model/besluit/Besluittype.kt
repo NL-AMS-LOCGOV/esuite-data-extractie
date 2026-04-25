@@ -12,16 +12,16 @@ class Besluittype(
     @field:Schema(description = "Besluit categorie")
     val besluitcategorie: Besluitcategorie,
 
-    @field:Schema(description = "Reactietermijn in dagen", required = true)
+    @field:Schema(description = "Reactietermijn in dagen")
     val reactietermijnInDagen: Int,
 
-    @field:Schema(description = "Publicatie indicatie", required = true)
+    @field:Schema(description = "Publicatie indicatie")
     val publicatieIndicatie: Boolean,
 
-    @field:Schema(description = "Publicatietekst")
+    @field:Schema(description = "Publicatietekst", required = false)
     val publicatietekst: String?,
 
-    @field:Schema(description = "Publicatie termijn in dagen")
+    @field:Schema(description = "Publicatie termijn in dagen", required = false)
     val publicatietermijnInDagen: Int?,
 
     ) : Referentie(

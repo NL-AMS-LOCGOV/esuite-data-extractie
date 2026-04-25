@@ -11,34 +11,34 @@ class Medewerker(
     @field:Schema(description = "Volledige naam van medewerker", maxLength = 128)
     val volledigeNaam: String,
 
-    @field:Schema(description = "Telefoonnummer van medewerker", maxLength = 20)
+    @field:Schema(description = "Telefoonnummer van medewerker", maxLength = 20, required = false)
     val telefoonnummer: String?,
 
-    @field:Schema(description = "E-mailadres van medewerker", maxLength = 64)
+    @field:Schema(description = "E-mailadres van medewerker", maxLength = 64, required = false)
     val emailadres: String?,
 
-    @field:Schema(description = "Is medewerker actief", required = true)
+    @field:Schema(description = "Is medewerker actief")
     val actief: Boolean,
 
-    @field:Schema(description = "Datum indiensttreding", implementation = LocalDate::class)
+    @field:Schema(description = "Datum indiensttreding", implementation = LocalDate::class, required = false)
     val indiensttredingDatum: LocalDate?,
 
-    @field:Schema(description = "Datum uitdiensttreding", implementation = LocalDate::class)
+    @field:Schema(description = "Datum uitdiensttreding", implementation = LocalDate::class, required = false)
     val uitdiensttredingDatum: LocalDate?,
 
-    @field:Schema(description = "Externe naam van medewerker", maxLength = 128)
+    @field:Schema(description = "Externe naam van medewerker", maxLength = 128, required = false)
     val externeNaam: String?,
 
-    @field:Schema(description = "Functie van medewerker")
+    @field:Schema(description = "Functie van medewerker", required = false)
     val functie: Functie?,
 
     @field:Schema(description = "Geslacht medewerker")
     val geslacht: GeslachtMedewerker,
 
-    @field:Schema(description = "Opmerkingen")
+    @field:Schema(description = "Opmerkingen", required = false)
     val opmerkingen: String?,
 
-    @field:Schema(description = "Naam primaire afdeling")
+    @field:Schema(description = "Naam primaire afdeling", required = false)
     val primaireAfdeling: String?,
 
     @field:Schema(description = "Namen van afdelingen waarin medewerker zich bevindt")

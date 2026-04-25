@@ -15,10 +15,10 @@ class MetadataElement(
     @field:Schema(description = "Type van metadata element")
     val type: DocumentMetadataElementType,
 
-    @field:Schema(description = "Indicatie is verplicht element", required = true)
+    @field:Schema(description = "Indicatie is verplicht element")
     val indicatieVerplicht: Boolean,
 
-    @field:Schema(description = "Indicatie of het metadata element gebruikt wordt bij alle documenttypes", required = true)
+    @field:Schema(description = "Indicatie of het metadata element gebruikt wordt bij alle documenttypes")
     val indicatieVoorAlleDocumenttypes: Boolean,
 
     ) : Referentie(

@@ -9,6 +9,6 @@ class AanvullijstRecord(
     @field:Schema(description = "Item identificatie")
     val itemIdentificatie: String,
 
-    @field:Schema(description = "Item waarde")
+    @field:Schema(description = "Item waarde", required = false)
     val itemWaarde: String?,
 )

@@ -5,7 +5,7 @@ import java.time.LocalDate
 
 class DocumentPublicatie(
 
-    @field:Schema(description = "Bestemming van publicatie. Altijd gelijk aan 'berichtenbox'", defaultValue = "berichtenbox")
+    @field:Schema(description = "Bestemming van publicatie. Altijd gelijk aan 'berichtenbox'", defaultValue = "berichtenbox", required = true)
     val bestemming: String = "berichtenbox",
 
     @field:Schema(description = "Datum waarop document versie is gepubliceerd", implementation = LocalDate::class)

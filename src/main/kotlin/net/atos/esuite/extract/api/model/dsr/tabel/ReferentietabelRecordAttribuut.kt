@@ -34,7 +34,7 @@ abstract class ReferentietabelRecordAttribuut(
     @field:Schema(description = "Naam van attribuut", maxLength = 128)
     val naam: String,
 
-    @field:Schema(description = "Omschrijving van attribuut")
+    @field:Schema(description = "Omschrijving van attribuut", required = false)
     val omschrijving: String?
 )
 

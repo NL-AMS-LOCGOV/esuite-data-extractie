@@ -12,7 +12,7 @@ class Rechtsvorm(
     @field:Schema(description = "Code", maxLength = 2)
     val code: String,
 
-    @field:Schema(description = "Naam Rechtsvorm uit Nieuw HandelsRegister", uniqueItems = true)
+    @field:Schema(description = "Naam Rechtsvorm uit Nieuw HandelsRegister", uniqueItems = true, required = false)
     val naamNhr: String?,
 ) : Referentie(
     naam = naam,

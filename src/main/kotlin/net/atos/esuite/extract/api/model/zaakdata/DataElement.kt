@@ -47,6 +47,6 @@ abstract class DataElement(
     @field:Schema(description = "Naam van data element", maxLength = 255)
     val naam: String,
 
-    @field:Schema(description = "Omschrijving of verklarende waarde voor data element")
+    @field:Schema(description = "Omschrijving of verklarende waarde voor data element", required = false)
     val omschrijving: String?
 )

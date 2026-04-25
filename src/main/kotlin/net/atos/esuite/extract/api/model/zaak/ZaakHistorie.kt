@@ -15,7 +15,7 @@ class ZaakHistorie(
     @field:Schema(description = "Type wijziging")
     val typeWijziging: ZaakHistorieTypeWijziging,
 
-    @field:Schema(description = "Externe nieuwe waarde")
+    @field:Schema(description = "Externe nieuwe waarde", required = false)
     val nieuweWaardeExtern: String?,
     
 ) : History(

@@ -4,19 +4,19 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema
 import java.time.LocalDate
 
 class Documentversie(
-    @field:Schema(description = "Versienummer van document versie", required = true)
+    @field:Schema(description = "Versienummer van document versie")
     val versienummer: Int,
 
-    @field:Schema(description = "ID van document inhoud", required = true)
+    @field:Schema(description = "ID van document inhoud")
     val documentInhoudID: Long,
 
     @field:Schema(description = "Datum waarop document versie werd aangemaakt", implementation = LocalDate::class)
     val creatiedatum: LocalDate,
 
-    @field:Schema(description = "Naam van auteur", maxLength = 128)
+    @field:Schema(description = "Naam van auteur", maxLength = 128, required = false)
     val auteur: String?,
 
-    @field:Schema(description = "Naam van afzender", maxLength = 128)
+    @field:Schema(description = "Naam van afzender", maxLength = 128, required = false)
     val afzender: String?,
 
     @field:Schema(description = "Bestandsnaam van document versie", maxLength = 255)
@@ -25,12 +25,12 @@ class Documentversie(
     @field:Schema(description = "Mimetype van document versie", maxLength = 255)
     val mimetype: String,
 
-    @field:Schema(description = "Ondertekeningen van document vdersie")
+    @field:Schema(description = "Ondertekeningen van document vdersie", required = false)
     val ondertekeningen: List<DocumentOndertekening>?,
 
-    @field:Schema(description = "Grootte van document in bytes")
+    @field:Schema(description = "Grootte van document in bytes", required = false)
     val documentgrootte: Long?,
 
-    @field:Schema(description = "Indicatie of de Blob gecomprimeerd is opgeslagen", required = true)
+    @field:Schema(description = "Indicatie of de Blob gecomprimeerd is opgeslagen")
     val compressed: Boolean,
     )

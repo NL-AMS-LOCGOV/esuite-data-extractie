@@ -6,7 +6,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema
 class ComplexDataElement(
     type: DataElementType,
 
-    @field:Schema(description = "Complexe waarde data element")
+    @field:Schema(description = "Complexe waarde data element", required = false)
     val waarde: String?,
 
     naam: String,

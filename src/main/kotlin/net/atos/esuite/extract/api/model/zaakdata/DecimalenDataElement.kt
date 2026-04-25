@@ -6,7 +6,7 @@ import java.math.BigDecimal
 @Schema(allOf = [DataElement::class])
 class DecimalenDataElement(
 
-    @field:Schema(description = "Lijst van decimalen")
+    @field:Schema(description = "Lijst van decimalen", required = false)
     val waarden: Set<BigDecimal>?,
 
     naam: String,

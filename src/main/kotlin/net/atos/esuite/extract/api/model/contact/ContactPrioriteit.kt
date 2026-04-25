@@ -9,7 +9,7 @@ class ContactPrioriteit(
     omschrijving: String?,
     actief: Boolean,
 
-    @field:Schema(description = "Aantal dagen maximale doorlooptijd", required = true)
+    @field:Schema(description = "Aantal dagen maximale doorlooptijd")
     val dagen: Int,
 
 ) : Referentie(

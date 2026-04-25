@@ -9,7 +9,7 @@ class ContactStatus(
     omschrijving: String?,
     actief: Boolean,
 
-    @field:Schema(description = "Type status")
+    @field:Schema(description = "Type status", required = false)
     val type: ContactStatusType?,
 
     ) : Referentie(

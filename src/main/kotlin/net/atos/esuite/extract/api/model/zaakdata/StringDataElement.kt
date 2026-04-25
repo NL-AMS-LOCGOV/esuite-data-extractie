@@ -5,7 +5,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema
 @Schema(allOf = [DataElement::class])
 class StringDataElement(
 
-    @field:Schema(description = "String waarde data element")
+    @field:Schema(description = "String waarde data element", required = false)
     val waarde: String?,
 
     naam: String,

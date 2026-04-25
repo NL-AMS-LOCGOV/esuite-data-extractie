@@ -20,10 +20,10 @@ class DocumentOndertekening(
     )
     val creatieDatum: LocalDate,
 
-    @field:Schema(description = "Opmerkingen over ondertekening van document versie")
+    @field:Schema(description = "Opmerkingen over ondertekening van document versie", required = false)
     val opmerking: String?,
 
-    @field:Schema(description = "Ondertekening is wel of niet gemandateerd", required = true)
+    @field:Schema(description = "Ondertekening is wel of niet gemandateerd")
     val gemandateerd: Boolean,
 )
 

@@ -6,10 +6,10 @@ import java.math.BigDecimal
 @Schema(allOf = [DataElement::class])
 class DecimaalDataElement(
 
-    @field:Schema(description = "Decimaal waarde data element")
+    @field:Schema(description = "Decimaal waarde data element", required = false)
     val waarde: BigDecimal?,
 
-    @field:Schema(description = "Manier waarop nummer geformatteerd moet worden")
+    @field:Schema(description = "Manier waarop nummer geformatteerd moet worden", required = false)
     val formattering: NummerFormattering?,
 
     naam: String,

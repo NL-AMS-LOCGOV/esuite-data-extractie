@@ -6,9 +6,9 @@ class ZaakOverzicht(
     @field:Schema(description = "Zaaknummer in e-Suite", maxLength = 128)
     val functioneleIdentificatie: String,
 
-    @field:Schema(description = "Is zaak open (nog niet beëindigd)", required = true)
+    @field:Schema(description = "Is zaak open (nog niet beëindigd)")
     val open: Boolean,
 
-    @field:Schema(description = "Is zaak gemigreerd", required = true)
+    @field:Schema(description = "Is zaak gemigreerd")
     val gemigreerd: Boolean,
 )

@@ -11,9 +11,9 @@ class VoorlopigAntwoord(
     @field:Schema(description = "Datum/tijd voorlopige antwoord", implementation = ZonedDateTime::class)
     val antwoordDatumTijd: ZonedDateTime,
 
-    @field:Schema(description = "Afdeling", maxLength = 128)
+    @field:Schema(description = "Afdeling", maxLength = 128, required = false)
     val afdeling: String?,
 
-    @field:Schema(description = "Medewerker", maxLength = 64)
+    @field:Schema(description = "Medewerker", maxLength = 64, required = false)
     val medewerker: String?,
 )

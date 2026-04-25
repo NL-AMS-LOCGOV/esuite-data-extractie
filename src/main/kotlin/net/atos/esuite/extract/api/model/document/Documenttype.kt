@@ -9,7 +9,7 @@ class Documenttype(
     omschrijving: String?,
     actief: Boolean,
 
-    @field:Schema(description = "Aanduiding documentcategorie", maxLength = 64)
+    @field:Schema(description = "Aanduiding documentcategorie", maxLength = 64, required = false)
     val documentcategorie: String?,
 
     @field:Schema(description = "Default publicatieniveau")
@@ -18,7 +18,7 @@ class Documenttype(
     @field:Schema(description = "Mogelijke documentstatussen")
     val documentstatussen: Set<Documentstatus>,
 
-    @field:Schema(description = "Mogelijke metadata elementen")
+    @field:Schema(description = "Mogelijke metadata elementen", required = false)
     val metadataElementen: Set<MetadataElement>?,
 
     ) : Referentie(

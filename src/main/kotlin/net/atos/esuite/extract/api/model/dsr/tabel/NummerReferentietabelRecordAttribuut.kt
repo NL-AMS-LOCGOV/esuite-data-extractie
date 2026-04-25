@@ -5,7 +5,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema
 @Schema(allOf = [ReferentietabelRecordAttribuut::class])
 class NummerReferentietabelRecordAttribuut(
 
-    @field:Schema(description = "Integer waarde", required = true)
+    @field:Schema(description = "Integer waarde")
     val waarde: Long,
 
     naam: String,

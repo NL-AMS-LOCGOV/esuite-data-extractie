@@ -4,13 +4,13 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema
 import java.time.LocalDate
 
 class DomeinObject(
-    @field:Schema(description = "Unieke identificatie van het domein object", required = true)
+    @field:Schema(description = "Unieke identificatie van het domein object")
     val identifier: Long,
 
     @field:Schema(description = "Naam van type domein object", maxLength = 128)
     val naam: String,
 
-    @field:Schema(description = "Omschrijving van type domein object")
+    @field:Schema(description = "Omschrijving van type domein object", required = false)
     val omschrijving: String?,
 
     @field:Schema(description = "Gebruikersnaam van medewerker die domein object heeft aangemaakt", maxLength = 64)
@@ -21,22 +21,22 @@ class DomeinObject(
 
     @field:Schema(
         description = "Gebruikersnaam van medewerker die domein object als laatste heeft gewijzigd",
-        maxLength = 64
+        maxLength = 64, required = false
     )
     val laatstGewijzigdDoor: String?,
 
     @field:Schema(
         description = "Datum waarop domein object de laatste keer is gewijzigd",
-        implementation = LocalDate::class
+        implementation = LocalDate::class, required = false
     )
     val laatstGewijzigdOp: LocalDate?,
 
     @field:Schema(description = "Attributen gerelateerd aan domein object")
     val attributen: List<DomeinObjectAttribuut>,
 
-    @field:Schema(description = "Zaken, contacten, personen, bedrijven of BAG objecten waaraan domein object gekoppeld is")
+    @field:Schema(description = "Zaken, contacten, personen, bedrijven of BAG objecten waaraan domein object gekoppeld is", required = false)
     val koppelingen: List<DomeinObjectKoppeling>?,
 
-    @field:Schema(description = "Historie van domein object")
+    @field:Schema(description = "Historie van domein object", required = false)
     val historie: List<DomeinObjectHistorie>?,
     )

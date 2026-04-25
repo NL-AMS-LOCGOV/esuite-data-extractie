@@ -12,7 +12,7 @@ class DomeinObjectHistorie(
     nieuweWaarde: String?,
     toelichting: String?,
 
-    @field:Schema(description = "Naam gewijzigd attribut of koppeling", maxLength = 128)
+    @field:Schema(description = "Naam gewijzigd attribut of koppeling", maxLength = 128, required = false)
     val wijziging: String?,
 
 ) : History(

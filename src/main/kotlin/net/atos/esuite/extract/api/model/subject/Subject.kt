@@ -19,31 +19,31 @@ abstract class Subject(
     @field:Schema(description = "Type subject (persoon of bedrijf")
     val subjecttype: Subjecttype,
 
-    @field:Schema(description = "Telefoonnummer", maxLength = 20)
+    @field:Schema(description = "Telefoonnummer", maxLength = 20, required = false)
     val telefoonnummer: String?,
 
-    @field:Schema(description = "Alternatief telefoonnummer", maxLength = 20)
+    @field:Schema(description = "Alternatief telefoonnummer", maxLength = 20, required = false)
     val telefoonnummerAlternatief: String?,
 
-    @field:Schema(description = "Bankrekeningnummer", maxLength = 64)
+    @field:Schema(description = "Bankrekeningnummer", maxLength = 64, required = false)
     val rekeningnummer: String?,
 
-    @field:Schema(description = "Emailadres", maxLength = 255)
+    @field:Schema(description = "Emailadres", maxLength = 255, required = false)
     val emailadres: String?,
 
-    @field:Schema(description = "Is het gewenst dat zaak notificaties worden ontvangen")
+    @field:Schema(description = "Is het gewenst dat zaak notificaties worden ontvangen", required = false)
     val ontvangenZaakNotificaties: Boolean?,
 
-    @field:Schema(description = "Mogen zaak notificaties alleen digitaal worden verstuurd en dus niet per post")
+    @field:Schema(description = "Mogen zaak notificaties alleen digitaal worden verstuurd en dus niet per post", required = false)
     val toestemmingZaakNotificatiesAlleenDigitaal: Boolean?,
 
-    @field:Schema(description = "Indicatie handmatig toegevoegd", required = true)
+    @field:Schema(description = "Indicatie handmatig toegevoegd")
     val handmatigToegevoegd: Boolean,
 
-    @field:Schema(description = "Notities")
+    @field:Schema(description = "Notities", required = false)
     val notities: List<SubjectNotitie>?,
 
-    @field:Schema(description = "Adressen")
+    @field:Schema(description = "Adressen", required = false)
     val adressen: List<Adres>?,
     )
 
