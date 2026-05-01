@@ -7,7 +7,7 @@ class Documentversie(
     @field:Schema(description = "Versienummer van document versie")
     val versienummer: Int,
 
-    @field:Schema(description = "ID van document inhoud")
+    @field:Schema(description = "ID van document versie inhoud")
     val documentInhoudID: Long,
 
     @field:Schema(description = "Datum waarop document versie werd aangemaakt", implementation = LocalDate::class)
@@ -25,12 +25,12 @@ class Documentversie(
     @field:Schema(description = "Mimetype van document versie", maxLength = 255)
     val mimetype: String,
 
-    @field:Schema(description = "Ondertekeningen van document vdersie", required = false)
+    @field:Schema(description = "Ondertekeningen van document versie", required = false)
     val ondertekeningen: List<DocumentOndertekening>?,
 
-    @field:Schema(description = "Grootte van document in bytes", required = false)
+    @field:Schema(description = "Grootte van document versie in bytes", required = false)
     val documentgrootte: Long?,
 
-    @field:Schema(description = "Indicatie of de Blob gecomprimeerd is opgeslagen")
+    @field:Schema(description = "Indicatie of document versie gecomprimeerd is opgeslagen")
     val compressed: Boolean,
     )

@@ -8,6 +8,9 @@ import jakarta.ws.rs.core.Response
 import jakarta.ws.rs.core.Response.ok
 import jakarta.ws.rs.core.StreamingOutput
 import net.atos.esuite.extract.api.model.shared.Fout
+import net.atos.esuite.extract.api.validator.FALSE
+import net.atos.esuite.extract.api.validator.TRUE
+import net.atos.esuite.extract.api.validator.ValidBoolean
 import net.atos.esuite.extract.api.validator.ValidNonNegativeInteger
 import net.atos.esuite.extract.db.zakenmagazijn.repository.DocumentInhoudRepository
 import org.apache.commons.io.IOUtils
@@ -33,7 +36,12 @@ class Documenten(
 ) {
     @GET
     @Path("inhoud/{documentInhoudID}")
-    @Operation(operationId = "document_inhoud_read", summary = "Inhoud van een document ophalen")
+    @Operation(
+        operationId = "document_inhoud_read",
+        summary = "Inhoud van een document ophalen",
+        description = "Wanneer de inhoud van een document gecomprimeerd is opgeslagen, en de parameter 'uncompress' heeft de waarde 'false', dan wordt de inhoud teruggegeven als de inhoud van een zip file. " +
+                "Deze zip file bevat 1 enkele file entry met de naam 'dms'."
+    )
     @APIResponse(
         responseCode = "200", description = "OK", content = [
             Content(
@@ -54,7 +62,17 @@ class Documenten(
         @PathParam("documentInhoudID")
         @Schema(description = "Interne identifier van document inhoud", implementation = Long::class)
         @ValidNonNegativeInteger
-        documentInhoudID: String
+        documentInhoudID: String,
+
+        @QueryParam("uncompress")
+        @DefaultValue(TRUE)
+        @Schema(
+            description = "Geeft aan of de inhoud van gecomprimeerd opgeslagen document, ongecomprimeerd wordt teruggegeven. " +
+                    "Deze parameter heeft geen effect als de inhoud niet gecomprimeerd is opgeslagen.",
+            defaultValue = "true", implementation = Boolean::class
+        )
+        @ValidBoolean
+        uncompress: String = TRUE
     ): Response {
         val documentInhoudEntity = documentInhoudRepository.findById(documentInhoudID.toLong())
             ?: throw NotFoundException("Document inhoud with ID '$documentInhoudID' not found")
@@ -66,20 +84,23 @@ class Documenten(
                 try {
                     dataSource.connection.use { connection ->
                         connection.autoCommit = false
-                        copyBlob(inhoud, documentInhoudEntity.compressed, output)
+                        copyBlob(inhoud, documentInhoudEntity.compressed, output, uncompress == TRUE)
                     }
                 } catch (e: Exception) {
                     throw WebApplicationException("Error occurred while processing Blob data", e)
                 }
             })
             .type(MediaType.APPLICATION_OCTET_STREAM)
-            .header(HttpHeaders.CONTENT_LENGTH, documentInhoudEntity.documentgrootte)
+            .header(
+                HttpHeaders.CONTENT_LENGTH,
+                if (documentInhoudEntity.compressed && uncompress == FALSE) inhoud.length() else documentInhoudEntity.documentgrootte
+            )
             .build()
     }
 
-    private fun copyBlob(inhoud: Blob, compressed: Boolean, outputStream: OutputStream) {
+    private fun copyBlob(inhoud: Blob, compressed: Boolean, outputStream: OutputStream, uncompress: Boolean) {
         inhoud.getBinaryStream().use { inputStream ->
-            if (compressed) {
+            if (compressed && uncompress) {
                 ZipInputStream(inputStream).use { zipInputStream ->
                     zipInputStream.getNextEntry()
                     IOUtils.copy(zipInputStream, outputStream)

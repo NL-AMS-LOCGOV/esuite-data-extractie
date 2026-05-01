@@ -1282,7 +1282,7 @@ components:
         documentInhoudID:
           type: integer
           format: int64
-          description: ID van document inhoud
+          description: ID van document versie inhoud
         creatiedatum:
           type: string
           format: date
@@ -1309,14 +1309,14 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/DocumentOndertekening"
-          description: Ondertekeningen van document vdersie
+          description: Ondertekeningen van document versie
         documentgrootte:
           type: integer
           format: int64
-          description: Grootte van document in bytes
+          description: Grootte van document versie in bytes
         compressed:
           type: boolean
-          description: Indicatie of de Blob gecomprimeerd is opgeslagen
+          description: Indicatie of document versie gecomprimeerd is opgeslagen
     Domein:
       type: object
       required:
@@ -4223,7 +4223,7 @@ components:
       in: header
 info:
   title: e-Suite Data Extractie Tool (DET)
-  version: 1.3.0
+  version: 1.4.0
 security:
   - ApiKeyAuth: [ ]
 paths:
@@ -4517,6 +4517,10 @@ paths:
   /documenten/inhoud/{documentInhoudID}:
     get:
       summary: Inhoud van een document ophalen
+      description: "Wanneer de inhoud van een document gecomprimeerd is opgeslagen,\
+        \ en de parameter 'uncompress' heeft de waarde 'false', dan wordt de inhoud\
+        \ teruggegeven als de inhoud van een zip file. Deze zip file bevat 1 enkele\
+        \ file entry met de naam 'dms'."
       operationId: document_inhoud_read
       parameters:
         - name: documentInhoudID
@@ -4526,6 +4530,14 @@ paths:
             type: integer
             format: int64
             description: Interne identifier van document inhoud
+        - name: uncompress
+          in: query
+          schema:
+            type: boolean
+            description: "Geeft aan of de inhoud van gecomprimeerd opgeslagen document,\
+            \ ongecomprimeerd wordt teruggegeven. Deze parameter heeft geen effect\
+            \ als de inhoud niet gecomprimeerd is opgeslagen."
+            default: true
       responses:
         "401":
           description: Unauthorized

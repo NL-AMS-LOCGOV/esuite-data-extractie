@@ -1,4 +1,4 @@
-### Klein document
+### Klein gecomprimeerd opgeslagen document
 GET {{base-url}}/documenten/inhoud/50229
 Content-Type: application/json
 Accept: application/octet-stream, application/json
@@ -48,5 +48,44 @@ Proxy-Authorization: Bearer {{jwt-iap}}
     client.test("Request executed successfully", function () {
         client.assert(response.status === 404, "Response status is not 404");
         client.assert(response.body.melding === "Document inhoud with ID '823746' not found", "Response body melding is not \"Document inhoud with ID '823746' not found\"")
+    });
+%}
+
+### Niet gecomprimeerd opgeslagen document
+GET {{base-url}}/documenten/inhoud/52611
+Content-Type: application/json
+Accept: application/octet-stream, application/json
+X-API-KEY: {{api-key}}
+Proxy-Authorization: Bearer {{jwt-iap}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+%}
+
+### Klein gecomprimeerd opgeslagen document wordt expliciet uncompressed teruggegeven
+GET {{base-url}}/documenten/inhoud/50229?uncompress=true
+Content-Type: application/json
+Accept: application/octet-stream, application/json
+X-API-KEY: {{api-key}}
+Proxy-Authorization: Bearer {{jwt-iap}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+%}
+
+### Klein gecomprimeerd opgeslagen document wordt compressed teruggegeven
+GET {{base-url}}/documenten/inhoud/50229?uncompress=false
+Content-Type: application/json
+Accept: application/octet-stream, application/json
+X-API-KEY: {{api-key}}
+Proxy-Authorization: Bearer {{jwt-iap}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
     });
 %}
