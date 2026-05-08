@@ -7,6 +7,7 @@ import org.eclipse.microprofile.openapi.annotations.enums.SecuritySchemeType
 import org.eclipse.microprofile.openapi.annotations.info.Info
 import org.eclipse.microprofile.openapi.annotations.security.SecurityRequirement
 import org.eclipse.microprofile.openapi.annotations.security.SecurityScheme
+import org.eclipse.microprofile.openapi.annotations.servers.Server
 
 
 @OpenAPIDefinition(
@@ -18,6 +19,10 @@ import org.eclipse.microprofile.openapi.annotations.security.SecurityScheme
         SecurityRequirement(
             name = "ApiKeyAuth",
         )
+    ],
+    servers = [
+        Server("/det", description = "default"),
+        Server("/", description = "direct")
     ]
 )
 @SecurityScheme(
